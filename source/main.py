@@ -6,8 +6,10 @@ TILE_ROW_COUNT = 18
 def main():
 	
 	counter = 0
+	global _font
 	
 	pygame.init()
+	_font = pygame.font.Font(os.path.join('media', 'fortunaschwein.ttf'), 13)	
 	
 	width = TILE_COLUMN_COUNT * 16
 	height = TILE_ROW_COUNT * 16
@@ -17,7 +19,7 @@ def main():
 	virtual_screen = pygame.Surface((width, height))
 	
 	scene = GamePlayScene()
-	#scene = TextTest()
+	scene = TextTest(Dialogue(Parser.LoadFile(scriptPath('test'))))
 	
 	while scene != None:
 			

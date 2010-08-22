@@ -1,20 +1,20 @@
 [comment] A simple script to demonstrate how a dialogue script would look.
 
-[profile][richard.png]
+[profile][filler]
 Hi there, how are you?
 \n
 Guys?
 [pause]
 
-[profile][blake.png]
+[profile][blake]
 CODECODECODE
 [pause]
 
-[profile][yy.png]
+[profile][yy]
 QQ, levels~!
 [pause]
 
-[profile][blake.png]
+[profile][blake]
 [question][How are you doing on the dialogue thingy?]
 [choice][fine][I'm doing pretty well, actually!]
 [choice][erm][Well, you know, it's coming along.]
@@ -42,7 +42,7 @@ Fail and I will cut you.
 [label][fin]
 [pause]
 
-[profile][richard.png]
+[profile][richard]
 [check][script-state][eq][done][done]
 Right, I'm going to get back to work then.
 [jump][end]

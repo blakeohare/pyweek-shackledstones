@@ -16,3 +16,7 @@ KEY_DOWN  = 'down'
 WHITE = pygame.Color('#ffffff')
 BLACK = pygame.Color('#000000')
 BLUE = pygame.Color('#0000ff')
+
+### STATIC ###
+
+_font = None

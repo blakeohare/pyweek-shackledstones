@@ -1,14 +1,10 @@
 class TextTest:
-   def __init__(self):
-      self.next = self
+   def __init__(self, dlg):
       ImageLib.Add('d-frame', uiImgPath('dframe'))
-      self.portrait = pygame.image.load(portraitPath('filler'))
-      f = pygame.font.SysFont(pygame.font.get_default_font(), 20)
-      t = f.render("To be or not to be\nNew line! wheewheewhee!", True, BLACK)
-      self.txt = t
-      print(t)
-      print(f.size("To be or not to be\tNew line! wheewheewheee!"))
-	
+      
+      self.next = self
+      self._dlg = dlg
+      
    def ProcessInput(self, events):
       if 0 != len(events):
          print(str(events))
@@ -20,8 +16,21 @@ class TextTest:
 
    def Render(self, screen):
       screen.fill(WHITE)
-
-      screen.blit(self.portrait, (4, 130))
+      
+      d = self._dlg
+      txt = _font.render(d.Text(), True, BLACK)
+      p = d.Profile()
+      p = portraitPath(p)
+      
+      if p:
+         pSurf = ImageLib.FromFile(p)
+      else:
+         pSurf = None
+      
+      screen.blit(txt, (10, 20))
+      if pSurf:
+         screen.blit(pSurf, (4, 120))
+      
       df = ImageLib.Get('d-frame')
       screen.blit(df, (0,screen.get_height() - df.get_height() - 4))
       

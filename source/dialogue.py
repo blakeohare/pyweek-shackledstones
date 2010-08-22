@@ -9,7 +9,7 @@ class Dialogue:
    # script -- ScriptIter
    def __init__(self, script):
       self._script = script
-      self._curProfile = None
+      self._profile = None
       self._state = D_NORMAL
       
       # What we should be displaying
@@ -26,8 +26,8 @@ class Dialogue:
       self._parse()
    
    # Get the path to the current profile
-   def GetProfile(self):
-      return self._curProfile
+   def Profile(self):
+      return self._profile
    
    # Find out what mode the dialogue is in
    def State(self):
