@@ -1,0 +1,18 @@
+# Do not modify this file unless your name is spears
+
+# colums are tab-delimited
+# 1: tile ID, any alphanumeric string
+# 2: Category. This will determine which category it will appear in in the map editor
+# 3: tile physics. In the format of xxxx or oooo. Ask Blake for the full explanation. Other options will be added as tile behaviors for items are determined
+# 4: image files. These are the file names delimited with | for multiple image animations. /images/tiles/ is assumed. This is the path after that
+# 5: animation delay. This can be omitted. It's the delay between swapping image files if there are more than 1 in the animation. If it is omitted, then the default delay is 4 frames. 
+
+0	Blue Floor	oooo	bluefloor/middle.png
+1	Blue Wall	xxxx	bluewall/topleftconcave.png
+2	Blue Wall	xxxx	bluewall/top.png
+3	Blue Wall	xxxx	bluewall/toprightconcave.png
+4	Blue Wall	xxxx	bluewall/left.png
+5	Blue Wall	xxxx	bluewall/right.png
+6	Blue Wall	xxxx	bluewall/bottomleftconcave.png
+7	Blue Wall	xxxx	bluewall/bottom.png
+8	Blue Wall	xxxx	bluewall/bottomrightconcave.png
