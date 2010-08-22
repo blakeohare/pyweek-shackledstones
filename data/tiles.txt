@@ -89,3 +89,15 @@
 79	Dark Blue Wall	xxxx	darkbluewall/toprightconvex.png
 80	Dark Blue Wall	xxxx	darkbluewall/bottomrightconvex.png
 81	Dark Blue Wall	xxxx	darkbluewall/bottomleftconvex.png
+82	Blue Small Wall	ooxx	bluesmallwall/bottom.png
+83	Blue Small Wall	xoxx	bluesmallwall/bottomleftconcave.png
+84	Blue Small Wall	ooxo	bluesmallwall/bottomleftconvex.png
+85	Blue Small Wall	oxxx	bluesmallwall/bottomrightconcave.png
+86	Blue Small Wall	ooox	bluesmallwall/bottomrightconvex.png
+87	Blue Small Wall	xoxo	bluesmallwall/left.png
+88	Blue Small Wall	oxox	bluesmallwall/right.png
+89	Blue Small Wall	xxoo	bluesmallwall/top.png
+90	Blue Small Wall	xxxo	bluesmallwall/topleftconcave.png
+91	Blue Small Wall	xooo	bluesmallwall/topleftconvex.png
+92	Blue Small Wall	xxox	bluesmallwall/toprightconcave.png
+93	Blue Small Wall	oxoo	bluesmallwall/toprightconvex.png
