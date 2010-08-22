@@ -167,3 +167,7 @@
 157	Foliage	oooo	foliage/bottomwallvines.png
 158	Foliage	oooo	foliage/leftwallvines.png
 159	Foliage	oooo	foliage/floorvines.png
+160	Foliage	oooo	foliage/burnedtop.png
+161	Foliage	oooo	foliage/burnedbottom.png
+162	Foliage	oooo	foliage/burnedleft.png
+163	Foliage	oooo	foliage/burnedright.png
