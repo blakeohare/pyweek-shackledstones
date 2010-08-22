@@ -7,7 +7,7 @@
 # 4: image files. These are the file names delimited with | for multiple image animations. /images/tiles/ is assumed. This is the path after that
 # 5: animation delay. This can be omitted. It's the delay between swapping image files if there are more than 1 in the animation. If it is omitted, then the default delay is 4 frames. 
 
-0	Blue Floor	oooo	bluefloor/middle.png
+0	Blue Floor	floor	bluefloor/middle.png
 1	Blue Wall	xxxx	bluewall/topleftconcave.png
 2	Blue Wall	xxxx	bluewall/top.png
 3	Blue Wall	xxxx	bluewall/toprightconcave.png
@@ -52,10 +52,10 @@
 42	Blue Door	oooo	bluedoor/left.png
 43	Blue Door	oooo	bluedoor/bottom.png
 44	Blue Door	oooo	bluedoor/right.png
-45	Blue Floor	oooo	bluefloor/underdoorbottom.png
-46	Blue Floor	oooo	bluefloor/underdoorleft.png
-47	Blue Floor	oooo	bluefloor/underdoorright.png
-48	Blue Floor	oooo	bluefloor/underdoortop.png
+45	Blue Floor	floor	bluefloor/underdoorbottom.png
+46	Blue Floor	floor	bluefloor/underdoorleft.png
+47	Blue Floor	floor	bluefloor/underdoorright.png
+48	Blue Floor	floor	bluefloor/underdoortop.png
 49	Blue Cracked Wall	xxxx	bluewall/topcracked.png
 50	Blue Cracked Wall	xxxx	bluewall/leftcracked.png
 51	Blue Cracked Wall	xxxx	bluewall/rightcracked.png
@@ -72,11 +72,11 @@
 62	Blue Doodads	xxxx	blueboulder.png
 63	Metal Pillar	xxxx	metalpillar.png
 64	Water	oooo	water/1.png|water/2.png|water/3.png|water/4.png
-65	Blue Floor	oooo	bluefloor/lightmiddle.png
-66	Blue Floor	oooo	bluefloor/lightunderdoortop.png
-67	Blue Floor	oooo	bluefloor/lightunderdoorleft.png
-68	Blue Floor	oooo	bluefloor/lightunderdoorright.png
-69	Blue Floor	oooo	bluefloor/lightunderdoorbottom.png
+65	Blue Floor	floor	bluefloor/lightmiddle.png
+66	Blue Floor	floor	bluefloor/lightunderdoortop.png
+67	Blue Floor	floor	bluefloor/lightunderdoorleft.png
+68	Blue Floor	floor	bluefloor/lightunderdoorright.png
+69	Blue Floor	floor	bluefloor/lightunderdoorbottom.png
 70	Dark Blue Wall	xxxx	darkbluewall/topleftconcave.png
 71	Dark Blue Wall	xxxx	darkbluewall/top.png
 72	Dark Blue Wall	xxxx	darkbluewall/toprightconcave.png
@@ -102,7 +102,7 @@
 92	Blue Small Wall	xxox	bluesmallwall/toprightconcave.png
 93	Blue Small Wall	oxoo	bluesmallwall/toprightconvex.png
 94	Misc	oooo	black.png
-95	White Floor	oooo	whitefloor/middle.png
+95	White Floor	floor	whitefloor/middle.png
 96	White Wall	xxxx	whitewall/topleftconcave.png
 97	White Wall	xxxx	whitewall/top.png
 98	White Wall	xxxx	whitewall/toprightconcave.png
@@ -127,21 +127,21 @@
 117	White Door	oooo	whitedoor/left.png
 118	White Door	oooo	whitedoor/bottom.png
 119	White Door	oooo	whitedoor/right.png
-120	White Floor	oooo	whitefloor/underdoorbottom.png
-121	White Floor	oooo	whitefloor/underdoorleft.png
-122	White Floor	oooo	whitefloor/underdoorright.png
-123	White Floor	oooo	whitefloor/underdoortop.png
+120	White Floor	floor	whitefloor/underdoorbottom.png
+121	White Floor	floor	whitefloor/underdoorleft.png
+122	White Floor	floor	whitefloor/underdoorright.png
+123	White Floor	floor	whitefloor/underdoortop.png
 124	White Cracked Wall	xxxx	whitewall/topcracked.png
 125	White Cracked Wall	xxxx	whitewall/leftcracked.png
 126	White Cracked Wall	xxxx	whitewall/rightcracked.png
 127	White Cracked Wall	xxxx	whitewall/bottomcracked.png
 128	White Doodads	xxxx	whiteblock.png
 129	White Doodads	xxxx	whiteboulder.png
-130	White Floor	oooo	whitefloor/lightmiddle.png
-131	White Floor	oooo	whitefloor/lightunderdoortop.png
-132	White Floor	oooo	whitefloor/lightunderdoorleft.png
-133	White Floor	oooo	whitefloor/lightunderdoorright.png
-134	White Floor	oooo	whitefloor/lightunderdoorbottom.png
+130	White Floor	floor	whitefloor/lightmiddle.png
+131	White Floor	floor	whitefloor/lightunderdoortop.png
+132	White Floor	floor	whitefloor/lightunderdoorleft.png
+133	White Floor	floor	whitefloor/lightunderdoorright.png
+134	White Floor	floor	whitefloor/lightunderdoorbottom.png
 135	Dark White Wall	xxxx	darkwhitewall/topleftconcave.png
 136	Dark White Wall	xxxx	darkwhitewall/top.png
 137	Dark White Wall	xxxx	darkwhitewall/toprightconcave.png
