@@ -60,14 +60,14 @@
 50	Blue Cracked Wall	xxxx	bluewall/leftcracked.png
 51	Blue Cracked Wall	xxxx	bluewall/rightcracked.png
 52	Blue Cracked Wall	xxxx	bluewall/bottomcracked.png
-53	Wall Lever	xxxx	walllevers/bottoma.png
-54	Wall Lever	xxxx	walllevers/bottomb.png
-55	Wall Lever	xxxx	walllevers/lefta.png
-56	Wall Lever	xxxx	walllevers/leftb.png
-57	Wall Lever	xxxx	walllevers/righta.png
-58	Wall Lever	xxxx	walllevers/rightb.png
-59	Wall Lever	xxxx	walllevers/topa.png
-60	Wall Lever	xxxx	walllevers/topb.png
+53	Wall Lever	oooo	walllevers/bottoma.png
+54	Wall Lever	oooo	walllevers/bottomb.png
+55	Wall Lever	oooo	walllevers/lefta.png
+56	Wall Lever	oooo	walllevers/leftb.png
+57	Wall Lever	oooo	walllevers/righta.png
+58	Wall Lever	oooo	walllevers/rightb.png
+59	Wall Lever	oooo	walllevers/topa.png
+60	Wall Lever	oooo	walllevers/topb.png
 61	Blue Block	xxxx	blueblock.png
 62	Blue Boulder	xxxx	blueboulder.png
 63	Metal Pillar	xxxx	metalpillar.png
