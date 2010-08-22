@@ -48,14 +48,18 @@ class GamePlayScene:
 	
 	def Render(self, screen):
 	
-		self.level.Render(screen, 0, 0, self.render_counter)
-		
-		for sprite in self.get_renderable_sprites():
-			img = sprite.CurrentImage(self.render_counter)
-			coords = sprite.DrawingCoords()
-			screen.blit(img, coords)
+		for layerName in 'A B C D E F Stairs'.split(' '):
+			self.level.Render(layerName, screen, 0, 0, self.render_counter)
+			
+			for sprite in self.get_renderable_sprites(layerName):
+				img = sprite.CurrentImage(self.render_counter)
+				coords = sprite.DrawingCoords()
+				screen.blit(img, coords)
 		#pygame.draw.rect(screen, (255, 0, 0), Rect(self.x - r, self.y - r, r * 2, r * 2))
 		self.render_counter += 1
 	
-	def get_renderable_sprites(self):
-		return [self.player]
+	def get_renderable_sprites(self, layer):
+		if self.player.layer == layer:
+			return [self.player]
+		else:
+			return []

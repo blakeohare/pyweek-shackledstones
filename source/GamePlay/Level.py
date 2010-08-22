@@ -169,7 +169,7 @@ class Level:
 
 		self.width = int(values['width'])
 		self.height = int(values['height'])
-		self.layers = []
+		self.layers = {}
 		for layerName in 'A B C D E F Stairs'.split(' '):
 			content = values.get('Layer' + layerName)
 			layer = Layer(self.width, self.height)
@@ -180,12 +180,12 @@ class Level:
 					tiles = spot.split('|')
 					raw_tile_list.append(Tile(tiles))
 				layer.SetTiles(raw_tile_list)
-			self.layers.append(layer)
+			self.layers[layerName] = layer
 
-	def Render(self, screen, x_offset, y_offset, render_counter):
-		for layer in self.layers:
-			if layer.contains_stuff:
-				layer.Render(screen, x_offset, y_offset, render_counter)
+	def Render(self, layername, screen, x_offset, y_offset, render_counter):
+		layer = self.layers[layername]
+		if layer.contains_stuff:
+			layer.Render(screen, x_offset, y_offset, render_counter)
 
 ### STATIC ###
 
