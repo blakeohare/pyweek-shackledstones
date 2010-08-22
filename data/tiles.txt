@@ -18,7 +18,7 @@
 8	Blue Wall	xxxx	bluewall/bottomrightconcave.png
 9	Blue Wall	xxxx	bluewall/topleftconvex.png
 10	Blue Wall	xxxx	bluewall/toprightconvex.png
-11	Blue Wall	xxxx	bluewall/bomttomrightconvex.png
+11	Blue Wall	xxxx	bluewall/bottomrightconvex.png
 12	Blue Wall	xxxx	bluewall/bottomleftconvex.png
 13	Yellow Small Wall	ooxx	yellowsmallwall/bottom.png
 14	Yellow Small Wall	ooxx	yellowsmallwall/bottomenda.png
