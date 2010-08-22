@@ -1,3 +1,51 @@
+# uncomment for testing
+#import re
+
+# Abstration for the varying sources a sccript could come from
+class ScriptIter:
+      # script - an array of strings from any source
+      def __init__(self, script):
+         self._i = 0
+         self._script = script
+
+      # Search the script for a label.
+      # Return:
+      #  True - If the label is found, sets index such that Next 
+      #         or __next__ will return the label
+      #  False - If there is no label
+      def FindLabel(self, label):
+         idx = 0
+         
+         tgt = '\s*\[label\]\s*\[%s\]\s*' % (label)
+         
+         while (idx < len(self._script)):
+            if re.match(tgt, self._script[idx]):
+               self._i = idx
+               return True
+            idx += 1
+         
+         return False
+
+      # Return the next line and step through the script
+      def Next(self):
+         return self.__next__()
+
+      # Reset the script to the top
+      def Reset(self):
+         self._i = 0
+
+      def __iter__(self):
+         return self
+      
+      def __next__(self):
+         idx = self._i
+         if (idx >= len(self._script)):
+            raise StopIteration
+         
+         self._i += 1
+         return self._script[idx]
+
+
 # encapsulates information about a script command
 class ScriptCommand:
    # cmd ------ text name
@@ -21,14 +69,14 @@ class ScriptCommand:
    # args - a list of the arguments to call the function with
    def Call(self, args):
       if (len(args) != self.ArgCount()):
-         print("ArgMismatch Exception, expecting %d args, got %s" % (self.ArgCount(), str(args)))
+         print("ArgMismatch Exception...")
+         print("    %s expects %d args" % (self.Name(), self.ArgCount()))
+         print("    got '%s'" % (str(args)))
          
-      if (len(args) == 0):
-         return self.FnPtr().__call__()
-      if (len(args) == 1):
-         return self.FnPtr().__call__(args[0])
       return self.FnPtr().__call__(*args)
 
+
+# associates strings with function pointers
 class CommandRegistry:
    def __init__(self):
       self._commands = {}
@@ -70,16 +118,35 @@ def do_test2(a, b):
    print("test2 arg: %s and %s" % (str(a), str(b)))
 
 def testScript():
-   se = ScriptEngine()
-   se.Register("test0", do_test0, 0)
-   se.Register("test1", do_test1, 1)
-   se.Register("test2", do_test2, 2)
+   c = CommandRegistry()
+   c.Register("test0", do_test0, 0)
+   c.Register("test1", do_test1, 1)
+   c.Register("test2", do_test2, 2)
    
    args = []
-   se.GetCmd("test0").Call(args)
+   c.GetCmd("test0").Call(args)
    args.append(1)
-   se.GetCmd("test1").Call(args)
+   c.GetCmd("test1").Call(args)
    args.append(3)
-   se.GetCmd("test2").Call(args)
+   c.GetCmd("test2").Call(args)
+#testScript()
 
-# testScript()
+def testScriptIter():
+   scr = ['aoeu1', 'aoeu2', 'aoeu3', '[label]  [testing]    ', 'aoeu4', 'aoeu5', 'aoeu6', 'aoeu7']
+   si = ScriptIter(scr)
+   
+   for a in si:
+      print(a)
+   
+   print("---------------------------")
+   
+   si.FindLabel('testing')
+   print(si.Next())
+   print(si.Next())
+   print(si.Next())
+   print("---------------------------")
+   si.FindLabel('aoeuaoeu')
+   
+   for a in si:
+      print(a)
+#testScriptIter()
