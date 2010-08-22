@@ -17,7 +17,7 @@ namespace MapEditor
 	public enum Tool
 	{
 		Tile,
-		EraserTile,
+		EraserDetail,
 		EraserDeep,
 		EraserLayer,
 		Rectangle,
@@ -28,7 +28,6 @@ namespace MapEditor
 	/// </summary>
 	public partial class MainWindow : Window
 	{
-
 		private static MainWindow me;
 		public static MainWindow Instance { get { return me; } }
 		private int tileWidth;
@@ -57,7 +56,6 @@ namespace MapEditor
 			this.active_primary_layer.SelectionChanged += new SelectionChangedEventHandler(active_primary_layer_SelectionChanged);
 			this.active_primary_layer.SelectedIndex = 0;
 
-			//Base BaseAdorn BaseDetail Doodad DoodadAdorn Excessive
 			this.active_detail_layer.Items.Add("Base");
 			this.active_detail_layer.Items.Add("BaseAdorn");
 			this.active_detail_layer.Items.Add("BaseDetail");
@@ -67,7 +65,164 @@ namespace MapEditor
 			this.active_detail_layer.SelectionChanged += new SelectionChangedEventHandler(active_detail_layer_SelectionChanged);
 			this.active_detail_layer.SelectedIndex = 0;
 
+			// layer visibility
+			this.layer_a.Checked += new RoutedEventHandler(layer_a_Checked);
+			this.layer_b.Checked += new RoutedEventHandler(layer_b_Checked);
+			this.layer_c.Checked += new RoutedEventHandler(layer_c_Checked);
+			this.layer_d.Checked += new RoutedEventHandler(layer_d_Checked);
+			this.layer_e.Checked += new RoutedEventHandler(layer_e_Checked);
+			this.layer_f.Checked += new RoutedEventHandler(layer_f_Checked);
+			this.layer_stairs.Checked += new RoutedEventHandler(layer_stairs_Checked);
+			this.layer_a.Unchecked += new RoutedEventHandler(layer_a_Checked);
+			this.layer_b.Unchecked += new RoutedEventHandler(layer_b_Checked);
+			this.layer_c.Unchecked += new RoutedEventHandler(layer_c_Checked);
+			this.layer_d.Unchecked += new RoutedEventHandler(layer_d_Checked);
+			this.layer_e.Unchecked += new RoutedEventHandler(layer_e_Checked);
+			this.layer_f.Unchecked += new RoutedEventHandler(layer_f_Checked);
+			this.layer_stairs.Unchecked += new RoutedEventHandler(layer_stairs_Checked);
+
+			// detail visibility
+			this.detail_base.Checked += new RoutedEventHandler(detail_base_Checked);
+			this.detail_baseadorn.Checked += new RoutedEventHandler(detail_baseadorn_Checked);
+			this.detail_baseextra.Checked += new RoutedEventHandler(detail_baseextra_Checked);
+			this.doodad.Checked += new RoutedEventHandler(doodad_Checked);
+			this.doodadadorn.Checked += new RoutedEventHandler(doodadadorn_Checked);
+			this.excessive.Checked += new RoutedEventHandler(excessive_Checked);
+			this.detail_base.Unchecked += new RoutedEventHandler(detail_base_Checked);
+			this.detail_baseadorn.Unchecked += new RoutedEventHandler(detail_baseadorn_Checked);
+			this.detail_baseextra.Unchecked += new RoutedEventHandler(detail_baseextra_Checked);
+			this.doodad.Unchecked += new RoutedEventHandler(doodad_Checked);
+			this.doodadadorn.Unchecked += new RoutedEventHandler(doodadadorn_Checked);
+			this.excessive.Unchecked += new RoutedEventHandler(excessive_Checked);
+
+			this.layer_all_off.Click += new RoutedEventHandler(layer_all_off_Click);
+			this.layer_all_on.Click += new RoutedEventHandler(layer_all_on_Click);
+
+			this.detail_all_off.Click += new RoutedEventHandler(detail_all_off_Click);
+			this.detail_all_on.Click += new RoutedEventHandler(detail_all_on_Click);
+
 			this.tool_selector.SelectedIndex = 0;
+		}
+
+		void detail_all_on_Click(object sender, RoutedEventArgs e)
+		{
+			if (ActiveMap == null) return;
+			foreach (CheckBox cb in new CheckBox[] { this.detail_base, this.detail_baseadorn, this.detail_baseextra, this.doodad, this.doodadadorn, this.excessive })
+			{
+				cb.IsChecked = true;
+			}
+		}
+
+		void detail_all_off_Click(object sender, RoutedEventArgs e)
+		{
+			if (ActiveMap == null) return;
+			foreach (CheckBox cb in new CheckBox[] { this.detail_base, this.detail_baseadorn, this.detail_baseextra, this.doodad, this.doodadadorn, this.excessive })
+			{
+				cb.IsChecked = false;
+			}
+		}
+
+		internal void layer_all_on_Click(object sender, RoutedEventArgs e)
+		{
+			if (ActiveMap == null) return;
+			foreach (CheckBox cb in new CheckBox[] { this.layer_a, this.layer_b, this.layer_c, this.layer_d, this.layer_e, this.layer_f, this.layer_stairs })
+			{
+				cb.IsChecked = true;
+			}
+		}
+
+		void layer_all_off_Click(object sender, RoutedEventArgs e)
+		{
+			if (ActiveMap == null) return;
+			foreach (CheckBox cb in new CheckBox[] { this.layer_a, this.layer_b, this.layer_c, this.layer_d, this.layer_e, this.layer_f, this.layer_stairs })
+			{
+				cb.IsChecked = false;
+			}
+		}
+
+		private void SetDetailLayerOpacity(object checkbox, string name)
+		{
+			if (ActiveMap == null) return;
+			bool? val = ((CheckBox)checkbox).IsChecked;
+			foreach (string layer in "A B C D E F Stairs".Split(' '))
+			{
+				Grid detail = this.GetDetailLayer(layer, name);
+				detail.Opacity = (val.HasValue && val.Value) ? 1.0 : 0.15;
+			}
+		}
+
+		void excessive_Checked(object sender, RoutedEventArgs e)
+		{
+			this.SetDetailLayerOpacity(sender, "Excessive");
+		}
+
+		void doodadadorn_Checked(object sender, RoutedEventArgs e)
+		{
+			this.SetDetailLayerOpacity(sender, "DoodadAdorn");
+		}
+
+		void doodad_Checked(object sender, RoutedEventArgs e)
+		{
+			this.SetDetailLayerOpacity(sender, "Doodad");
+		}
+
+		void detail_baseextra_Checked(object sender, RoutedEventArgs e)
+		{
+			this.SetDetailLayerOpacity(sender, "BaseDetail");
+		}
+
+		void detail_baseadorn_Checked(object sender, RoutedEventArgs e)
+		{
+			this.SetDetailLayerOpacity(sender, "BaseAdorn");
+		}
+
+		void detail_base_Checked(object sender, RoutedEventArgs e)
+		{
+			this.SetDetailLayerOpacity(sender, "Base");
+		}
+
+		private Map ActiveMap { get { return Model.Instance.ActiveMap; } }
+
+		private void SetLayerOpacity(object checkbox, string name)
+		{
+			if (ActiveMap == null) return;
+			bool? val = ((CheckBox)checkbox).IsChecked;
+			this.GetLayer(name).Opacity = (val.HasValue && val.Value) ? 1.0 : 0.15;
+		}
+
+		void layer_stairs_Checked(object sender, RoutedEventArgs e)
+		{
+			this.SetLayerOpacity(sender, "Stairs");
+		}
+
+		void layer_f_Checked(object sender, RoutedEventArgs e)
+		{
+			this.SetLayerOpacity(sender, "F");
+		}
+
+		void layer_e_Checked(object sender, RoutedEventArgs e)
+		{
+			this.SetLayerOpacity(sender, "E");
+		}
+
+		void layer_d_Checked(object sender, RoutedEventArgs e)
+		{
+			this.SetLayerOpacity(sender, "D");
+		}
+
+		void layer_c_Checked(object sender, RoutedEventArgs e)
+		{
+			this.SetLayerOpacity(sender, "C");
+		}
+
+		void layer_b_Checked(object sender, RoutedEventArgs e)
+		{
+			this.SetLayerOpacity(sender, "B");
+		}
+
+		void layer_a_Checked(object sender, RoutedEventArgs e)
+		{
+			this.SetLayerOpacity(sender, "A");
 		}
 
 		private void file_open_Click(object sender, RoutedEventArgs e)
@@ -107,35 +262,35 @@ namespace MapEditor
 		public string ActiveDetailLayer { get; set; }
 
 		private Tool ActiveTool { get; set; }
-
+		bool tile_palette_shown = false;
 		void tool_selector_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			ComboBox cb = sender as ComboBox;
 			if (cb.SelectedItem == this.cb_erased)
 			{
 				this.ActiveTool = Tool.EraserDeep;
-				this.palette_host.Children.Clear();
+				//this.palette_host.Children.Clear();
 			}
 			else if (cb.SelectedItem == this.cb_erasel)
 			{
 				this.ActiveTool = Tool.EraserLayer;
-				this.palette_host.Children.Clear();
+				//this.palette_host.Children.Clear();
 			}
 			else if (cb.SelectedItem == this.cb_eraset)
 			{
-				this.ActiveTool = Tool.EraserTile;
-				this.palette_host.Children.Clear();
+				this.ActiveTool = Tool.EraserDetail;
+				//this.palette_host.Children.Clear();
 			}
 			else if (cb.SelectedItem == this.cb_rect)
 			{
 				this.ActiveTool = Tool.Rectangle;
-				this.palette_host.Children.Clear();
-				this.Show_Rectangle_Palette();
+				//this.palette_host.Children.Clear();
+				this.Show_Tile_Palette();
 			}
 			else if (cb.SelectedItem == this.cb_tile)
 			{
 				this.ActiveTool = Tool.Tile;
-				this.palette_host.Children.Clear();
+			//	this.palette_host.Children.Clear();
 				this.Show_Tile_Palette();
 			}
 			else
@@ -151,6 +306,8 @@ namespace MapEditor
 
 		private void Show_Tile_Palette()
 		{
+			if (this.tile_palette_shown) return;
+			this.tile_palette_shown = true;
 			Grid g = new Grid() { Background = Brushes.Blue };
 			g.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(0, GridUnitType.Auto) });
 			g.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(1, GridUnitType.Star) });
@@ -213,32 +370,171 @@ namespace MapEditor
 
 
 		private bool mouse_is_down = false;
+		private int start_drag_x = 0;
+		private int start_drag_y = 0;
+		private int end_drag_x = 0;
+		private int end_drag_y = 0;
 
 		void mouse_catcher_MouseMove(object sender, MouseEventArgs e)
 		{
+			if (ActiveMap == null) return;
+
 			if (this.mouse_is_down)
 			{
 				Point p = e.GetPosition(this.mouse_catcher);
-				this.Do_Draw(p);
+				if (this.ActiveTool == Tool.Tile)
+				{
+					this.Do_Draw(p);
+				}
+				int x = GetX(p.X);
+				int y = GetY(p.Y);
+				if (this.ActiveTool != Tool.Tile)
+				{
+					this.ChangeTheseHighlights(start_drag_x, start_drag_y, this.end_drag_x, this.end_drag_y, x, y);
+				}
+				this.end_drag_x = x;
+				this.end_drag_y = y;
 			}
 		}
 
 		void mouse_catcher_MouseUp(object sender, MouseButtonEventArgs e)
 		{
+			if (ActiveMap == null) return;
+
 			this.mouse_is_down = false;
+
+			if (this.ActiveTool != Tool.Tile)
+			{
+				int left = 0;
+				int right = ActiveMap.Width - 1;
+				int top = 0;
+				int bottom = ActiveMap.Height - 1;
+
+				for (int x = left; x <= right; ++x)
+				{
+					for (int y = top; y <= bottom; ++y)
+					{
+						this.GetGridCell(x, y).Fill = Brushes.Transparent;
+					}
+				}
+
+				left = Math.Max(left, Math.Min(this.start_drag_x, this.end_drag_x));
+				right = Math.Min(right, Math.Max(this.start_drag_x, this.end_drag_x));
+				top = Math.Max(top, Math.Min(this.start_drag_y, this.end_drag_y));
+				bottom = Math.Min(bottom, Math.Max(this.start_drag_y, this.end_drag_y));
+
+				for (int x = left; x <= right; ++x)
+				{
+					for (int y = top; y <= bottom; ++y)
+					{
+						this.Do_Draw(x, y);
+					}
+				}
+			}
+		}
+
+		private int GetX(double x)
+		{
+			return Math.Max(0, Math.Min(ActiveMap.Width - 1, (int)(x / 32)));
+		}
+		private int GetY(double y)
+		{
+			return Math.Max(0, Math.Min(ActiveMap.Height - 1, (int)(y / 32)));
 		}
 
 		void mouse_catcher_MouseDown(object sender, MouseButtonEventArgs e)
 		{
+			if (ActiveMap == null) return;
+
 			this.mouse_is_down = true;
 			Point p = e.GetPosition(this.mouse_catcher);
-			this.Do_Draw(p);
+			this.start_drag_x = GetX(p.X);
+			this.start_drag_y = GetY(p.Y);
+			this.end_drag_x = this.start_drag_x;
+			this.end_drag_y = this.start_drag_y;
+
+			if (this.ActiveTool != Tool.Tile)
+			{
+				this.HighlightThese(start_drag_x, this.start_drag_y, this.end_drag_x, this.end_drag_y);
+			}
+			else
+			{
+				this.Do_Draw(p);
+			}
+		}
+
+		private static readonly SolidColorBrush gridHighlight = new SolidColorBrush(Color.FromArgb(100, 255, 255, 255));
+
+		private void HighlightThese(int startX, int startY, int endX, int endY)
+		{
+			Rectangle r = this.GetGridCell(startX, startY);
+			r.Fill = gridHighlight;
+		}
+
+		private void ChangeTheseHighlights(int startX, int startY, int endXA, int endYA, int endXB, int endYB)
+		{
+			HashSet<Rectangle> before = new HashSet<Rectangle>();
+			HashSet<Rectangle> after = new HashSet<Rectangle>();
+
+			int xLeft = Math.Min(startX, endXA);
+			int xRight = Math.Max(startX, endXA);
+			int yTop = Math.Min(startY, endYA);
+			int yBottom = Math.Max(startY, endYA);
+
+			int x;
+			int y;
+			for (x = xLeft; x <= xRight; ++x)
+			{
+				for (y = yTop; y <= yBottom; ++y)
+				{
+					Rectangle r = this.GetGridCell(x, y);
+					if (r != null) before.Add(r);
+				}
+			}
+
+			xLeft = Math.Min(startX, endXB);
+			xRight = Math.Max(startX, endXB);
+			yTop = Math.Min(startY, endYB);
+			yBottom = Math.Max(startY, endYB);
+
+			for (x = xLeft; x <= xRight; ++x)
+			{
+				for (y = yTop; y <= yBottom; ++y)
+				{
+					Rectangle r = this.GetGridCell(x, y);
+					if (r != null) after.Add(this.GetGridCell(x, y));
+				}
+			}
+
+			List<Rectangle> remove_these = new List<Rectangle>();
+			foreach (Rectangle r in after)
+			{
+				if (before.Contains(r))
+				{
+					remove_these.Add(r);
+				}
+			}
+			foreach (Rectangle r in remove_these)
+			{
+				after.Remove(r);
+				before.Remove(r);
+			}
+
+			foreach (Rectangle r in after)
+			{
+				r.Fill = gridHighlight;
+			}
+
+			foreach (Rectangle r in before)
+			{
+				r.Fill = Brushes.Transparent;
+			}
 		}
 
 		private void Do_Draw(Point p)
 		{
-			int x = (int)(p.X / 32);
-			int y = (int)(p.Y / 32);
+			int x = GetX(p.X);
+			int y = GetX(p.Y);
 			this.Do_Draw(x, y);
 		}
 
@@ -322,7 +618,7 @@ namespace MapEditor
 			{
 				string layer = this.ActivePrimaryLayer;
 				string detail = this.ActiveDetailLayer;
-
+				int left, right, top, bottom;
 				switch (this.ActiveTool)
 				{
 					case Tool.Tile:
@@ -330,6 +626,78 @@ namespace MapEditor
 						{
 							map.SetTile(layer, detail, x, y, this.ActiveTile);
 							this.RefreshTile(layer, detail, x, y);
+						}
+						break;
+					case Tool.Rectangle:
+						if (this.ActiveTile != null)
+						{
+							left = Math.Min(this.start_drag_x, this.end_drag_x);
+							right = Math.Max(this.start_drag_x, this.end_drag_x);
+							top = Math.Min(this.start_drag_y, this.end_drag_y);
+							bottom = Math.Max(this.start_drag_y, this.end_drag_y);
+
+							for (int tx = left; tx <= right; ++tx)
+							{
+								for (int ty = top; ty <= bottom; ++ty)
+								{
+									map.SetTile(layer, detail, tx, ty, this.ActiveTile);
+									this.RefreshTile(layer, detail, tx, ty);
+								}
+							}
+						}
+						break;
+					case Tool.EraserDetail:
+						left = Math.Min(this.start_drag_x, this.end_drag_x);
+						right = Math.Max(this.start_drag_x, this.end_drag_x);
+						top = Math.Min(this.start_drag_y, this.end_drag_y);
+						bottom = Math.Max(this.start_drag_y, this.end_drag_y);
+
+						for (int tx = left; tx <= right; ++tx)
+						{
+							for (int ty = top; ty <= bottom; ++ty)
+							{
+								map.SetTile(layer, detail, tx, ty, null);
+								this.RefreshTile(layer, detail, tx, ty);
+							}
+						}
+						break;
+					case Tool.EraserLayer:
+						left = Math.Min(this.start_drag_x, this.end_drag_x);
+						right = Math.Max(this.start_drag_x, this.end_drag_x);
+						top = Math.Min(this.start_drag_y, this.end_drag_y);
+						bottom = Math.Max(this.start_drag_y, this.end_drag_y);
+
+						for (int tx = left; tx <= right; ++tx)
+						{
+							for (int ty = top; ty <= bottom; ++ty)
+							{
+								foreach (string det in "Base BaseAdorn BaseDetail Doodad DoodadAdorn Excessive".Split(' '))
+								{
+									map.SetTile(layer, det, tx, ty, null);
+									this.RefreshTile(layer, det, tx, ty);
+								}
+							}
+						}
+						break;
+					case Tool.EraserDeep:
+						left = Math.Min(this.start_drag_x, this.end_drag_x);
+						right = Math.Max(this.start_drag_x, this.end_drag_x);
+						top = Math.Min(this.start_drag_y, this.end_drag_y);
+						bottom = Math.Max(this.start_drag_y, this.end_drag_y);
+
+						for (int tx = left; tx <= right; ++tx)
+						{
+							for (int ty = top; ty <= bottom; ++ty)
+							{
+								foreach (string det in "Base BaseAdorn BaseDetail Doodad DoodadAdorn Excessive".Split(' '))
+								{
+									foreach (string lay in "A B C D E F Stairs".Split(' '))
+									{
+										map.SetTile(lay, det, tx, ty, null);
+										this.RefreshTile(lay, det, tx, ty);
+									}
+								}
+							}
 						}
 						break;
 					default: break;
@@ -361,7 +729,17 @@ namespace MapEditor
 					Grid layer = this.PopulateLayer(layerName);
 					this.layerstack.Children.Add(layer);
 				}
+				MainWindow.Instance.layer_all_on_Click(null, null);
 			}
+		}
+
+		private Rectangle GetGridCell(int x, int y)
+		{
+			if (ActiveMap != null)
+			{
+				return this.gridoverlay.Children[ActiveMap.Width * y + x] as Rectangle;
+			}
+			return null;
 		}
 
 		private void PopulateGrid()

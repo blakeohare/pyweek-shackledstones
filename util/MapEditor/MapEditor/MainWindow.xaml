@@ -55,7 +55,7 @@
 			<Grid Grid.Column="1">
 				<Grid.RowDefinitions>
 					<RowDefinition Height="*" />
-					<RowDefinition Height="100" />
+					<RowDefinition Height="120" />
 				</Grid.RowDefinitions>
 				
 				<ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible">
@@ -68,7 +68,7 @@
 				
 				<Grid Grid.Row="1">
 					<StackPanel Orientation="Vertical">
-						<StackPanel Orientation="Horizontal">
+						<StackPanel Orientation="Horizontal" Margin="0,0,0,5">
 							<TextBlock Text="Active Primary Layer: " />
 							<ComboBox x:Name="active_primary_layer" />
 						</StackPanel>
@@ -88,8 +88,10 @@
 							<CheckBox x:Name="layer_f" IsChecked="True" />
 							<TextBlock Text="Stairs " Margin="20,0,0,0" />
 							<CheckBox x:Name="layer_stairs" IsChecked="True" />
+							<Button x:Name="layer_all_off" Margin="20,0,0,0">All Off</Button>
+							<Button x:Name="layer_all_on" Margin="20,0,0,0">All On</Button>
 						</StackPanel>
-						<StackPanel Orientation="Horizontal">
+						<StackPanel Orientation="Horizontal" Margin="0,0,0,5">
 							<TextBlock Text="Active Detail Layer: " />
 							<ComboBox x:Name="active_detail_layer" />
 						</StackPanel>
@@ -108,6 +110,8 @@
 							<CheckBox x:Name="doodadadorn" IsChecked="True" />
 							<TextBlock Text="Excessive " Margin="20,0,0,0" />
 							<CheckBox x:Name="excessive" IsChecked="True" />
+							<Button x:Name="detail_all_off" Margin="20,0,0,0">All Off</Button>
+							<Button x:Name="detail_all_on" Margin="20,0,0,0">All On</Button>
 						</StackPanel>
 					</StackPanel>
 				</Grid>
