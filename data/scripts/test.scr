@@ -2,12 +2,17 @@
 
 [profile][richard.png]
 Hi there, how are you?
+\n
+Guys?
+[pause]
 
 [profile][blake.png]
 CODECODECODE
+[pause]
 
 [profile][yy.png]
 QQ, levels~!
+[pause]
 
 [profile][blake.png]
 [question][How are you doing on the dialogue thingy?]
@@ -35,6 +40,7 @@ Fail and I will cut you.
 [jump][fin]
 
 [label][fin]
+[pause]
 
 [profile][richard.png]
 [check][script-state][eq][done][done]
