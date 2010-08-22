@@ -68,8 +68,8 @@
 58	Wall Lever	oooo	walllevers/rightb.png
 59	Wall Lever	oooo	walllevers/topa.png
 60	Wall Lever	oooo	walllevers/topb.png
-61	Blue Doodads	xxxx	blueblock.png
-62	Blue Doodads	xxxx	blueboulder.png
+61	Blue Doodads	xxxx	bluedoodads/blueblock.png
+62	Blue Doodads	xxxx	bluedoodads/blueboulder.png
 63	Metal Pillar	xxxx	metalpillar.png
 64	Water	oooo	water/1.png|water/2.png|water/3.png|water/4.png
 65	Blue Floor	floor	bluefloor/lightmiddle.png
@@ -135,8 +135,8 @@
 125	White Cracked Wall	xxxx	whitewall/leftcracked.png
 126	White Cracked Wall	xxxx	whitewall/rightcracked.png
 127	White Cracked Wall	xxxx	whitewall/bottomcracked.png
-128	White Doodads	xxxx	whiteblock.png
-129	White Doodads	xxxx	whiteboulder.png
+128	White Doodads	xxxx	whitedoodads/whiteblock.png
+129	White Doodads	xxxx	whitedoodads/whiteboulder.png
 130	White Floor	floor	whitefloor/lightmiddle.png
 131	White Floor	floor	whitefloor/lightunderdoortop.png
 132	White Floor	floor	whitefloor/lightunderdoorleft.png
@@ -175,3 +175,71 @@
 165	Blue Stairs	oooo	bluestairs/bottom.png
 166	Blue Stairs	oooo	bluestairs/left.png
 167	Blue Stairs	oooo	bluestairs/right.png
+d0	Black Floor	floor	blackfloor/middle.png
+d1	Black Wall	xxxx	blackwall/topleftconcave.png
+d2	Black Wall	xxxx	blackwall/top.png
+d3	Black Wall	xxxx	blackwall/toprightconcave.png
+d4	Black Wall	xxxx	blackwall/left.png
+d5	Black Wall	xxxx	blackwall/right.png
+d6	Black Wall	xxxx	blackwall/bottomleftconcave.png
+d7	Black Wall	xxxx	blackwall/bottom.png
+d8	Black Wall	xxxx	blackwall/bottomrightconcave.png
+d9	Black Wall	xxxx	blackwall/topleftconvex.png
+d10	Black Wall	xxxx	blackwall/toprightconvex.png
+d11	Black Wall	xxxx	blackwall/bottomrightconvex.png
+d12	Black Wall	xxxx	blackwall/bottomleftconvex.png
+d33	Black Door	blackkey	blackdoor/leftlocked.png
+d34	Black Door	blackkey	blackdoor/bottomlocked.png
+d35	Black Door	blackkey	blackdoor/rightlocked.png
+d36	Black Door	blackkey	blackdoor/toplocked.png
+d37	Black Door	xxxx	blackdoor/leftclosed.png
+d38	Black Door	xxxx	blackdoor/bottomclosed.png
+d39	Black Door	xxxx	blackdoor/rightclosed.png
+d40	Black Door	xxxx	blackdoor/topclosed.png
+d41	Black Door	oooo	blackdoor/top.png
+d42	Black Door	oooo	blackdoor/left.png
+d43	Black Door	oooo	blackdoor/bottom.png
+d44	Black Door	oooo	blackdoor/right.png
+d45	Black Floor	floor	blackfloor/underdoorbottom.png
+d46	Black Floor	floor	blackfloor/underdoorleft.png
+d47	Black Floor	floor	blackfloor/underdoorright.png
+d48	Black Floor	floor	blackfloor/underdoortop.png
+d49	Black Cracked Wall	xxxx	blackwall/topcracked.png
+d50	Black Cracked Wall	xxxx	blackwall/leftcracked.png
+d51	Black Cracked Wall	xxxx	blackwall/rightcracked.png
+d52	Black Cracked Wall	xxxx	blackwall/bottomcracked.png
+d65	Black Floor	floor	blackfloor/lightmiddle.png
+d66	Black Floor	floor	blackfloor/lightunderdoortop.png
+d67	Black Floor	floor	blackfloor/lightunderdoorleft.png
+d68	Black Floor	floor	blackfloor/lightunderdoorright.png
+d69	Black Floor	floor	blackfloor/lightunderdoorbottom.png
+d70	Dark Black Wall	xxxx	darkblackwall/topleftconcave.png
+d71	Dark Black Wall	xxxx	darkblackwall/top.png
+d72	Dark Black Wall	xxxx	darkblackwall/toprightconcave.png
+d73	Dark Black Wall	xxxx	darkblackwall/left.png
+d74	Dark Black Wall	xxxx	darkblackwall/right.png
+d75	Dark Black Wall	xxxx	darkblackwall/bottomleftconcave.png
+d76	Dark Black Wall	xxxx	darkblackwall/bottom.png
+d77	Dark Black Wall	xxxx	darkblackwall/bottomrightconcave.png
+d78	Dark Black Wall	xxxx	darkblackwall/topleftconvex.png
+d79	Dark Black Wall	xxxx	darkblackwall/toprightconvex.png
+d80	Dark Black Wall	xxxx	darkblackwall/bottomrightconvex.png
+d81	Dark Black Wall	xxxx	darkblackwall/bottomleftconvex.png
+d82	Black Small Wall	ooxx	blacksmallwall/bottom.png
+d83	Black Small Wall	xoxx	blacksmallwall/bottomleftconcave.png
+d84	Black Small Wall	ooxo	blacksmallwall/bottomleftconvex.png
+d85	Black Small Wall	oxxx	blacksmallwall/bottomrightconcave.png
+d86	Black Small Wall	ooox	blacksmallwall/bottomrightconvex.png
+d87	Black Small Wall	xoxo	blacksmallwall/left.png
+d88	Black Small Wall	oxox	blacksmallwall/right.png
+d89	Black Small Wall	xxoo	blacksmallwall/top.png
+d90	Black Small Wall	xxxo	blacksmallwall/topleftconcave.png
+d91	Black Small Wall	xooo	blacksmallwall/topleftconvex.png
+d92	Black Small Wall	xxox	blacksmallwall/toprightconcave.png
+d93	Black Small Wall	oxoo	blacksmallwall/toprightconvex.png
+d164	Black Stairs	oooo	blackstairs/top.png
+d165	Black Stairs	oooo	blackstairs/bottom.png
+d166	Black Stairs	oooo	blackstairs/left.png
+d167	Black Stairs	oooo	blackstairs/right.png
+d61	Black Doodads	xxxx	blackdoodads/blackblock.png
+d62	Black Doodads	xxxx	blackdoodads/blackboulder.png
