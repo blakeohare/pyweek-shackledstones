@@ -19,7 +19,7 @@ def main():
 	virtual_screen = pygame.Surface((width, height))
 	
 	scene = GamePlayScene()
-	scene = TextTest(Dialogue(Parser.LoadFile(scriptPath('test'))))
+	#scene = TextTest(Dialogue(Parser.LoadFile(scriptPath('test'))))
 	
 	while scene != None:
 			
