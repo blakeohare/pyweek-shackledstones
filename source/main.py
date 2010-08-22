@@ -25,6 +25,8 @@ def main():
 		
 		scene.Update(counter)
 		
+		virtual_screen.fill((0,0,0))
+		
 		scene.Render(virtual_screen)
 		
 		pygame.transform.scale(virtual_screen, (640, 480), screen)

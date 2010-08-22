@@ -23,9 +23,6 @@ class InputManager:
 		}
 		self.escape_attempted = False
 		
-	def is_key_pressed(self, key):
-		return self.is_pressed(key)
-	
 	def get_events(self):
 		events = []
 		for event in pygame.event.get():
@@ -76,3 +73,5 @@ class InputManager:
 ### STATIC ###
 
 _inputManager = InputManager()
+def is_pressed(key):
+	return _inputManager.is_pressed[key]
