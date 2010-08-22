@@ -247,3 +247,71 @@ d166	Black Stairs	oooo	blackstairs/left.png
 d167	Black Stairs	oooo	blackstairs/right.png
 d61	Black Doodads	xxxx	blackdoodads/blackblock.png
 d62	Black Doodads	xxxx	blackdoodads/blackboulder.png
+r0	Red Floor	floor	redfloor/middle.png
+r1	Red Wall	xxxx	redwall/topleftconcave.png
+r2	Red Wall	xxxx	redwall/top.png
+r3	Red Wall	xxxx	redwall/toprightconcave.png
+r4	Red Wall	xxxx	redwall/left.png
+r5	Red Wall	xxxx	redwall/right.png
+r6	Red Wall	xxxx	redwall/bottomleftconcave.png
+r7	Red Wall	xxxx	redwall/bottom.png
+r8	Red Wall	xxxx	redwall/bottomrightconcave.png
+r9	Red Wall	xxxx	redwall/topleftconvex.png
+r10	Red Wall	xxxx	redwall/toprightconvex.png
+r11	Red Wall	xxxx	redwall/bottomrightconvex.png
+r12	Red Wall	xxxx	redwall/bottomleftconvex.png
+r33	Red Door	redkey	reddoor/leftlocked.png
+r34	Red Door	redkey	reddoor/bottomlocked.png
+r35	Red Door	redkey	reddoor/rightlocked.png
+r36	Red Door	redkey	reddoor/toplocked.png
+r37	Red Door	xxxx	reddoor/leftclosed.png
+r38	Red Door	xxxx	reddoor/bottomclosed.png
+r39	Red Door	xxxx	reddoor/rightclosed.png
+r40	Red Door	xxxx	reddoor/topclosed.png
+r41	Red Door	oooo	reddoor/top.png
+r42	Red Door	oooo	reddoor/left.png
+r43	Red Door	oooo	reddoor/bottom.png
+r44	Red Door	oooo	reddoor/right.png
+r45	Red Floor	floor	redfloor/underdoorbottom.png
+r46	Red Floor	floor	redfloor/underdoorleft.png
+r47	Red Floor	floor	redfloor/underdoorright.png
+r48	Red Floor	floor	redfloor/underdoortop.png
+r49	Red Cracked Wall	xxxx	redwall/topcracked.png
+r50	Red Cracked Wall	xxxx	redwall/leftcracked.png
+r51	Red Cracked Wall	xxxx	redwall/rightcracked.png
+r52	Red Cracked Wall	xxxx	redwall/bottomcracked.png
+r65	Red Floor	floor	redfloor/lightmiddle.png
+r66	Red Floor	floor	redfloor/lightunderdoortop.png
+r67	Red Floor	floor	redfloor/lightunderdoorleft.png
+r68	Red Floor	floor	redfloor/lightunderdoorright.png
+r69	Red Floor	floor	redfloor/lightunderdoorbottom.png
+r70	Dark Red Wall	xxxx	darkredwall/topleftconcave.png
+r71	Dark Red Wall	xxxx	darkredwall/top.png
+r72	Dark Red Wall	xxxx	darkredwall/toprightconcave.png
+r73	Dark Red Wall	xxxx	darkredwall/left.png
+r74	Dark Red Wall	xxxx	darkredwall/right.png
+r75	Dark Red Wall	xxxx	darkredwall/bottomleftconcave.png
+r76	Dark Red Wall	xxxx	darkredwall/bottom.png
+r77	Dark Red Wall	xxxx	darkredwall/bottomrightconcave.png
+r78	Dark Red Wall	xxxx	darkredwall/topleftconvex.png
+r79	Dark Red Wall	xxxx	darkredwall/toprightconvex.png
+r80	Dark Red Wall	xxxx	darkredwall/bottomrightconvex.png
+r81	Dark Red Wall	xxxx	darkredwall/bottomleftconvex.png
+r82	Red Small Wall	ooxx	redsmallwall/bottom.png
+r83	Red Small Wall	xoxx	redsmallwall/bottomleftconcave.png
+r84	Red Small Wall	ooxo	redsmallwall/bottomleftconvex.png
+r85	Red Small Wall	oxxx	redsmallwall/bottomrightconcave.png
+r86	Red Small Wall	ooox	redsmallwall/bottomrightconvex.png
+r87	Red Small Wall	xoxo	redsmallwall/left.png
+r88	Red Small Wall	oxox	redsmallwall/right.png
+r89	Red Small Wall	xxoo	redsmallwall/top.png
+r90	Red Small Wall	xxxo	redsmallwall/topleftconcave.png
+r91	Red Small Wall	xooo	redsmallwall/topleftconvex.png
+r92	Red Small Wall	xxox	redsmallwall/toprightconcave.png
+r93	Red Small Wall	oxoo	redsmallwall/toprightconvex.png
+r164	Red Stairs	oooo	redstairs/top.png
+r165	Red Stairs	oooo	redstairs/bottom.png
+r166	Red Stairs	oooo	redstairs/left.png
+r167	Red Stairs	oooo	redstairs/right.png
+r61	Red Doodads	xxxx	reddoodads/redblock.png
+r62	Red Doodads	xxxx	reddoodads/redboulder.png
