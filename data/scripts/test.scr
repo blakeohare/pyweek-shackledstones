@@ -1,0 +1,48 @@
+[comment] A simple script to demonstrate how a dialogue script would look.
+
+[profile][richard.png]
+Hi there, how are you?
+
+[profile][blake.png]
+CODECODECODE
+
+[profile][yy.png]
+QQ, levels~!
+
+[profile][blake.png]
+[question][How are you doing on the dialogue thingy?]
+[choice][fine][I'm doing pretty well, actually!]
+[choice][erm][Well, you know, it's coming along.]
+[choice][uh][It's a bit harder than I was expecting, you know?]
+[choice][zomg][I want to die.]
+[/question]
+
+[label][fine]
+I'm doubtful...
+[jump][fin]
+
+[label][erm]
+Well, that's good to hear.
+[jump][fin]
+
+[label][uh]
+Not terribly surprising.
+[jump][fin]
+
+[label][zomg]
+Fail and I will cut you.
+
+[jump][fin]
+
+[label][fin]
+
+[profile][richard.png]
+[check][script-state][eq][done][done]
+Right, I'm going to get back to work then.
+[jump][end]
+
+[label][done]
+Heh, actually it's done!
+
+[label][end]
+[end]
