@@ -9,10 +9,11 @@ def main():
 	
 	pygame.init()
 	
-	screen = pygame.display.set_mode((640, 480))
-	
 	width = TILE_COLUMN_COUNT * 16
 	height = TILE_ROW_COUNT * 16
+	
+	screen = pygame.display.set_mode((width * 2, height * 2))
+	
 	virtual_screen = pygame.Surface((width, height))
 	
 	#scene = TextTest()
@@ -30,7 +31,7 @@ def main():
 		
 		scene.Render(virtual_screen)
 		
-		pygame.transform.scale(virtual_screen, (640, 480), screen)
+		pygame.transform.scale(virtual_screen, (width * 2, height * 2), screen)
 		
 		scene = scene.next
 		

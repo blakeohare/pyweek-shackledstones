@@ -1,28 +1,56 @@
+class Player:
+	def __init__(self):
+		self.x = 100
+		self.y = 100
+		self.r = 8
+		self.direction = 'right'
+	
+	def DrawingCoords(self):
+		return (self.x - self.r, self.y - self.r)
+	
+	def CurrentImage(self, render_counter):
+		if self.direction == 'right':
+			return get_image('sprites/maincharacter/right0')
+		if self.direction == 'left':
+			return get_image('sprites/maincharacter/left0')
+		if self.direction == 'up':
+			return get_image('sprites/maincharacter/up0')
+		if self.direction == 'down':
+			return get_image('sprites/maincharacter/down0')
+		return get_image('sprites/maincharacter/down0')
+		
 class GamePlayScene:
 	
 	def __init__(self):
+		self.render_counter = 0
 		self.next = self
-		self.x = 100
-		self.y = 100
+		self.player = Player()
 	
 	def ProcessInput(self, events):
 		v = 2
 		if is_pressed('left'):
-			self.x -= v
+			self.player.direction = 'left'
+			self.player.x -= v
 		elif is_pressed('right'):
-			self.x += v
+			self.player.direction = 'right'
+			self.player.x += v
 		if is_pressed('up'):
-			self.y -= v
+			self.player.direction = 'up'
+			self.player.y -= v
 		elif is_pressed('down'):
-			self.y += v
+			self.player.direction = 'down'
+			self.player.y += v
 		
-		
-				
-	
 	def Update(self, game_counter):
 		pass
-		
-	def Render(self, screen):
-		r = 8
-		pygame.draw.rect(screen, (255, 0, 0), Rect(self.x - r, self.y - r, r * 2, r * 2))
 	
+	def Render(self, screen):
+		for sprite in self.get_renderable_sprites():
+			img = sprite.CurrentImage(self.render_counter)
+			coords = sprite.DrawingCoords()
+			screen.blit(img, coords)
+		#pygame.draw.rect(screen, (255, 0, 0), Rect(self.x - r, self.y - r, r * 2, r * 2))
+		self.render_counter += 1
+	
+	def get_renderable_sprites(self):
+		return [self.player]
