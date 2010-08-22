@@ -14,13 +14,20 @@ class Dialogue:
       
       # What we should be displaying
       self._buffer = ''
+      # When we're in question mode
+      self._question = None
       # when we have a question what are the choices?
-      self._choice = []
+      self._choices = []
       
       self._fnTable = {}
-      self._addFn('comment', self._comment) # this should be a lambda
+      self._addFn('comment', self._noop)
+      self._addFn('label', self._noop)
+      self._addFn('jump', self._jump)
       self._addFn('profile', self._setProfile)
       self._addFn('pause', self._pause)
+      self._addFn('question', self._beginQuestion)
+      self._addFn('choice', self._addChoice)
+      self._addFn('/question', self._poseQuestion)
       
       # perform the initial parse (fill the buffer)
       self._parse()
@@ -53,7 +60,10 @@ class Dialogue:
    # Answer a question
    # resp - which choice the user went with
    def Answer(self, resp):
-      pass
+      c = self._choices[resp]
+      self._choices = []
+      self._state = D_NORMAL
+      self._script.FindLabel(c.Label())
    
    def _parse(self):
       self._buffer = ''
@@ -69,7 +79,7 @@ class Dialogue:
             if len(line) == 0:
                continue
             if line == '\\n':
-               line = '\n'
+               line = '$nl$'
             self._buffer += line + '\n'
 
    def _addFn(self, name, fn):
@@ -84,14 +94,31 @@ class Dialogue:
    # function implementations
    # return indicates if script execution should continue (True) or stop until
    # the next Advance (False)
+   def _beginQuestion(self, text):
+      self._state = D_QUESTION
+      self._choices = []
+      self._buffer = text
+      return True
+   
+   def _addChoice(self, label, text):
+      self._choices.append(Choice(text, label))
+      return True
+   
+   def _poseQuestion(self):
+      return False
+   
    def _setProfile(self, file):
       self._profile = file
+      return True
+   
+   def _jump(self, label):
+      self._script.FindLabel(label)
       return True
    
    def _pause(self):
       return False
 
-   def _comment(self):
+   def _noop(self, *args):
       return True
 
 class Choice:

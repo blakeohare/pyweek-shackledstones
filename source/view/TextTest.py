@@ -7,31 +7,48 @@ class TextTest:
       
    def ProcessInput(self, events):
       if 0 != len(events):
-         print(str(events))
          for e in events:
-            print(e)
+            if e.key == 'B' and e.up:
+               if self._dlg.State() == D_QUESTION:
+                  # TODO
+                  self._dlg.Answer(1)
+               self._dlg.Advance()
 
    def Update(self, game_counter):
       pass
 
    def Render(self, screen):
+      d = self._dlg
       screen.fill(WHITE)
       
-      d = self._dlg
-      txt = _font.render(d.Text(), True, BLACK)
       p = d.Profile()
-      p = portraitPath(p)
-      
+      pSurf = None
+
       if p:
-         pSurf = ImageLib.FromFile(p)
-      else:
-         pSurf = None
-      
-      screen.blit(txt, (10, 20))
+         p = portraitPath(p)
+         if p:
+            pSurf = ImageLib.FromFile(p)
       if pSurf:
          screen.blit(pSurf, (4, 120))
       
       df = ImageLib.Get('d-frame')
       screen.blit(df, (0,screen.get_height() - df.get_height() - 4))
+
+      txt = d.Text()
+      txt = txt.split('\n')
+      tSurf = []
+      for t in txt:
+         if t == '$nl$':
+            t = ''
+         tSurf.append(_font.render(t, True, BLACK))
       
-      
+      lineNo = 0
+      for t in tSurf:
+         screen.blit(t, (D_TEXT_OFFSET_X, D_TEXT_OFFSET_Y + lineNo * _font.get_height()))
+         lineNo += 1
+
+      if D_QUESTION == d.State():
+         for c in d.Choices():
+            cSurf = _font.render(c, True, BLACK)
+            screen.blit(cSurf, (D_ANSWER_OFFSET_X, D_TEXT_OFFSET_Y + lineNo * _font.get_height()))
+            lineNo += 1

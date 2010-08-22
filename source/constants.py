@@ -17,6 +17,10 @@ WHITE = pygame.Color('#ffffff')
 BLACK = pygame.Color('#000000')
 BLUE = pygame.Color('#0000ff')
 
+D_TEXT_OFFSET_X = 13
+D_ANSWER_OFFSET_X = 25
+D_TEXT_OFFSET_Y = 198
+
 ### STATIC ###
 
 _font = None
