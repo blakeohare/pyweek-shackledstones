@@ -16,3 +16,59 @@
 6	Blue Wall	xxxx	bluewall/bottomleftconcave.png
 7	Blue Wall	xxxx	bluewall/bottom.png
 8	Blue Wall	xxxx	bluewall/bottomrightconcave.png
+9	Blue Wall	xxxx	bluewall/topleftconvex.png
+10	Blue Wall	xxxx	bluewall/toprightconvex.png
+11	Blue Wall	xxxx	bluewall/bomttomrightconvex.png
+12	Blue Wall	xxxx	bluewall/bottomleftconvex.png
+13	Yellow Small Wall	ooxx	yellowsmallwall/bottom.png
+14	Yellow Small Wall	ooxx	yellowsmallwall/bottomenda.png
+15	Yellow Small Wall	ooxx	yellowsmallwall/bottomendb.png
+16	Yellow Small Wall	xoxx	yellowsmallwall/bottomleftconcave.png
+17	Yellow Small Wall	ooxo	yellowsmallwall/bottomleftconvex.png
+18	Yellow Small Wall	oxxx	yellowsmallwall/bottomrightconcave.png
+19	Yellow Small Wall	ooox	yellowsmallwall/bottomrightconvex.png
+20	Yellow Small Wall	xoxo	yellowsmallwall/left.png
+21	Yellow Small Wall	xoxo	yellowsmallwall/leftenda.png
+22	Yellow Small Wall	xoxo	yellowsmallwall/leftendb.png
+23	Yellow Small Wall	oxox	yellowsmallwall/right.png
+24	Yellow Small Wall	oxox	yellowsmallwall/rightenda.png
+25	Yellow Small Wall	oxox	yellowsmallwall/rightendb.png
+26	Yellow Small Wall	xxoo	yellowsmallwall/top.png
+27	Yellow Small Wall	xxoo	yellowsmallwall/topenda.png
+28	Yellow Small Wall	xxoo	yellowsmallwall/topendb.png
+29	Yellow Small Wall	xxxo	yellowsmallwall/topleftconcave.png
+30	Yellow Small Wall	xooo	yellowsmallwall/topleftconvex.png
+31	Yellow Small Wall	xxox	yellowsmallwall/toprightconcave.png
+32	Yellow Small Wall	oxoo	yellowsmallwall/toprightconvex.png
+33	Blue Door	xxxx	bluedoor/leftlocked.png
+34	Blue Door	xxxx	bluedoor/bottomlocked.png
+35	Blue Door	xxxx	bluedoor/rightlocked.png
+36	Blue Door	xxxx	bluedoor/toplocked.png
+37	Blue Door	xxxx	bluedoor/leftclosed.png
+38	Blue Door	xxxx	bluedoor/bottomclosed.png
+39	Blue Door	xxxx	bluedoor/rightclosed.png
+40	Blue Door	xxxx	bluedoor/topclosed.png
+41	Blue Door	oooo	bluedoor/top.png
+42	Blue Door	oooo	bluedoor/left.png
+43	Blue Door	oooo	bluedoor/bottom.png
+44	Blue Door	oooo	bluedoor/right.png
+45	Blue Floor	oooo	bluefloor/underdoorbottom.png
+46	Blue Floor	oooo	bluefloor/underdoorleft.png
+47	Blue Floor	oooo	bluefloor/underdoorright.png
+48	Blue Floor	oooo	bluefloor/underdoortop.png
+49	Blue Cracked Wall	xxxx	bluewall/topcracked.png
+50	Blue Cracked Wall	xxxx	bluewall/leftcracked.png
+51	Blue Cracked Wall	xxxx	bluewall/rightcracked.png
+52	Blue Cracked Wall	xxxx	bluewall/bottomcracked.png
+53	Wall Lever	xxxx	walllevers/bottoma.png
+54	Wall Lever	xxxx	walllevers/bottomb.png
+55	Wall Lever	xxxx	walllevers/lefta.png
+56	Wall Lever	xxxx	walllevers/leftb.png
+57	Wall Lever	xxxx	walllevers/righta.png
+58	Wall Lever	xxxx	walllevers/rightb.png
+59	Wall Lever	xxxx	walllevers/topa.png
+60	Wall Lever	xxxx	walllevers/topb.png
+61	Blue Block	xxxx	blueblock.png
+62	Blue Boulder	xxxx	blueboulder.png
+63	Metal Pillar	xxxx	metalpillar.png
+64	Water	oooo	water/1.png|water/2.png|water/3.png|water/4.png
