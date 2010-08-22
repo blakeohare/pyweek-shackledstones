@@ -29,7 +29,7 @@ class ScriptCommand:
          return self.FnPtr().__call__(args[0])
       return self.FnPtr().__call__(*args)
 
-class ScriptEngine:
+class CommandRegistry:
    def __init__(self):
       self._commands = {}
    
@@ -49,7 +49,12 @@ class ScriptEngine:
          print("Could not find command %s" % (str(cmd)))
          return None
 
-# declare global
+class ScriptEngine:
+   def __init__(self):
+      pass
+   
+# declare globals
+cr = CommandRegistry()
 se = ScriptEngine()
 
 ###############################################################################

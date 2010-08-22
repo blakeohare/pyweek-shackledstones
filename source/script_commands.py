@@ -6,4 +6,4 @@
 def do_warp(mapFile, tileId, transitionStyle = WARP_INSTANT):
    pass
 
-se.Register("warp", do_warp, 3)
+cr.Register("warp", do_warp, 3)
