@@ -1,3 +1,4 @@
+testCode = True
 testCode = False
 
 WARP_NSCROLL  = "north scroll"

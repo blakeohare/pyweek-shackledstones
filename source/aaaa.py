@@ -6,7 +6,7 @@ class Test:
       self._fn = fn
    
    def __call__(self):
-      print('\n%s\n----------------------------------' % self._name)
+      print('\n%s\n------------------------------------------------------------' % self._name)
       self._fn()
 
 def AddTest(name, fn):
