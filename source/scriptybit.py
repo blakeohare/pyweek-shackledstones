@@ -34,6 +34,18 @@ class ParserClass:
          args.append(trim(m.group(1)))
       
       return (cmd, args)
+   
+   # Loads a file into a ScriptIter
+   def LoadFile(self, path):
+      if not path or not os.path.exists(path):
+         print("ERR: %s could not be found" % (str(path)))
+         return None
+      f = open(path)
+      
+      scr = []
+      for line in f:
+         scr.append(trim(line))
+      return ScriptIter(scr)
 Parser = ParserClass()
 
 # Abstration for the varying sources a script could come from
@@ -167,8 +179,8 @@ def testScript():
    c.GetCmd("test1").Call(args)
    args.append(3)
    c.GetCmd("test2").Call(args)
-if testCode:
-   testScript()
+
+AddTest('testScript', testScript)
 
 def testScriptIter():
    scr = ['aoeu1', 'aoeu2', 'aoeu3', '[label]  [testing]    ', 'aoeu4', 'aoeu5', 'aoeu6', 'aoeu7']
@@ -188,14 +200,18 @@ def testScriptIter():
    
    for a in si:
       print(a)
-if testCode:
-   testScriptIter()
+
+AddTest('testScriptIter', testScriptIter)
 
 def testParser():
    tests = ['[jump][fin]', '[check][script-state][eq][done][script-code-done]', 'test', '[end]']
    for a in tests:
       ret = Parser.Segment(a)
       print(ret)
+   
+   p = scriptPath('test')
+   print('loading: %s' % p)
+   si = Parser.LoadFile(p)
+   print(si)
 
-if testCode:
-   testParser()
+AddTest('testParser', testParser)
