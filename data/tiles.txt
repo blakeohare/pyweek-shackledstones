@@ -171,3 +171,7 @@
 161	Foliage	oooo	foliage/burnedbottom.png
 162	Foliage	oooo	foliage/burnedleft.png
 163	Foliage	oooo	foliage/burnedright.png
+164	Blue Stairs	oooo	bluestairs/top.png
+165	Blue Stairs	oooo	bluestairs/bottom.png
+166	Blue Stairs	oooo	bluestairs/left.png
+167	Blue Stairs	oooo	bluestairs/right.png
