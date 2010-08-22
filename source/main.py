@@ -15,6 +15,7 @@ def main():
 	height = TILE_ROW_COUNT * 16
 	virtual_screen = pygame.Surface((width, height))
 	
+	#scene = TextTest()
 	scene = GamePlayScene()
 	
 	while scene != None:
