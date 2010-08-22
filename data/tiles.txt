@@ -68,7 +68,24 @@
 58	Wall Lever	oooo	walllevers/rightb.png
 59	Wall Lever	oooo	walllevers/topa.png
 60	Wall Lever	oooo	walllevers/topb.png
-61	Blue Block	xxxx	blueblock.png
-62	Blue Boulder	xxxx	blueboulder.png
+61	Blue Doodads	xxxx	blueblock.png
+62	Blue Doodads	xxxx	blueboulder.png
 63	Metal Pillar	xxxx	metalpillar.png
 64	Water	oooo	water/1.png|water/2.png|water/3.png|water/4.png
+65	Blue Floor	oooo	bluefloor/lightmiddle.png
+66	Blue Floor	oooo	bluefloor/lightunderdoortop.png
+67	Blue Floor	oooo	bluefloor/lightunderdoorleft.png
+68	Blue Floor	oooo	bluefloor/lightunderdoorright.png
+69	Blue Floor	oooo	bluefloor/lightunderdoorbottom.png
+70	Dark Blue Wall	xxxx	darkbluewall/topleftconcave.png
+71	Dark Blue Wall	xxxx	darkbluewall/top.png
+72	Dark Blue Wall	xxxx	darkbluewall/toprightconcave.png
+73	Dark Blue Wall	xxxx	darkbluewall/left.png
+74	Dark Blue Wall	xxxx	darkbluewall/right.png
+75	Dark Blue Wall	xxxx	darkbluewall/bottomleftconcave.png
+76	Dark Blue Wall	xxxx	darkbluewall/bottom.png
+77	Dark Blue Wall	xxxx	darkbluewall/bottomrightconcave.png
+78	Dark Blue Wall	xxxx	darkbluewall/topleftconvex.png
+79	Dark Blue Wall	xxxx	darkbluewall/toprightconvex.png
+80	Dark Blue Wall	xxxx	darkbluewall/bottomrightconvex.png
+81	Dark Blue Wall	xxxx	darkbluewall/bottomleftconvex.png
