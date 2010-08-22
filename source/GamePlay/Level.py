@@ -123,10 +123,16 @@ class Layer:
 		width = self.width
 		height = self.height
 		tiles = self.tiles
-		y = 0
-		while y < height:
-			x = 0
-			while x < width:
+		
+		left = max(0, int(x_offset / -16) - 2)
+		top = max(0, int(y_offset / -16) - 2)
+		right = min(left + 24 + 4, width)
+		bottom = min(top + 18 + 4, height)
+		
+		y = top
+		while y < bottom:
+			x = left
+			while x < right:
 				tiles[x][y].Render(screen, x * 16 + x_offset, y * 16 + y_offset, render_counter)
 				x += 1
 			y += 1

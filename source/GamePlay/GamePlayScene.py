@@ -29,7 +29,7 @@ class GamePlayScene:
 		self.level = Level('test_level')
 	
 	def ProcessInput(self, events):
-		v = 2
+		v = 3
 		if is_pressed('left'):
 			self.player.direction = 'left'
 			self.player.x -= v
