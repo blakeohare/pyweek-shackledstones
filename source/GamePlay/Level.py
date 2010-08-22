@@ -127,7 +127,7 @@ class Layer:
 		while y < height:
 			x = 0
 			while x < width:
-				tiles[x][y].Render(screen, x * 16, y * 16, render_counter)
+				tiles[x][y].Render(screen, x * 16 + x_offset, y * 16 + y_offset, render_counter)
 				x += 1
 			y += 1
 	
