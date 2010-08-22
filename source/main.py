@@ -47,4 +47,5 @@ def main():
 		if difference > 0:
 			time.sleep(difference)
 
-main()
+if not testCode:
+   main()
