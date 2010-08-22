@@ -175,6 +175,10 @@
 165	Blue Stairs	oooo	bluestairs/bottom.png
 166	Blue Stairs	oooo	bluestairs/left.png
 167	Blue Stairs	oooo	bluestairs/right.png
+168	White Stairs	oooo	whitestairs/top.png
+169	White Stairs	oooo	whitestairs/left.png
+170	White Stairs	oooo	whitestairs/right.png
+171	White Stairs	oooo	whitestairs/bottom.png
 d0	Black Floor	floor	blackfloor/middle.png
 d1	Black Wall	xxxx	blackwall/topleftconcave.png
 d2	Black Wall	xxxx	blackwall/top.png
