@@ -1,28 +1,28 @@
 class TextTest:
    def __init__(self):
       self.next = self
+      ImageLib.Add('d-frame', uiImgPath('dframe'))
       self.portrait = pygame.image.load(portraitPath('filler'))
-      f = pygame.font.SysFont(pygame.font.get_default_font(), 17)
-      t = f.render("To be or not to be", True, BLACK)
+      f = pygame.font.SysFont(pygame.font.get_default_font(), 20)
+      t = f.render("To be or not to be\nNew line! wheewheewhee!", True, BLACK)
       self.txt = t
       print(t)
-      print(f.size("To be or not to be"))
+      print(f.size("To be or not to be\tNew line! wheewheewheee!"))
 	
    def ProcessInput(self, events):
-      pass
+      if 0 != len(events):
+         print(str(events))
+         for e in events:
+            print(e)
 
    def Update(self, game_counter):
       pass
 
    def Render(self, screen):
       screen.fill(WHITE)
-      p = os.path.join('images', 'letters', 'capital', 'a.png')
-      Asurf = pygame.image.load(p)
-      p = os.path.join('images', 'letters', 'lowercase', 'a.png')
-      asurf = pygame.image.load(p)
-      screen.blit(Asurf, (30, 30))
-      screen.blit(asurf, (45, 30))
-	
-      screen.blit(self.txt, (30, 70))
+
+      screen.blit(self.portrait, (4, 130))
+      df = ImageLib.Get('d-frame')
+      screen.blit(df, (0,screen.get_height() - df.get_height() - 4))
       
-      screen.blit(self.portrait, (80,80))
+      

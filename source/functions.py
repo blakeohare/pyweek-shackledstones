@@ -16,3 +16,8 @@ def portraitPath(*path):
    p = os.path.join('images', 'portraits', *path)
    p = '%s.png' % p
    return p
+
+def uiImgPath(*path):
+   p = os.path.join('images', 'ui', *path)
+   p = '%s.png' % p
+   return p

@@ -3,6 +3,13 @@ class InputEvent:
 		self.key = key
 		self.down = down
 		self.up = not down
+	
+	def __str__(self):
+		if self.up:
+			p = 'not '
+		else:
+			p = ''
+		return 'key: %s, %spressed' % (str(self.key), p)
 
 #TODO: Joystick management
 class InputManager:
