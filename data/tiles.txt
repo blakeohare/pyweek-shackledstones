@@ -315,3 +315,71 @@ r166	Red Stairs	oooo	redstairs/left.png
 r167	Red Stairs	oooo	redstairs/right.png
 r61	Red Doodads	xxxx	reddoodads/redblock.png
 r62	Red Doodads	xxxx	reddoodads/redboulder.png
+green0	Green Floor	floor	greenfloor/middle.png
+green1	Green Wall	xxxx	greenwall/topleftconcave.png
+green2	Green Wall	xxxx	greenwall/top.png
+green3	Green Wall	xxxx	greenwall/toprightconcave.png
+green4	Green Wall	xxxx	greenwall/left.png
+green5	Green Wall	xxxx	greenwall/right.png
+green6	Green Wall	xxxx	greenwall/bottomleftconcave.png
+green7	Green Wall	xxxx	greenwall/bottom.png
+green8	Green Wall	xxxx	greenwall/bottomrightconcave.png
+green9	Green Wall	xxxx	greenwall/topleftconvex.png
+green10	Green Wall	xxxx	greenwall/toprightconvex.png
+green11	Green Wall	xxxx	greenwall/bottomrightconvex.png
+green12	Green Wall	xxxx	greenwall/bottomleftconvex.png
+green33	Green Door	greenkey	greendoor/leftlocked.png
+green34	Green Door	greenkey	greendoor/bottomlocked.png
+green35	Green Door	greenkey	greendoor/rightlocked.png
+green36	Green Door	greenkey	greendoor/toplocked.png
+green37	Green Door	xxxx	greendoor/leftclosed.png
+green38	Green Door	xxxx	greendoor/bottomclosed.png
+green39	Green Door	xxxx	greendoor/rightclosed.png
+green40	Green Door	xxxx	greendoor/topclosed.png
+green41	Green Door	oooo	greendoor/top.png
+green42	Green Door	oooo	greendoor/left.png
+green43	Green Door	oooo	greendoor/bottom.png
+green44	Green Door	oooo	greendoor/right.png
+green45	Green Floor	floor	greenfloor/underdoorbottom.png
+green46	Green Floor	floor	greenfloor/underdoorleft.png
+green47	Green Floor	floor	greenfloor/underdoorright.png
+green48	Green Floor	floor	greenfloor/underdoortop.png
+green49	Green Cracked Wall	xxxx	greenwall/topcracked.png
+green50	Green Cracked Wall	xxxx	greenwall/leftcracked.png
+green51	Green Cracked Wall	xxxx	greenwall/rightcracked.png
+green52	Green Cracked Wall	xxxx	greenwall/bottomcracked.png
+green65	Green Floor	floor	greenfloor/lightmiddle.png
+green66	Green Floor	floor	greenfloor/lightunderdoortop.png
+green67	Green Floor	floor	greenfloor/lightunderdoorleft.png
+green68	Green Floor	floor	greenfloor/lightunderdoorright.png
+green69	Green Floor	floor	greenfloor/lightunderdoorbottom.png
+green70	Dark Green Wall	xxxx	darkgreenwall/topleftconcave.png
+green71	Dark Green Wall	xxxx	darkgreenwall/top.png
+green72	Dark Green Wall	xxxx	darkgreenwall/toprightconcave.png
+green73	Dark Green Wall	xxxx	darkgreenwall/left.png
+green74	Dark Green Wall	xxxx	darkgreenwall/right.png
+green75	Dark Green Wall	xxxx	darkgreenwall/bottomleftconcave.png
+green76	Dark Green Wall	xxxx	darkgreenwall/bottom.png
+green77	Dark Green Wall	xxxx	darkgreenwall/bottomrightconcave.png
+green78	Dark Green Wall	xxxx	darkgreenwall/topleftconvex.png
+green79	Dark Green Wall	xxxx	darkgreenwall/toprightconvex.png
+green80	Dark Green Wall	xxxx	darkgreenwall/bottomrightconvex.png
+green81	Dark Green Wall	xxxx	darkgreenwall/bottomleftconvex.png
+green82	Green Small Wall	ooxx	greensmallwall/bottom.png
+green83	Green Small Wall	xoxx	greensmallwall/bottomleftconcave.png
+green84	Green Small Wall	ooxo	greensmallwall/bottomleftconvex.png
+green85	Green Small Wall	oxxx	greensmallwall/bottomrightconcave.png
+green86	Green Small Wall	ooox	greensmallwall/bottomrightconvex.png
+green87	Green Small Wall	xoxo	greensmallwall/left.png
+green88	Green Small Wall	oxox	greensmallwall/right.png
+green89	Green Small Wall	xxoo	greensmallwall/top.png
+green90	Green Small Wall	xxxo	greensmallwall/topleftconcave.png
+green91	Green Small Wall	xooo	greensmallwall/topleftconvex.png
+green92	Green Small Wall	xxox	greensmallwall/toprightconcave.png
+green93	Green Small Wall	oxoo	greensmallwall/toprightconvex.png
+green164	Green Stairs	oooo	greenstairs/top.png
+green165	Green Stairs	oooo	greenstairs/bottom.png
+green166	Green Stairs	oooo	greenstairs/left.png
+green167	Green Stairs	oooo	greenstairs/right.png
+green61	Green Doodads	xxxx	greendoodads/greenblock.png
+green62	Green Doodads	xxxx	greendoodads/greenboulder.png
