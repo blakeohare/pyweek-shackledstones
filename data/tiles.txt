@@ -40,10 +40,10 @@
 30	Yellow Small Wall	xooo	yellowsmallwall/topleftconvex.png
 31	Yellow Small Wall	xxox	yellowsmallwall/toprightconcave.png
 32	Yellow Small Wall	oxoo	yellowsmallwall/toprightconvex.png
-33	Blue Door	xxxx	bluedoor/leftlocked.png
-34	Blue Door	xxxx	bluedoor/bottomlocked.png
-35	Blue Door	xxxx	bluedoor/rightlocked.png
-36	Blue Door	xxxx	bluedoor/toplocked.png
+33	Blue Door	bluekey	bluedoor/leftlocked.png
+34	Blue Door	bluekey	bluedoor/bottomlocked.png
+35	Blue Door	bluekey	bluedoor/rightlocked.png
+36	Blue Door	bluekey	bluedoor/toplocked.png
 37	Blue Door	xxxx	bluedoor/leftclosed.png
 38	Blue Door	xxxx	bluedoor/bottomclosed.png
 39	Blue Door	xxxx	bluedoor/rightclosed.png
@@ -162,3 +162,8 @@
 152	White Small Wall	xxoo	whitesmallwall/top.png
 153	White Small Wall	xooo	whitesmallwall/topleft.png
 154	White Small Wall	oxoo	whitesmallwall/topright.png
+155	Foliage	oooo	foliage/topwallvines.png
+156	Foliage	oooo	foliage/rightwallvines.png
+157	Foliage	oooo	foliage/bottomwallvines.png
+158	Foliage	oooo	foliage/leftwallvines.png
+159	Foliage	oooo	foliage/floorvines.png
