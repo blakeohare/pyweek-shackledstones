@@ -1,6 +1,7 @@
 class TextTest:
    def __init__(self):
       self.next = self
+      self.portrait = pygame.image.load(portraitPath('filler'))
       f = pygame.font.SysFont(pygame.font.get_default_font(), 17)
       t = f.render("To be or not to be", True, BLACK)
       self.txt = t
@@ -23,3 +24,5 @@ class TextTest:
       screen.blit(asurf, (45, 30))
 	
       screen.blit(self.txt, (30, 70))
+      
+      screen.blit(self.portrait, (80,80))

@@ -16,8 +16,8 @@ def main():
 	
 	virtual_screen = pygame.Surface((width, height))
 	
-	#scene = TextTest()
 	scene = GamePlayScene()
+	#scene = TextTest()
 	
 	while scene != None:
 			

@@ -11,3 +11,8 @@ def scriptPath(*path):
    p = os.path.join('data', 'scripts', *path)
    p = '%s.scr' % (p)
    return p
+
+def portraitPath(*path):
+   p = os.path.join('images', 'portraits', *path)
+   p = '%s.png' % p
+   return p
