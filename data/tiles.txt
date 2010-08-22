@@ -101,3 +101,4 @@
 91	Blue Small Wall	xooo	bluesmallwall/topleftconvex.png
 92	Blue Small Wall	xxox	bluesmallwall/toprightconcave.png
 93	Blue Small Wall	oxoo	bluesmallwall/toprightconvex.png
+94	Misc	oooo	black.png
