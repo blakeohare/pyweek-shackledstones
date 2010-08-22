@@ -102,3 +102,63 @@
 92	Blue Small Wall	xxox	bluesmallwall/toprightconcave.png
 93	Blue Small Wall	oxoo	bluesmallwall/toprightconvex.png
 94	Misc	oooo	black.png
+95	White Floor	oooo	whitefloor/middle.png
+96	White Wall	xxxx	whitewall/topleftconcave.png
+97	White Wall	xxxx	whitewall/top.png
+98	White Wall	xxxx	whitewall/toprightconcave.png
+99	White Wall	xxxx	whitewall/left.png
+100	White Wall	xxxx	whitewall/right.png
+101	White Wall	xxxx	whitewall/bottomleftconcave.png
+102	White Wall	xxxx	whitewall/bottom.png
+103	White Wall	xxxx	whitewall/bottomrightconcave.png
+104	White Wall	xxxx	whitewall/topleftconvex.png
+105	White Wall	xxxx	whitewall/toprightconvex.png
+106	White Wall	xxxx	whitewall/bottomrightconvex.png
+107	White Wall	xxxx	whitewall/bottomleftconvex.png
+108	White Door	xxxx	whitedoor/leftlocked.png
+109	White Door	xxxx	whitedoor/bottomlocked.png
+110	White Door	xxxx	whitedoor/rightlocked.png
+111	White Door	xxxx	whitedoor/toplocked.png
+112	White Door	xxxx	whitedoor/leftclosed.png
+113	White Door	xxxx	whitedoor/bottomclosed.png
+114	White Door	xxxx	whitedoor/rightclosed.png
+115	White Door	xxxx	whitedoor/topclosed.png
+116	White Door	oooo	whitedoor/top.png
+117	White Door	oooo	whitedoor/left.png
+118	White Door	oooo	whitedoor/bottom.png
+119	White Door	oooo	whitedoor/right.png
+120	White Floor	oooo	whitefloor/underdoorbottom.png
+121	White Floor	oooo	whitefloor/underdoorleft.png
+122	White Floor	oooo	whitefloor/underdoorright.png
+123	White Floor	oooo	whitefloor/underdoortop.png
+124	White Cracked Wall	xxxx	whitewall/topcracked.png
+125	White Cracked Wall	xxxx	whitewall/leftcracked.png
+126	White Cracked Wall	xxxx	whitewall/rightcracked.png
+127	White Cracked Wall	xxxx	whitewall/bottomcracked.png
+128	White Doodads	xxxx	whiteblock.png
+129	White Doodads	xxxx	whiteboulder.png
+130	White Floor	oooo	whitefloor/lightmiddle.png
+131	White Floor	oooo	whitefloor/lightunderdoortop.png
+132	White Floor	oooo	whitefloor/lightunderdoorleft.png
+133	White Floor	oooo	whitefloor/lightunderdoorright.png
+134	White Floor	oooo	whitefloor/lightunderdoorbottom.png
+135	Dark White Wall	xxxx	darkwhitewall/topleftconcave.png
+136	Dark White Wall	xxxx	darkwhitewall/top.png
+137	Dark White Wall	xxxx	darkwhitewall/toprightconcave.png
+138	Dark White Wall	xxxx	darkwhitewall/left.png
+139	Dark White Wall	xxxx	darkwhitewall/right.png
+140	Dark White Wall	xxxx	darkwhitewall/bottomleftconcave.png
+141	Dark White Wall	xxxx	darkwhitewall/bottom.png
+142	Dark White Wall	xxxx	darkwhitewall/bottomrightconcave.png
+143	Dark White Wall	xxxx	darkwhitewall/topleftconvex.png
+144	Dark White Wall	xxxx	darkwhitewall/toprightconvex.png
+145	Dark White Wall	xxxx	darkwhitewall/bottomrightconvex.png
+146	Dark White Wall	xxxx	darkwhitewall/bottomleftconvex.png
+147	White Small Wall	ooxx	whitesmallwall/bottom.png
+148	White Small Wall	ooxo	whitesmallwall/bottomleft.png
+149	White Small Wall	ooox	whitesmallwall/bottomright.png
+150	White Small Wall	xoxo	whitesmallwall/left.png
+151	White Small Wall	oxox	whitesmallwall/right.png
+152	White Small Wall	xxoo	whitesmallwall/top.png
+153	White Small Wall	xooo	whitesmallwall/topleft.png
+154	White Small Wall	oxoo	whitesmallwall/topright.png
