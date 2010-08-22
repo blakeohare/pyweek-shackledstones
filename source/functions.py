@@ -1,6 +1,3 @@
-class Callable:
-   def __init__(self, tgt):
-      self.__call__ = tgt
 
 def trim(string):
 	if string == None: return ''
