@@ -2,6 +2,7 @@ class Player:
 	def __init__(self):
 		self.x = 100
 		self.y = 100
+		self.layer = 'A'
 		self.r = 8
 		self.direction = 'right'
 	
@@ -25,6 +26,7 @@ class GamePlayScene:
 		self.render_counter = 0
 		self.next = self
 		self.player = Player()
+		self.level = Level('test_level')
 	
 	def ProcessInput(self, events):
 		v = 2
@@ -45,6 +47,9 @@ class GamePlayScene:
 		pass
 	
 	def Render(self, screen):
+	
+		self.level.Render(screen, 0, 0, self.render_counter)
+		
 		for sprite in self.get_renderable_sprites():
 			img = sprite.CurrentImage(self.render_counter)
 			coords = sprite.DrawingCoords()
