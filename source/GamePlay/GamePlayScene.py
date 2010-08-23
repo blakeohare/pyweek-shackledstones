@@ -54,8 +54,10 @@ class GamePlayScene:
 		
 		offset = self.get_camera_offset()
 		
+		self.level.Render('Stairs', screen, offset[0], offset[1], self.render_counter)
 		for layerName in 'A B C D E F Stairs'.split(' '):
-			self.level.Render(layerName, screen, offset[0], offset[1], self.render_counter)
+			if layerName != 'Stairs':
+				self.level.Render(layerName, screen, offset[0], offset[1], self.render_counter)
 			
 			for sprite in self.get_renderable_sprites(layerName):
 				img = sprite.CurrentImage(self.render_counter)
@@ -101,7 +103,7 @@ class GamePlayScene:
 	def do_sprite_move(self, sprite, vx, vy):
 		
 		# returns (final layer, final x, final y)
-		params = self.level.move_request(sprite.layer, sprite.x, sprite.y, vx, vy, sprite.r)
+		params = self.level.move_request(sprite.layer, sprite.x, sprite.y, vx, vy, sprite.r - 3)
 		sprite.layer = params[0]
 		sprite.x = params[1]
 		sprite.y = params[2]

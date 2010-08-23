@@ -62,6 +62,8 @@ class Tile:
 		self.stack = tile_stack
 		if no_animations:
 			self.Render = self._static_render
+		#elif len(tile_stack) == 0:
+		#	self.Render = self._dont_render
 		else:
 			self.Render = self._animation_render
 		
@@ -98,7 +100,11 @@ class Tile:
 					break
 		
 		self.physics = 'xo'[physics[0]] + 'xo'[physics[1]] + 'xo'[physics[2]] + 'xo'[physics[3]]
-				
+	
+	def is_stair_tile(self):
+		self.physics = 'xxxx'
+		self.Render = self._dont_render
+
 	def _animation_render(self, screen, x, y, render_counter):
 		for tile in self.stack:
 			tile.Render(screen, x, y, render_counter)
@@ -106,6 +112,9 @@ class Tile:
 	def _static_render(self, screen, x, y, render_counter):
 		for tile in self.stack:
 			screen.blit(tile.images[0], (x, y))
+	
+	def _dont_render(self, screen, x, y, render_counter):
+		pass
 			
 class Layer:
 	def __init__(self, width, height):
@@ -123,6 +132,9 @@ class Layer:
 				x += 1
 			y += 1
 
+	def MarkStairTile(self, x, y):
+		self.tiles[x][y].is_stair_tile()
+		
 	def Render(self, screen, x_offset, y_offset, render_counter):
 		width = self.width
 		height = self.height
@@ -191,7 +203,21 @@ class Level:
 					raw_tile_list.append(Tile(tiles))
 				layer.SetTiles(raw_tile_list)
 			self.layers[layerName] = layer
-
+		
+		stair_layer = self.layers['Stairs']
+		if stair_layer.contains_stuff:
+			other_layers = 'A B C D E F'.split(' ')
+			y = 0
+			while y < self.height:
+				x = 0
+				while x < self.width:
+					if stair_layer.tiles[x][y].physics != 'xxxx':
+						for layerName in other_layers:
+							layer = self.layers[layerName]
+							if layer.contains_stuff:
+								layer.tiles[x][y].is_stair_tile()
+					x += 1
+				y += 1
 	def Render(self, layername, screen, x_offset, y_offset, render_counter):
 		layer = self.layers[layername]
 		if layer.contains_stuff:
@@ -231,8 +257,29 @@ class Level:
 		walls = self.get_walls(orig_layer, left, top, right, bottom)
 
 		if not self.rectangle_touches_walls(dest_x - radius, dest_y - radius, dest_x + radius, dest_y + radius, walls):
-			return (orig_layer, dest_x, dest_y)
-		return (orig_layer, orig_x, orig_y)
+			coords = (dest_x, dest_y)
+		else:
+		
+			coords = (orig_x, orig_y)
+		tile_x = coords[0] >> 4
+		tile_y = coords[1] >> 4
+		if self.is_stair_tile(tile_x, tile_y):
+			final_layer = "Stairs"
+		else:
+			if orig_layer == "Stairs":
+				final_layer = 'A' # default value that ought to never get hit.
+				# if there's every a bug where you get stuck in the stairs, start looking here
+				for layerName in 'A B C D E F'.split(' '):
+					layer = self.layers[layerName]
+					if layer.contains_stuff:
+						if layer.tiles[tile_x][tile_y].physics != 'xxxx':
+							final_layer = layerName
+							break
+					
+			else:
+				final_layer = orig_layer
+			
+		return (final_layer, coords[0], coords[1])
 	
 	def rectangle_touches_walls(self, left, top, right, bottom, walls):
 		
