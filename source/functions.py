@@ -7,6 +7,13 @@ def trim(string):
 		string = string[:-1]
 	return string
 
+def min(a, b):
+	if a < b: return a
+	return b
+def max(a, b):
+	if a < b: return b
+	return a
+
 def scriptPath(*path):
    p = os.path.join('data', 'scripts', *path)
    p = '%s.scr' % (p)
