@@ -451,3 +451,15 @@ indigo166	Indigo Stairs	oooo	indigostairs/left.png
 indigo167	Indigo Stairs	oooo	indigostairs/right.png
 indigo61	Indigo Doodads	xxxx	indigodoodads/indigoblock.png
 indigo62	Indigo Doodads	xxxx	indigodoodads/indigoboulder.png
+yellow33	Yellow Door	yellowkey	yellowdoor/leftlocked.png
+yellow34	Yellow Door	yellowkey	yellowdoor/bottomlocked.png
+yellow35	Yellow Door	yellowkey	yellowdoor/rightlocked.png
+yellow36	Yellow Door	yellowkey	yellowdoor/toplocked.png
+yellow37	Yellow Door	xxxx	yellowdoor/leftclosed.png
+yellow38	Yellow Door	xxxx	yellowdoor/bottomclosed.png
+yellow39	Yellow Door	xxxx	yellowdoor/rightclosed.png
+yellow40	Yellow Door	xxxx	yellowdoor/topclosed.png
+yellow41	Yellow Door	oooo	yellowdoor/top.png
+yellow42	Yellow Door	oooo	yellowdoor/left.png
+yellow43	Yellow Door	oooo	yellowdoor/bottom.png
+yellow44	Yellow Door	oooo	yellowdoor/right.png
