@@ -5,7 +5,7 @@ D_QUESTION = 3
 D_CHECKVAR = 4 
 D_END      = 5
 
-class Dialogue:
+class Dialog:
    # script -- ScriptIter
    def __init__(self, script):
       self._script = script
@@ -38,7 +38,7 @@ class Dialogue:
    def Profile(self):
       return self._profile
    
-   # Find out what mode the dialogue is in
+   # Find out what mode the dialog is in
    def State(self):
       return self._state
    
@@ -167,19 +167,19 @@ class Choice:
 ###############################################################################
 # Testing Code
 
-def testDialogue():
+def testDialog():
    si = Parser.LoadFile(scriptPath('test'))
-   d = Dialogue(si)
+   d = Dialog(si)
    
    print('----------------------')
-   print('current dialogue text:')
+   print('current dialog text:')
    print("'%s'" % d.Text())
    print('----------------------')
    
    d.Advance()
    print('----------------------')
-   print('current dialogue text:')
+   print('current dialog text:')
    print("'%s'" % d.Text())
    print('----------------------')
    
-AddTest('testDialogue', testDialogue)
+AddTest('testDialog', testDialog)
