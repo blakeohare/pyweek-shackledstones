@@ -534,7 +534,7 @@ namespace MapEditor
 		private void Do_Draw(Point p)
 		{
 			int x = GetX(p.X);
-			int y = GetX(p.Y);
+			int y = GetY(p.Y);
 			this.Do_Draw(x, y);
 		}
 
