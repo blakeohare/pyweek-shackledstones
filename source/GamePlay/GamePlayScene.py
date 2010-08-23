@@ -22,11 +22,13 @@ class Player:
 		
 class GamePlayScene:
 	
-	def __init__(self):
+	def __init__(self, level_name, startX, startY):
 		self.render_counter = 0
 		self.next = self
 		self.player = Player()
-		self.level = Level('test_level')
+		self.player.x = startX
+		self.player.y = startY
+		self.level = Level(level_name)
 	
 	def ProcessInput(self, events):
 		v = 3

@@ -21,7 +21,16 @@ def main():
 		
 	virtual_screen = pygame.Surface((width, height))
 	
-	scene = GamePlayScene()
+	if os.path.exists('map_test.txt'):
+		c = open('map_test.txt', 'rt')
+		t = c.read().split('\n')
+		c.close()
+		map_name = trim(t[0])
+		coords = trim(t[1]).split(',')
+		scene = GamePlayScene(map_name, int(coords[0]) << 4, int(coords[1]) << 4)
+	else:
+		scene = GamePlayScene('test_level', 100, 100)
+	
 	#scene = TextTest(Dialog(Parser.LoadFile(scriptPath('test'))))
 	
 	while scene != None:
