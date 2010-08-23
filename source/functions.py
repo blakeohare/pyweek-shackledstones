@@ -14,6 +14,9 @@ def max(a, b):
 	if a < b: return b
 	return a
 
+def go_script_go(script_contents):
+	MapScript(ScriptIter(script_contents.split('\n'))).Exec()
+
 def scriptPath(*path):
    p = os.path.join('data', 'scripts', *path)
    p = '%s.scr' % (p)
