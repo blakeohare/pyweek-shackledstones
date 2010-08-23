@@ -383,3 +383,71 @@ green166	Green Stairs	oooo	greenstairs/left.png
 green167	Green Stairs	oooo	greenstairs/right.png
 green61	Green Doodads	xxxx	greendoodads/greenblock.png
 green62	Green Doodads	xxxx	greendoodads/greenboulder.png
+indigo0	Indigo Floor	floor	indigofloor/middle.png
+indigo1	Indigo Wall	xxxx	indigowall/topleftconcave.png
+indigo2	Indigo Wall	xxxx	indigowall/top.png
+indigo3	Indigo Wall	xxxx	indigowall/toprightconcave.png
+indigo4	Indigo Wall	xxxx	indigowall/left.png
+indigo5	Indigo Wall	xxxx	indigowall/right.png
+indigo6	Indigo Wall	xxxx	indigowall/bottomleftconcave.png
+indigo7	Indigo Wall	xxxx	indigowall/bottom.png
+indigo8	Indigo Wall	xxxx	indigowall/bottomrightconcave.png
+indigo9	Indigo Wall	xxxx	indigowall/topleftconvex.png
+indigo10	Indigo Wall	xxxx	indigowall/toprightconvex.png
+indigo11	Indigo Wall	xxxx	indigowall/bottomrightconvex.png
+indigo12	Indigo Wall	xxxx	indigowall/bottomleftconvex.png
+indigo33	Indigo Door	indigokey	indigodoor/leftlocked.png
+indigo34	Indigo Door	indigokey	indigodoor/bottomlocked.png
+indigo35	Indigo Door	indigokey	indigodoor/rightlocked.png
+indigo36	Indigo Door	indigokey	indigodoor/toplocked.png
+indigo37	Indigo Door	xxxx	indigodoor/leftclosed.png
+indigo38	Indigo Door	xxxx	indigodoor/bottomclosed.png
+indigo39	Indigo Door	xxxx	indigodoor/rightclosed.png
+indigo40	Indigo Door	xxxx	indigodoor/topclosed.png
+indigo41	Indigo Door	oooo	indigodoor/top.png
+indigo42	Indigo Door	oooo	indigodoor/left.png
+indigo43	Indigo Door	oooo	indigodoor/bottom.png
+indigo44	Indigo Door	oooo	indigodoor/right.png
+indigo45	Indigo Floor	floor	indigofloor/underdoorbottom.png
+indigo46	Indigo Floor	floor	indigofloor/underdoorleft.png
+indigo47	Indigo Floor	floor	indigofloor/underdoorright.png
+indigo48	Indigo Floor	floor	indigofloor/underdoortop.png
+indigo49	Indigo Cracked Wall	xxxx	indigowall/topcracked.png
+indigo50	Indigo Cracked Wall	xxxx	indigowall/leftcracked.png
+indigo51	Indigo Cracked Wall	xxxx	indigowall/rightcracked.png
+indigo52	Indigo Cracked Wall	xxxx	indigowall/bottomcracked.png
+indigo65	Indigo Floor	floor	indigofloor/lightmiddle.png
+indigo66	Indigo Floor	floor	indigofloor/lightunderdoortop.png
+indigo67	Indigo Floor	floor	indigofloor/lightunderdoorleft.png
+indigo68	Indigo Floor	floor	indigofloor/lightunderdoorright.png
+indigo69	Indigo Floor	floor	indigofloor/lightunderdoorbottom.png
+indigo70	Dark Indigo Wall	xxxx	darkindigowall/topleftconcave.png
+indigo71	Dark Indigo Wall	xxxx	darkindigowall/top.png
+indigo72	Dark Indigo Wall	xxxx	darkindigowall/toprightconcave.png
+indigo73	Dark Indigo Wall	xxxx	darkindigowall/left.png
+indigo74	Dark Indigo Wall	xxxx	darkindigowall/right.png
+indigo75	Dark Indigo Wall	xxxx	darkindigowall/bottomleftconcave.png
+indigo76	Dark Indigo Wall	xxxx	darkindigowall/bottom.png
+indigo77	Dark Indigo Wall	xxxx	darkindigowall/bottomrightconcave.png
+indigo78	Dark Indigo Wall	xxxx	darkindigowall/topleftconvex.png
+indigo79	Dark Indigo Wall	xxxx	darkindigowall/toprightconvex.png
+indigo80	Dark Indigo Wall	xxxx	darkindigowall/bottomrightconvex.png
+indigo81	Dark Indigo Wall	xxxx	darkindigowall/bottomleftconvex.png
+indigo82	Indigo Small Wall	ooxx	indigosmallwall/bottom.png
+indigo83	Indigo Small Wall	xoxx	indigosmallwall/bottomleftconcave.png
+indigo84	Indigo Small Wall	ooxo	indigosmallwall/bottomleftconvex.png
+indigo85	Indigo Small Wall	oxxx	indigosmallwall/bottomrightconcave.png
+indigo86	Indigo Small Wall	ooox	indigosmallwall/bottomrightconvex.png
+indigo87	Indigo Small Wall	xoxo	indigosmallwall/left.png
+indigo88	Indigo Small Wall	oxox	indigosmallwall/right.png
+indigo89	Indigo Small Wall	xxoo	indigosmallwall/top.png
+indigo90	Indigo Small Wall	xxxo	indigosmallwall/topleftconcave.png
+indigo91	Indigo Small Wall	xooo	indigosmallwall/topleftconvex.png
+indigo92	Indigo Small Wall	xxox	indigosmallwall/toprightconcave.png
+indigo93	Indigo Small Wall	oxoo	indigosmallwall/toprightconvex.png
+indigo164	Indigo Stairs	oooo	indigostairs/top.png
+indigo165	Indigo Stairs	oooo	indigostairs/bottom.png
+indigo166	Indigo Stairs	oooo	indigostairs/left.png
+indigo167	Indigo Stairs	oooo	indigostairs/right.png
+indigo61	Indigo Doodads	xxxx	indigodoodads/indigoblock.png
+indigo62	Indigo Doodads	xxxx	indigodoodads/indigoboulder.png
