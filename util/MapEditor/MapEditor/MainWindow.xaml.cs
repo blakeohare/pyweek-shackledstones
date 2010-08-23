@@ -47,6 +47,7 @@ namespace MapEditor
 				this.file_exit.Click += new RoutedEventHandler(file_exit_Click);
 
 				this.map_scripts.Click += new RoutedEventHandler(map_scripts_Click);
+                this.map_music.Click += new RoutedEventHandler(map_music_Click);
 
 				this.mouse_catcher.MouseDown += new MouseButtonEventHandler(mouse_catcher_MouseDown);
 				this.mouse_catcher.MouseUp += new MouseButtonEventHandler(mouse_catcher_MouseUp);
@@ -116,6 +117,18 @@ namespace MapEditor
 				throw;
 			}
 		}
+
+        void map_music_Click(object sender, RoutedEventArgs e)
+        {
+            PickMusic music = new PickMusic("");
+            music.ShowDialog();
+            
+        }
+
+        void map_variables_Click(object sender, RoutedEventArgs e)
+        {
+            (new MapVariables()).ShowDialog();
+        }
 
 		void map_scripts_Click(object sender, RoutedEventArgs e)
 		{

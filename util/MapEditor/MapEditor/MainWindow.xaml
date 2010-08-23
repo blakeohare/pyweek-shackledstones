@@ -24,8 +24,10 @@
 				<MenuItem Header="Map">
 					<MenuItem.Items>
 						<MenuItem Header="Scripts" x:Name="map_scripts"/>
+                        <MenuItem Header="Music"  x:Name="map_music"/>
 					</MenuItem.Items>
 				</MenuItem>
+
 			</Menu.Items>
 		</Menu>
 
@@ -118,5 +120,5 @@
 				</Grid>
 			</Grid>
 		</Grid>
-	</Grid>
+    </Grid>
 </Window>
