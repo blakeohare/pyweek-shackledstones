@@ -472,3 +472,16 @@ mirror4	Mirrors	oxxx	mirrors/bottomright.png
 torch1	Torches	xxxx	torches/on1.png|torches/on2.png
 torch2	Torches	xxxx	torches/off.png
 fire	Fire	xxxx	fire/1.png|fire/2.png	6
+swamp1	Swamp Water	xxxx	swamp/1.png|swamp/2.png|swamp/3.png|swamp/4.png	8
+swamp2	Swamp Water	xxxx	swamp/solid.png
+swamp3	Swamp Ground	oooo	swamp/ground1.png
+swamp4	Swamp Ground	oooo	swamp/ground2.png
+swamp5	Swamp Ground	oooo	swamp/ground3.png
+swamp6	Swamp Ground	oooo	swamp/top.png
+swamp7	Swamp Ground	oooo	swamp/left.png
+swamp8	Swamp Ground	oooo	swamp/right.png
+swamp9	Swamp Ground	oooo	swamp/bottom.png
+swamp10	Swamp Ground	oooo	swamp/topleft.png
+swamp11	Swamp Ground	oooo	swamp/topright.png
+swamp12	Swamp Ground	oooo	swamp/bottomright.png
+swamp13	Swamp Ground	oooo	swamp/bottomleft.png
