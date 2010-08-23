@@ -5,10 +5,10 @@ D_QUESTION = 3
 D_CHECKVAR = 4 
 D_END      = 5
 
-class Dialog:
+class Dialog(Scripted):
    # script -- ScriptIter
    def __init__(self, script):
-      self._script = script
+      Scripted.__init__(self, script)
       self._profile = None
       self._state = D_NORMAL
       
@@ -19,20 +19,15 @@ class Dialog:
       # when we have a question what are the choices?
       self._choices = []
       
-      self._fnTable = {}
-      self._addFn('comment', self._noop)
-      self._addFn('label', self._noop)
-      self._addFn('jump', self._jump)
       self._addFn('profile', self._setProfile)
       self._addFn('pause', self._pause)
       self._addFn('question', self._beginQuestion)
       self._addFn('choice', self._addChoice)
       self._addFn('/question', self._poseQuestion)
-      self._addFn('check', self._checkVar)
       self._addFn('end', self._end)
       
       # perform the initial parse (fill the buffer)
-      self._parse()
+      self.Advance()
    
    # Get the path to the current profile
    def Profile(self):
@@ -44,9 +39,12 @@ class Dialog:
    
    # get the next bit of stuff to display
    def Advance(self):
+      # do not allow resuming if the dialog is finished
       if self.State() == D_END:
          return
-      self._parse()
+      
+      self._buffer = ''
+      Scripted.Advance(self)
    
    # What we should be displaying if we're in "talk" mode (D_NORMAL)
    def Text(self):
@@ -69,31 +67,13 @@ class Dialog:
       self._state = D_NORMAL
       self._script.FindLabel(c.Label())
    
-   def _parse(self):
-      self._buffer = ''
-      for line in self._script:
-         if Parser.IsCommand(line):
-            (cmd, args) = Parser.Segment(line)
-            c = self._call(cmd, args)
-            print("command: %s\n   args: %s\n   returns: %s" % (cmd, str(args), str(c)))
-            
-            if not c:
-               break
-         else:
-            if len(line) == 0:
-               continue
-            if line == '\\n':
-               line = '$nl$'
-            self._buffer += line + '\n'
-
-   def _addFn(self, name, fn):
-      self._fnTable[name] = fn
-   
-   def _call(self, name, args):
-      if name in self._fnTable:
-         return self._fnTable[name](*args)
-      else:
-         print('%s not registered' % name)
+   def _parseInternal(self, line):
+      if len(line) == 0:
+         return
+         
+      if line == '\\n':
+         line = '$nl$'
+      self._buffer += line + '\n'
 
    # function implementations
    # return indicates if script execution should continue (True) or stop until
@@ -115,42 +95,12 @@ class Dialog:
       self._profile = file
       return True
    
-   def _jump(self, label):
-      self._script.FindLabel(label)
-      return True
-
-   def _checkVar(self, var, test, val, label, failLabel=None):
-      sval = globalState.get(var)
-      if test == 'eq':
-         ret = (sval == val)
-      elif test == 'lt':
-         ret = (sval < val)
-      elif test == 'lte.':
-         ret = (sval <= val)
-      elif test == 'gt':
-         ret = (sval > val)
-      elif test == 'gte':
-         ret = (sval >= val)
-      if ret:
-         self._script.FindLabel(label)
-      else:
-         if failLabel:
-            self._script.FindLabel(failLabel)
-      return True
-   
-   def _set(self, var, val):
-      globalState[var] = val
-      return True
-   
    def _end(self):
       self._state = D_END
       return False
    
    def _pause(self):
       return False
-
-   def _noop(self, *args):
-      return True
 
 class Choice:
    def __init__(self, txt, label):

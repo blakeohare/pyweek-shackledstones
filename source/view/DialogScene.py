@@ -12,20 +12,18 @@ class TextTest:
       if 0 != len(events):
          for e in events:
             if e.down:
-               continue
-      
-            if e.key == 'up' and d.State() == D_QUESTION:
-               self._choice -= 1
-               self._choice %= len(self._dlg.Choices())
-            
-            if e.key == 'down' and d.State() == D_QUESTION:
-               self._choice += 1
-               self._choice %= len(self._dlg.Choices())
-            
-            if e.key == 'B':
-               if self._dlg.State() == D_QUESTION:
-                  self._dlg.Answer(self._choice)
-               self._dlg.Advance()
+               if e.key == 'up' and d.State() == D_QUESTION:
+                  self._choice -= 1
+                  self._choice %= len(self._dlg.Choices())
+               
+               if e.key == 'down' and d.State() == D_QUESTION:
+                  self._choice += 1
+                  self._choice %= len(self._dlg.Choices())
+            else:
+               if e.key == 'B':
+                  if self._dlg.State() == D_QUESTION:
+                     self._dlg.Answer(self._choice)
+                  self._dlg.Advance()
 
    def Update(self, game_counter):
       pass
@@ -36,8 +34,6 @@ class TextTest:
       if d.State() == D_END:
          print("TODO: Advance to next scene")
          return
-      
-      screen.fill(WHITE)
       
       p = d.Profile()
       pSurf = None
