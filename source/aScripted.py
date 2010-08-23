@@ -10,6 +10,7 @@ class Scripted:
       self._addFn('jump', self._jump)
       self._addFn('check', self._checkVar)
       self._addFn('set', self._set)
+      self._addFn('end', self._end)
 
    def _parse(self):
       for line in self._script:
@@ -74,3 +75,7 @@ class Scripted:
 
    def _noop(self, *args):
       return True
+   
+   def _end(self):
+      print('Scripted._end() : NOT_IMPLEMENTED')
+      return False

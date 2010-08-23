@@ -19,3 +19,6 @@ class MapScript(Scripted):
    # function implementations
    # return indicates if script execution should continue (True) or stop until
    # the next Advance (False)
+   def _end(self):
+      # what to do?
+      return Scripted._end(self)

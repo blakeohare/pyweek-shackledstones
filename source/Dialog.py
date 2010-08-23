@@ -24,7 +24,6 @@ class Dialog(Scripted):
       self._addFn('question', self._beginQuestion)
       self._addFn('choice', self._addChoice)
       self._addFn('/question', self._poseQuestion)
-      self._addFn('end', self._end)
       
       # perform the initial parse (fill the buffer)
       self.Advance()
@@ -97,7 +96,7 @@ class Dialog(Scripted):
    
    def _end(self):
       self._state = D_END
-      return False
+      return Scripted._end(self)
    
    def _pause(self):
       return False
