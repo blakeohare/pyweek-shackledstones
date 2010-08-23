@@ -29,6 +29,9 @@ class Player:
 class GamePlayScene:
 	
 	def __init__(self, level_name, startX, startY):
+		GameContext().SetActiveGame(1)
+		GameContext().SetPlayerName(1, 'SUE')
+		ActiveGame().SetActiveGameScene(self)
 		self.render_counter = 0
 		self.next = self
 		self.player = Player()
@@ -60,7 +63,7 @@ class GamePlayScene:
 		self.do_sprite_move(self.player, vx, vy)
 		
 	def Update(self, game_counter):
-		pass
+		self.level.update_tile_standing_on(self.player.layer, self.player.x >> 4, self.player.y >> 4)
 	
 	def Render(self, screen):
 		

@@ -48,9 +48,23 @@ class TileStore:
 
 class Tile:
 	def __init__(self, id_list):
+		self.orig_stack = id_list[:]
+		self.id = None
+		self.initialize()
+		
+	def RemoveTile(self, detaillayer):
+		self.SetTile(detaillayer, '')
+		
+	def SetTile(self, detaillayer, id):
+		index = {'base' : 0, 'baseadorn' : 1, 'baseextra' : 2, 'doodad' : 3, 'doodadadorn' : 4, 'excessive' : 5 }[detaillayer]
+		self.orig_stack[index] = id
+		self.initialize()
+		
+	
+	def initialize(self):
 		tile_stack = []
 		no_animations = True
-		for id in id_list:
+		for id in self.orig_stack:
 			if trim(id) != '':
 				tile = _tileStore.GetTile(id)
 				if tile.physics == 'floor':
@@ -73,16 +87,19 @@ class Tile:
 		
 		self.composite_physics()
 	
+	def SetId(self, id):
+		self.id = id
+	
 	def composite_physics(self):
 		if len(self.stack) == 0:
 			self.physics = 'xxxx'
 			return
 		
+		
 		physics = [True, True, True, True]
 		for tile in self.stack:
 			tphys = tile.physics
 			if tphys == 'floor': tphys = 'oooo'
-			
 			if len(tphys) == 4 and tphys[0] in 'ox' and tphys[1] in 'ox' and tphys[2] in 'ox' and tphys[3] in 'ox':
 				for i in (0,1,2,3):
 					physics[i] = physics[i] and tphys[i] == 'o'
@@ -98,7 +115,7 @@ class Tile:
 				if self.keytype != None:
 					physics = [False, False, False, False]
 					break
-		
+
 		self.physics = 'xo'[physics[0]] + 'xo'[physics[1]] + 'xo'[physics[2]] + 'xo'[physics[3]]
 	
 	def is_stair_tile(self):
@@ -170,10 +187,33 @@ def get_tile_store():
 		_tileStore = TileStore()
 	return _tileStore
 	
+	
+class IdMarker:
+	def __init__(self, name, layer, x, y, script):
+		self.name = name
+		self.script = script
+		self.layer = layer
+		self.y = y
+		self.x = x
+	
+	
 class Level:
 	def __init__(self, name):
 		get_tile_store()
 		self.parse_file(name)
+		self.playerStandingOn = None
+	
+	def update_tile_standing_on(self, layer, x, y):
+		key = layer + str(x) + '_' + str(y)
+		if key != self.playerStandingOn:
+			self.playerStandingOn = key
+			layer = self.layers[layer]
+			if layer.contains_stuff:
+				tile = layer.tiles[x][y]
+				if tile.id != None:
+					script = tile.id.script
+					if script != None and script != '':
+						go_script_go(script)
 	
 	def parse_file(self, file):
 		c = open('maps' + os.sep + file + '.txt', 'rt')
@@ -218,6 +258,33 @@ class Level:
 								layer.tiles[x][y].is_stair_tile()
 					x += 1
 				y += 1
+				
+		script_strings = values.get('scripts')
+		scripts = {}
+		if script_strings != None:
+			scripts_banana = trim(script_strings).split('|||')
+			for banana in scripts_banana:
+				lines = trim(banana).split('|')
+				if len(lines) > 1:
+					name = lines[0]
+					body = '\n'.join(lines[1:])
+					scripts[name] = body
+		id_strings = values.get('IDs')
+		ids = {}
+		if id_strings != None:
+			id_strings = trim(id_strings).split(',')
+			for id_string in id_strings:
+				parts = trim(id_string).split('|')
+				name = parts[0]
+				layer = parts[1]
+				x = int(parts[2])
+				y = int(parts[3])
+				script = scripts.get(name)
+				id = IdMarker(name, layer, x, y, script)
+				self.layers[layer].tiles[x][y].SetId(id)
+				ids[name] = id
+		self.ids = ids
+				
 	def Render(self, layername, screen, x_offset, y_offset, render_counter):
 		layer = self.layers[layername]
 		if layer.contains_stuff:
