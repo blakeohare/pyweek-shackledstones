@@ -1,6 +1,8 @@
 TILE_COLUMN_COUNT = 24
 TILE_ROW_COUNT = 18
 
+globalState = {}
+globalState['script-state'] = 'done'
 
 
 def main():
@@ -10,6 +12,7 @@ def main():
 	
 	pygame.init()
 	_font = pygame.font.Font(os.path.join('media', 'fortunaschwein.ttf'), 13)	
+	_font = pygame.font.Font(os.path.join('media', 'rm_typewriter_old.ttf'), 13)	
 	
 	width = TILE_COLUMN_COUNT * 16
 	height = TILE_ROW_COUNT * 16

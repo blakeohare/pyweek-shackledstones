@@ -16,7 +16,7 @@ Blake--CODECODECODE
 YY--QQ, levels~!
 [pause]
 
-[profile][]
+[profile][filler2]
 [question][How are you doing on the dialogue thingy?]
 [choice][fine][I'm doing pretty well, actually!]
 [choice][erm][Well, you know, it's coming along.]
@@ -38,19 +38,24 @@ Not terribly surprising.
 
 [label][zomg]
 Fail and I will cut you.
-
 [jump][fin]
 
 [label][fin]
 [pause]
 
-[profile][richard]
-[check][script-state][eq][done][done]
+[profile][filler]
+[check][script-state][eq][done][done][notdone]
+This should not been seen
+
+[label][notdone]
 Right, I'm going to get back to work then.
+[pause]
+
 [jump][end]
 
 [label][done]
 Heh, actually it's done!
+[pause]
 
 [label][end]
 [end]

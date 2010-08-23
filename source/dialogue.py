@@ -28,6 +28,8 @@ class Dialogue:
       self._addFn('question', self._beginQuestion)
       self._addFn('choice', self._addChoice)
       self._addFn('/question', self._poseQuestion)
+      self._addFn('check', self._checkVar)
+      self._addFn('end', self._end)
       
       # perform the initial parse (fill the buffer)
       self._parse()
@@ -42,6 +44,8 @@ class Dialogue:
    
    # get the next bit of stuff to display
    def Advance(self):
+      if self.State() == D_END:
+         return
       self._parse()
    
    # What we should be displaying if we're in "talk" mode (D_NORMAL)
@@ -114,6 +118,33 @@ class Dialogue:
    def _jump(self, label):
       self._script.FindLabel(label)
       return True
+
+   def _checkVar(self, var, test, val, label, failLabel=None):
+      sval = globalState.get(var)
+      if test == 'eq':
+         ret = (sval == val)
+      elif test == 'lt':
+         ret = (sval < val)
+      elif test == 'lte.':
+         ret = (sval <= val)
+      elif test == 'gt':
+         ret = (sval > val)
+      elif test == 'gte':
+         ret = (sval >= val)
+      if ret:
+         self._script.FindLabel(label)
+      else:
+         if failLabel:
+            self._script.FindLabel(failLabel)
+      return True
+   
+   def _set(self, var, val):
+      globalState[var] = val
+      return True
+   
+   def _end(self):
+      self._state = D_END
+      return False
    
    def _pause(self):
       return False

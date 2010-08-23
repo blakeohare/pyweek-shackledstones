@@ -4,14 +4,27 @@ class TextTest:
       
       self.next = self
       self._dlg = dlg
+      self._choice = 0
       
    def ProcessInput(self, events):
+      d = self._dlg
+      
       if 0 != len(events):
          for e in events:
-            if e.key == 'B' and e.up:
+            if e.down:
+               continue
+      
+            if e.key == 'up' and d.State() == D_QUESTION:
+               self._choice -= 1
+               self._choice %= len(self._dlg.Choices())
+            
+            if e.key == 'down' and d.State() == D_QUESTION:
+               self._choice += 1
+               self._choice %= len(self._dlg.Choices())
+            
+            if e.key == 'B':
                if self._dlg.State() == D_QUESTION:
-                  # TODO
-                  self._dlg.Answer(1)
+                  self._dlg.Answer(self._choice)
                self._dlg.Advance()
 
    def Update(self, game_counter):
@@ -19,6 +32,11 @@ class TextTest:
 
    def Render(self, screen):
       d = self._dlg
+      
+      if d.State() == D_END:
+         print("TODO: Advance to next scene")
+         return
+      
       screen.fill(WHITE)
       
       p = d.Profile()
@@ -48,7 +66,15 @@ class TextTest:
          lineNo += 1
 
       if D_QUESTION == d.State():
+         cy = int(D_TEXT_OFFSET_Y + (lineNo + self._choice) * _font.get_height() + (.5 * _font.get_height()))
+         cx = D_TEXT_OFFSET_X + 6
+         
+         # draw choice indicator
+         pygame.draw.circle(screen, BLUE, (cx, cy), 4)
+         
+         # print choice text
          for c in d.Choices():
             cSurf = _font.render(c, True, BLACK)
             screen.blit(cSurf, (D_ANSWER_OFFSET_X, D_TEXT_OFFSET_Y + lineNo * _font.get_height()))
             lineNo += 1
+         
