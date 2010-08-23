@@ -15,15 +15,18 @@ class Scripted:
       for line in self._script:
          if Parser.IsCommand(line):
             (cmd, args) = Parser.Segment(line)
-            c = self._call(cmd, args)
-            
-            if not c:
-               break
+            if self._fnTable.get(cmd):
+               c = self._call(cmd, args)
+               
+               if not c:
+                  break
+            else:
+               print('Unrecognized command: %s' % cmd)
          else:
             self._parseInternal(line)
 
    def _parseInternal(self, line):
-      print('NOT_IMPLEMENTED')
+      print('NOT_IMPLEMENTED, dropping %s' % line)
    
    def _addFn(self, name, fn):
       self._fnTable[name] = fn
@@ -34,7 +37,7 @@ class Scripted:
       else:
          print('%s not registered' % name)
 
-   # Move the script on it it's a multi-part deal.  Override this if you want
+   # Move the script on if it's a multi-part deal.  Override this if you want
    # take special actions on script resume
    def Advance(self):
       self._parse()

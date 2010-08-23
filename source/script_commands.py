@@ -10,7 +10,7 @@ cr.Register("warp", do_warp, 3)
 
 # dialogue: transitions to a dialogue scene using the indicated file as script
 # scriptFile - file path (relative, from base directory)
-def do_dialogue(scriptFile):
+def do_dialog(scriptFile):
    pass
    
-cr.Register("dialogue", do_dialogue, 1)
+cr.Register("dialog", do_dialog, 1)

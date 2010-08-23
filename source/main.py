@@ -2,7 +2,7 @@ TILE_COLUMN_COUNT = 24
 TILE_ROW_COUNT = 18
 
 globalState = {}
-globalState['script-state'] = 'done'
+globalState['script-state'] = 'inprogress'
 
 
 def main():
@@ -31,7 +31,7 @@ def main():
 	else:
 		scene = GamePlayScene('test_level', 100, 100)
 	
-	#scene = TextTest(Dialog(Parser.LoadFile(scriptPath('test'))))
+	scene = DialogScene(Dialog(Parser.LoadFile(scriptPath('test'))))
 	
 	while scene != None:
 			

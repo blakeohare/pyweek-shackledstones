@@ -2,6 +2,8 @@ class MapScript(Scripted):
    # script -- ScriptIter
    def __init__(self, scriptIter):
       Scripted.__init__(self, scriptIter)
+      self._addFn('warp', do_warp)
+      self._addFn('dialog', do_dialog)
    
    # get the next bit of stuff to display
    def Advance(self):
