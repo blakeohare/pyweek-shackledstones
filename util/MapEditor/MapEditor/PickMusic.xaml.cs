@@ -19,6 +19,10 @@ namespace MapEditor
     /// </summary>
     public partial class PickMusic : Window
     {
+        public string SelectedMusic
+        {
+            get { return selectedmusic; }
+        }
         private string selectedmusic = "";
         public PickMusic(string currentmusic)
         {
@@ -29,10 +33,10 @@ namespace MapEditor
             if (Directory.Exists(folder))
             {
                 string[] filenames = Directory.GetFiles(folder,"*.mp3");
-                foreach (string filename in filenames)
+                foreach (string longname in filenames)
                 {
-                    
-                    MusicChoice.Items.Add(filenames);
+                    string filename = getShortenedName(longname);
+                    MusicChoice.Items.Add(filename);
                     if (filename == currentmusic)
                     {
                         MusicChoice.SelectedIndex = MusicChoice.Items.Count - 1;
@@ -42,6 +46,14 @@ namespace MapEditor
             Change.Click += new RoutedEventHandler(Change_Click);
 
         }
+        private string getShortenedName(string filename)
+        {
+            char[] splitchars = new char[] { '\\' };
+            string[] parts = filename.Split(splitchars);
+            string namepart = parts[parts.Length - 1];
+            return namepart;
+        }
+
 
         void Change_Click(object sender, RoutedEventArgs e)
         {

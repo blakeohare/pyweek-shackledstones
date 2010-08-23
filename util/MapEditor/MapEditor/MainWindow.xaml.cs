@@ -128,8 +128,21 @@ namespace MapEditor
 
         void map_music_Click(object sender, RoutedEventArgs e)
         {
-            PickMusic music = new PickMusic("");
-            music.ShowDialog();
+            string music="";
+            if(Model.Instance.ActiveMap.Values.ContainsKey("music"))
+                music = Model.Instance.ActiveMap.Values["music"];
+            
+            PickMusic musicpicker = new PickMusic(music);
+            musicpicker.ShowDialog();
+            music = musicpicker.SelectedMusic;
+            if (music != null)
+            {
+                Model.Instance.ActiveMap.Values["music"] = music;
+            }
+            else if(!Model.Instance.ActiveMap.Values.ContainsKey("music"))
+            {
+                Model.Instance.ActiveMap.Values.Remove("music");
+            }
             
         }
 
