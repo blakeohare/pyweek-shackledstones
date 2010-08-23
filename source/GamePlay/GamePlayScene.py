@@ -5,20 +5,26 @@ class Player:
 		self.layer = 'A'
 		self.r = 8
 		self.direction = 'right'
+		self.walking = False
 	
 	def DrawingCoords(self):
 		return (self.x - self.r, self.y - self.r - 13)
 	
 	def CurrentImage(self, render_counter):
+		if self.walking:
+			counter = ('0','1','0','2')[(render_counter // 3) & 3]
+		else:
+			counter = 0
+		counter = str(counter)
 		if self.direction == 'right':
-			return get_image('sprites/maincharacter/right0')
+			return get_image('sprites/maincharacter/right' + counter)
 		if self.direction == 'left':
-			return get_image('sprites/maincharacter/left0')
+			return get_image('sprites/maincharacter/left' + counter)
 		if self.direction == 'up':
-			return get_image('sprites/maincharacter/up0')
+			return get_image('sprites/maincharacter/up' + counter)
 		if self.direction == 'down':
-			return get_image('sprites/maincharacter/down0')
-		return get_image('sprites/maincharacter/down0')
+			return get_image('sprites/maincharacter/down' + counter)
+		return get_image('sprites/maincharacter/down' + counter)
 		
 class GamePlayScene:
 	
@@ -46,6 +52,10 @@ class GamePlayScene:
 		elif is_pressed('down'):
 			self.player.direction = 'down'
 			vy = v
+		
+		self.player.walking = False
+		if vx != 0 or vy != 0:
+			self.player.walking = True
 		
 		self.do_sprite_move(self.player, vx, vy)
 		
