@@ -11,7 +11,6 @@ def main():
 	global _font
 	
 	pygame.init()
-	_font = pygame.font.Font(os.path.join('media', 'fortunaschwein.ttf'), 13)	
 	_font = pygame.font.Font(os.path.join('media', 'rm_typewriter_old.ttf'), 13)	
 	
 	width = TILE_COLUMN_COUNT * 16
@@ -31,7 +30,8 @@ def main():
 	else:
 		scene = GamePlayScene('test_level', 100, 100)
 	
-	scene = DialogScene(Dialog(Parser.LoadFile(scriptPath('test'))))
+	#scene = DialogScene(Dialog(Parser.LoadFile(scriptPath('test'))))
+	scene = MainMenuScene()
 	
 	while scene != None:
 			

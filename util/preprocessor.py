@@ -5,7 +5,8 @@ pyweek_root = '.' + os.sep
 imports = pyweek_root + 'source' + os.sep + 'imports.py'
 main = pyweek_root + 'source' + os.sep + 'main.py'
 functions = pyweek_root + 'source' + os.sep + 'functions.py'
-exempt = [imports, main, functions]
+constants = pyweek_root + 'source' + os.sep + 'constants.py'
+exempt = [imports, main, functions, constants]
 
 root = pyweek_root + 'source'
 
@@ -39,6 +40,7 @@ def read_file(file):
 	return (body, static)
 
 body = read_file(imports)[0]
+body += read_file(constants)[0]
 body += read_file(functions)[0]
 static = ''
 

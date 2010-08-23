@@ -31,3 +31,16 @@ def uiImgPath(*path):
    p = os.path.join('images', 'ui', *path)
    p = '%s.png' % p
    return p
+
+def render_text(string, color = BLACK):
+   return _font.render(string, True, color)
+
+_fontBucket = {}
+def render_text_size(size, string, color = BLACK, fontPath = MENU_FONT):
+   fontKey = '%s-%s' % (fontPath, str(size))
+   f = _fontBucket.get(fontKey)
+   
+   if not f:
+      f = pygame.font.Font(fontPath, size)
+      _fontBucket[fontKey] = f
+   return f.render(string, True, color)
