@@ -1,5 +1,7 @@
-class TextTest:
+class DialogScene:
    def __init__(self, dlg):
+      if not isinstance(dlg, Dialog):
+         raise Exception("dlg must an object of type Dialog")
       ImageLib.Add('d-frame', uiImgPath('dframe'))
       
       self.next = self

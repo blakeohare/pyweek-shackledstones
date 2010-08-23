@@ -1,5 +1,7 @@
 class Scripted:
    def __init__(self, scriptIter):
+      if not isinstance(scriptIter, ScriptIter):
+         raise Exception("scriptIter must be an object of type ScriptIter")
       self._script = scriptIter
       self._fnTable = {}
       
