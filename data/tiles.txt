@@ -485,6 +485,10 @@ swamp10	Swamp Ground	oooo	swamp/topleft.png
 swamp11	Swamp Ground	oooo	swamp/topright.png
 swamp12	Swamp Ground	oooo	swamp/bottomright.png
 swamp13	Swamp Ground	oooo	swamp/bottomleft.png
+swamp14	Swamp Ground	oooo	swamp/topleftconcave.png
+swamp15	Swamp Ground	oooo	swamp/toprightconcave.png
+swamp16	Swamp Ground	oooo	swamp/bottomrightconcave.png
+swamp17	Swamp Ground	oooo	swamp/bottomleftconcave.png
 fp1	Floor Panel	oooo	floorpanels/redup.png
 fp2	Floor Panel	oooo	floorpanels/reddown.png
 fp3	Floor Panel	oooo	floorpanels/whiteup.png
