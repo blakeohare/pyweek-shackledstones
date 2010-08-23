@@ -1,0 +1,20 @@
+﻿<Window x:Class="MapEditor.IdListWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="IdListWindow" Height="300" Width="300">
+    <Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="*" />
+			<RowDefinition Height="30" />
+		</Grid.RowDefinitions>
+		
+		<ListBox x:Name="ids">
+			
+		</ListBox>
+		
+		<StackPanel Grid.Row="1">
+			<Button x:Name="edit_button">Edit</Button>
+			
+		</StackPanel>
+	</Grid>
+</Window>

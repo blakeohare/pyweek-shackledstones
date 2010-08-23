@@ -17,13 +17,13 @@
 						<MenuItem Header="Open..." x:Name="file_open"/>
 						<MenuItem Header="Save..." x:Name="file_save"/>
 						<Separator />
-						<MenuItem Header="Exit" />
+						<MenuItem Header="Exit" x:Name="file_exit"/>
 					</MenuItem.Items>
 				</MenuItem>
 
 				<MenuItem Header="Map">
 					<MenuItem.Items>
-						<MenuItem Header="Scripts" />
+						<MenuItem Header="Scripts" x:Name="map_scripts"/>
 					</MenuItem.Items>
 				</MenuItem>
 			</Menu.Items>
@@ -45,7 +45,8 @@
 									<ComboBoxItem x:Name="cb_eraset">Eraser (tile)</ComboBoxItem>
 									<ComboBoxItem x:Name="cb_erasel">Eraser (layer)</ComboBoxItem>
 									<ComboBoxItem x:Name="cb_erased">Eraser (deep)</ComboBoxItem>
-								</ComboBox.Items>
+									<ComboBoxItem x:Name="cb_id">ID Marker</ComboBoxItem>
+							</ComboBox.Items>
 						</ComboBox>
 					</StackPanel>
 					<Grid x:Name="palette_host" VerticalAlignment="Stretch"/>

@@ -1,0 +1,17 @@
+﻿<Window x:Class="MapEditor.AddId"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="AddId" Height="300" Width="300">
+    <Grid>
+		<StackPanel Orientation="Vertical">
+			<StackPanel Orientation="Horizontal">
+				<TextBlock Text="Name: " />
+				<TextBox x:Name="id_name" Width="100" />
+			</StackPanel>
+			<StackPanel Orientation="Horizontal">
+				<Button x:Name="ok">A'ight</Button>
+				<Button x:Name="cancel">Reconsider</Button>
+			</StackPanel>
+		</StackPanel>
+	</Grid>
+</Window>

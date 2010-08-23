@@ -9,9 +9,9 @@ namespace MapEditor
 	{
 		public string Name { get; set; }
 		private Dictionary<string, string> values = new Dictionary<string, string>();
-		private Dictionary<string, string[]> scripts = new Dictionary<string, string[]>();
-		private Dictionary<string, int[]> ids = new Dictionary<string, int[]>();
-		private Dictionary<string, string> id2script = new Dictionary<string, string>();
+		private Dictionary<string, List<ID>> idsByLayer = new Dictionary<string, List<ID>>();
+		private List<ID> ids = new List<ID>();
+		private Dictionary<string, ID> idsByName = new Dictionary<string, ID>();
 		private Dictionary<string, Dictionary<string, List<Tile>>> layers;
 		public int Width { get; set; }
 		public int Height { get; set; }
@@ -24,7 +24,7 @@ namespace MapEditor
 			this.Name = name;
 			if (this.Read(name))
 			{
-				this.IsValid = this.ParseScripts() && this.ParseIds() && this.ParseIds2Scripts() && this.ParseTiles();
+				this.IsValid = this.ParseIds() && this.ParseScripts() && this.ParseTiles();
 			}
 			else
 			{
@@ -48,9 +48,12 @@ namespace MapEditor
 
 		private Dictionary<string, Dictionary<string, List<Tile>>> InitializeLayers(int width, int height, bool fill)
 		{
+			this.idsByLayer = new Dictionary<string, List<ID>>();
+
 			Dictionary<string, Dictionary<string, List<Tile>>> layers = new Dictionary<string, Dictionary<string, List<Tile>>>();
 			foreach (string layerName in "A B C D E F Stairs".Split(' '))
 			{
+				this.idsByLayer.Add(layerName, new List<ID>());
 				Dictionary<string, List<Tile>> layer = new Dictionary<string, List<Tile>>();
 
 				foreach (string detailLayer in "Base BaseAdorn BaseDetail Doodad DoodadAdorn Excessive".Split(' '))
@@ -93,7 +96,14 @@ namespace MapEditor
 					string name = final_script[0];
 					final_script.RemoveAt(0);
 
-					this.scripts[name] = final_script.ToArray();
+					if (this.idsByName.ContainsKey(name))
+					{
+						this.idsByName[name].Script = string.Join("\n", final_script.ToArray());
+					}
+					else
+					{
+						System.Windows.MessageBox.Show("Invalid script ID name");
+					}
 				}
 			}
 			return true;
@@ -101,75 +111,49 @@ namespace MapEditor
 
 		private bool ParseIds()
 		{
+
+			this.idsByLayer = new Dictionary<string, List<ID>>();
+			foreach (string layerName in "A B C D E F Stairs".Split(' '))
+			{
+				this.idsByLayer.Add(layerName, new List<ID>());
+			}
+
 			if (this.values.ContainsKey("IDs"))
 			{
 				string[] ids = this.values["IDs"].Trim().Split(',');
 				foreach (string id in ids)
 				{
 					string[] parts = id.Trim().Split('|');
-					if (parts.Length == 3)
+					if (parts.Length == 4)
 					{
 						int x;
 						int y;
 						string name = parts[0];
-						if (!int.TryParse(parts[1], out x))
+						string layer = parts[1];
+						if (!int.TryParse(parts[2], out x))
 						{
 							System.Windows.MessageBox.Show("One of the X coordinates for a tile ID is not a valid number");
 							return false;
 						}
-						if (!int.TryParse(parts[2], out y))
+						if (!int.TryParse(parts[3], out y))
 						{
 							System.Windows.MessageBox.Show("One of the Y coordinates for a tile ID is not a valid number");
 							return false;
 						}
 
-						if (this.ids.ContainsKey(name))
+						if (this.idsByName.ContainsKey(name))
 						{
 							System.Windows.MessageBox.Show("Duplicate tile ID in this map file");
 							return false;
 						}
-						this.ids.Add(name, new int[] { x, y });
+						ID id_instance = new ID() { Layer = layer, Name = name, X = x, Y = y };
+						this.ids.Add(id_instance);
+						this.idsByLayer[layer].Add(id_instance);
+						this.idsByName.Add(name, id_instance);
 					}
 				}
 			}
 
-			return true;
-		}
-
-		private bool ParseIds2Scripts()
-		{
-			if (this.values.ContainsKey("scriptIDs"))
-			{
-				string[] ids = this.values["scriptIDs"].Trim().Split(',');
-				foreach (string id in ids)
-				{
-					string[] parts = id.Trim().Split('|');
-					if (parts.Length != 2)
-					{
-						System.Windows.MessageBox.Show("invalid script-ID pairing");
-						return false;
-					}
-
-					string tile_id = parts[0].Trim();
-					string script_id = parts[1].Trim();
-
-					if (string.IsNullOrEmpty(tile_id) || string.IsNullOrEmpty(script_id))
-					{
-						System.Windows.MessageBox.Show("empty script-ID pairing");
-						return false;
-					}
-
-					if (!this.id2script.ContainsKey(tile_id))
-					{
-						this.id2script[tile_id] = script_id;
-					}
-					else
-					{
-						System.Windows.MessageBox.Show("duplicate ID in script-ID pairings header");
-						return false;
-					}
-				}
-			}
 			return true;
 		}
 
@@ -234,6 +218,34 @@ namespace MapEditor
 			return true;
 		}
 
+		public List<ID> Ids { get { return this.ids; } }
+
+		public void AddId(string layer, int x, int y, string name)
+		{
+			if (this.idsByName.ContainsKey(name))
+			{
+				System.Windows.MessageBox.Show("An ID of that name alrady exists. The ID was not added.");
+			}
+			else
+			{
+				foreach (ID idc in this.ids)
+				{
+					if (idc.Layer == layer && idc.X == x && idc.Y == y)
+					{
+						System.Windows.MessageBox.Show("There's already an ID on that layer in that spot. The ID was not added.");
+						return;
+					}
+				}
+
+				ID id = new ID() { Name = name.Trim(), X = x, Y = y, Layer = layer };
+				this.ids.Add(id);
+				this.idsByLayer[layer].Add(id);
+				this.idsByName.Add(id.Name, id);
+
+				MainWindow.Instance.UpdateIdHighlights();
+			}
+		}
+
 		public void Save()
 		{
 			this.values["width"] = this.Width.ToString();
@@ -271,6 +283,30 @@ namespace MapEditor
 					this.values.Remove("Layer" + layerName);
 				}
 			}
+
+			string ids = "";
+			string scripts = "";
+
+			foreach (ID id in this.ids)
+			{
+				ids += "," + id.Name + "|" + id.Layer + "|" + id.X.ToString() + "|" + id.Y.ToString();
+				if (!string.IsNullOrEmpty(id.Script))
+				{
+					scripts += "|||" + id.Name + "|" + string.Join("|", id.Script.Trim().Split('\n'));
+				}
+			}
+
+			if (ids.Length > 0)
+			{
+				ids = ids.Substring(1);
+				if (scripts.Length > 0)
+				{
+					scripts = scripts.Substring(3);
+				}
+			}
+
+			this.values["IDs"] = ids;
+			this.values["scripts"] = scripts;
 
 			List<string> entries = new List<string>();
 			foreach (string key in this.values.Keys)

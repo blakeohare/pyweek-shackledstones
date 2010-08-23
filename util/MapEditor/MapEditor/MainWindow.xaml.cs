@@ -21,6 +21,7 @@ namespace MapEditor
 		EraserDeep,
 		EraserLayer,
 		Rectangle,
+		IdMarker,
 		None
 	}
 	/// <summary>
@@ -35,73 +36,95 @@ namespace MapEditor
 
 		public MainWindow()
 		{
-			this.ActiveTool = Tool.None;
-			me = this;
-			InitializeComponent();
-			this.file_new.Click += new RoutedEventHandler(file_new_Click);
-			this.file_open.Click += new RoutedEventHandler(file_open_Click);
-			this.file_save.Click += new RoutedEventHandler(file_save_Click);
-			this.mouse_catcher.MouseDown += new MouseButtonEventHandler(mouse_catcher_MouseDown);
-			this.mouse_catcher.MouseUp += new MouseButtonEventHandler(mouse_catcher_MouseUp);
-			this.mouse_catcher.MouseMove += new MouseEventHandler(mouse_catcher_MouseMove);
+			try
+			{
+				this.ActiveTool = Tool.None;
+				me = this;
+				InitializeComponent();
+				this.file_new.Click += new RoutedEventHandler(file_new_Click);
+				this.file_open.Click += new RoutedEventHandler(file_open_Click);
+				this.file_save.Click += new RoutedEventHandler(file_save_Click);
+				this.file_exit.Click += new RoutedEventHandler(file_exit_Click);
 
-			this.tool_selector.SelectionChanged += new SelectionChangedEventHandler(tool_selector_SelectionChanged);
-			this.active_primary_layer.Items.Add("A");
-			this.active_primary_layer.Items.Add("B");
-			this.active_primary_layer.Items.Add("C");
-			this.active_primary_layer.Items.Add("D");
-			this.active_primary_layer.Items.Add("E");
-			this.active_primary_layer.Items.Add("F");
-			this.active_primary_layer.Items.Add("Stairs");
-			this.active_primary_layer.SelectionChanged += new SelectionChangedEventHandler(active_primary_layer_SelectionChanged);
-			this.active_primary_layer.SelectedIndex = 0;
+				this.map_scripts.Click += new RoutedEventHandler(map_scripts_Click);
 
-			this.active_detail_layer.Items.Add("Base");
-			this.active_detail_layer.Items.Add("BaseAdorn");
-			this.active_detail_layer.Items.Add("BaseDetail");
-			this.active_detail_layer.Items.Add("Doodad");
-			this.active_detail_layer.Items.Add("DoodadAdorn");
-			this.active_detail_layer.Items.Add("Excessive");
-			this.active_detail_layer.SelectionChanged += new SelectionChangedEventHandler(active_detail_layer_SelectionChanged);
-			this.active_detail_layer.SelectedIndex = 0;
+				this.mouse_catcher.MouseDown += new MouseButtonEventHandler(mouse_catcher_MouseDown);
+				this.mouse_catcher.MouseUp += new MouseButtonEventHandler(mouse_catcher_MouseUp);
+				this.mouse_catcher.MouseMove += new MouseEventHandler(mouse_catcher_MouseMove);
 
-			// layer visibility
-			this.layer_a.Checked += new RoutedEventHandler(layer_a_Checked);
-			this.layer_b.Checked += new RoutedEventHandler(layer_b_Checked);
-			this.layer_c.Checked += new RoutedEventHandler(layer_c_Checked);
-			this.layer_d.Checked += new RoutedEventHandler(layer_d_Checked);
-			this.layer_e.Checked += new RoutedEventHandler(layer_e_Checked);
-			this.layer_f.Checked += new RoutedEventHandler(layer_f_Checked);
-			this.layer_stairs.Checked += new RoutedEventHandler(layer_stairs_Checked);
-			this.layer_a.Unchecked += new RoutedEventHandler(layer_a_Checked);
-			this.layer_b.Unchecked += new RoutedEventHandler(layer_b_Checked);
-			this.layer_c.Unchecked += new RoutedEventHandler(layer_c_Checked);
-			this.layer_d.Unchecked += new RoutedEventHandler(layer_d_Checked);
-			this.layer_e.Unchecked += new RoutedEventHandler(layer_e_Checked);
-			this.layer_f.Unchecked += new RoutedEventHandler(layer_f_Checked);
-			this.layer_stairs.Unchecked += new RoutedEventHandler(layer_stairs_Checked);
+				this.tool_selector.SelectionChanged += new SelectionChangedEventHandler(tool_selector_SelectionChanged);
+				this.active_primary_layer.Items.Add("A");
+				this.active_primary_layer.Items.Add("B");
+				this.active_primary_layer.Items.Add("C");
+				this.active_primary_layer.Items.Add("D");
+				this.active_primary_layer.Items.Add("E");
+				this.active_primary_layer.Items.Add("F");
+				this.active_primary_layer.Items.Add("Stairs");
+				this.active_primary_layer.SelectionChanged += new SelectionChangedEventHandler(active_primary_layer_SelectionChanged);
+				this.active_primary_layer.SelectedIndex = 0;
 
-			// detail visibility
-			this.detail_base.Checked += new RoutedEventHandler(detail_base_Checked);
-			this.detail_baseadorn.Checked += new RoutedEventHandler(detail_baseadorn_Checked);
-			this.detail_baseextra.Checked += new RoutedEventHandler(detail_baseextra_Checked);
-			this.doodad.Checked += new RoutedEventHandler(doodad_Checked);
-			this.doodadadorn.Checked += new RoutedEventHandler(doodadadorn_Checked);
-			this.excessive.Checked += new RoutedEventHandler(excessive_Checked);
-			this.detail_base.Unchecked += new RoutedEventHandler(detail_base_Checked);
-			this.detail_baseadorn.Unchecked += new RoutedEventHandler(detail_baseadorn_Checked);
-			this.detail_baseextra.Unchecked += new RoutedEventHandler(detail_baseextra_Checked);
-			this.doodad.Unchecked += new RoutedEventHandler(doodad_Checked);
-			this.doodadadorn.Unchecked += new RoutedEventHandler(doodadadorn_Checked);
-			this.excessive.Unchecked += new RoutedEventHandler(excessive_Checked);
+				this.active_detail_layer.Items.Add("Base");
+				this.active_detail_layer.Items.Add("BaseAdorn");
+				this.active_detail_layer.Items.Add("BaseDetail");
+				this.active_detail_layer.Items.Add("Doodad");
+				this.active_detail_layer.Items.Add("DoodadAdorn");
+				this.active_detail_layer.Items.Add("Excessive");
+				this.active_detail_layer.SelectionChanged += new SelectionChangedEventHandler(active_detail_layer_SelectionChanged);
+				this.active_detail_layer.SelectedIndex = 0;
 
-			this.layer_all_off.Click += new RoutedEventHandler(layer_all_off_Click);
-			this.layer_all_on.Click += new RoutedEventHandler(layer_all_on_Click);
+				// layer visibility
+				this.layer_a.Checked += new RoutedEventHandler(layer_a_Checked);
+				this.layer_b.Checked += new RoutedEventHandler(layer_b_Checked);
+				this.layer_c.Checked += new RoutedEventHandler(layer_c_Checked);
+				this.layer_d.Checked += new RoutedEventHandler(layer_d_Checked);
+				this.layer_e.Checked += new RoutedEventHandler(layer_e_Checked);
+				this.layer_f.Checked += new RoutedEventHandler(layer_f_Checked);
+				this.layer_stairs.Checked += new RoutedEventHandler(layer_stairs_Checked);
+				this.layer_a.Unchecked += new RoutedEventHandler(layer_a_Checked);
+				this.layer_b.Unchecked += new RoutedEventHandler(layer_b_Checked);
+				this.layer_c.Unchecked += new RoutedEventHandler(layer_c_Checked);
+				this.layer_d.Unchecked += new RoutedEventHandler(layer_d_Checked);
+				this.layer_e.Unchecked += new RoutedEventHandler(layer_e_Checked);
+				this.layer_f.Unchecked += new RoutedEventHandler(layer_f_Checked);
+				this.layer_stairs.Unchecked += new RoutedEventHandler(layer_stairs_Checked);
 
-			this.detail_all_off.Click += new RoutedEventHandler(detail_all_off_Click);
-			this.detail_all_on.Click += new RoutedEventHandler(detail_all_on_Click);
+				// detail visibility
+				this.detail_base.Checked += new RoutedEventHandler(detail_base_Checked);
+				this.detail_baseadorn.Checked += new RoutedEventHandler(detail_baseadorn_Checked);
+				this.detail_baseextra.Checked += new RoutedEventHandler(detail_baseextra_Checked);
+				this.doodad.Checked += new RoutedEventHandler(doodad_Checked);
+				this.doodadadorn.Checked += new RoutedEventHandler(doodadadorn_Checked);
+				this.excessive.Checked += new RoutedEventHandler(excessive_Checked);
+				this.detail_base.Unchecked += new RoutedEventHandler(detail_base_Checked);
+				this.detail_baseadorn.Unchecked += new RoutedEventHandler(detail_baseadorn_Checked);
+				this.detail_baseextra.Unchecked += new RoutedEventHandler(detail_baseextra_Checked);
+				this.doodad.Unchecked += new RoutedEventHandler(doodad_Checked);
+				this.doodadadorn.Unchecked += new RoutedEventHandler(doodadadorn_Checked);
+				this.excessive.Unchecked += new RoutedEventHandler(excessive_Checked);
 
-			this.tool_selector.SelectedIndex = 0;
+				this.layer_all_off.Click += new RoutedEventHandler(layer_all_off_Click);
+				this.layer_all_on.Click += new RoutedEventHandler(layer_all_on_Click);
+
+				this.detail_all_off.Click += new RoutedEventHandler(detail_all_off_Click);
+				this.detail_all_on.Click += new RoutedEventHandler(detail_all_on_Click);
+
+				this.tool_selector.SelectedIndex = 0;
+			}
+			catch (Exception e)
+			{
+				System.Windows.MessageBox.Show("The following error was encounter so talk to Blake:\n" + e.Message);
+				throw;
+			}
+		}
+
+		void map_scripts_Click(object sender, RoutedEventArgs e)
+		{
+			(new IdListWindow()).ShowDialog();
+		}
+
+		void file_exit_Click(object sender, RoutedEventArgs e)
+		{
+			this.Close();
 		}
 
 		void detail_all_on_Click(object sender, RoutedEventArgs e)
@@ -236,6 +259,7 @@ namespace MapEditor
 				string mapname = System.IO.Path.GetFileNameWithoutExtension(ofd.FileName);
 				Model.Instance.OpenMap(mapname);
 				this.PopulateArtboard();
+				this.UpdateIdHighlights();
 			}
 		}
 
@@ -251,6 +275,38 @@ namespace MapEditor
 		void active_primary_layer_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			this.ActivePrimaryLayer = e.AddedItems[0].ToString();
+			this.UpdateIdHighlights();
+		}
+
+		public void UpdateIdHighlights()
+		{
+			if (ActiveMap != null)
+			{
+				foreach (ID id in ActiveMap.Ids)
+				{
+					int x = id.X;
+					int y = id.Y;
+					Border b = this.GetGridCell(x, y);
+					b.Background = Brushes.Transparent;
+					b.Child = null;
+					b.ToolTip = null;
+				}
+
+				Brush brush = new SolidColorBrush(Color.FromArgb(100, 255, 255, 0));
+
+				foreach (ID id in ActiveMap.Ids)
+				{
+					if (id.Layer == this.ActivePrimaryLayer)
+					{
+						int x = id.X;
+						int y = id.Y;
+						Border b = this.GetGridCell(x, y);
+						b.Background = brush;
+						b.Child = new TextBlock() { Text = id.Name, FontSize = 10, Foreground = Brushes.Black };
+						b.ToolTip = id.Name;
+					}
+				}
+			}
 		}
 
 		void active_detail_layer_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -292,6 +348,11 @@ namespace MapEditor
 				this.ActiveTool = Tool.Tile;
 			//	this.palette_host.Children.Clear();
 				this.Show_Tile_Palette();
+			}
+			else if (cb.SelectedItem == this.cb_id)
+			{
+				this.ActiveTool = Tool.IdMarker;
+
 			}
 			else
 			{
@@ -379,6 +440,8 @@ namespace MapEditor
 		{
 			if (ActiveMap == null) return;
 
+			if (this.ActiveTool == Tool.IdMarker) { return; }
+
 			if (this.mouse_is_down)
 			{
 				Point p = e.GetPosition(this.mouse_catcher);
@@ -403,6 +466,8 @@ namespace MapEditor
 
 			this.mouse_is_down = false;
 
+			if (this.ActiveTool == Tool.IdMarker) { return; }
+
 			if (this.ActiveTool != Tool.Tile)
 			{
 				int left = 0;
@@ -414,7 +479,7 @@ namespace MapEditor
 				{
 					for (int y = top; y <= bottom; ++y)
 					{
-						this.GetGridCell(x, y).Fill = Brushes.Transparent;
+						this.GetGridCell(x, y).Background = Brushes.Transparent;
 					}
 				}
 
@@ -453,7 +518,7 @@ namespace MapEditor
 			this.end_drag_x = this.start_drag_x;
 			this.end_drag_y = this.start_drag_y;
 
-			if (this.ActiveTool != Tool.Tile)
+			if (this.ActiveTool != Tool.Tile && this.ActiveTool != Tool.IdMarker)
 			{
 				this.HighlightThese(start_drag_x, this.start_drag_y, this.end_drag_x, this.end_drag_y);
 			}
@@ -467,14 +532,14 @@ namespace MapEditor
 
 		private void HighlightThese(int startX, int startY, int endX, int endY)
 		{
-			Rectangle r = this.GetGridCell(startX, startY);
-			r.Fill = gridHighlight;
+			Border r = this.GetGridCell(startX, startY);
+			r.Background = gridHighlight;
 		}
 
 		private void ChangeTheseHighlights(int startX, int startY, int endXA, int endYA, int endXB, int endYB)
 		{
-			HashSet<Rectangle> before = new HashSet<Rectangle>();
-			HashSet<Rectangle> after = new HashSet<Rectangle>();
+			HashSet<Border> before = new HashSet<Border>();
+			HashSet<Border> after = new HashSet<Border>();
 
 			int xLeft = Math.Min(startX, endXA);
 			int xRight = Math.Max(startX, endXA);
@@ -487,7 +552,7 @@ namespace MapEditor
 			{
 				for (y = yTop; y <= yBottom; ++y)
 				{
-					Rectangle r = this.GetGridCell(x, y);
+					Border r = this.GetGridCell(x, y);
 					if (r != null) before.Add(r);
 				}
 			}
@@ -501,33 +566,33 @@ namespace MapEditor
 			{
 				for (y = yTop; y <= yBottom; ++y)
 				{
-					Rectangle r = this.GetGridCell(x, y);
+					Border r = this.GetGridCell(x, y);
 					if (r != null) after.Add(this.GetGridCell(x, y));
 				}
 			}
 
-			List<Rectangle> remove_these = new List<Rectangle>();
-			foreach (Rectangle r in after)
+			List<Border> remove_these = new List<Border>();
+			foreach (Border r in after)
 			{
 				if (before.Contains(r))
 				{
 					remove_these.Add(r);
 				}
 			}
-			foreach (Rectangle r in remove_these)
+			foreach (Border r in remove_these)
 			{
 				after.Remove(r);
 				before.Remove(r);
 			}
 
-			foreach (Rectangle r in after)
+			foreach (Border r in after)
 			{
-				r.Fill = gridHighlight;
+				r.Background = gridHighlight;
 			}
 
-			foreach (Rectangle r in before)
+			foreach (Border r in before)
 			{
-				r.Fill = Brushes.Transparent;
+				r.Background = Brushes.Transparent;
 			}
 		}
 
@@ -621,6 +686,15 @@ namespace MapEditor
 				int left, right, top, bottom;
 				switch (this.ActiveTool)
 				{
+					case Tool.IdMarker:
+						AddId addid = new AddId(x, y, this.ActivePrimaryLayer);
+						if (addid.ShowDialog() ?? false)
+						{
+							this.UpdateIdHighlights();
+						}
+						this.mouse_is_down = false;
+						
+						break;
 					case Tool.Tile:
 						if (this.ActiveTile != null)
 						{
@@ -733,11 +807,11 @@ namespace MapEditor
 			}
 		}
 
-		private Rectangle GetGridCell(int x, int y)
+		private Border GetGridCell(int x, int y)
 		{
 			if (ActiveMap != null)
 			{
-				return this.gridoverlay.Children[ActiveMap.Width * y + x] as Rectangle;
+				return this.gridoverlay.Children[ActiveMap.Width * y + x] as Border;
 			}
 			return null;
 		}
@@ -751,10 +825,10 @@ namespace MapEditor
 			{
 				for (int x = 0; x < this.tileWidth; ++x)
 				{
-					Rectangle r = new Rectangle() { Width = 32, Height = 32, HorizontalAlignment = System.Windows.HorizontalAlignment.Left, VerticalAlignment = System.Windows.VerticalAlignment.Top };
+					Border r = new Border() { Width = 32, Height = 32, HorizontalAlignment = System.Windows.HorizontalAlignment.Left, VerticalAlignment = System.Windows.VerticalAlignment.Top };
 					r.Margin = new Thickness(x * 32, y * 32, 0, 0);
-					r.Stroke = black;
-					r.StrokeThickness = .5;
+					r.BorderBrush = black;
+					r.BorderThickness = new Thickness(.5);
 					overlay.Children.Add(r);
 				}
 			}
