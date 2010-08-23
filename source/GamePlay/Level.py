@@ -231,6 +231,7 @@ class Level:
 
 		self.width = int(values['width'])
 		self.height = int(values['height'])
+		self.music = values['music']
 		self.layers = {}
 		for layerName in 'A B C D E F Stairs'.split(' '):
 			content = values.get('Layer' + layerName)
