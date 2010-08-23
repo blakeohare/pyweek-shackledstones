@@ -514,3 +514,4 @@ nature10	Large Tree	xxxx	nature/tree/9.png
 nature11	Large Tree	oxox	nature/tree/10.png
 nature12	Large Tree	xxxx	nature/tree/11.png
 nature13	Large Tree	xoxo	nature/tree/12.png
+nature14	Foliage	oooo	foliage/climbingvines.png
