@@ -4,6 +4,8 @@ class MapScript(Scripted):
       Scripted.__init__(self, scriptIter)
       self._addFn('warp', do_warp)
       self._addFn('dialog', do_dialog)
+      self._addFn('remove_tile', do_removeTile)
+      self._addFn('set tile', do_setTile)
    
    # get the next bit of stuff to display
    def Advance(self):
