@@ -463,3 +463,9 @@ yellow41	Yellow Door	oooo	yellowdoor/top.png
 yellow42	Yellow Door	oooo	yellowdoor/left.png
 yellow43	Yellow Door	oooo	yellowdoor/bottom.png
 yellow44	Yellow Door	oooo	yellowdoor/right.png
+light1	Light Beam	oooo	lightbeam/horizontal.png
+light2	Light Beam	oooo	lightbeam/vertical.png
+mirror1	Mirrors	xxox	mirrors/topright.png
+mirror2	Mirrors	xxxo	mirrors/topleft.png
+mirror3	Mirrors	xoxx	mirrors/bottomleft.png
+mirror4	Mirrors	oxxx	mirrors/bottomright.png
