@@ -516,6 +516,7 @@ nature12	Large Tree	xxxx	nature/tree/11.png
 nature13	Large Tree	xoxo	nature/tree/12.png
 nature14	Foliage	oooo	foliage/climbingvines.png
 nature15	Foliage	oooo	foliage/climbingvineshorizontal.png
+nature16	Bushes	xxxx	nature/shrub.png
 dirt1	Dirt Wall	xxxx	dirtwall/topleftconcave.png
 dirt2	Dirt Wall	xxxx	dirtwall/top.png
 dirt3	Dirt Wall	xxxx	dirtwall/toprightconcave.png
