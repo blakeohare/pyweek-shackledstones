@@ -472,23 +472,23 @@ mirror4	Mirrors	oxxx	mirrors/bottomright.png
 torch1	Torches	xxxx	torches/on1.png|torches/on2.png
 torch2	Torches	xxxx	torches/off.png
 fire	Fire	xxxx	fire/1.png|fire/2.png	6
-swamp1	Swamp Water	xxxx	swamp/1.png|swamp/2.png|swamp/3.png|swamp/4.png	8
-swamp2	Swamp Water	xxxx	swamp/solid.png
-swamp3	Swamp Ground	oooo	swamp/ground1.png
-swamp4	Swamp Ground	oooo	swamp/ground2.png
-swamp5	Swamp Ground	oooo	swamp/ground3.png
-swamp6	Swamp Ground	oooo	swamp/top.png
-swamp7	Swamp Ground	oooo	swamp/left.png
-swamp8	Swamp Ground	oooo	swamp/right.png
-swamp9	Swamp Ground	oooo	swamp/bottom.png
-swamp10	Swamp Ground	oooo	swamp/topleft.png
-swamp11	Swamp Ground	oooo	swamp/topright.png
-swamp12	Swamp Ground	oooo	swamp/bottomright.png
-swamp13	Swamp Ground	oooo	swamp/bottomleft.png
-swamp14	Swamp Ground	oooo	swamp/topleftconcave.png
-swamp15	Swamp Ground	oooo	swamp/toprightconcave.png
-swamp16	Swamp Ground	oooo	swamp/bottomrightconcave.png
-swamp17	Swamp Ground	oooo	swamp/bottomleftconcave.png
+swamp1	Swamp Water	oooo	swamp/1.png|swamp/2.png|swamp/3.png|swamp/4.png	8
+swamp2	Swamp Water	oooo	swamp/solid.png
+swamp3	Swamp Ground	floor	swamp/ground1.png
+swamp4	Swamp Ground	floor	swamp/ground2.png
+swamp5	Swamp Ground	floor	swamp/ground3.png
+swamp6	Swamp Ground	floor	swamp/top.png
+swamp7	Swamp Ground	floor	swamp/left.png
+swamp8	Swamp Ground	floor	swamp/right.png
+swamp9	Swamp Ground	floor	swamp/bottom.png
+swamp10	Swamp Ground	floor	swamp/topleft.png
+swamp11	Swamp Ground	floor	swamp/topright.png
+swamp12	Swamp Ground	floor	swamp/bottomright.png
+swamp13	Swamp Ground	floor	swamp/bottomleft.png
+swamp14	Swamp Ground	floor	swamp/topleftconcave.png
+swamp15	Swamp Ground	floor	swamp/toprightconcave.png
+swamp16	Swamp Ground	floor	swamp/bottomrightconcave.png
+swamp17	Swamp Ground	floor	swamp/bottomleftconcave.png
 fp1	Floor Panel	oooo	floorpanels/redup.png
 fp2	Floor Panel	oooo	floorpanels/reddown.png
 fp3	Floor Panel	oooo	floorpanels/whiteup.png
@@ -502,3 +502,15 @@ fp10	Floor Panel	oooo	floorpanels/blackdown.png
 fp11	Floor Panel	oooo	floorpanels/greenup.png
 fp12	Floor Panel	oooo	floorpanels/greendown.png
 nature1	Grass	floor	nature/grass.png
+nature2	Large Tree	ooox	nature/tree/1.png
+nature3	Large Tree	ooxx	nature/tree/2.png
+nature4	Large Tree	ooxo	nature/tree/3.png
+nature5	Large Tree	oxxx	nature/tree/4.png
+nature6	Large Tree	xxxx	nature/tree/5.png
+nature7	Large Tree	xoxx	nature/tree/6.png
+nature8	Large Tree	xxxx	nature/tree/7.png
+nature9	Large Tree	xxxx	nature/tree/8.png
+nature10	Large Tree	xxxx	nature/tree/9.png
+nature11	Large Tree	oxox	nature/tree/10.png
+nature12	Large Tree	xxxx	nature/tree/11.png
+nature13	Large Tree	xoxo	nature/tree/12.png
