@@ -469,3 +469,5 @@ mirror1	Mirrors	xxox	mirrors/topright.png
 mirror2	Mirrors	xxxo	mirrors/topleft.png
 mirror3	Mirrors	xoxx	mirrors/bottomleft.png
 mirror4	Mirrors	oxxx	mirrors/bottomright.png
+torch1	Torches	xxxx	torches/on1.png|torches/on2.png
+torch2	Torches	xxxx	torches/off.png
