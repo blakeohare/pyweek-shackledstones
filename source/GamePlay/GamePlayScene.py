@@ -7,7 +7,7 @@ class Player:
 		self.direction = 'right'
 	
 	def DrawingCoords(self):
-		return (self.x - self.r, self.y - self.r)
+		return (self.x - self.r, self.y - self.r - 13)
 	
 	def CurrentImage(self, render_counter):
 		if self.direction == 'right':
@@ -30,18 +30,22 @@ class GamePlayScene:
 	
 	def ProcessInput(self, events):
 		v = 3
+		vx = 0
+		vy = 0
 		if is_pressed('left'):
 			self.player.direction = 'left'
-			self.player.x -= v
+			vx = -v
 		elif is_pressed('right'):
 			self.player.direction = 'right'
-			self.player.x += v
+			vx = v
 		if is_pressed('up'):
 			self.player.direction = 'up'
-			self.player.y -= v
+			vy = -v
 		elif is_pressed('down'):
 			self.player.direction = 'down'
-			self.player.y += v
+			vy = v
+		
+		self.do_sprite_move(self.player, vx, vy)
 		
 	def Update(self, game_counter):
 		pass
@@ -93,3 +97,12 @@ class GamePlayScene:
 			return [self.player]
 		else:
 			return []
+	
+	def do_sprite_move(self, sprite, vx, vy):
+		
+		# returns (final layer, final x, final y)
+		params = self.level.move_request(sprite.layer, sprite.x, sprite.y, vx, vy, sprite.r)
+		sprite.layer = params[0]
+		sprite.x = params[1]
+		sprite.y = params[2]
+		

@@ -72,6 +72,10 @@ class Tile:
 		self.composite_physics()
 	
 	def composite_physics(self):
+		if len(self.stack) == 0:
+			self.physics = 'xxxx'
+			return
+		
 		physics = [True, True, True, True]
 		for tile in self.stack:
 			tphys = tile.physics
@@ -192,6 +196,125 @@ class Level:
 		layer = self.layers[layername]
 		if layer.contains_stuff:
 			layer.Render(screen, x_offset, y_offset, render_counter)
+	
+	
+	def is_stair_tile(self, x, y):
+		stairs = self.layers['Stairs']
+		if stairs.contains_stuff:
+			return stairs.tiles[x][y].physics == 'oooo'
+		return False
+	
+	def move_request(self, orig_layer, orig_x, orig_y, dx, dy, radius):
+		dest_x = orig_x + dx
+		dest_y = orig_y + dy
+		
+		left = orig_x
+		right = orig_x
+		top = orig_y
+		bottom = orig_y
+		
+		if orig_x < dest_x:
+			right = dest_x
+		else:
+			left = dest_x
+		
+		if orig_y < dest_y:
+			bottom = dest_y
+		else:
+			top = dest_y
+		
+		left -= radius
+		top -= radius
+		right += radius
+		bottom += radius
+		
+		walls = self.get_walls(orig_layer, left, top, right, bottom)
 
+		if not self.rectangle_touches_walls(dest_x - radius, dest_y - radius, dest_x + radius, dest_y + radius, walls):
+			return (orig_layer, dest_x, dest_y)
+		return (orig_layer, orig_x, orig_y)
+	
+	def rectangle_touches_walls(self, left, top, right, bottom, walls):
+		
+		for wall in walls:
+			if left > wall[2] + wall[0] or top > wall[1] + wall[3] or right < wall[0] or bottom < wall[1]:
+				continue
+			return True
+		return False
+	
+	# pixel coordinates
+	def get_walls(self, layer, left, top, right, bottom):
+		
+		tile_left = (left - 4) >> 4
+		tile_right = (right + 4) >> 4
+		tile_top = (top - 4) >> 4
+		tile_bottom = (bottom + 4) >> 4
+		
+		walls = []
+		
+		if layer != 'Stairs':
+			layer = self.layers[layer]
+			
+			y = tile_top
+			while y <= tile_bottom:
+				x = tile_left
+				while x <= tile_right:
+					if not self.is_stair_tile(x, y):
+						phys = layer.tiles[x][y].physics
+						if phys == 'oooo':
+							pass
+						elif phys == 'xxxx':
+							walls.append((x << 4, y << 4, 16, 16))
+						else:
+							if phys[0] == 'x':
+								walls.append((x << 4, y << 4, 8, 8))
+							if phys[1] == 'x':
+								walls.append(((x << 4) + 8, y << 4, 8, 8))
+							if phys[2] == 'x':
+								walls.append((x << 4, (y << 4) + 8, 8, 8))
+							if phys[3] == 'x':
+								walls.append(((x << 4) + 8, (y << 4) + 8, 8, 8))
+							
+					x += 1
+				y += 1
+		else:
+			layerNames = 'A B C D E F'.split(' ')
+			y = tile_top
+			while y <= tile_bottom:
+				x = tile_left
+				while x <= tile_right:
+					if not self.is_stair_tile(x, y):
+						for layerName in layerNames:
+							other_layer = self.layers[layerName]
+							any_found = False
+							if other_layer.contains_stuff:
+								phys = other_layer.tiles[x][y].physics 
+								if phys == 'oooo':
+									any_found = True
+								elif phys == 'xxxx':
+									pass
+								else:
+									any_found = True
+									if phys[0] == 'x':
+										walls.append((x << 4, y << 4, 8, 8))
+									if phys[1] == 'x':
+										walls.append(((x << 4) + 8, y << 4, 8, 8))
+									if phys[2] == 'x':
+										walls.append((x << 4, (y << 4) + 8, 8, 8))
+									if phys[3] == 'x':
+										walls.append(((x << 4) + 8, (y << 4) + 8, 8, 8))
+							if any_found:
+								break
+						if not any_found:
+							walls.append((x << 4, y << 4, 16, 16))
+						
+					x += 1
+				y += 1
+			
+			
+		
+		return walls
+		
+		
 ### STATIC ###
 
