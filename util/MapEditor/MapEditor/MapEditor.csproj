@@ -54,12 +54,18 @@
     <Compile Include="AddId.xaml.cs">
       <DependentUpon>AddId.xaml</DependentUpon>
     </Compile>
+    <Compile Include="EditKeyWindow.xaml.cs">
+      <DependentUpon>EditKeyWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ID.cs" />
     <Compile Include="IdListWindow.xaml.cs">
       <DependentUpon>IdListWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="MapVariables.xaml.cs">
       <DependentUpon>MapVariables.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="NewKeyWindow.xaml.cs">
+      <DependentUpon>NewKeyWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="NewMap.xaml.cs">
       <DependentUpon>NewMap.xaml</DependentUpon>
@@ -72,7 +78,14 @@
     </Compile>
     <Compile Include="Tile.cs" />
     <Compile Include="TileStore.cs" />
+    <Compile Include="VarEditList.xaml.cs">
+      <DependentUpon>VarEditList.xaml</DependentUpon>
+    </Compile>
     <Page Include="AddId.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EditKeyWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -96,6 +109,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="NewKeyWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="NewMap.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -105,6 +122,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ScriptEditWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VarEditList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

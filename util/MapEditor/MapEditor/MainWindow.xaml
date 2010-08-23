@@ -24,6 +24,7 @@
 				<MenuItem Header="Map">
 					<MenuItem.Items>
 						<MenuItem Header="Scripts" x:Name="map_scripts"/>
+						<MenuItem Header="Edit Map Values" x:Name="map_values" />
                         <MenuItem Header="Music"  x:Name="map_music"/>
 					</MenuItem.Items>
 				</MenuItem>

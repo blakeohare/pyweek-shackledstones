@@ -48,6 +48,7 @@ namespace MapEditor
 
 				this.map_scripts.Click += new RoutedEventHandler(map_scripts_Click);
                 this.map_music.Click += new RoutedEventHandler(map_music_Click);
+				this.map_values.Click += new RoutedEventHandler(map_values_Click);
 
 				this.mouse_catcher.MouseDown += new MouseButtonEventHandler(mouse_catcher_MouseDown);
 				this.mouse_catcher.MouseUp += new MouseButtonEventHandler(mouse_catcher_MouseUp);
@@ -116,6 +117,13 @@ namespace MapEditor
 				System.Windows.MessageBox.Show("The following error was encounter so talk to Blake:\n" + e.Message);
 				throw;
 			}
+		}
+
+		void map_values_Click(object sender, RoutedEventArgs e)
+		{
+			if (ActiveMap == null) return;
+			VarEditList vel = new VarEditList();
+			vel.ShowDialog();
 		}
 
         void map_music_Click(object sender, RoutedEventArgs e)

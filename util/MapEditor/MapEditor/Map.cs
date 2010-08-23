@@ -18,6 +18,8 @@ namespace MapEditor
 
 		public bool IsValid { get; set; }
 
+		public Dictionary<string, string> Values { get { return this.values; } }
+
 		// load from file
 		public Map(string name)
 		{

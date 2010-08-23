@@ -1,0 +1,14 @@
+﻿<Window x:Class="MapEditor.NewKeyWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="NewKeyWindow" Height="300" Width="300">
+    <Grid>
+		<StackPanel Orientation="Vertical">
+			<StackPanel Orientation="Horizontal">
+				<TextBlock Text="Key name: " />
+				<TextBox x:Name="key_name" Width="130"/>
+			</StackPanel>
+			<Button x:Name="ok_button">OK</Button>
+		</StackPanel>
+	</Grid>
+</Window>
