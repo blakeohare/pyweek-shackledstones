@@ -529,3 +529,8 @@ dirt9	Dirt Wall	xxxx	dirtwall/topleftconvex.png
 dirt10	Dirt Wall	xxxx	dirtwall/toprightconvex.png
 dirt11	Dirt Wall	xxxx	dirtwall/bottomrightconvex.png
 dirt12	Dirt Wall	xxxx	dirtwall/bottomleftconvex.png
+items1	Items	oooo	items/sabre.png
+items2	Items	oooo	items/hammer.png
+items3	Items	oooo	items/drill.png
+items4	Items	oooo	items/grapplingmagnet.png
+items5	Items	oooo	items/handcannon.png
