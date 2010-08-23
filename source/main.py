@@ -31,7 +31,7 @@ def main():
 		scene = GamePlayScene('test_level', 100, 100)
 	
 	#scene = DialogScene(Dialog(Parser.LoadFile(scriptPath('test'))))
-	scene = MainMenuScene()
+	#scene = MainMenuScene()
 	
 	while scene != None:
 			
