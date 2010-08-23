@@ -1,4 +1,13 @@
 class MainMenuScene:
+   def StartGame(self):
+      print("Start Game")
+   
+   def Setup(self):
+      print("Setup")
+   
+   def Credits(self):
+      print("Credits")
+
    def __init__(self):
       self._fc = 0
       self.next = self
@@ -56,12 +65,3 @@ class MainMenuScene:
       gy = startOffset[1] - 10 + (self._selection * 50)
       g = self._gears[frame]
       screen.blit(g, (gx, gy))
-   
-   def StartGame(self):
-      print("start Game")
-   
-   def Setup(self):
-      print("Setup")
-   
-   def Credits(self):
-      print("Credits")
