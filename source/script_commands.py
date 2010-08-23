@@ -16,17 +16,17 @@ def do_dialog(scriptFile):
 cr.Register("dialog", do_dialog, 1)
 
 # remove tile: removes a tile from the map
-# tileId ------ the id of the tile to remove
-# detailLayer - which layer to remove it from
+# tileId ------ id indicating which position and layer
+# detailLayer - which detail layer to remove it from
 def do_removeTile(tileId, detailLayer):
    pass
    
 cr.Register('remove tile', do_removeTile, 2)
 
 # set tile: updates the tile at a location
-# posId ------- id indicating which tile
-# detailLayer - which layer we're acting in
-# tileTypeId -- I have no idea
+# posId ------- id indicating which position and layer
+# detailLayer - which detail layer we're acting in
+# tileTypeId -- ID of the tile to add (can be referenced from the tiles.txt file in /data/)
 def do_setTile(posId, detailLayer, tileTypeId):
    pass
 cr.Register('set tile', do_setTile, 3)
