@@ -20,6 +20,7 @@ def main():
 		
 	virtual_screen = pygame.Surface((width, height))
 	
+	_inputManager.initializeJoystick()
 	
 	#scene = DialogScene(Dialog(Parser.LoadFile(scriptPath('test'))))
 	scene = MainMenuScene()

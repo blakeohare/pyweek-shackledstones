@@ -12,7 +12,7 @@ class MainMenuScene:
 		self.next = scene
 	
 	def Setup(self):
-		print("Setup")
+		self.next = JoystickConfigScene()
 	
 	def Credits(self):
 		print("Credits")
