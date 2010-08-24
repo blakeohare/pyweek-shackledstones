@@ -41,3 +41,9 @@ def do_setTile(posId, detailLayer, tileTypeId):
 		layers[id.layer].tiles[id.x][id.y].SetTile(detailLayer, '')
 
 cr.Register('set tile', do_setTile, 3)
+
+def do_sound(file):
+   pass
+
+def do_music(file, loop = False):
+   pass

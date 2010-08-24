@@ -6,6 +6,8 @@ class MapScript(Scripted):
       self._addFn('dialog', do_dialog)
       self._addFn('remove tile', do_removeTile)
       self._addFn('set tile', do_setTile)
+      self._addFn('sound', do_sound)
+      self._addFn('music', do_music)
    
    # get the next bit of stuff to display
    def Advance(self):
