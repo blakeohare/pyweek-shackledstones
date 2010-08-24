@@ -103,7 +103,7 @@ class Level:
 	
 	def is_stair_tile(self, x, y):
 		stairs = self.layers['Stairs']
-		if stairs.contains_stuff:
+		if stairs.contains_stuff and x>=0 and y >= 0 and x < self.width and y < self.height:
 			return stairs.tiles[x][y].physics == 'oooo'
 		return False
 	
