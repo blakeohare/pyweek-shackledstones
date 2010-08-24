@@ -13,7 +13,10 @@ class InventoryScene:
       self.next = self
    
    def ProcessInput(self, events):
-      pass
+      for e in events:
+         if e.down and e.key == 'start':
+            self._baseScene.next = self._baseScene
+            self.next = self._baseScene
    
    def Update(self, conter):
       pass
