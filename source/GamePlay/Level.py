@@ -85,14 +85,15 @@ class Level:
 			id_strings = trim(id_strings).split(',')
 			for id_string in id_strings:
 				parts = trim(id_string).split('|')
-				name = parts[0]
-				layer = parts[1]
-				x = int(parts[2])
-				y = int(parts[3])
-				script = scripts.get(name)
-				id = IdMarker(name, layer, x, y, script)
-				self.layers[layer].tiles[x][y].SetId(id)
-				ids[name] = id
+				if len(parts) == 4:
+					name = parts[0]
+					layer = parts[1]
+					x = int(parts[2])
+					y = int(parts[3])
+					script = scripts.get(name)
+					id = IdMarker(name, layer, x, y, script)
+					self.layers[layer].tiles[x][y].SetId(id)
+					ids[name] = id
 		self.ids = ids
 				
 	def Render(self, layername, screen, x_offset, y_offset, render_counter):
