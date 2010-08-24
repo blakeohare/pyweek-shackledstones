@@ -52,6 +52,8 @@ class InputManager:
 					events.append(InputEvent('Y', True))
 				elif event.key == K_d:
 					events.append(InputEvent('X', True))
+				elif event.key == K_RETURN:
+					events.append(InputEvent('start', True))
 			elif event.type == KEYUP:
 				if event.key == K_UP:
 					events.append(InputEvent('up', False))
@@ -69,6 +71,8 @@ class InputManager:
 					events.append(InputEvent('Y', False))
 				elif event.key == K_d:
 					events.append(InputEvent('X', False))
+				elif event.key == K_RETURN:
+					events.append(InputEvent('start', False))
 		
 		for event in events:
 			self.is_pressed[event.key] = event.down
