@@ -55,15 +55,15 @@ class TransitionScene:
 			screen.blit(self.get_to_screen(), (x, y))
 			screen.blit(self.get_from_screen(), (x, y + h))
 		elif transition == WARP_ESCROLL:
-			x = -x
-			y = 0
-			screen.blit(self.get_from_screen(), (x, y))
-			screen.blit(self.get_to_screen(), (x + w, y))
-		elif transition == WARP_WSCROLL:
 			x = x
 			y = 0
-			screen.blit(self.get_from_screen(), (x, y))
-			screen.blit(self.get_to_screen(), (x - w, y))
+			screen.blit(self.get_to_screen(), (x, y))
+			screen.blit(self.get_from_screen(), (x - w, y))
+		elif transition == WARP_WSCROLL:
+			x = -x
+			y = 0
+			screen.blit(self.get_to_screen(), (x, y))
+			screen.blit(self.get_from_screen(), (x + w, y))
 		elif transition == WARP_PIXELATE:
 			pass
 			#TODO: Pixelate
