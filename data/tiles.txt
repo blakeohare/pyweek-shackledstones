@@ -626,3 +626,16 @@ fire2	Magma	oooo	magma/1.png|magma/2.png|magma/3.png|magma/4.png	6
 nature18	Palm Tree	oooo	nature/palmtop.png
 nature19	Palm Tree	xxxx	nature/palmbottom.png
 nature20	Bushes	xxxx	nature/plant.png
+dirt14	Dirt	oooo	dirt/middle.png
+dirt15	Dirt	oooo	dirt/grasstop.png
+dirt16	Dirt	oooo	dirt/grassleft.png
+dirt17	Dirt	oooo	dirt/grassright.png
+dirt18	Dirt	oooo	dirt/grassbottom.png
+dirt19	Dirt	oooo	dirt/grasstoplefta.png
+dirt20	Dirt	oooo	dirt/grasstopleftb.png
+dirt21	Dirt	oooo	dirt/grasstoprighta.png
+dirt22	Dirt	oooo	dirt/grasstoprightb.png
+dirt23	Dirt	oooo	dirt/grassbottomlefta.png
+dirt24	Dirt	oooo	dirt/grassbottomleftb.png
+dirt25	Dirt	oooo	dirt/grassbottomrighta.png
+dirt26	Dirt	oooo	dirt/grassbottomrightb.png
