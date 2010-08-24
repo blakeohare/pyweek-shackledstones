@@ -1,3 +1,3 @@
-#!/usr/bin/bash
+#!/bin/bash
 python util/preprocessor.py
 python game.py
