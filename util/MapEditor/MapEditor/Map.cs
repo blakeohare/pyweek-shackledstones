@@ -86,9 +86,9 @@ namespace MapEditor
 			if (this.values.ContainsKey("scripts"))
 			{
 				string[] scripts = this.values["scripts"].Split(new string[] { "|||" }, StringSplitOptions.RemoveEmptyEntries);
-				List<string> final_script = new List<string>();
 				foreach (string script in scripts)
 				{
+					List<string> final_script = new List<string>();
 					string[] lines = script.Trim().Split('|');
 					foreach (string line in lines)
 					{
