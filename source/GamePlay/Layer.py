@@ -8,13 +8,30 @@ class Layer:
 	def SetTiles(self, tile_list):
 		self.tiles = make_table(self.width, self.height)
 		self.contains_stuff = True
+		
+		top = self.height - 1
+		bottom = 0
+		left = self.width - 1
+		right = 0
+		
 		y = 0
 		while y < self.height:
 			x = 0
 			while x < self.width:
-				self.tiles[x][y] = tile_list[x + y * self.width]
+				tl = tile_list[x + y * self.width]
+				self.tiles[x][y] = tl
+				if not tl.is_blank:
+					top = min(y, top)
+					bottom = max(y, bottom)
+					left = min(x, left)
+					right = max(x, right)
 				x += 1
 			y += 1
+		
+		self.top = top
+		self.bottom = bottom
+		self.left = left
+		self.right = right
 
 	def MarkStairTile(self, x, y):
 		self.tiles[x][y].is_stair_tile()
@@ -38,10 +55,10 @@ class Layer:
 		height = self.height
 		tiles = self.tiles
 		
-		left = max(0, int(x_offset / -16) - 2)
-		top = max(0, int(y_offset / -16) - 2)
-		right = min(left + 24 + 4, width)
-		bottom = min(top + 18 + 4, height)
+		left = max(self.left, int(x_offset / -16) - 2)
+		top = max(self.top, int(y_offset / -16) - 2)
+		right = min(left + 24 + 4, self.right + 1)
+		bottom = min(top + 18 + 4, self.bottom + 1)
 		
 		y = top
 		while y < bottom:

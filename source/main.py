@@ -62,6 +62,9 @@ def main():
 		difference = 1 / 30.0 - duration
 		if difference > 0:
 			time.sleep(difference)
+		else:
+			#print("Framerate dropping! (" + str(counter) + ")")
+			pass
 
 if testCode:
    RunTests()

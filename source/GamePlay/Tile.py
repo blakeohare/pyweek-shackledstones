@@ -3,6 +3,7 @@ class Tile:
 	def __init__(self, id_list):
 		self.orig_stack = id_list[:]
 		self.id = None
+		self.is_blank = False
 		self.initialize()
 		
 	def SetTile(self, detaillayer, id):
@@ -28,6 +29,7 @@ class Tile:
 			self.Render = self._static_render
 		elif len(tile_stack) == 0:
 			self.Render = self._dont_render
+			self.is_blank = True
 		else:
 			self.Render = self._animation_render
 		
