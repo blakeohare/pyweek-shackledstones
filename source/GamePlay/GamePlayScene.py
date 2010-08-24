@@ -25,6 +25,8 @@ class GamePlayScene:
 			if event.down and event.key == 'B':
 				if self.player.state == 'walking':
 					self.player.Stab()
+			elif event.down and event.key == 'start':
+				self.next = InventoryScene(self)
 		v = 3
 		vx = 0
 		vy = 0
