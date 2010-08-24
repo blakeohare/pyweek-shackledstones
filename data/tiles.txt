@@ -618,3 +618,5 @@ blackside9	Black Side Doors	xxxx	sidedoor/black/cr1.png
 blackside10	Black Side Doors	xxxx	sidedoor/black/cr2.png
 blackside11	Black Side Doors	blackkey	sidedoor/black/lr1.png
 blackside12	Black Side Doors	blackkey	sidedoor/black/lr2.png
+boulder1	Cracked Boulder	xxxx	crackedboulder.png
+dirt13	Planting Stuff	oooo	dirtmound.png
