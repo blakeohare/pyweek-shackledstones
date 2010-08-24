@@ -8,6 +8,7 @@ The following indicate which items the player has. They are either 1 or None
 item_sabre
 item_hammer
 item_drill
+item_hook
 item_cannon
 item_cannon_fire
 item_cannon_ice
