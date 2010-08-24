@@ -106,7 +106,7 @@
 							<CheckBox x:Name="detail_base" IsChecked="True" />
 							<TextBlock Text="Base Adorn " Margin="20,0,0,0" />
 							<CheckBox x:Name="detail_baseadorn" IsChecked="True" />
-							<TextBlock Text="Base Extra " Margin="20,0,0,0" />
+							<TextBlock Text="Base Detail " Margin="20,0,0,0" />
 							<CheckBox x:Name="detail_baseextra" IsChecked="True" />
 							<TextBlock Text="Doodad " Margin="20,0,0,0" />
 							<CheckBox x:Name="doodad" IsChecked="True" />

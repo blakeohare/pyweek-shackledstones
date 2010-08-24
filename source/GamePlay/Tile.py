@@ -7,7 +7,7 @@ class Tile:
 		self.initialize()
 		
 	def SetTile(self, detaillayer, id):
-		index = {'base' : 0, 'baseadorn' : 1, 'baseextra' : 2, 'doodad' : 3, 'doodadadorn' : 4, 'excessive' : 5 }[detaillayer]
+		index = {'base' : 0, 'baseadorn' : 1, 'basedetail' : 2, 'doodad' : 3, 'doodadadorn' : 4, 'excessive' : 5 }[detaillayer]
 		self.orig_stack[index] = id
 		self.initialize()
 		
