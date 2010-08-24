@@ -50,6 +50,7 @@ class GamePlayScene:
 		self.do_sprite_move(self.player, vx, vy)
 		
 	def Update(self, game_counter):
+		play_music('highlightsoflight')
 		self.level.update_tile_standing_on(self.player.layer, self.player.x, self.player.y)
 		
 		for sprite in self.get_sprites():

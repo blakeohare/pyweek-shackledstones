@@ -27,6 +27,7 @@ class Player:
 	def Stab(self):
 		self.state_counter = 7
 		self.state = 'stabbing'
+		play_sound('sword')
 	
 	def CurrentImage(self, render_counter):
 		if self.state == 'walking':
