@@ -438,7 +438,10 @@ namespace MapEditor
 			foreach (Tile tile in tiles)
 			{
 				ListBoxItem lbi = new ListBoxItem();
-				lbi.Content = new Image() { Source = tile.Image };
+				StackPanel sp = new StackPanel() { Orientation = System.Windows.Controls.Orientation.Horizontal };
+				sp.Children.Add(new Image() { Source = tile.Image, Margin = new Thickness(0, 0, 10, 0) });
+				sp.Children.Add(new TextBlock() { Text = tile.Name });
+				lbi.Content = sp;
 				lb.Items.Add(lbi);
 			}
 			lb.SelectionChanged += new SelectionChangedEventHandler(lb_SelectionChanged);

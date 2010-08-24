@@ -13,11 +13,13 @@ namespace MapEditor
 
 		public string ID { get; set; }
 		public ImageSource Image { get; set; }
+		public string Name { get; set; }
 
 		public Tile(string id, Uri fileUri)
 		{
 			this.ID = id;
 			this.Image = new BitmapImage(fileUri);
+			this.Name = System.IO.Path.GetFileNameWithoutExtension(fileUri.OriginalString);
 		}
 	}
 }
