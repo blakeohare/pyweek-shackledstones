@@ -5,9 +5,6 @@ class Tile:
 		self.id = None
 		self.initialize()
 		
-	def RemoveTile(self, detaillayer):
-		self.SetTile(detaillayer, '')
-		
 	def SetTile(self, detaillayer, id):
 		index = {'base' : 0, 'baseadorn' : 1, 'baseextra' : 2, 'doodad' : 3, 'doodadadorn' : 4, 'excessive' : 5 }[detaillayer]
 		self.orig_stack[index] = id
@@ -29,8 +26,8 @@ class Tile:
 		self.stack = tile_stack
 		if no_animations:
 			self.Render = self._static_render
-		#elif len(tile_stack) == 0:
-		#	self.Render = self._dont_render
+		elif len(tile_stack) == 0:
+			self.Render = self._dont_render
 		else:
 			self.Render = self._animation_render
 		
