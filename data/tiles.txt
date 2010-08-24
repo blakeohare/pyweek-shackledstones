@@ -639,3 +639,16 @@ dirt23	Dirt	oooo	dirt/grassbottomlefta.png
 dirt24	Dirt	oooo	dirt/grassbottomleftb.png
 dirt25	Dirt	oooo	dirt/grassbottomrighta.png
 dirt26	Dirt	oooo	dirt/grassbottomrightb.png
+sand14	Sand	oooo	sand/middle.png
+sand15	Sand	oooo	sand/grasstop.png
+sand16	Sand	oooo	sand/grassleft.png
+sand17	Sand	oooo	sand/grassright.png
+sand18	Sand	oooo	sand/grassbottom.png
+sand19	Sand	oooo	sand/grasstoplefta.png
+sand20	Sand	oooo	sand/grasstopleftb.png
+sand21	Sand	oooo	sand/grasstoprighta.png
+sand22	Sand	oooo	sand/grasstoprightb.png
+sand23	Sand	oooo	sand/grassbottomlefta.png
+sand24	Sand	oooo	sand/grassbottomleftb.png
+sand25	Sand	oooo	sand/grassbottomrighta.png
+sand26	Sand	oooo	sand/grassbottomrightb.png
