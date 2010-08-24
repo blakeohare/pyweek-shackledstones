@@ -3,7 +3,8 @@
 # tileId ---------- the id of the tile to warp to (alpha numeric)
 # transitionStyle - how the warp is displayed, will be one of WARP_X from constants.py
 def do_warp(mapFile, tileId, transitionStyle = WARP_INSTANT):
-   pass
+   game_scene = ActiveGame().GetActiveGameScene()
+   game_scene.next = TransitionScene(game_scene, mapFile, tileId, transitionStyle)
 
 cr.Register("warp", do_warp, 3)
 

@@ -1,31 +1,4 @@
-class Player:
-	def __init__(self):
-		self.x = 100
-		self.y = 100
-		self.layer = 'A'
-		self.r = 8
-		self.direction = 'right'
-		self.walking = False
-	
-	def DrawingCoords(self):
-		return (self.x - self.r, self.y - self.r - 13)
-	
-	def CurrentImage(self, render_counter):
-		if self.walking:
-			counter = ('0','1','0','2')[(render_counter // 3) & 3]
-		else:
-			counter = 0
-		counter = str(counter)
-		if self.direction == 'right':
-			return get_image('sprites/maincharacter/right' + counter)
-		if self.direction == 'left':
-			return get_image('sprites/maincharacter/left' + counter)
-		if self.direction == 'up':
-			return get_image('sprites/maincharacter/up' + counter)
-		if self.direction == 'down':
-			return get_image('sprites/maincharacter/down' + counter)
-		return get_image('sprites/maincharacter/down' + counter)
-		
+
 class GamePlayScene:
 	
 	def __init__(self, level_name, startX, startY):
@@ -38,6 +11,13 @@ class GamePlayScene:
 		self.player.x = startX
 		self.player.y = startY
 		self.level = Level(level_name)
+		self.player_invisible = False
+	
+	def place_player(self, layer, x, y):
+		self.player.layer = layer
+		self.player.x = (x << 4) + 8
+		self.player.y = (y << 4) + 8
+		self.level.synch_stand_key(layer, self.player.x >> 4, self.player.y >> 4)
 	
 	def ProcessInput(self, events):
 		v = 3
@@ -63,7 +43,7 @@ class GamePlayScene:
 		self.do_sprite_move(self.player, vx, vy)
 		
 	def Update(self, game_counter):
-		self.level.update_tile_standing_on(self.player.layer, self.player.x >> 4, self.player.y >> 4)
+		self.level.update_tile_standing_on(self.player.layer, self.player.x, self.player.y)
 	
 	def Render(self, screen):
 		
@@ -110,7 +90,7 @@ class GamePlayScene:
 		return (offset_x, offset_y)
 	
 	def get_renderable_sprites(self, layer):
-		if self.player.layer == layer:
+		if self.player.layer == layer and not self.player_invisible:
 			return [self.player]
 		else:
 			return []

@@ -52,7 +52,7 @@ def make_list(size):
 def make_table(width, height):
 	cols = make_list(width)
 	i = 0
-	while i < height:
+	while i < width:
 		cols[i] = make_list(height)
 		i += 1
 	return cols

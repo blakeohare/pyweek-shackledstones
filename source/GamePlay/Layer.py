@@ -18,7 +18,21 @@ class Layer:
 
 	def MarkStairTile(self, x, y):
 		self.tiles[x][y].is_stair_tile()
-		
+	
+	def GetPhysics(self, x, y):
+		if x >= 0 and x < self.width and y >= 0 and y < self.height:
+			return self.tiles[x][y].physics
+		return 'xxxx'
+	
+	def RunScript(self, x, y):
+		if self.contains_stuff:
+			if x >= 0 and x < self.width and y >= 0 and y < self.height:
+				tile = self.tiles[x][y]
+				if tile.id != None:
+					script = tile.id.script
+					if script != None and script != '':
+						go_script_go(script)
+	
 	def Render(self, screen, x_offset, y_offset, render_counter):
 		width = self.width
 		height = self.height

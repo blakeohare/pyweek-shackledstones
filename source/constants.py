@@ -7,6 +7,7 @@ WARP_ESCROLL  = "east scroll"
 WARP_WSCROLL  = "west scroll"
 WARP_PIXELATE = "pixelate"
 WARP_INSTANT  = "instant"
+WARP_FADE     = "fade"
 
 KEY_LEFT  = 'left'
 KEY_RIGHT = 'right'

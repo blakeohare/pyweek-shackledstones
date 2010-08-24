@@ -2,21 +2,25 @@
 	
 class Level:
 	def __init__(self, name):
+		self.name = name
 		get_tile_store()
 		self.parse_file(name)
 		self.playerStandingOn = None
 	
-	def update_tile_standing_on(self, layer, x, y):
+	def synch_stand_key(self, layer, x, y):
 		key = layer + str(x) + '_' + str(y)
-		if key != self.playerStandingOn:
+		if self.playerStandingOn == key:
 			self.playerStandingOn = key
+			return False
+		self.playerStandingOn = key
+		return True
+	
+	def update_tile_standing_on(self, layer, x, y):
+		tile_x = x >> 4
+		tile_y = y >> 4
+		if self.synch_stand_key(layer, tile_x, tile_y):
 			layer = self.layers[layer]
-			if layer.contains_stuff:
-				tile = layer.tiles[x][y]
-				if tile.id != None:
-					script = tile.id.script
-					if script != None and script != '':
-						go_script_go(script)
+			layer.RunScript(tile_x, tile_y)
 	
 	def parse_file(self, file):
 		c = open('maps' + os.sep + file + '.txt', 'rt')
@@ -36,7 +40,9 @@ class Level:
 		self.height = int(values['height'])
 		self.music = values.get('music', None)
 		self.layers = {}
+		
 		for layerName in 'A B C D E F Stairs'.split(' '):
+			
 			content = values.get('Layer' + layerName)
 			layer = Layer(self.width, self.height)
 			if content != None:
@@ -178,7 +184,7 @@ class Level:
 				x = tile_left
 				while x <= tile_right:
 					if not self.is_stair_tile(x, y):
-						phys = layer.tiles[x][y].physics
+						phys = layer.GetPhysics(x, y)
 						if phys == 'oooo':
 							pass
 						elif phys == 'xxxx':
