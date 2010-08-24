@@ -13,6 +13,11 @@ item_cannon_fire
 item_cannon_ice
 item_cannon_multi
 
+The following holds one of the above to indicate what each button has assigned
+equipped_a
+equipped_b
+equipped_x
+equipped_y
 
 """
 class GameInstance:

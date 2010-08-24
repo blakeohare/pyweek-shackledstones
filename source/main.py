@@ -24,6 +24,9 @@ def main():
 	
 	#scene = DialogScene(Dialog(Parser.LoadFile(scriptPath('test'))))
 	scene = MainMenuScene()
+	#scene = InventoryScene(MainMenuScene())
+	#print(screen)
+	#print(virtual_screen)
 	
 	while scene != None:
 			
