@@ -20,21 +20,28 @@ class GamePlayScene:
 		self.level.synch_stand_key(layer, self.player.x >> 4, self.player.y >> 4)
 	
 	def ProcessInput(self, events):
+	
+		for event in events:
+			if event.down and event.key == 'B':
+				if self.player.state == 'walking':
+					self.player.Stab()
 		v = 3
 		vx = 0
 		vy = 0
-		if is_pressed('left'):
-			self.player.direction = 'left'
-			vx = -v
-		elif is_pressed('right'):
-			self.player.direction = 'right'
-			vx = v
-		if is_pressed('up'):
-			self.player.direction = 'up'
-			vy = -v
-		elif is_pressed('down'):
-			self.player.direction = 'down'
-			vy = v
+		
+		if self.player.state == 'walking':
+			if is_pressed('left'):
+				self.player.direction = 'left'
+				vx = -v
+			elif is_pressed('right'):
+				self.player.direction = 'right'
+				vx = v
+			if is_pressed('up'):
+				self.player.direction = 'up'
+				vy = -v
+			elif is_pressed('down'):
+				self.player.direction = 'down'
+				vy = v
 		
 		self.player.walking = False
 		if vx != 0 or vy != 0:
@@ -44,6 +51,9 @@ class GamePlayScene:
 		
 	def Update(self, game_counter):
 		self.level.update_tile_standing_on(self.player.layer, self.player.x, self.player.y)
+		
+		for sprite in self.get_sprites():
+			sprite.Update()
 	
 	def Render(self, screen):
 		
@@ -88,6 +98,9 @@ class GamePlayScene:
 			offset_y = min(offset_y, 0)
 			offset_y = max(offset_y, -height)
 		return (offset_x, offset_y)
+	
+	def get_sprites(self):
+		return [self.player]
 	
 	def get_renderable_sprites(self, layer):
 		if self.player.layer == layer and not self.player_invisible:
