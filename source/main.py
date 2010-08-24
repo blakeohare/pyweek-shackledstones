@@ -10,6 +10,8 @@ def main():
 	counter = 0
 	global _font
 	
+	current_screen_mode = 'windowed'
+	
 	pygame.init()
 	_font = pygame.font.Font(os.path.join('media', 'rm_typewriter_old.ttf'), 13)	
 	
@@ -28,6 +30,9 @@ def main():
 	#print(screen)
 	#print(virtual_screen)
 	
+	screen_width = screen.get_width()
+	screen_height = screen.get_height()
+	
 	while scene != None:
 			
 		begin = time.time()
@@ -40,9 +45,29 @@ def main():
 		
 		scene.Render(virtual_screen)
 		
-		pygame.transform.scale(virtual_screen, (width * 2, height * 2), screen)
+		pygame.transform.scale(virtual_screen, (screen_width, screen_height), screen)
 		
 		scene = scene.next
+		
+		change_video_mode = _inputManager.VideoModeChange()
+		if change_video_mode != None:
+			if current_screen_mode == change_video_mode:
+				current_screen_mode = 'windowed'
+				screen = pygame.display.set_mode((width * 2, height * 2))
+				screen_width = screen.get_width()
+				screen_height = screen.get_height()
+			else:
+				current_screen_mode = change_video_mode
+			
+				if change_video_mode == 'wide':
+					current_screen_mode = 'wide'
+					screen = pygame.display.set_mode((1400, 900), FULLSCREEN)
+					screen_width = screen.get_width()
+					screen_height = screen.get_height()
+				else:
+					screen = pygame.display.set_mode((width * 2, height * 2), FULLSCREEN)
+					screen_width = screen.get_width()
+					screen_height = screen.get_height()
 		
 		if _inputManager.escape_attempted:
 			scene = None

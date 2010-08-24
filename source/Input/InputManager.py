@@ -131,6 +131,7 @@ class InputManager:
 		self.active_joystick = None
 		
 		self.keys = 'up down left right start A B X Y'.split(' ')
+		self.video_mode = None
 		
 	def initializeJoystick(self):
 		
@@ -141,7 +142,10 @@ class InputManager:
 		self.joysticks = joysticks
 		if len(joysticks) >= 1:
 			self.active_joystick = self.joysticks[0]
-		
+	
+	def VideoModeChange(self):
+		return self.video_mode
+	
 	def get_events(self):
 		events = []
 		joystick = self.active_joystick
@@ -150,6 +154,8 @@ class InputManager:
 				state = joystick.state_changed(key)
 				if state != None:
 					events.append(InputEvent(key, state))
+		
+		self.video_mode = None
 		
 		for event in pygame.event.get():
 			if event.type == QUIT or (event.type == KEYDOWN and event.key == K_ESCAPE):
@@ -173,6 +179,11 @@ class InputManager:
 					events.append(InputEvent('X', True))
 				elif event.key == K_RETURN:
 					events.append(InputEvent('start', True))
+				elif event.key == K_f:
+					self.video_mode = 'full'
+				elif event.key == K_w:
+					self.video_mode = 'wide'
+					
 			elif event.type == KEYUP:
 				if event.key == K_UP:
 					events.append(InputEvent('up', False))
