@@ -44,3 +44,16 @@ def render_text_size(size, string, color = BLACK, fontPath = MENU_FONT):
       f = pygame.font.Font(fontPath, size)
       _fontBucket[fontKey] = f
    return f.render(string, True, color)
+
+	
+def make_list(size):
+	return [None] * size
+
+def make_table(width, height):
+	cols = make_list(width)
+	i = 0
+	while i < height:
+		cols[i] = make_list(height)
+		i += 1
+	return cols
+	
