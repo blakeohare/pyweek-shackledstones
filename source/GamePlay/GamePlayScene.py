@@ -91,15 +91,16 @@ class GamePlayScene:
 			offset_x = (screen_width - width) / 2
 		elif width > screen_width:
 			offset_x = screen_width / 2 - player_x
+			print offset_x
 			offset_x = min(offset_x, 0)
-			offset_x = max(offset_x, -width)
+			offset_x = max(offset_x, -(width - screen_width))
 			
 		if height < screen_height:
 			offset_y = (screen_height - height) / 2
 		elif height > screen_height:
 			offset_y = screen_height / 2 - player_y
 			offset_y = min(offset_y, 0)
-			offset_y = max(offset_y, -height)
+			offset_y = max(offset_y, -(height - screen_height))
 		return (offset_x, offset_y)
 	
 	def get_sprites(self):
