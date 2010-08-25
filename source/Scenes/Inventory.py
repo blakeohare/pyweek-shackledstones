@@ -8,6 +8,9 @@ class InventoryScene:
       ag.SetSavedVar(i.Hammer(), 1)
       ag.SetSavedVar(i.Cannon(), 1)
       ag.SetSavedVar(i.Drill(), 1)
+      ag.SetSavedVar(i.Hook(), 1)
+      ag.SetSavedVar(i.CannonFire(), 1)
+      ag.SetSavedVar(i.CannonIce(), 1)
       ag.SetSavedVar(i.CannonMulti(), 1)
 
       self._layout = ([i.Sabre(), i.Hammer(), i.Drill(), i.Hook()],
@@ -36,6 +39,7 @@ class InventoryScene:
          if e.down and e.key == 'start':
             self._baseScene.next = self._baseScene
             self.next = self._baseScene
+            self._i.PrintEquipped()
             return
          if e.down:
             if e.key == 'up':
@@ -71,29 +75,61 @@ class InventoryScene:
       isurf = self._itemSurf
       
       
+      titleSurf = pygame.Surface((200, 25))
+      titleSurf.set_alpha(120)
+      
       itemSurf = pygame.Surface((112, 60))
       itemSurf.set_alpha(120)
       
-      off_x = int((screen.get_width() - itemSurf.get_width()) / 2)
-      off_y = 20
-
-      screen.blit(itemSurf, (off_x, off_y))
+      vBorder = 7
       
-      col = 0      
+      title_off_x = int((screen.get_width() - titleSurf.get_width()) / 2)
+      title_off_y = 180
+      
+      item_off_x = int((screen.get_width() - itemSurf.get_width()) / 2)
+      item_off_y = title_off_y + titleSurf.get_height() + vBorder
+      
+      screen.blit(titleSurf, (title_off_x, title_off_y))
+      screen.blit(itemSurf, (item_off_x, item_off_y))
+      
+      # draw all items the player has:
+      col = 0
       while col < 4:
          row = 0
          while row < 2:
             item = self._layout[row][col]
-            
             if isurf[item] and i.Check(item):
-               screen.blit(isurf[item], (off_x + 4 + (28 * col), off_y + 4 + (28 * row)))
+               screen.blit(isurf[item], (item_off_x + 4 + (28 * col),
+                                          item_off_y + 4 + (28 * row)))
             
             row += 1
          col += 1
-   
-      off_x = off_x + 2 + (28 * self._selection[0])
-      off_y = off_y + 2 + (28 * self._selection[1])
-      pygame.draw.rect(screen, RED, pygame.Rect(off_x, off_y, 24, 24), 1)
+      
+      # deal with selected item label:
+      item = self._layout[self._selection[1]][self._selection[0]]
+      if i.Check(item):
+         text = render_text_size(17, i.Description(item), WHITE)
+         
+         if text:
+            txt_off_x = title_off_x + int((titleSurf.get_width() - text.get_width()) / 2)
+            txt_off_y = title_off_y + 2
+            
+            screen.blit(text, (txt_off_x, txt_off_y))
+      
+      # draw cannon overlay
+      try:
+         idx = self._layout[1].index(i.WhichCannonEquipped())
+         cannonSurf = self._itemSurf['cannon-icon']
+         cannon_off_x = item_off_x + (28 * idx) + 8
+         cannon_off_y = item_off_y + 28 + 10
+         screen.blit(cannonSurf, (cannon_off_x, cannon_off_y))
+      except:
+         pass
+      
+      # draw selection box
+      sel_off_x = item_off_x + 2 + (28 * self._selection[0])
+      sel_off_y = item_off_y + 2 + (28 * self._selection[1])
+      pygame.draw.rect(screen, RED, pygame.Rect(sel_off_x, sel_off_y, 24, 24), 1)
    
    
    
@@ -133,26 +169,29 @@ class Inventory:
       return self.HasCannon() or self.HasCannonFire() or self.HasCannonIce() or self.HasCannonMulti()
    
    def Equip(self, button, item):
+      slots = ['a', 'b', 'x', 'y']
+      
       if not (button == 'a' or button == 'b' or button == 'x' or button == 'y'):
          print('Could not equip to slot "%s"' % str(key))
          return False
-      else:
-         # TODO: verify we're not equipping the same item elsewhere
-         self._ag.SetSavedVar('equipped_%s' % button, item)
-         print('Equipped %s to %s' % (item, button))
-         return True
+
+      for s in slots:
+         if self._Equipped(s) == item:
+            self._ag.SetSavedVar('equipped_%s' % s, '')
+         if item.startswith('item_cannon') and self._Equipped(s).startswith('item_cannon'):
+            self._ag.SetSavedVar('equipped_%s' % s, '')
+   
+      self._ag.SetSavedVar('equipped_%s' % button, item)
+      return True
    
    def EquipA(self, val):
-      return self._ag.SetSavedVar('equipped_a', val)
-   
+      return self.Equip('a', val)
    def EquipB(self):
-      return self._ag.SetSavedVar('equipped_b', val)
-   
+      return self.Equip('b', val)
    def EquipX(self, val):
-      return self._ag.SetSavedVar('equipped_x', val)
-   
+      return self.Equip('x', val)
    def EquipY(self, val):
-      return self._ag.SetSavedVar('equipped_y', val)
+      return self.Equip('y', val)
    
    def EquippedA(self):
       return self._Equipped('a')
@@ -163,7 +202,14 @@ class Inventory:
    def EquippedY(self):
       return self._Equipped('y')
    def _Equipped(self, button):
-      return self._ag.GetVar('equipped_' % button)
+      i = self._ag.GetVar('equipped_%s' % button) or ''
+      return i
+   def WhichCannonEquipped(self):
+      for l in ['a', 'b', 'x', 'y']:
+         item = self._Equipped(l)
+         if item and item.startswith('item_cannon'):
+            return item
+      return False
    
    def Sabre(self):
       return 'item_sabre'
@@ -181,3 +227,19 @@ class Inventory:
       return 'item_cannon_ice'
    def CannonMulti(self):
       return 'item_cannon_multi'
+   
+   def Description(self, item):
+      table = {}
+      table[self.Sabre()] = 'Sabre'
+      table[self.Hammer()] = 'Power Hammer'
+      table[self.Drill()] = 'Steam Drill'
+      table[self.Hook()] = 'Magnetic Gappling Hook'
+      table[self.Cannon()] = 'Basic Ammo'
+      table[self.CannonFire()] = 'Flame Ammo'
+      table[self.CannonIce()] = 'Frost Ammo'
+      table[self.CannonMulti()] = 'Multi-shot Ammo'
+      return table.get(item, '')
+   
+   def PrintEquipped(self):
+      for s in ['a', 'b', 'x', 'y']:
+         print('%s => %s' % (s, self._Equipped(s)))
