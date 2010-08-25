@@ -5,8 +5,7 @@ class ImageLibraryClass:
    
    def Add(self, name, path):
       if self._lib.get(name):
-         print("ImageLibrary already loaded %s" % name)
-         return FromFile(self._lib[name])
+         return self.FromFile(self._lib[name])
          
       surf = self.FromFile(path)
       if surf:
