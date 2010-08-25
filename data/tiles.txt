@@ -730,7 +730,7 @@ metal164	Metal Stairs	oooo	metalstairs/top.png
 metal165	Metal Stairs	oooo	metalstairs/bottom.png
 metal166	Metal Stairs	oooo	metalstairs/left.png
 metal167	Metal Stairs	oooo	metalstairs/right.png
-torch3	Torches	xxxx	woodtorches/on1.png|torches/on2.png	6
+torch3	Torches	xxxx	woodtorches/on1.png|woodtorches/on2.png	6
 torch4	Torches	xxxx	woodtorches/off.png
 pipe1	Pipe	xxxx	pipes/horizontal.png
 pipe2	Pipe	xxxx	pipes/vertical.png
