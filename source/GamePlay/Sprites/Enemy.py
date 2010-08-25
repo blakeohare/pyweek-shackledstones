@@ -1,21 +1,21 @@
-class NPC:
+class Enemy:
 	def __init__(self, name, id=None):
 		self.name = name
 		self.id = id
+		self.is_enemy = True
+		self.explode_on_impact = False
 		self.x = 100
 		self.y = 100
-		self.dx = 0
-		self.dy = 0
-		self.is_enemy = False
 		self.layer = 'A'
 		self.r = 8
 		self.direction = 'right'
-		self.flying = False
-		self.expired = False
 		self.walking = False
+		self.expired = False
 		self.state = 'standing'
+		self.flying = False
 		self.state_counter = 0
-		self.explode_on_impact = False
+		self.dx = 0
+		self.dy = 0
 	
 	def DrawingCoords(self):
 	

@@ -247,6 +247,17 @@ _cutSceneStore = {
 	sprite setdirection maple up
 	
 	dialog water_temple_explain
+""",
+
+#TODO: play noise
+'heard_mainroom_noise': """
+	pause 15
+	dialog heard_mainroom_noise
+""",
+#TODO: play noise
+'loud_switch_noise': """
+	pause 10
+	
 """
 }
 

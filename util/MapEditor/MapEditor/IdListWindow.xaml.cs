@@ -39,6 +39,7 @@ namespace MapEditor
 
 		private void RefreshListing()
 		{
+			if (Model.Instance.ActiveMap == null) return;
 			this.ids.Items.Clear();
 			foreach (ID id in Model.Instance.ActiveMap.Ids)
 			{

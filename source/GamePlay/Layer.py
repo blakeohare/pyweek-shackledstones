@@ -36,8 +36,11 @@ class Layer:
 	def MarkStairTile(self, x, y):
 		self.tiles[x][y].is_stair_tile()
 	
-	def GetPhysics(self, x, y):
+	def GetPhysics(self, x, y, blank_blocked):
 		if x >= 0 and x < self.width and y >= 0 and y < self.height:
+			
+			if not blank_blocked and self.tiles[x][y].is_blank:
+				return 'oooo'
 			return self.tiles[x][y].physics
 		return 'xxxx'
 	

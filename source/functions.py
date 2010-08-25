@@ -13,8 +13,12 @@ def min(a, b):
 def max(a, b):
 	if a < b: return b
 	return a
-
+def abs(a):
+	if a < 0: return -a
+	return a
+	
 def go_script_go(script_contents):
+	script_contents = script_contents.replace('\\n', '\n') # -_-
 	MapScript(ScriptIter(script_contents.split('\n'))).Exec()
 
 def scriptPath(*path):

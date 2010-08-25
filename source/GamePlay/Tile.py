@@ -25,11 +25,11 @@ class Tile:
 				if tile.num_images > 1:
 					no_animations = False
 		self.stack = tile_stack
-		if no_animations:
-			self.Render = self._static_render
-		elif len(tile_stack) == 0:
+		if len(tile_stack) == 0:
 			self.Render = self._dont_render
 			self.is_blank = True
+		elif no_animations:
+			self.Render = self._static_render
 		else:
 			self.Render = self._animation_render
 		

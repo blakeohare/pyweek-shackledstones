@@ -1,0 +1,7 @@
+[comment] A simple script to demonstrate how a dialogue script would look.
+
+[profile][]
+Heard a sound in the entrance room...
+[pause]
+
+[end]

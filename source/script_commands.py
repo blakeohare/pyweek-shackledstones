@@ -20,7 +20,7 @@ cr.Register("dialog", do_dialog, 1)
 # tileId ------ id indicating which position and layer
 # detailLayer - which detail layer to remove it from
 def do_removeTile(tileId, detailLayer):
-	do_setTile(tileId, detailLayer, '')
+	return do_setTile(tileId, detailLayer, '')
    
 cr.Register('remove tile', do_removeTile, 2)
 
@@ -38,8 +38,8 @@ def do_setTile(posId, detailLayer, tileTypeId):
 		if id == None:
 			print("ERROR: " + posId + ' is not a valid tile ID on this map')
 			return
-		layers[id.layer].tiles[id.x][id.y].SetTile(detailLayer, '')
-
+		layers[id.layer].tiles[id.x][id.y].SetTile(detailLayer, tileTypeId)
+	return True
 cr.Register('set tile', do_setTile, 3)
 
 def do_sound(file):

@@ -95,6 +95,7 @@ class Level:
 					self.layers[layer].tiles[x][y].SetId(id)
 					ids[name] = id
 		self.ids = ids
+		self.on_load = trim(values.get('on_load', '').replace("\\n","\n").replace("\\\\","\\"))
 				
 	def Render(self, layername, screen, x_offset, y_offset, render_counter):
 		layer = self.layers[layername]
@@ -108,7 +109,7 @@ class Level:
 			return stairs.tiles[x][y].physics == 'oooo'
 		return False
 	
-	def move_request(self, orig_layer, orig_x, orig_y, dx, dy, radius):
+	def move_request(self, orig_layer, orig_x, orig_y, dx, dy, radius, is_flying):
 		dest_x = orig_x + dx
 		dest_y = orig_y + dy
 		
@@ -132,11 +133,14 @@ class Level:
 		right += radius
 		bottom += radius
 		
-		walls = self.get_walls(orig_layer, left, top, right, bottom)
-
+		walls = self.get_walls(orig_layer, left, top, right, bottom, not is_flying)
+		
+		collided = False
+		
 		if not self.rectangle_touches_walls(dest_x - radius, dest_y - radius, dest_x + radius, dest_y + radius, walls):
 			coords = (dest_x, dest_y)
 		else:
+			collided = True
 			final_x = orig_x
 			final_y = orig_y
 			
@@ -173,7 +177,7 @@ class Level:
 			else:
 				final_layer = orig_layer
 			
-		return (final_layer, coords[0], coords[1])
+		return (final_layer, coords[0], coords[1], collided)
 	
 	def get_between_values(self, start, end):
 		values = []
@@ -194,7 +198,7 @@ class Level:
 		return False
 	
 	# pixel coordinates
-	def get_walls(self, layer, left, top, right, bottom):
+	def get_walls(self, layer, left, top, right, bottom, blank_blocked):
 		
 		tile_left = (left - 4) >> 4
 		tile_right = (right + 4) >> 4
@@ -211,7 +215,7 @@ class Level:
 				x = tile_left
 				while x <= tile_right:
 					if not self.is_stair_tile(x, y):
-						phys = layer.GetPhysics(x, y)
+						phys = layer.GetPhysics(x, y, blank_blocked)
 						if phys == 'oooo':
 							pass
 						elif phys == 'xxxx':

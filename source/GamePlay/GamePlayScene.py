@@ -11,9 +11,14 @@ class GamePlayScene:
 		self.player.x = startX
 		self.player.y = startY
 		self.level = Level(level_name)
+		self.name = level_name
 		self.player_invisible = False
 		self.sprites = []
 		self.cutscene = get_cutscene_for_map(level_name)
+		on_load_script = trim(self.level.on_load)
+		if len(on_load_script) > 0:
+			go_script_go(on_load_script)
+		#go_script_go('[remove tile][fire_2][baseadorn]')
 	
 	def place_player(self, layer, x, y):
 		self.player.layer = layer
@@ -44,6 +49,8 @@ class GamePlayScene:
 			if event.down and event.key == 'B':
 				if self.player.state == 'walking':
 					self.player.Stab()
+			elif event.down and event.key == 'A':
+				self.player.Shoot('basic', self)
 			elif event.down and event.key == 'start':
 				self.next = InventoryScene(self)
 		v = 3
@@ -68,7 +75,7 @@ class GamePlayScene:
 		if vx != 0 or vy != 0:
 			self.player.walking = True
 		
-		self.do_sprite_move(self.player, vx, vy)
+		self.do_sprite_move(self.player, vx, vy, False)
 		
 	def Update(self, game_counter):
 		play_music('highlightsoflight')
@@ -79,6 +86,11 @@ class GamePlayScene:
 		
 		for sprite in self.get_sprites():
 			sprite.Update()
+			if sprite.dx != 0 or sprite.dy != 0:
+				if self.do_sprite_move(sprite, sprite.dx, sprite.dy, sprite.flying):
+					if sprite.explode_on_impact:
+						sprite.expired = True
+		self.gc_sprites()
 	
 	def Render(self, screen):
 		
@@ -128,6 +140,13 @@ class GamePlayScene:
 			offset_y = max(offset_y, -(height - screen_height))
 		return (offset_x, offset_y)
 	
+	def gc_sprites(self):
+		sprites = []
+		for sprite in self.sprites:
+			if not sprite.expired:
+				sprites.append(sprite)
+		self.sprites = sprites
+	
 	def get_sprites(self):
 		return [self.player] + self.sprites
 	
@@ -143,9 +162,10 @@ class GamePlayScene:
 		else:
 			return sprites
 	
-	def do_sprite_move(self, sprite, vx, vy):
-		params = self.level.move_request(sprite.layer, sprite.x, sprite.y, vx, vy, sprite.r - 4)
+	def do_sprite_move(self, sprite, vx, vy, is_flying_sprite):
+		params = self.level.move_request(sprite.layer, sprite.x, sprite.y, vx, vy, sprite.r - 4, is_flying_sprite)
 		sprite.layer = params[0]
 		sprite.x = params[1]
 		sprite.y = params[2]
+		return params[3]
 		

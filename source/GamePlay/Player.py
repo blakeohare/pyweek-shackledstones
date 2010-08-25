@@ -5,10 +5,16 @@ class Player:
 		self.layer = 'A'
 		self.r = 8
 		self.id = 'MC'
+		self.dx = 0
+		self.dy = 0
+		self.is_enemy = False
 		self.direction = 'right'
 		self.walking = False
 		self.state = 'walking'
+		self.expired = False
+		self.flying = False
 		self.state_counter = 0
+		self.explode_on_impact = False
 	
 	def DrawingCoords(self):
 	
@@ -29,7 +35,13 @@ class Player:
 		self.state_counter = 7
 		self.state = 'stabbing'
 		play_sound('sword')
-	
+	def Shoot(self, bullet_type, game_scene):
+		self.state_count = 7
+		self.state = 'shooting'
+		sprite = Projectile(bullet_type, True, self.layer, self.x, self.y, self.direction, game_scene)
+		game_scene.sprites.append(sprite)
+		#TODO: play sound
+		
 	def CurrentImage(self, render_counter):
 		if self.state == 'walking':
 			if self.walking:
