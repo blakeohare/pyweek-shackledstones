@@ -8,7 +8,7 @@ class NPC:
 		self.r = 8
 		self.direction = 'right'
 		self.walking = False
-		self.state = 'walking'
+		self.state = 'standing'
 		self.state_counter = 0
 	
 	def DrawingCoords(self):
@@ -18,12 +18,12 @@ class NPC:
 	
 	def Update(self):
 		self.state_counter -= 1
-		if self.state_counter <= 0:
-			self.state = 'walking'
+		if self.state_counter <= 0 and self.state != 'walking' and self.state != 'standing':
+			self.state = 'standing'
 	
 	def CurrentImage(self, render_counter):
-		if self.state == 'walking':
-			if self.walking:
+		if self.state == 'walking' or self.state == 'standing':
+			if self.state == 'walking':
 				counter = ('0','1','0','2')[(render_counter // 3) & 3]
 			else:
 				counter = 0

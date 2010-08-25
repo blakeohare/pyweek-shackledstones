@@ -17,6 +17,8 @@ class CutSceneEvent:
 		self.expiration = -1
 		self.key_pressed = ''
 		self.render_offset = 0
+		self.direction = 'xxxxxxxxxx'
+		self.first_time_through = True
 		self.instant = False
 		if name == 'pause':
 			self.do = self.pause
@@ -57,6 +59,7 @@ class CutSceneEvent:
 			elif args[0].lower() == 'setdirection':
 				self.sprite_id = args[1]
 				self.direction = args[2]
+				#print self.direction
 				self.do = self.setspritedirection
 				self.instant = True
 			elif args[0].lower() == 'setxy':
@@ -89,6 +92,8 @@ class CutSceneEvent:
 	
 	def setspritedirection(self, game_scene):
 		sprite = game_scene.get_sprite_by_id(self.sprite_id)
+		#print sprite
+		#print self.direction
 		sprite.direction = self.direction
 	
 	def createsprite(self, game_scene):
@@ -109,7 +114,23 @@ class CutSceneEvent:
 		sprite.direction = self.direction
 	
 	def setspriteloc(self, game_scene):
-		pass
+		sprite = game_scene.get_sprite_by_id(self.sprite_id)
+		if self.first_time_through:
+			self.source_x = sprite.x
+			self.source_y = sprite.y
+		target_x = (self.x << 4) + 8
+		target_y = (self.y << 4) + 8
+		if self.instant:
+			sprite.x = target_x
+			sprite.y = target_y
+		else:
+			progress = 1 - ((0.0 + self.expiration) / self.total)
+			anti_progress = 1 - progress
+			sprite.x = target_x * progress + anti_progress * self.source_x
+			sprite.y = target_y * progress + anti_progress * self.source_y
+			
+		self.first_time_through = False
+			
 	
 	
 		
@@ -170,13 +191,13 @@ _cutSceneStore = {
 """,
 
 'interrogation' : """
-	sprite create meyer meyer 7 4 A walking left
+	sprite create meyer meyer 7 4 A standing left
 	dialog transport1
 	shakescreen 60
 	pause 20
 	dialog transport2
 	pause 20
-	sprite create pierce pierce 8 1 A walking down
+	sprite create pierce pierce 8 1 A standing down
 	script [remove tile][to_north][doodad]
 	dialog transport3
 """,
@@ -188,14 +209,51 @@ _cutSceneStore = {
 	pause 10
 	script [remove tile][to_north][doodad]
 	pause 12
-	sprite create maple maple 7 1 A walking down
+	sprite create maple maple 7 1 A standing down
 	dialog transport4
+""",
+
+'to_water_temple' : """
+	sprite create maple maple 8 2 A standing left
+	sprite create hanlon hanlon 7 7 A standing left
+	sprite create pierce pierce 3 6 A standing right
+	pause 15
+	dialog to_water_temple1
+	pause 90
+	dialog to_water_temple2
+	script [remove tile][door][doodad]
+""",
+
+'at_water_temple' : """
+	input right 50
+	input up 1
+	
+	sprite create hanlon hanlon 16 13 A walking right
+	sprite setxy hanlon 22 13 30
+	sprite setdirection hanlon right
+	sprite setstate hanlon standing
+	sprite setdirection hanlon up
+	
+	sprite create pierce pierce 16 13 A walking right
+	sprite setxy pierce 20 13 30
+	sprite setdirection pierce right
+	sprite setstate pierce standing
+	sprite setdirection pierce up
+	
+	sprite create maple maple 16 13 A walking right
+	sprite setxy maple 18 13 10
+	sprite setdirection maple right
+	sprite setstate maple standing
+	sprite setdirection maple up
+	
+	dialog water_temple_explain
 """
 }
 
 
 _play_once = {
-	'interrogation' : False
+	'interrogation' : False,
+	'at_water_temple' : False
 }
 
 def get_cutscene(name):
@@ -206,10 +264,12 @@ def get_cutscene(name):
 def get_cutscene_for_map(map_name):
 	global _play_once
 	cs = None
-	if map_name == 'world_D':
-		cs = get_cutscene('test')
-	elif map_name == 'transport_1':
+	if map_name == 'transport_1':
 		cs = get_cutscene('interrogation')
+	elif map_name == 'escape_pod':
+		cs = get_cutscene('to_water_temple')
+	elif map_name == 'world_A':
+		cs = get_cutscene('at_water_temple')
 	played_already = _play_once.get(cs)
 	if played_already != None:
 		_play_once[cs] = True

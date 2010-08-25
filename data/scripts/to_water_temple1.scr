@@ -1,0 +1,39 @@
+[comment] A simple script to demonstrate how a dialogue script would look.
+
+[profile][hanlon]
+blah blah blah looks like one of them 
+water stones blah blah blah
+[pause]
+
+[profile][hanlon]
+blah blah blah elementals blah
+ blah blah blah our country blah
+[pause]
+
+[profile][mc_portrait]
+blah blah blah ooooh shiny blah
+[pause]
+
+[profile][pierce]
+Does my name have anything to do with
+the fact that I'm good with knives?
+[pause]
+
+[profile][maple]
+I'm a leprechaun!
+[pause]
+
+[profile][maple]
+(I'm writing this at 3AM and it's all
+very hilarious. I'm sure when I wake up
+it won't be as funny. Fixception, can
+you rewrite all this? It's in /data/scripts/
+[pause]
+
+[profile][hanlon]
+Let's go to the water temple.
+blah blah blah something about
+Knights-o-Haskell blah blah.
+[pause]
+
+[end]
