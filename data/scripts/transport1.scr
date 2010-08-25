@@ -1,0 +1,36 @@
+[comment] A simple script to demonstrate how a dialogue script would look.
+
+[profile][meyer]
+Well, getting you here only took me 8 years.
+[pause]
+
+[profile][mc_portrait]
+Hmph, did you have a good time?
+[pause]
+
+[profile][meyer]
+You're trying to steal something way more important 
+than you can ever imagine. At least, that's what I 
+think is happening with all the troops the big shots 
+sent after you. They won't even let me watch over you.
+[pause]
+
+[profile][mc_portrait]
+Well, that's an issue.
+[pause]
+
+[profile][meyer]
+So, of all the good stuff out there, why this one?
+[pause]
+
+[profile][mc_portrait]
+Look at it, it has a whole battalion guarding it. 
+Don't you know how much fun it is to steal it from 
+that many people?
+[pause]
+
+[profile][meyer]
+Cut it. Is there someone you're working f
+[pause]
+
+[end]

@@ -4,6 +4,7 @@ class Player:
 		self.y = 100
 		self.layer = 'A'
 		self.r = 8
+		self.id = 'MC'
 		self.direction = 'right'
 		self.walking = False
 		self.state = 'walking'

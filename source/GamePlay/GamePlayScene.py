@@ -12,6 +12,7 @@ class GamePlayScene:
 		self.player.y = startY
 		self.level = Level(level_name)
 		self.player_invisible = False
+		self.sprites = []
 		self.cutscene = get_cutscene_for_map(level_name)
 	
 	def place_player(self, layer, x, y):
@@ -25,6 +26,14 @@ class GamePlayScene:
 			return self.cutscene.is_key_pressed(key)
 		return is_pressed(key)
 			
+	def add_sprite(self, sprite):
+		self.sprites.append(sprite)
+	
+	def get_sprite_by_id(self, sprite_id):
+		for sprite in self.sprites:
+			if sprite.id == sprite_id:
+				return sprite
+		return None
 	
 	def ProcessInput(self, events):
 	
@@ -75,6 +84,10 @@ class GamePlayScene:
 		
 		offset = self.get_camera_offset()
 		
+		if self.cutscene != None and not self.cutscene.is_done():
+			r_offset = self.cutscene.render_offset()
+			offset = (offset[0] + r_offset, offset[1])
+		
 		self.level.Render('Stairs', screen, offset[0], offset[1], self.render_counter)
 		for layerName in 'A B C D E F Stairs'.split(' '):
 			if layerName != 'Stairs':
@@ -116,13 +129,19 @@ class GamePlayScene:
 		return (offset_x, offset_y)
 	
 	def get_sprites(self):
-		return [self.player]
+		return [self.player] + self.sprites
 	
 	def get_renderable_sprites(self, layer):
+		sprites = []
+		for sprite in self.sprites:
+			if sprite.layer == layer:
+				sprites.append(sprite)
+		
 		if self.player.layer == layer and not self.player_invisible:
-			return [self.player]
+			
+			return [self.player] + sprites
 		else:
-			return []
+			return sprites
 	
 	def do_sprite_move(self, sprite, vx, vy):
 		

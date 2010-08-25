@@ -1,0 +1,19 @@
+[comment] A simple script to demonstrate how a dialogue script would look.
+
+[profile][pierce]
+Good day.
+[pause]
+
+[profile][meyer]
+...uh-huh.
+[pause]
+
+[profile][mc_portrait]
+Yep. Told you that'd be an issue.
+[pause]
+
+[profile][meyer]
+I'll take that as a compliment.
+[pause]
+
+[end]

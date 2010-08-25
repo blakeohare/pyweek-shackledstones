@@ -1,0 +1,19 @@
+[comment] A simple script to demonstrate how a dialogue script would look.
+
+[profile][meyer]
+The mighty Dauntless had a hole blown in it?
+[pause]
+
+[profile][mc_portrait]
+I guess my demolitionist made it to the party.
+[pause]
+
+[profile][meyer]
+He must be some piece of work.
+[pause]
+
+[profile][mc_portrait]
+Who said it's a he?
+[pause]
+
+[end]
