@@ -45,12 +45,18 @@ class DialogScene:
       pSurf = None
 
       if p:
+         side = 'right'
+         if p == 'mc_portrait':
+            side = 'left'
          p = portraitPath(p)
          if p:
             pSurf = ImageLib.FromFile(p)
       if pSurf:
-         screen.blit(pSurf, (4, 120))
-      
+         if side == 'left':
+            screen.blit(pSurf, (4, 110))
+         else:
+            screen.blit(pSurf, (290, 110))
+         
       df = ImageLib.Get('d-frame')
       screen.blit(df, (0,screen.get_height() - df.get_height() - 4))
 
