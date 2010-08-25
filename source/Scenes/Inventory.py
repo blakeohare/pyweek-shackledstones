@@ -60,7 +60,7 @@ class InventoryScene:
       if not i.Check(item):
          print('player does not have %s' % item)
       else:
-         print('TOOD: equip %s to %s' % (item, key))
+         i.Equip(key.lower(), item)
 
    def Update(self, conter):
       pass
@@ -95,6 +95,9 @@ class InventoryScene:
       off_y = off_y + 2 + (28 * self._selection[1])
       pygame.draw.rect(screen, RED, pygame.Rect(off_x, off_y, 24, 24), 1)
    
+   
+   
+   
 class Inventory:
    def __init__(self):
       self._ag = ActiveGame()
@@ -103,31 +106,41 @@ class Inventory:
       return self._ag.GetVar(item) == 1
    
    def HasSabre(self):
-      return self._ag.GetVar('item_sabre') == 1
+      return self.Check('item_sabre')
    
    def HasHammer(self):
-      return self._ag.GetVar('item_hammer') == 1
+      return self.Check('item_hammer')
    
    def HasDrill(self):
-      return self._ag.GetVar('item_drill') == 1
+      return self.Checu('item_drill')
    
    def HasHook(self):
-      return self._ag.GetVar('item_hook') == 1
+      return self.Check('item_hook')
    
    def HasCannon(self):
-      return self._ag.GetVar('item_cannon') == 1
+      return self.Check('item_cannon')
    
    def HasCannonFire(self):
-      return self._ag.GetVar('item_cannon_fire') == 1
+      return self.Check('item_cannon_fire')
    
    def HasCannonIce(self):
-      return self._ag.GetVar('item_cannon_ice') == 1
+      return self.Check('item_cannon_ice')
    
    def HasCannonMulti(self):
-      return self._ag.GetVar('item_cannon_multi') == 1
+      return self.Check('item_cannon_multi')
    
    def HasAnyCannon(self):
       return self.HasCannon() or self.HasCannonFire() or self.HasCannonIce() or self.HasCannonMulti()
+   
+   def Equip(self, button, item):
+      if not (button == 'a' or button == 'b' or button == 'x' or button == 'y'):
+         print('Could not equip to slot "%s"' % str(key))
+         return False
+      else:
+         # TODO: verify we're not equipping the same item elsewhere
+         self._ag.SetSavedVar('equipped_%s' % button, item)
+         print('Equipped %s to %s' % (item, button))
+         return True
    
    def EquipA(self, val):
       return self._ag.SetSavedVar('equipped_a', val)
