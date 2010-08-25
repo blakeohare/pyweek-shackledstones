@@ -177,15 +177,12 @@ class Level:
 	
 	def get_between_values(self, start, end):
 		values = []
-		print '----------------'
-		print start, end
 		if end > start:
 			for i in range(end, start - 1, -1):
 				values.append(i)
 		else:
 			for i in range(end, start + 1):
 				values.append(i)
-		print values
 		return values
 	
 	def rectangle_touches_walls(self, left, top, right, bottom, walls):
