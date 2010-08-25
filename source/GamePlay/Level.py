@@ -137,8 +137,24 @@ class Level:
 		if not self.rectangle_touches_walls(dest_x - radius, dest_y - radius, dest_x + radius, dest_y + radius, walls):
 			coords = (dest_x, dest_y)
 		else:
-		
-			coords = (orig_x, orig_y)
+			final_x = orig_x
+			final_y = orig_y
+			
+			# check x component
+			for x in self.get_between_values(orig_x, dest_x):
+				if not self.rectangle_touches_walls(x - radius, final_y - radius, x + radius, final_y + radius, walls):
+					final_x = x
+					break
+			
+			# check y component
+			for y in self.get_between_values(orig_y, dest_y):
+				if not self.rectangle_touches_walls(final_x - radius, y - radius, final_x + radius, y + radius, walls):
+					final_y = y
+					break
+			
+			coords = (final_x, final_y)
+			
+			
 		tile_x = coords[0] >> 4
 		tile_y = coords[1] >> 4
 		if self.is_stair_tile(tile_x, tile_y):
@@ -158,6 +174,19 @@ class Level:
 				final_layer = orig_layer
 			
 		return (final_layer, coords[0], coords[1])
+	
+	def get_between_values(self, start, end):
+		values = []
+		print '----------------'
+		print start, end
+		if end > start:
+			for i in range(end, start - 1, -1):
+				values.append(i)
+		else:
+			for i in range(end, start + 1):
+				values.append(i)
+		print values
+		return values
 	
 	def rectangle_touches_walls(self, left, top, right, bottom, walls):
 		
