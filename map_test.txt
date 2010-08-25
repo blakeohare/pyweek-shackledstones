@@ -1,2 +1,2 @@
-magic_antechamber
-6,6
+world_B
+12,12
