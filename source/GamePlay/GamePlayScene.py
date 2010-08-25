@@ -91,7 +91,6 @@ class GamePlayScene:
 			offset_x = (screen_width - width) / 2
 		elif width > screen_width:
 			offset_x = screen_width / 2 - player_x
-			print offset_x
 			offset_x = min(offset_x, 0)
 			offset_x = max(offset_x, -(width - screen_width))
 			
