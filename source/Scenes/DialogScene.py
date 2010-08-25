@@ -37,7 +37,7 @@ class DialogScene:
       
       if d.State() == D_END:
          self.next = self._source
-         self._source = self._source
+         self._source.next = self._source
 
       self._source.Render(screen)
       
