@@ -697,6 +697,8 @@ chimney4	Chimneys	oooo	chimneys/2leftslant.png
 chimney5	Chimneys	oooo	chimneys/2rightslant.png
 walls1	Building Walls	xxxx	walls/whiteish.png
 walls2	Building Walls	xxxx	walls/stone.png
+walls3	Building Walls	oooo	walls/whiteishundercurvedoor.png
+walls4	Building Walls	oooo	walls/stoneundercurvedoor.png
 doors1	Building Doors	xxxx	doors/stone.png
 doors2	Building Doors	xxxx	doors/curved.png
 doors3	Building Doors	xxxx	doors/square.png
