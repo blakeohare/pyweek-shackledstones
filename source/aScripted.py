@@ -48,7 +48,7 @@ class Scripted:
    # return indicates if script execution should continue (True) or stop until
    # the next call to Advance(False)
    def _checkVar(self, var, test, val, label, failLabel=None):
-      sval = globalState.get(var)
+      sval = ActiveGame().GetVar(var)
       if test == 'eq':
          ret = (sval == val)
       elif test == 'lt':
@@ -67,7 +67,7 @@ class Scripted:
       return True
    
    def _set(self, var, val):
-      globalState[var] = val
+      ag = ActiveGame().SetSavedVar(var, val)
       return True
 
    def _jump(self, label):

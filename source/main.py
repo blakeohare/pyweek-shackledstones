@@ -1,10 +1,6 @@
 TILE_COLUMN_COUNT = 24
 TILE_ROW_COUNT = 18
 
-globalState = {}
-globalState['script-state'] = 'inprogress'
-
-
 def main():
 	
 	counter = 0
