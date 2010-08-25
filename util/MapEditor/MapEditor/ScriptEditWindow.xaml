@@ -8,7 +8,7 @@
 			<RowDefinition Height="30" />
 		</Grid.RowDefinitions>
 		
-		<TextBox x:Name="script_content" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+		<TextBox x:Name="script_content" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" AcceptsReturn="True" />
 		<Button Grid.Row="1" x:Name="ok_button">Update</Button>
 		
 	</Grid>
