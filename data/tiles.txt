@@ -677,3 +677,35 @@ canopy22	Canopy	xxxx	treecanopy/topleft.png
 canopy23	Canopy	xxxx	treecanopy/topleftconcave.png
 canopy24	Canopy	xxxx	treecanopy/topright.png
 canopy25	Canopy	xxxx	treecanopy/toprightconcave.png
+column1	Column	oooo	pillar/top.png
+column2	Column	oooo	pillar/middle.png
+column3	Column	xxxx	pillar/bottom.png
+roofs1	Roofs	oooo	roofs/topleft.png
+roofs2	Roofs	oooo	roofs/top.png
+roofs3	Roofs	oooo	roofs/topright.png
+roofs4	Roofs	oooo	roofs/bottomleft.png
+roofs5	Roofs	oooo	roofs/bottom.png
+roofs6	Roofs	oooo	roofs/bottomright.png
+roofs7	Roofs	oooo	roofs/slanttopleft.png
+roofs8	Roofs	oooo	roofs/slanttopright.png
+roofs9	Roofs	oooo	roofs/slantbottomleft.png
+roofs10	Roofs	oooo	roofs/slantbottomright.png
+chimney1	Chimneys	oooo	chimneys/1.png
+chimney2	Chimneys	oooo	chimneys/1slant.png
+chimney3	Chimneys	oooo	chimneys/2.png
+chimney4	Chimneys	oooo	chimneys/2leftslant.png
+chimney5	Chimneys	oooo	chimneys/2rightslant.png
+walls1	Building Walls	xxxx	walls/whiteish.png
+walls2	Building Walls	xxxx	walls/stone.png
+doors1	Building Doors	xxxx	doors/stone.png
+doors2	Building Doors	xxxx	doors/curved.png
+doors3	Building Doors	xxxx	doors/square.png
+doors4	Building Doors	oooo	doors/stoneopen.png
+doors5	Building Doors	oooo	doors/curvedopen.png
+doors6	Building Doors	oooo	doors/squareopen.png
+details1	Building Details	oooo	details/top.png
+details2	Building Details	oooo	details/bottom.png
+details3	Building Details	oooo	details/left.png
+details4	Building Details	oooo	details/right.png
+details5	Building Details	oooo	details/slantleft.png
+details6	Building Details	oooo	details/slantright.png
