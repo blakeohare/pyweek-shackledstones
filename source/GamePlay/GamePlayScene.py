@@ -144,9 +144,7 @@ class GamePlayScene:
 			return sprites
 	
 	def do_sprite_move(self, sprite, vx, vy):
-		
-		# returns (final layer, final x, final y)
-		params = self.level.move_request(sprite.layer, sprite.x, sprite.y, vx, vy, sprite.r - 3)
+		params = self.level.move_request(sprite.layer, sprite.x, sprite.y, vx, vy, sprite.r - 4)
 		sprite.layer = params[0]
 		sprite.x = params[1]
 		sprite.y = params[2]
