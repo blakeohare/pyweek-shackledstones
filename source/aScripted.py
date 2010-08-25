@@ -11,6 +11,7 @@ class Scripted:
       self._addFn('check', self._checkVar)
       self._addFn('set', self._set)
       self._addFn('end', self._end)
+      self._addFn('switch scene', do_switch_scene)
 
    def _parse(self):
       for line in self._script:

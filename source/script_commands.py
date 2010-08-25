@@ -47,3 +47,6 @@ def do_sound(file):
 
 def do_music(file, loop = False):
    pass
+
+def do_switch_scene(newScene):
+   pass
