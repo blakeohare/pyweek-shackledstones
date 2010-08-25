@@ -21,7 +21,7 @@ namespace MapEditor
 		public EditKeyWindow(string initialValue)
 		{
 			InitializeComponent();
-			this.key_value.Text = initialValue;
+			this.key_value.Text = initialValue.Replace("\\n", "\r\n").Replace("\\\\", "\\");
 			this.done.Click += new RoutedEventHandler(done_Click);
 			this.FinalValue = initialValue;
 		}
@@ -31,7 +31,7 @@ namespace MapEditor
 		void done_Click(object sender, RoutedEventArgs e)
 		{
 			this.DialogResult = true;
-			this.FinalValue = this.key_value.Text;
+			this.FinalValue = this.key_value.Text.Replace("\\", "\\\\").Replace("\r", "").Replace("\n", "\\n");
 			this.Close();
 		}
 	}
