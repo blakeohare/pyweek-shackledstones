@@ -50,3 +50,6 @@ def do_music(file, loop = False):
 
 def do_switch_scene(newScene):
    pass
+   
+def do_cutscene(cutscene):
+   pass

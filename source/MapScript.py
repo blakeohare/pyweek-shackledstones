@@ -8,6 +8,7 @@ class MapScript(Scripted):
       self._addFn('set tile', do_setTile)
       self._addFn('sound', do_sound)
       self._addFn('music', do_music)
+      self._addFn('launch cutscene', do_cutscene)
    
    # get the next bit of stuff to display
    def Advance(self):
