@@ -712,3 +712,15 @@ details6	Building Details	oooo	details/slantright.png
 industrial1	Industrial Floor	oooo	industrial/floorgrate.png
 industrial2	Industrial Floor	oooo	industrial/metalfloordark.png
 industrial3	Industrial Floor	oooo	industrial/metalfloorlight.png
+metal82	Metal Small Wall	ooxx	metalsmallwall/bottom.png
+metal83	Metal Small Wall	xoxx	metalsmallwall/bottomleftconcave.png
+metal84	Metal Small Wall	ooxo	metalsmallwall/bottomleftconvex.png
+metal85	Metal Small Wall	oxxx	metalsmallwall/bottomrightconcave.png
+metal86	Metal Small Wall	ooox	metalsmallwall/bottomrightconvex.png
+metal87	Metal Small Wall	xoxo	metalsmallwall/left.png
+metal88	Metal Small Wall	oxox	metalsmallwall/right.png
+metal89	Metal Small Wall	xxoo	metalsmallwall/top.png
+metal90	Metal Small Wall	xxxo	metalsmallwall/topleftconcave.png
+metal91	Metal Small Wall	xooo	metalsmallwall/topleftconvex.png
+metal92	Metal Small Wall	xxox	metalsmallwall/toprightconcave.png
+metal93	Metal Small Wall	oxoo	metalsmallwall/toprightconvex.png
