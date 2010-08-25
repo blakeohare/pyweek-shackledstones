@@ -709,3 +709,6 @@ details3	Building Details	oooo	details/left.png
 details4	Building Details	oooo	details/right.png
 details5	Building Details	oooo	details/slantleft.png
 details6	Building Details	oooo	details/slantright.png
+industrial1	Industrial Floor	oooo	industrial/floorgrate.png
+industrial2	Industrial Floor	oooo	industrial/metalfloordark.png
+industrial3	Industrial Floor	oooo	industrial/metalfloorlight.png
