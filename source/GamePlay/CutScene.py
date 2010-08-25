@@ -170,7 +170,6 @@ _cutSceneStore = {
 """,
 
 'interrogation' : """
-	
 	sprite create meyer meyer 7 4 A walking left
 	dialog transport1
 	shakescreen 60
@@ -180,6 +179,17 @@ _cutSceneStore = {
 	sprite create pierce pierce 8 1 A walking down
 	script [remove tile][to_north][doodad]
 	dialog transport3
+""",
+
+'maple_crashes_in' : """
+	script [remove tile][water_stone][doodad]
+	pause 15
+	shakescreen 30
+	pause 10
+	script [remove tile][to_north][doodad]
+	pause 12
+	sprite create maple maple 7 1 A walking down
+	dialog transport4
 """
 }
 

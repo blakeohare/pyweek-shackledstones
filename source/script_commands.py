@@ -49,7 +49,12 @@ def do_music(file, loop = False):
    pass
 
 def do_switch_scene(newScene):
-   pass
+	game_scene = ActiveGame().GetActiveGameScene()
+	if newScene == 'flyaway':
+		game_scene.next = SimpleAnimationScene('flyaway')
+   
    
 def do_cutscene(cutscene):
-   pass
+	game_scene = ActiveGame().GetActiveGameScene()
+	game_scene.player.walking = False
+	game_scene.cutscene = get_cutscene(cutscene)
