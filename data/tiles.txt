@@ -765,3 +765,16 @@ beach9	Beach	oooo	beach/1topleftconcave.png|beach/2topleftconcave.png|beach/3top
 beach10	Beach	oooo	beach/1toprightconcave.png|beach/2toprightconcave.png|beach/3toprightconcave.png|beach/2toprightconcave.png	8
 beach11	Beach	oooo	beach/1bottomleftconcave.png|beach/2bottomleftconcave.png|beach/3bottomleftconcave.png|beach/2bottomleftconcave.png	8
 beach12	Beach	oooo	beach/1bottomrightconcave.png|beach/2bottomrightconcave.png|beach/3bottomrightconcave.png|beach/2bottomrightconcave.png	8
+cave1	Cave Floor	oooo	cave/floor.png
+cave2	Cave Walls	xxxx	cave/top.png
+cave3	Cave Walls	xxxx	cave/bottom.png
+cave4	Cave Walls	xxxx	cave/left.png
+cave5	Cave Walls	xxxx	cave/right.png
+cave6	Cave Walls	xxxx	cave/topleft.png
+cave7	Cave Walls	xxxx	cave/topright.png
+cave8	Cave Walls	xxxx	cave/bottomleft.png
+cave9	Cave Walls	xxxx	cave/bottomright.png
+cave10	Cave Walls	xxxx	cave/topleftconcave.png
+cave11	Cave Walls	xxxx	cave/toprightconcave.png
+cave12	Cave Walls	xxxx	cave/bottomleftconcave.png
+cave13	Cave Walls	xxxx	cave/bottomrightconcave.png
