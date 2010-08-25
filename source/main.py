@@ -24,7 +24,7 @@ def main():
 	
 	_inputManager.initializeJoystick()
 	
-	#scene = DialogScene(Dialog(Parser.LoadFile(scriptPath('test'))))
+	#scene = DialogScene(Dialog(Parser.LoadFile(scriptPath('test'))), MainMenuScene())
 	scene = MainMenuScene()
 	#scene = InventoryScene(MainMenuScene())
 	#print(screen)

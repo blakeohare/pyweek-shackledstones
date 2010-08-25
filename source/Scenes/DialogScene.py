@@ -1,10 +1,11 @@
 class DialogScene:
-   def __init__(self, dlg):
+   def __init__(self, dlg, sourceScene):
       if not isinstance(dlg, Dialog):
          raise Exception("dlg must an object of type Dialog")
       ImageLib.Add('d-frame', uiImgPath('dframe'))
       
       self.next = self
+      self._source = sourceScene
       self._dlg = dlg
       self._choice = 0
       
@@ -31,11 +32,14 @@ class DialogScene:
       pass
 
    def Render(self, screen):
+      self._source
       d = self._dlg
       
       if d.State() == D_END:
-         print("TODO: Advance to next scene")
-         return
+         self.next = self._source
+         self._source = self._source
+
+      self._source.Render(screen)
       
       p = d.Profile()
       pSurf = None

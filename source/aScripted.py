@@ -77,5 +77,4 @@ class Scripted:
       return True
    
    def _end(self):
-      print('Scripted._end() : NOT_IMPLEMENTED')
       return False
