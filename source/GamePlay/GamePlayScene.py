@@ -12,6 +12,7 @@ class GamePlayScene:
 		self.player.y = startY
 		self.level = Level(level_name)
 		self.player_invisible = False
+		self.cutscene = get_cutscene_for_map(level_name)
 	
 	def place_player(self, layer, x, y):
 		self.player.layer = layer
@@ -19,8 +20,17 @@ class GamePlayScene:
 		self.player.y = (y << 4) + 8
 		self.level.synch_stand_key(layer, self.player.x >> 4, self.player.y >> 4)
 	
+	def is_key_pressed(self, key):
+		if self.cutscene != None and not self.cutscene.is_done():
+			return self.cutscene.is_key_pressed(key)
+		return is_pressed(key)
+			
+	
 	def ProcessInput(self, events):
 	
+		if self.cutscene != None and not self.cutscene.is_done():
+			events = self.cutscene.get_input_events()
+			
 		for event in events:
 			if event.down and event.key == 'B':
 				if self.player.state == 'walking':
@@ -32,16 +42,16 @@ class GamePlayScene:
 		vy = 0
 		
 		if self.player.state == 'walking':
-			if is_pressed('left'):
+			if self.is_key_pressed('left'):
 				self.player.direction = 'left'
 				vx = -v
-			elif is_pressed('right'):
+			elif self.is_key_pressed('right'):
 				self.player.direction = 'right'
 				vx = v
-			if is_pressed('up'):
+			if self.is_key_pressed('up'):
 				self.player.direction = 'up'
 				vy = -v
-			elif is_pressed('down'):
+			elif self.is_key_pressed('down'):
 				self.player.direction = 'down'
 				vy = v
 		
@@ -54,6 +64,9 @@ class GamePlayScene:
 	def Update(self, game_counter):
 		play_music('highlightsoflight')
 		self.level.update_tile_standing_on(self.player.layer, self.player.x, self.player.y)
+		
+		if self.cutscene != None and not self.cutscene.is_done():
+			self.cutscene.do(self)
 		
 		for sprite in self.get_sprites():
 			sprite.Update()
