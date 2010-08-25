@@ -148,12 +148,23 @@ class Inventory:
    def EquipB(self):
       return self._ag.SetSavedVar('equipped_b', val)
    
-   def EquippedX(self, val):
+   def EquipX(self, val):
       return self._ag.SetSavedVar('equipped_x', val)
    
    def EquipY(self, val):
       return self._ag.SetSavedVar('equipped_y', val)
-      
+   
+   def EquippedA(self):
+      return self._Equipped('a')
+   def EquippedB(self):
+      return self._Equipped('b')
+   def EquippedX(self):
+      return self._Equipped('x')
+   def EquippedY(self):
+      return self._Equipped('y')
+   def _Equipped(self, button):
+      return self._ag.GetVar('equipped_' % button)
+   
    def Sabre(self):
       return 'item_sabre'
    def Hammer(self):
