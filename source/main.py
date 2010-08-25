@@ -13,7 +13,7 @@ def main():
 	current_screen_mode = 'windowed'
 	
 	pygame.init()
-	_font = pygame.font.Font(os.path.join('media', 'rm_typewriter_old.ttf'), 13)	
+	_font = pygame.font.Font(TEXT_FONT, 13)	
 	
 	width = TILE_COLUMN_COUNT * 16
 	height = TILE_ROW_COUNT * 16
@@ -27,8 +27,7 @@ def main():
 	#scene = DialogScene(Dialog(Parser.LoadFile(scriptPath('test'))), MainMenuScene())
 	scene = MainMenuScene()
 	#scene = InventoryScene(MainMenuScene())
-	#print(screen)
-	#print(virtual_screen)
+	#scene = NameEntryScene(1, MainMenuScene())
 	
 	screen_width = screen.get_width()
 	screen_height = screen.get_height()

@@ -4,6 +4,23 @@ class InputEvent:
 		self.down = down
 		self.up = not down
 	
+	def Up(self):
+		return self.key == 'up'
+	def Down(self):
+		return self.key == 'down'
+	def Right(self):
+		return self.key == 'right'
+	def Left(self):
+		return self.key == 'left'
+	def A(self):
+		return self.key == 'A'
+	def B(self):
+		return self.key == 'B'
+	def X(self):
+		return self.key == 'X'
+	def Y(self):
+		return self.key == 'Y'
+	
 	def __str__(self):
 		if self.up:
 			p = 'not '
