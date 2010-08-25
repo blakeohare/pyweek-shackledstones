@@ -6,7 +6,7 @@ class NameEntryScene:
       self._erase = False
       self._done = False
       self._slot = slotNum
-      self._name = ''
+      self._name = 'Lapis'
       self._nameLen = 10
       self._tic = 0
       self._mark = True
