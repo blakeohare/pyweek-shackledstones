@@ -778,4 +778,8 @@ cave10	Cave Walls	xxxx	cave/topleftconcave.png
 cave11	Cave Walls	xxxx	cave/toprightconcave.png
 cave12	Cave Walls	xxxx	cave/bottomleftconcave.png
 cave13	Cave Walls	xxxx	cave/bottomrightconcave.png
-shadow	Misc	oooo	shadow.png
+shadow1	Misc	oooo	shadow/shadow.png
+shadow2	Misc	oooo	shadow/shadowleft.png
+shadow3	Misc	oooo	shadow/shadowright.png
+shadow4	Misc	oooo	shadow/shadowtop.png
+shadow5	Misc	oooo	shadow/shadowbottom.png
