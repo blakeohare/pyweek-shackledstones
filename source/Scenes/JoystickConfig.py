@@ -24,10 +24,10 @@ class JoystickConfigScene:
 			'left' : get_image('ui/joystick/control_left'),
 			'right' : get_image('ui/joystick/control_right'),
 			'start' : get_image('ui/joystick/control_start'),
-			'A' : get_image('ui/joystick/control_A'),
-			'B' : get_image('ui/joystick/control_B'),
-			'X' : get_image('ui/joystick/control_X'),
-			'Y' : get_image('ui/joystick/control_Y')
+			'A' : get_image('ui/joystick/control_a'),
+			'B' : get_image('ui/joystick/control_b'),
+			'X' : get_image('ui/joystick/control_x'),
+			'Y' : get_image('ui/joystick/control_y')
 			}
 		
 		if not self.is_error:
