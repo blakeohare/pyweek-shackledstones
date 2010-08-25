@@ -753,3 +753,15 @@ key4	Keys	oooo	keys/blue/key.png
 key5	Keys	oooo	keys/indigo/key.png
 key6	Keys	oooo	keys/black/key.png
 key7	Keys	oooo	keys/white/key.png
+beach1	Beach	oooo	beach/1top.png|beach/2top.png|beach/3top.png|beach/2top.png	8
+beach2	Beach	oooo	beach/1left.png|beach/2left.png|beach/3left.png|beach/2left.png	8
+beach3	Beach	oooo	beach/1bottom.png|beach/2bottom.png|beach/3bottom.png|beach/2bottom.png	8
+beach4	Beach	oooo	beach/1right.png|beach/2right.png|beach/3right.png|beach/2right.png	8
+beach5	Beach	oooo	beach/1topleft.png|beach/2topleft.png|beach/3topleft.png|beach/2topleft.png	8
+beach6	Beach	oooo	beach/1topright.png|beach/2topright.png|beach/3topright.png|beach/2topright.png	8
+beach7	Beach	oooo	beach/1bottomleft.png|beach/2bottomleft.png|beach/3bottomleft.png|beach/2bottomleft.png	8
+beach8	Beach	oooo	beach/1bottomright.png|beach/2bottomright.png|beach/3bottomright.png|beach/2bottomright.png	8
+beach9	Beach	oooo	beach/1topleftconcave.png|beach/2topleftconcave.png|beach/3topleftconcave.png|beach/2topleftconcave.png	8
+beach10	Beach	oooo	beach/1toprightconcave.png|beach/2toprightconcave.png|beach/3toprightconcave.png|beach/2toprightconcave.png	8
+beach11	Beach	oooo	beach/1bottomleftconcave.png|beach/2bottomleftconcave.png|beach/3bottomleftconcave.png|beach/2bottomleftconcave.png	8
+beach12	Beach	oooo	beach/1bottomrightconcave.png|beach/2bottomrightconcave.png|beach/3bottomrightconcave.png|beach/2bottomrightconcave.png	8
