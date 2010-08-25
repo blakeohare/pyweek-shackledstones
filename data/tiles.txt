@@ -742,3 +742,6 @@ pipe7	Pipe	xxxx	pipes/topend.png
 pipe8	Pipe	xxxx	pipes/leftend.png
 pipe9	Pipe	xxxx	pipes/rightend.png
 pipe10	Pipe	xxxx	pipes/bottomend.png
+metal168	Metal Doodads	xxxx	metaltable.png
+floor1	Wood Floor	floor	woodfloor.png
+furnace	Furnace	xxxx	furnace/1.png|furnace/2.png|furnace/3.png|furnace/2.png	6
