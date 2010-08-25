@@ -724,3 +724,7 @@ metal90	Metal Small Wall	xxxo	metalsmallwall/topleftconcave.png
 metal91	Metal Small Wall	xooo	metalsmallwall/topleftconvex.png
 metal92	Metal Small Wall	xxox	metalsmallwall/toprightconcave.png
 metal93	Metal Small Wall	oxoo	metalsmallwall/toprightconvex.png
+metal164	Metal Stairs	oooo	metalstairs/top.png
+metal165	Metal Stairs	oooo	metalstairs/bottom.png
+metal166	Metal Stairs	oooo	metalstairs/left.png
+metal167	Metal Stairs	oooo	metalstairs/right.png
