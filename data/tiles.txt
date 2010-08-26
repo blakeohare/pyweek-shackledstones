@@ -700,9 +700,15 @@ walls2	Building Walls	xxxx	walls/stone.png
 walls3	Building Walls	oooo	walls/whiteishundercurvedoor.png
 walls4	Building Walls	oooo	walls/stoneundercurvedoor.png
 doors1	Building Doors	xxxx	doors/stone.png
+doors7	Building Doors	xxxx	doors/stoneleft.png
+doors8	Building Doors	xxxx	doors/stoneright.png
+doors9	Building Doors	xxxx	doors/stonebottom.png
 doors2	Building Doors	xxxx	doors/curved.png
 doors3	Building Doors	xxxx	doors/square.png
 doors4	Building Doors	oooo	doors/stoneopen.png
+doors10	Building Doors	oooo	doors/stoneopenleft.png
+doors11	Building Doors	oooo	doors/stoneopenright.png
+doors12	Building Doors	oooo	doors/stoneopenbottom.png
 doors5	Building Doors	oooo	doors/curvedopen.png
 doors6	Building Doors	oooo	doors/squareopen.png
 details1	Building Details	oooo	details/top.png
@@ -811,3 +817,11 @@ airshipg10	Grey Airship	xxxx	greyairshipwall/leftporthole1.png|greyairshipwall/l
 airshipg11	Grey Airship	xxxx	greyairshipwall/rightporthole1.png|greyairshipwall/rightporthole2.png|greyairshipwall/rightporthole3.png|greyairshipwall/rightporthole4.png	8
 airshipg12	Grey Airship	xxxx	greyairshipwall/bottomporthole1.png|greyairshipwall/bottomporthole2.png|greyairshipwall/bottomporthole3.png|greyairshipwall/bottomporthole4.png	8
 floor2	Wood Floor	floor	grungywoodfloor.png
+airshipg13	Grey Airship	oooo	greyairshipwall/underdoortop.png
+airshipg14	Grey Airship	oooo	greyairshipwall/underdoorleft.png
+airshipg15	Grey Airship	oooo	greyairshipwall/underdoorright.png
+airshipg16	Grey Airship	oooo	greyairshipwall/underdoorbottom.png
+airshipb13	Brown Airship	oooo	brownairshipwall/underdoortop.png
+airshipb14	Brown Airship	oooo	brownairshipwall/underdoorleft.png
+airshipb15	Brown Airship	oooo	brownairshipwall/underdoorright.png
+airshipb16	Brown Airship	oooo	brownairshipwall/underdoorbottom.png
