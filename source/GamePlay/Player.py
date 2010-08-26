@@ -40,7 +40,7 @@ class Player:
 		self.state = 'shooting'
 		sprite = Projectile(bullet_type, True, self.layer, self.x, self.y, self.direction, game_scene)
 		game_scene.sprites.append(sprite)
-		play_sount('gunshot')
+		play_sound('gunshot')
 		
 	def CurrentImage(self, render_counter):
 		counter = '0'
