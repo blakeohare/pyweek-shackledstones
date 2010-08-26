@@ -18,7 +18,9 @@ class GamePlayScene:
 		on_load_script = trim(self.level.on_load)
 		if len(on_load_script) > 0:
 			go_script_go(on_load_script)
-		#go_script_go('[remove tile][fire_2][baseadorn]')
+		
+		self.light_puz = level_name == 'light_puzzle1_f1'
+			
 	
 	def place_player(self, layer, x, y):
 		self.player.layer = layer
@@ -109,7 +111,129 @@ class GamePlayScene:
 				img = sprite.CurrentImage(self.render_counter)
 				coords = sprite.DrawingCoords()
 				screen.blit(img, (coords[0] + offset[0], coords[1] + offset[1]))
+		
+		if self.light_puz:
+			self.render_light_puzzle(screen, offset)
+		
 		self.render_counter += 1
+	
+	def render_light_puzzle(self, screen, offset):
+		get_var = ActiveGame().GetVar
+		ids = self.level.ids
+		
+		mirror_states = self.light_puzzle_get_mirror_states()
+		mirror_images = {
+			'mirror1' : get_image('tiles/mirrors/topright'),
+			'mirror2' : get_image('tiles/mirrors/topleft'),
+			'mirror3' : get_image('tiles/mirrors/bottomleft'),
+			'mirror4' : get_image('tiles/mirrors/bottomright')
+		}
+		for mirror_key in mirror_states.keys():
+			loc = ids[mirror_key]
+			x = (loc.x << 4) + offset[0]
+			y = (loc.y << 4) + offset[1]
+			screen.blit(mirror_images[mirror_states[mirror_key]], (x, y))
+		
+		if get_var('light_puzzle_on') == None:
+			return
+		
+		self.draw_light_beam(screen, 'source', 'A', offset, ids, mirror_states)
+		
+	def draw_light_beam(self, screen, start, end, offset, ids, mirror_states):
+		start_id = ids[start]
+		end_id = ids[end]
+		start_x = (start_id.x << 4) + 8
+		start_y = (start_id.y << 4) + 8
+		end_x = (end_id.x << 4) + 8
+		end_y = (end_id.y << 4) + 8
+		
+		pygame.draw.line(screen, (255, 255, 255), (start_x + offset[0], start_y + offset[1]), (end_x + offset[0], end_y + offset[1]))
+		
+		next = None
+		if end == 'A':
+			if mirror_states['A'] == 'mirror1':
+				next = 'B'
+			elif mirror_states['A'] == 'mirror2':
+				next = 'G'
+		elif end == 'B':
+			if mirror_states['B'] == 'mirror2':
+				next = 'C'
+			elif mirror_states['B'] == 'mirror3':
+				next = 'fail1'
+		elif end == 'C':
+			if mirror_states['C'] == 'mirror3':
+				next = 'D'
+			elif mirror_states['C'] == 'mirror4':
+				next = 'fail2'
+		elif end == 'D':
+			if mirror_states['D'] == 'mirror1':
+				next = 'E'
+			elif mirror_states['D'] == 'mirror4':
+				next = 'fail8'
+		elif end == 'E':
+			if mirror_states['E'] == 'mirror3':
+				next = 'F'
+			elif mirror_states['E'] == 'mirror4':
+				next = 'fail9'
+		elif end == 'F':
+			if mirror_states['F'] == 'mirror1':
+				next = 'blue_door'
+			elif mirror_states['F'] == 'mirror4':
+				next = 'fail10'
+		elif end == 'G':
+			if mirror_states['G'] == 'mirror1':
+				next = 'H'
+			elif mirror_states['G'] == 'mirror4':
+				next = 'fail3'
+		elif end == 'H':
+			if mirror_states['H'] == 'mirror3':
+				next = 'I'
+			elif mirror_states['H'] == 'mirror4':
+				next = 'bs_light_to_mainroom_f_puzzle'
+		elif end == 'I':
+			if mirror_statse['I'] == 'mirror1':
+				next = 'J'
+			elif mirror_states['I'] == 'mirror4':
+				next = 'L'
+		elif end == 'J':
+			if mirror_states['J'] == 'mirror4':
+				next = 'K'
+			elif mirror_states['J'] == 'mirror3':
+				next = 'fail6'
+		elif end == 'K':
+			if mirror_states['K'] == 'mirror2':
+				next = 'red_door'
+			elif mirror_states['K'] == 'mirror3':
+				next = 'fail7'
+		elif end == 'L':
+			if mirror_states['L'] == 'mirror1':
+				next = 'M'
+			elif mirror_states['L'] == 'mirror2':
+				next = 'fail4'
+		elif end == 'M':
+			if mirror_states['M'] == 'mirror2':
+				next = 'N'
+			elif mirror_states['M'] == 'mirror3':
+				next = 'fail5'
+		elif end == 'N':
+			next = 'yellow_door'
+		
+		if next != None:
+			self.draw_light_beam(screen, end, next, offset, ids, mirror_states)
+	
+	def light_puzzle_get_mirror_states(self):
+		global _defaultMirror
+		get_var = ActiveGame().GetVar
+		mirrors = {}
+		for mirror in 'ABCDEFGHIJKLMN':
+			state = get_var('mirror_state_' + mirror)
+			if state == None:
+				state = _defaultMirror[mirror]
+				ActiveGame().SetSavedVar('mirror_state_' + mirror, _defaultMirror[mirror])
+			mirrors[mirror] = state
+		return mirrors
+	
+	
 	
 	def get_camera_offset(self):
 		
@@ -168,4 +292,21 @@ class GamePlayScene:
 		sprite.x = params[1]
 		sprite.y = params[2]
 		return params[3]
-		
+
+### STATIC ###
+_defaultMirror = {
+	'A' : 'mirror1',
+	'B' : 'mirror2',
+	'C' : 'mirror3',
+	'D' : 'mirror4',
+	'E' : 'mirror1',
+	'F' : 'mirror2',
+	'G' : 'mirror3',
+	'H' : 'mirror4',
+	'I' : 'mirror1',
+	'J' : 'mirror2',
+	'K' : 'mirror3',
+	'L' : 'mirror4',
+	'M' : 'mirror1',
+	'N' : 'mirror2'
+}
