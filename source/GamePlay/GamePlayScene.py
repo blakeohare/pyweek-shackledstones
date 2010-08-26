@@ -28,8 +28,6 @@ class GamePlayScene:
 		GameContext().SetPlayerName(1, 'SUE')
 		ActiveGame().SetActiveGameScene(self)
 		
-		GetKeyRegistry().AddKey('water', 'blue')
-		
 		self.render_counter = 0
 		self.next = self
 		self.player = Player()
@@ -46,8 +44,23 @@ class GamePlayScene:
 			go_script_go(on_load_script)
 		
 		self.light_puz = level_name == 'light_puzzle1_f1'
-			
+		self.initialize_enemies()
 	
+	def initialize_enemies(self):
+		for enemy in self.level.enemies:
+			data = trim(enemy)
+			if len(data) > 0:
+				parts = data.split('|')
+				kind = parts[0]
+				x = int(parts[2])
+				y = int(parts[3])
+				layer = parts[1]
+				sprite = create_sprite(kind)
+				sprite.x = (x << 4) + 8
+				sprite.y = (y << 4) + 8
+				sprite.layer = layer
+				self.sprites.append(sprite)
+				
 	def place_player(self, layer, x, y):
 		self.player.layer = layer
 		self.player.x = (x << 4) + 8

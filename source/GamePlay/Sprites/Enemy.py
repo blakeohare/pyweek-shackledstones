@@ -19,7 +19,7 @@ class Enemy:
 		self.game_scene = ActiveGame().GetActiveGameScene()
 		if self.name == 'blob':
 			self.state = 'thinking'
-			self.state_counter = 30
+			self.state_counter = int(30 * random.random())
 			self.r = 8
 	
 	def DrawingCoords(self):
@@ -28,26 +28,28 @@ class Enemy:
 		return coords
 	
 	def Update(self):
+		print self.state, self.state_counter
 		self.state_counter -= 1
 		player_x = self.game_scene.player.x
 		player_y = self.game_scene.player.y
 		
 		if self.name == 'blob':
-			if self.state_counter == 0:
-				if self.state_counter == 'thinking':
+			if self.state_counter <= 0:
+				if self.state == 'thinking':
 					self.state = 'approach'
-				elif self.state_counter == 'approach':
+					self.state_counter = 15
+				elif self.state == 'approach':
 					self.state = 'thinking'
-				self.state_counter = 30
+					self.state_counter = 30
 			if self.state == 'approach':
 				if player_x > self.x:
-					self.dx = 2
+					self.dx = 1
 				elif player_x < self.x:
-					self.dx = -2
+					self.dx = -1
 				if player_y > self.y:
-					self.dy = 2
+					self.dy = 1
 				elif player_y < self.y:
-					self.dy = -2
+					self.dy = -1
 			
 	
 	def CurrentImage(self, render_counter):

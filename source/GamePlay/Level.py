@@ -127,6 +127,7 @@ class Level:
 					self.layers[layer].tiles[x][y].SetId(id)
 					ids[name] = id
 		self.ids = ids
+		self.enemies = trim(values.get('enemies', '')).split(',')
 		self.on_load = trim(values.get('on_load', '').replace("\\n","\n").replace("\\\\","\\"))
 		
 	def RemoveLockedDoor(self, x, y):
