@@ -783,3 +783,4 @@ shadow2	Misc	oooo	shadow/shadowleft.png
 shadow3	Misc	oooo	shadow/shadowright.png
 shadow4	Misc	oooo	shadow/shadowtop.png
 shadow5	Misc	oooo	shadow/shadowbottom.png
+save	Misc	oooo	save/1.png|save/2.png|save/3.png	6
