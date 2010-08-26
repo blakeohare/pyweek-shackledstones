@@ -67,6 +67,12 @@ def do_cutscene(cutscene):
 	game_scene = ActiveGame().GetActiveGameScene()
 	game_scene.player.walking = False
 	game_scene.cutscene = get_cutscene(cutscene)
+	return True
 
 def do_getkey(color):
-   pass
+	game_scene = ActiveGame().GetActiveGameScene()
+	dungeon = game_scene.level.dungeon
+	GetKeyRegistry().AddKey(dungeon, color)
+	return True
+	
+   

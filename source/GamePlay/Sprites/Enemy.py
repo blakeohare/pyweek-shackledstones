@@ -16,8 +16,11 @@ class Enemy:
 		self.state_counter = 0
 		self.dx = 0
 		self.dy = 0
+		self.life = 0
+		self.flash_counter = -1
 		self.game_scene = ActiveGame().GetActiveGameScene()
 		if self.name == 'blob':
+			self.life = 2
 			self.state = 'thinking'
 			self.state_counter = int(30 * random.random())
 			self.r = 8
@@ -29,8 +32,22 @@ class Enemy:
 	
 	def Update(self):
 		self.state_counter -= 1
+		self.flash_counter -= 1
 		player_x = self.game_scene.player.x
 		player_y = self.game_scene.player.y
+		
+		dc = None
+		for death_circle in self.game_scene.death_circles:
+			if death_circle.touches_sprite(self):
+				dc = death_circle
+				self.flash_counter = 10
+				#TODO: play sound 
+				#TODO: vector move away
+				print 'hit!'
+				self.life -= 1
+				if self.life <= 0:
+					self.expired = True
+				return
 		
 		if self.name == 'blob':
 			if self.state_counter <= 0:
@@ -49,9 +66,13 @@ class Enemy:
 					self.dy = 1
 				elif player_y < self.y:
 					self.dy = -1
+		
 			
 	
 	def CurrentImage(self, render_counter):
+		if self.flash_counter > 0 and self.flash_counter & 2 == 0:
+			return None
+			
 		if self.name == 'blob':
 			counter = str(render_counter & 1)
 			return get_image('sprites/blob/anim' + counter)

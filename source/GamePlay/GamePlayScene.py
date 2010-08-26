@@ -138,8 +138,28 @@ class GamePlayScene:
 				if self.do_sprite_move(sprite, sprite.dx, sprite.dy, sprite.flying):
 					if sprite.explode_on_impact:
 						sprite.expired = True
+		
+		dcs = []
+		for dc in self.death_circles:
+			dc.update()
+			if not dc.expired:
+				dcs.append(dc)
+		self.death_circles = dcs
+		
+		
+		enemy_count = self.get_enemy_count()
 		self.gc_sprites()
-	
+		if enemy_count > 0 and self.get_enemy_count() == 0:
+			enemy_kill_script = self.level.on_enemies_killed
+			if len(enemy_kill_script) > 0:
+				go_script_go(enemy_kill_script)
+
+	def get_enemy_count(self):
+		count = 0
+		for sprite in self.sprites:
+			if sprite.is_enemy: count += 1
+		return count
+		
 	def Render(self, screen):
 		
 		offset = self.get_camera_offset()
@@ -155,8 +175,9 @@ class GamePlayScene:
 			
 			for sprite in self.get_renderable_sprites(layerName):
 				img = sprite.CurrentImage(self.render_counter)
-				coords = sprite.DrawingCoords()
-				screen.blit(img, (coords[0] + offset[0], coords[1] + offset[1]))
+				if img != None:
+					coords = sprite.DrawingCoords()
+					screen.blit(img, (coords[0] + offset[0], coords[1] + offset[1]))
 		
 		if self.light_puz:
 			self.render_light_puzzle(screen, offset)

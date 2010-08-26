@@ -14,9 +14,10 @@ class DeathCircle:
 			self.expired = True
 	
 	def touches_sprite(self, sprite):
-		dx = sprite.x - self.x
-		dy = sprite.y - self.y
-		max_distance = self.r + sprite.r
-		if dx ** 2 + dy ** 2 < max_distance ** 2:
-			return True
+		if sprite.flash_counter < 0:
+			dx = sprite.x - self.x
+			dy = sprite.y - self.y
+			max_distance = self.r + sprite.r
+			if dx ** 2 + dy ** 2 < max_distance ** 2:
+				return True
 		return False

@@ -129,6 +129,7 @@ class Level:
 		self.ids = ids
 		self.enemies = trim(values.get('enemies', '')).split(',')
 		self.on_load = trim(values.get('on_load', '').replace("\\n","\n").replace("\\\\","\\"))
+		self.on_enemies_killed = trim(values.get('on_enemies_killed', '').replace("\\n","\n").replace("\\\\","\\"))
 		
 	def RemoveLockedDoor(self, x, y):
 		for layerName in 'A B C D E F'.split(' '):
