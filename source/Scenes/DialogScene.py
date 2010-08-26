@@ -8,6 +8,8 @@ class DialogScene:
       self._source = sourceScene
       self._dlg = dlg
       self._choice = 0
+      self._tick = 0
+      self._fin = False
       
    def ProcessInput(self, events):
       d = self._dlg

@@ -72,9 +72,11 @@ class GameSelectScene:
    
    def Render(self, screen):
       # what color is used for everything else
-      txtColor = BLACK
+      txtColor = WHITE
       # what color is in the game select thing
-      descColor = WHITE
+      descColor = BLACK
+      # game selection block
+      gameSelColor = WHITE
       
       self._fc += 1
       frame = self._frame
@@ -83,7 +85,6 @@ class GameSelectScene:
          self._frame %= len(self._gears)
       g = self._gears[frame]
 
-      screen.fill(WHITE)
       gc = GameContext()
       
       sw = screen.get_width()
@@ -105,7 +106,7 @@ class GameSelectScene:
       gameSel_sep = 15
       selSurf = pygame.Surface((sel_w, sel_h))
       selSurf.set_alpha(ALPHA)
-      selSurf.fill(BLACK)
+      selSurf.fill(gameSelColor)
       
       i = 0
       while i < 3:
@@ -119,7 +120,6 @@ class GameSelectScene:
          
          slot_num = i + 1
          name = gc.GetPlayerName(slot_num)
-         print('Name: %s' % name)
          if name:
             nameSurf = render_text_size(17, name, descColor)
          else:
