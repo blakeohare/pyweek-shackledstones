@@ -794,7 +794,10 @@ airshipb5	Brown Airship	xxxx	brownairshipwall/topleft.png
 airshipb6	Brown Airship	xxxx	brownairshipwall/topright.png
 airshipb7	Brown Airship	xxxx	brownairshipwall/bottomright.png
 airshipb8	Brown Airship	xxxx	brownairshipwall/bottomleft.png
-airshipb9	Brown Airship	xxxx	brownairshipwall/porthole1.png|brownairshipwall/porthole2.png|brownairshipwall/porthole3.png|brownairshipwall/porthole4.png	8
+airshipb9	Brown Airship	xxxx	brownairshipwall/topporthole1.png|brownairshipwall/topporthole2.png|brownairshipwall/topporthole3.png|brownairshipwall/topporthole4.png	8
+airshipb10	Brown Airship	xxxx	brownairshipwall/leftporthole1.png|brownairshipwall/leftporthole2.png|brownairshipwall/leftporthole3.png|brownairshipwall/leftporthole4.png	8
+airshipb11	Brown Airship	xxxx	brownairshipwall/rightporthole1.png|brownairshipwall/rightporthole2.png|brownairshipwall/rightporthole3.png|brownairshipwall/rightporthole4.png	8
+airshipb12	Brown Airship	xxxx	brownairshipwall/bottomporthole1.png|brownairshipwall/bottomporthole2.png|brownairshipwall/bottomporthole3.png|brownairshipwall/bottomporthole4.png	8
 airshipg1	Grey Airship	xxxx	greyairshipwall/top.png
 airshipg2	Grey Airship	xxxx	greyairshipwall/bottom.png
 airshipg3	Grey Airship	xxxx	greyairshipwall/left.png
@@ -803,5 +806,8 @@ airshipg5	Grey Airship	xxxx	greyairshipwall/topleft.png
 airshipg6	Grey Airship	xxxx	greyairshipwall/topright.png
 airshipg7	Grey Airship	xxxx	greyairshipwall/bottomright.png
 airshipg8	Grey Airship	xxxx	greyairshipwall/bottomleft.png
-airshipg9	Grey Airship	xxxx	greyairshipwall/porthole1.png|greyairshipwall/porthole2.png|greyairshipwall/porthole3.png|greyairshipwall/porthole4.png	8
+airshipg9	Grey Airship	xxxx	greyairshipwall/topporthole1.png|greyairshipwall/topporthole2.png|greyairshipwall/topporthole3.png|greyairshipwall/topporthole4.png	8
+airshipg10	Grey Airship	xxxx	greyairshipwall/leftporthole1.png|greyairshipwall/leftporthole2.png|greyairshipwall/leftporthole3.png|greyairshipwall/leftporthole4.png	8
+airshipg11	Grey Airship	xxxx	greyairshipwall/rightporthole1.png|greyairshipwall/rightporthole2.png|greyairshipwall/rightporthole3.png|greyairshipwall/rightporthole4.png	8
+airshipg12	Grey Airship	xxxx	greyairshipwall/bottomporthole1.png|greyairshipwall/bottomporthole2.png|greyairshipwall/bottomporthole3.png|greyairshipwall/bottomporthole4.png	8
 floor2	Wood Floor	floor	grungywoodfloor.png
