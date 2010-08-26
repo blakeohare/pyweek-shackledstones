@@ -72,7 +72,6 @@ class Level:
 					x += 1
 				y += 1
 		
-		
 		kr = GetKeyRegistry()
 		self.locked_doors = {}
 		self.unique_locked_doors = []
@@ -91,6 +90,7 @@ class Level:
 								for ofs in [(0,1),(0,-1),(1,0),(-1,0)]:
 									self.locked_doors[str(x + ofs[0]) + '_' + str(y + ofs[1])] = [x, y, dc]
 								self.unique_locked_doors.append([x, y, dc])
+								
 							x += 1
 						y += 1
 		

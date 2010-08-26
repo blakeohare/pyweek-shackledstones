@@ -76,7 +76,6 @@ class GameInstance:
 				name = '$' + key
 			else:
 				name = '#' + key
-			
 			output.append(name + ':' + str(value))
 		c = open('saves' + os.sep + 'slot' + str(self.slot) + '.txt', 'wt')
 		c.write('\r\n'.join(output))

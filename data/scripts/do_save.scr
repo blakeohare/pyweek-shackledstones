@@ -1,0 +1,17 @@
+[comment] A simple script to demonstrate how a dialogue script would look.
+
+[profile][]
+[question][Do you want to save your game?]
+[choice][yes][Yes]
+[choice][no][No]
+[/question]
+
+[label][yes]
+[profile][]
+Your game has been saved
+[pause]
+[save]
+
+
+[label][fin]
+[end]

@@ -75,4 +75,7 @@ def do_getkey(color):
 	GetKeyRegistry().AddKey(dungeon, color)
 	return True
 	
-   
+def do_save_point():
+	do_cutscene('save_point_routine')
+	return True
+	

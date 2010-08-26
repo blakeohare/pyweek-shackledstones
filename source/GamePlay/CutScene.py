@@ -276,6 +276,9 @@ _cutSceneStore = {
 	pause 10
 	script [set][stone_water][1]
 	script [warp][world_A][water_entrance][pixelate]
+""",
+'save_point_routine' : """
+	dialog do_save
 """
 }
 

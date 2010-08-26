@@ -24,6 +24,7 @@ class Dialog(Scripted):
       self._addFn('question', self._beginQuestion)
       self._addFn('choice', self._addChoice)
       self._addFn('/question', self._poseQuestion)
+      self._addFn('save', self._saveGame)
       
       # perform the initial parse (fill the buffer)
       self.Advance()
@@ -86,6 +87,10 @@ class Dialog(Scripted):
    
    def _addChoice(self, label, text):
       self._choices.append(Choice(text, label))
+      return True
+   
+   def _saveGame(self):
+      ActiveGame().SaveToFile()
       return True
    
    def _poseQuestion(self):
