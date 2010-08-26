@@ -191,7 +191,7 @@ class GamePlayScene:
 			elif mirror_states['H'] == 'mirror4':
 				next = 'bs_light_to_mainroom_f_puzzle'
 		elif end == 'I':
-			if mirror_statse['I'] == 'mirror1':
+			if mirror_states['I'] == 'mirror1':
 				next = 'J'
 			elif mirror_states['I'] == 'mirror4':
 				next = 'L'
@@ -308,5 +308,5 @@ _defaultMirror = {
 	'K' : 'mirror3',
 	'L' : 'mirror4',
 	'M' : 'mirror1',
-	'N' : 'mirror2'
+	'N' : 'mirror3'
 }

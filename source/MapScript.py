@@ -9,6 +9,7 @@ class MapScript(Scripted):
       self._addFn('sound', do_sound)
       self._addFn('music', do_music)
       self._addFn('launch cutscene', do_cutscene)
+      self._addFn('toggle mirror', do_toggle_mirror)
    
    # get the next bit of stuff to display
    def Advance(self):
