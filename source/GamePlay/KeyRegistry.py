@@ -3,11 +3,13 @@ class KeyRegistry:
 		self.doors = {}
 		
 	def RegisterDoor(self, map, dungeon, x, y, color):
-		index = GetIndexForDoor(self, map, dungeon, x, y, color)
-		above = GetIndexForDoor(self, map, dungeon, x, y - 1, color)
+		index = self.GetIndexForDoor(map, dungeon, x, y, color)
+		above = self.GetIndexForDoor(map, dungeon, x, y - 1, color)
 		if self.doors.get(index) == None:
 			if self.doors.get(above) == None:
 				self.doors[index] = 'registered'
+				return True
+		return False
 		
 	def GetIndexForDoor(self, map, dungeon, x, y, color):
 		return 'keyregistry_' + '[' + map + ']' + dungeon + '_' + str(x) + '_' + str(y) + '_' + color
@@ -22,10 +24,10 @@ class KeyRegistry:
 		return self.GetVar(self.GetPreferredIndexForDoor(map, dungeon, x, y, color)) != 1
 	
 	def UseKey(self, dungeon, color, map, x, y):
-		if GetKeyCount(dungeon, color) > 0:
+		if self.GetKeyCount(dungeon, color) > 0:
 			if self.IsDoorLocked(map, dungeon, x, y, color):
-				self.SetVar(GetKeyCountIndex(dungeon, color), GetKeyCount(dungeon, color) - 1)
-				self.SetVar(GetPreferredIndexForDoor(map, dungeon, x, y, color), 1)
+				self.SetVar(self.GetKeyCountIndex(dungeon, color), self.GetKeyCount(dungeon, color) - 1)
+				self.SetVar(self.GetPreferredIndexForDoor(map, dungeon, x, y, color), 1)
 				return True
 		return False
 	
@@ -34,12 +36,25 @@ class KeyRegistry:
 	
 	def GetKeyCount(self, dungeon, color):
 		index = self.GetKeyCountIndex(dungeon, color)
-		count = GetVar(index)
+		count = self.GetVar(index)
 		if count == None:
 			return 0
 		return count
 	
+	def AddKey(self, dungeon, color):
+		index = self.GetKeyCountIndex(dungeon, color)
+		count = self.GetVar(index)
+		if count == None: count = 0
+		self.SetVar(index, count + 1)
+	
 	def GetVar(self, var):
-		return ActiveGameContext().GetVar(var)
+		return ActiveGame().GetVar(var)
 	def SetVar(self, var, value):
-		ActiveGameContext().SetSavedVar(var, value)
+		ActiveGame().SetSavedVar(var, value)
+
+### STATIC ###
+
+_key_registry = KeyRegistry()
+def GetKeyRegistry():
+	global _key_registry
+	return _key_registry

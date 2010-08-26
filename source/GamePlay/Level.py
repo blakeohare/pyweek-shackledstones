@@ -40,6 +40,9 @@ class Level:
 		self.height = int(values['height'])
 		self.music = values.get('music', None)
 		self.layers = {}
+		self.dungeon = trim(values.get('dungeon'))
+		
+		GetKeyRegistry().doors = {}
 		
 		for layerName in 'A B C D E F Stairs'.split(' '):
 			
@@ -68,7 +71,36 @@ class Level:
 								layer.tiles[x][y].is_stair_tile()
 					x += 1
 				y += 1
-				
+		
+		
+		kr = GetKeyRegistry()
+		self.locked_doors = {}
+		self.unique_locked_doors = []
+		if self.dungeon != None:
+			for layerName in 'A B C D E F'.split(' '):
+				layer = self.layers[layerName]
+				if layer.contains_stuff:
+					y = 0
+					while y < self.height:
+						x = 0
+						while x < self.width:
+							tile = layer.tiles[x][y]
+							dc = tile.door_color
+							if dc != None:
+								kr.RegisterDoor(self.name, self.dungeon, x, y, dc)
+								for ofs in [(0,1),(0,-1),(1,0),(-1,0)]:
+									self.locked_doors[str(x + ofs[0]) + '_' + str(y + ofs[1])] = [x, y, dc]
+								self.unique_locked_doors.append([x, y, dc])
+							x += 1
+						y += 1
+		
+			for locked_door in self.unique_locked_doors:
+				x = locked_door[0]
+				y = locked_door[1]
+				color = locked_door[2]
+				if not kr.IsDoorLocked(self.name, self.dungeon, x, y, color):
+					self.RemoveLockedDoor(x, y)
+	
 		script_strings = values.get('scripts')
 		scripts = {}
 		if script_strings != None:
@@ -96,6 +128,17 @@ class Level:
 					ids[name] = id
 		self.ids = ids
 		self.on_load = trim(values.get('on_load', '').replace("\\n","\n").replace("\\\\","\\"))
+		
+	def RemoveLockedDoor(self, x, y):
+		for layerName in 'A B C D E F'.split(' '):
+			layer = self.layers[layerName]
+			if layer.contains_stuff:
+				if layer.tiles[x][y].door_color != None:
+					layer.tiles[x][y].RemoveKey()
+					if y > 0:
+						layer.tiles[x][y - 1].RemoveKey()
+					if y < self.height - 1:
+						layer.tiles[x][y + 1].RemoveKey()
 				
 	def Render(self, layername, screen, x_offset, y_offset, render_counter):
 		layer = self.layers[layername]

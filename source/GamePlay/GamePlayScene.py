@@ -27,6 +27,9 @@ class GamePlayScene:
 		GameContext().SetActiveGame(1)
 		GameContext().SetPlayerName(1, 'SUE')
 		ActiveGame().SetActiveGameScene(self)
+		
+		GetKeyRegistry().AddKey('water', 'blue')
+		
 		self.render_counter = 0
 		self.next = self
 		self.player = Player()
@@ -124,6 +127,17 @@ class GamePlayScene:
 	def Update(self, game_counter):
 		play_music('highlightsoflight')
 		self.level.update_tile_standing_on(self.player.layer, self.player.x, self.player.y)
+		
+		if self.level.dungeon != None and len(self.level.locked_doors) > 0:
+			tile_x = self.player.x >> 4
+			tile_y = self.player.y >> 4
+			door = self.level.locked_doors.get(str(tile_x) + '_' + str(tile_y))
+			if door != None:
+				x = door[0]
+				y = door[1]
+				color = door[2]
+				if GetKeyRegistry().UseKey(self.level.dungeon, color, self.level.name, x, y):
+					self.level.RemoveLockedDoor(x, y)
 		
 		if self.cutscene != None and not self.cutscene.is_done():
 			self.cutscene.do(self)

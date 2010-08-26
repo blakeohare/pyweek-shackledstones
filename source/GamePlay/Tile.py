@@ -22,15 +22,33 @@ class Tile:
 		if found:
 			self.initialize()
 	
+	def RemoveKey(self):
+		i = 0
+		found = False
+		tilestore = get_tile_store()
+		while i < len(self.orig_stack):
+			id = self.orig_stack[i]
+			tt = tilestore.GetTile(id)
+			if tt != None and tt.physics.endswith('key'):
+				self.orig_stack[i] = ''
+				found = True
+			i += 1
+		if found:
+			self.initialize()
+	
 	def initialize(self):
 		tile_stack = []
 		no_animations = True
+		self.door_color = None
 		for id in self.orig_stack:
 			if trim(id) != '':
 				tile = _tileStore.GetTile(id)
 				if tile.physics == 'floor':
 					tile_stack = []
 					no_animations = True
+				if tile.physics.endswith('key'):
+					self.door_color = tile.physics[:-3]
+					self.physics = 'xxxx'
 				tile_stack.append(tile)
 				if tile.num_images > 1:
 					no_animations = False
