@@ -7,6 +7,8 @@ class MainMenuScene:
       self.next = JoystickConfigScene()
    
    def Credits(self):
+      GameContext().SetPlayeName(1, 'SUE')
+      GameContext().SetActiveGame(1)
       scene = GamePlayScene('test_level', 100, 100)
       self.next = scene
       scene.next = scene
