@@ -24,10 +24,6 @@ class DeathCircle:
 class GamePlayScene:
 	
 	def __init__(self, level_name, startX, startY):
-		GameContext().SetActiveGame(1)
-		GameContext().SetPlayerName(1, 'SUE')
-		ActiveGame().SetActiveGameScene(self)
-		
 		self.render_counter = 0
 		self.next = self
 		self.player = Player()
