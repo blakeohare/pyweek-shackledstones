@@ -16,32 +16,43 @@ class Enemy:
 		self.state_counter = 0
 		self.dx = 0
 		self.dy = 0
+		self.game_scene = ActiveGame().GetActiveGameScene()
+		if self.name == 'blob':
+			self.state = 'thinking'
+			self.state_counter = 30
+			self.r = 8
 	
 	def DrawingCoords(self):
-	
-		coords = (self.x - self.r, self.y - self.r - 13)
+		offsets = (0,0)
+		coords = (self.x - self.r - offsets[0], self.y - self.r - offsets[1])
 		return coords
 	
 	def Update(self):
 		self.state_counter -= 1
-		if self.state_counter <= 0 and self.state != 'walking' and self.state != 'standing':
-			self.state = 'standing'
+		player_x = self.game_scene.player.x
+		player_y = self.game_scene.player.y
+		
+		if self.name == 'blob':
+			if self.state_counter == 0:
+				if self.state_counter == 'thinking':
+					self.state = 'approach'
+				elif self.state_counter == 'approach':
+					self.state = 'thinking'
+				self.state_counter = 30
+			if self.state == 'approach':
+				if player_x > self.x:
+					self.dx = 2
+				elif player_x < self.x:
+					self.dx = -2
+				if player_y > self.y:
+					self.dy = 2
+				elif player_y < self.y:
+					self.dy = -2
+			
 	
 	def CurrentImage(self, render_counter):
-		if self.state == 'walking' or self.state == 'standing':
-			if self.state == 'walking':
-				counter = ('0','1','0','2')[(render_counter // 3) & 3]
-			else:
-				counter = 0
-			counter = str(counter)
-			if self.direction == 'right':
-				return get_image('sprites/'+self.name+'/right' + counter)
-			if self.direction == 'left':
-				return get_image('sprites/'+self.name+'/left' + counter)
-			if self.direction == 'up':
-				return get_image('sprites/'+self.name+'/up' + counter)
-			if self.direction == 'down':
-				return get_image('sprites/'+self.name+'/down' + counter)
-	
-		return get_image('sprites/'+self.name+'/down' + counter)
+		if self.name == 'blob':
+			counter = str(render_counter & 1)
+			return get_image('sprites/blob/anim' + counter)
+		return get_image('sprites/blob/anim0')
 		
