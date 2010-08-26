@@ -43,6 +43,7 @@ class Player:
 		#TODO: play sound
 		
 	def CurrentImage(self, render_counter):
+		counter = '0'
 		if self.state == 'walking':
 			if self.walking:
 				counter = ('0','1','0','2')[(render_counter // 3) & 3]
