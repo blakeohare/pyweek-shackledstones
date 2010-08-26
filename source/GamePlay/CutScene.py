@@ -7,6 +7,7 @@ sprite create sprite_type sprite_id X Y layer state direction
 sprite setdirection direction
 sprite setXY sprite_id X Y duration|instant
 shakescreen duration
+save
 script scriptline
 """
 class CutSceneEvent:
@@ -23,6 +24,8 @@ class CutSceneEvent:
 		if name == 'pause':
 			self.do = self.pause
 			self.expiration = int(args[0])
+		elif name == 'save':
+			self.do = self.save
 		elif name == 'script':
 			self.do = self.do_script
 			self.script = ' '.join(args)
@@ -75,6 +78,9 @@ class CutSceneEvent:
 	
 	def do_script(self, game_scene):
 		go_script_go(self.script)
+	
+	def save(self, game_scene):
+		ActiveGame().SaveToFile()
 	
 	def shake_screen(self, game_scene):
 		if self.expiration == self.play_sound_on:
@@ -262,6 +268,14 @@ _cutSceneStore = {
 #TODO: play TADA
 'sword_found' : """
 	dialog sword_found
+""",
+
+'water_elemental' : """
+	pause 60
+	dialog water_elemental
+	pause 10
+	script [set][stone_water][1]
+	script [warp][world_A][water_entrance][pixelate]
 """
 }
 

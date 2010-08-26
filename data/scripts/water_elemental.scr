@@ -1,0 +1,8 @@
+[comment] A simple script to demonstrate how a dialogue script would look.
+
+[profile][water_spirit]
+Sup.
+[pause]
+
+[label][end]
+[end]

@@ -43,7 +43,6 @@ class Enemy:
 				self.flash_counter = 10
 				#TODO: play sound 
 				#TODO: vector move away
-				print 'hit!'
 				self.life -= 1
 				if self.life <= 0:
 					self.expired = True
