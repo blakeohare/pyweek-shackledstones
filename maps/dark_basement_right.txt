@@ -1,4 +1,5 @@
-﻿#width:6
+﻿#dungeon:dark
+#width:6
 #height:22
 #IDs:pad_2_5_13|A|4|20,pad_5_7|A|4|10,pad_11_5_3|A|4|1,boss_battle|A|5|17
 #scripts:

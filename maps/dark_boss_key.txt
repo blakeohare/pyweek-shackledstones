@@ -1,4 +1,5 @@
-﻿#width:15
+﻿#dungeon:dark
+#width:15
 #height:15
 #IDs:lever1|A|12|2,entrypoint|A|1|1,exit|A|12|14,lever2|A|2|6,lever2_up1|A|1|4,lever2_up2|A|2|4,lever2_down1|A|5|1,lever2_down2|A|5|2,lever1_down1|A|11|5,lever1_down2|A|12|5,lever1_down3|A|13|5,lever1_up1|A|6|11,lever1_up2|A|6|12,monsters_dead_remove1|A|5|11,monsters_dead_remove2|A|5|12
 #scripts:
