@@ -784,3 +784,5 @@ shadow3	Misc	oooo	shadow/shadowright.png
 shadow4	Misc	oooo	shadow/shadowtop.png
 shadow5	Misc	oooo	shadow/shadowbottom.png
 save	Misc	oooo	save/1.png|save/2.png|save/3.png	6
+bluefire	Fire	xxxx	bluefire/1.png|bluefire/2.png	6
+deadplant	Dead Plant	xxxx	deadplants/plant.png
