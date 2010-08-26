@@ -7,16 +7,23 @@ class MainMenuScene:
       self.next = JoystickConfigScene()
    
    def Credits(self):
-      GameContext().SetPlayerName(1, 'SUE')
       GameContext().SetActiveGame(1)
-      scene = GamePlayScene('test_level', 100, 100)
+      if os.path.exists('map_test.txt'):
+         c = open('map_test.txt', 'rt')
+         t = c.read().split('\n')
+         c.close()
+         map_name = trim(t[0])
+         coords = trim(t[1]).split(',')
+         scene = GamePlayScene(map_name, int(coords[0]) << 4, int(coords[1]) << 4)
+      else:
+         scene = GamePlayScene('test_level', 100, 100)
       self.next = scene
       scene.next = scene
 
    def __init__(self):
       self._fc = 0
       self.next = self
-      self._selection = 0
+      self._selection = 2
       self._frame = 0
       
       self._gears = []
