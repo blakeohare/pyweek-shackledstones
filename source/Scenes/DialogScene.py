@@ -15,15 +15,15 @@ class DialogScene:
       if 0 != len(events):
          for e in events:
             if e.down:
-               if e.key == 'up' and d.State() == D_QUESTION:
+               if e.Up() and d.State() == D_QUESTION:
                   self._choice -= 1
                   self._choice %= len(self._dlg.Choices())
                
-               if e.key == 'down' and d.State() == D_QUESTION:
+               if e.Down() and d.State() == D_QUESTION:
                   self._choice += 1
                   self._choice %= len(self._dlg.Choices())
             else:
-               if e.key == 'B':
+               if e.A():
                   if self._dlg.State() == D_QUESTION:
                      self._dlg.Answer(self._choice)
                   self._dlg.Advance()

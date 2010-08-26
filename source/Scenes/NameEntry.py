@@ -24,10 +24,9 @@ class NameEntryScene:
                if self._isCommand():
                   if len(self._name) != 0 and self._done:
                      ActiveGame().SetSavedVar('name', self._name)
-                     for s in ['water', 'light', 'life', 'fire', 'dark', 'death']:
-                        ActiveGame().SetSavedVar('stone_%s' % s, 1)
                      ActiveGame().SaveToFile()
 
+                     # TODO
                      c = open('map_test.txt', 'rt')
                      t = c.read().split('\n')
                      c.close()

@@ -105,9 +105,16 @@ class GameContext:
 	
 	def GetPlayerName(self, slot_num):
 		return self.slots[slot_num - 1].GetVar('name')
+	def GetStones(self, slot_num):
+		r = []
+		s = self.slots[slot_num - 1]
+		for st in ['water', 'light', 'dark', 'fire', 'life', 'death']:
+			if s.GetVar('stone_%s' % st):
+				r.append(st)
+		return r
+		
 	
 	def DeletePlayer(self, slot_num):
-		print('deleted player slot %d' % slot_num)
 		game = self.slots[slot_num - 1]
 		
 		#shut up

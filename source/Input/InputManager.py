@@ -20,6 +20,8 @@ class InputEvent:
 		return self.key == 'X'
 	def Y(self):
 		return self.key == 'Y'
+	def Start(self):
+		return self.key == 'start'
 	
 	def __str__(self):
 		if self.up:

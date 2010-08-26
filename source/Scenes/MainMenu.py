@@ -35,11 +35,11 @@ class MainMenuScene:
    def ProcessInput(self, events):
       for e in events:
          if e.down:
-            if e.key == 'down':
+            if e.Down():
                self._selection = (self._selection + 1) % 3
-            if e.key == 'up':
+            if e.Up():
                self._selection = (self._selection - 1) % 3
-            if e.key == 'B' or e.key == 'start':
+            if e.A() or e.Start():
                if self._selection == 0:
                   self.StartGame()
                elif self._selection == 1:

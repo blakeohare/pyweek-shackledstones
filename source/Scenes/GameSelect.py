@@ -14,7 +14,6 @@ class GameSelectScene:
       while i <= 4:
          self._gears.append(ImageLib.FromFile(uiImgPath('gear%d' % i)))
          i += 1
-
    
    def ProcessInput(self, events):
       for e in events:
@@ -42,10 +41,10 @@ class GameSelectScene:
                self._selection += 1
                self._selection %= 4
             
-            if self._selection == 3:
+            if (e.Up() or e.Down()) and self._selection == 3:
                self._erase = True
 
-            if e.B():
+            if e.A():
                if self._cancel:
                   self.next = self._prevScene
                   self._prevScene.next = self._prevScene
@@ -60,14 +59,14 @@ class GameSelectScene:
                   self._eraseMode = False
                   return
                
-               # TODO: BUG I'm always transfering to name select, only do this on new game
                newGame = not GameContext().GetPlayerName(self._selection + 1)
                GameContext().SetActiveGame(self._selection + 1)
                
                if newGame:
                   self.next = NameEntryScene()
+               else:
+                  print('TODO: set up to resume gameplay')
                   
-   
    def Update(self, conter):
       pass
    
@@ -115,16 +114,37 @@ class GameSelectScene:
 
          if i == self._selection:
             screen.blit(g, (sx - 50, sy))
-
+   
          screen.blit(selSurf, (sx, sy))
          
          slot_num = i + 1
          name = gc.GetPlayerName(slot_num)
-         if not name:
+         print('Name: %s' % name)
+         if name:
+            nameSurf = render_text_size(17, name, descColor)
+         else:
             nameSurf = render_text_size(17, 'New Game', descColor)
-            nx = sx + 10 #int((selSurf.get_width() - nameSurf.get_width())/2) + sx
-            ny = int((selSurf.get_height() - nameSurf.get_height()) / 2) + sy
-            screen.blit(nameSurf, (nx, ny))
+         
+         nx = sx + 10 #int((selSurf.get_width() - nameSurf.get_width())/2) + sx
+         ny = int((selSurf.get_height() - nameSurf.get_height()) / 2) + sy
+         screen.blit(nameSurf, (nx, ny))
+
+         if name:
+            #stSurf = ImageLib.FromFile(uiImgPath('badges'))
+            #bx = sx + selSurf.get_width() - stSurf.get_width()
+            #by = int((selSurf.get_height() - stSurf.get_height()) / 2) + sy
+            #screen.blit(stSurf, (bx, by))
+
+            stones = gc.GetStones(slot_num)
+            j = 0
+            stones.reverse()
+            for st in stones:
+               stSurf = ImageLib.FromFile(uiImgPath('stones', st))
+               stx = sx + selSurf.get_width() - 10 - ((1 + j) * 20)
+               sty = sy + int((selSurf.get_height() - stSurf.get_height()) / 2)
+               
+               screen.blit(stSurf, (stx, sty))
+               j += 1
 
          #end while
          i += 1
@@ -141,5 +161,8 @@ class GameSelectScene:
          screen.blit(g, (sx - 50, gy))
       if self._cancel:
          screen.blit(g, (cx + 10 + cancel.get_width(), gy))
+         
+      # stone badges
+      
       
       
