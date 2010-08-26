@@ -804,3 +804,4 @@ airshipg6	Grey Airship	xxxx	greyairshipwall/topright.png
 airshipg7	Grey Airship	xxxx	greyairshipwall/bottomright.png
 airshipg8	Grey Airship	xxxx	greyairshipwall/bottomleft.png
 airshipg9	Grey Airship	xxxx	greyairshipwall/porthole1.png|greyairshipwall/porthole2.png|greyairshipwall/porthole3.png|greyairshipwall/porthole4.png	8
+floor2	Wood Floor	floor	grungywoodfloor.png
