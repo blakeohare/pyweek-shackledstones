@@ -28,7 +28,6 @@ class Enemy:
 		return coords
 	
 	def Update(self):
-		print self.state, self.state_counter
 		self.state_counter -= 1
 		player_x = self.game_scene.player.x
 		player_y = self.game_scene.player.y
