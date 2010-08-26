@@ -8,6 +8,7 @@ class MainMenuScene:
    
    def Credits(self):
       GameContext().SetActiveGame(1)
+      ActiveGame().SetSavedVar('name', 'SUE')
       if os.path.exists('map_test.txt'):
          c = open('map_test.txt', 'rt')
          t = c.read().split('\n')
