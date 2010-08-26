@@ -10,7 +10,17 @@ class Tile:
 		index = {'base' : 0, 'baseadorn' : 1, 'basedetail' : 2, 'doodad' : 3, 'doodadadorn' : 4, 'excessive' : 5 }[detaillayer]
 		self.orig_stack[index] = id
 		self.initialize()
-		
+	
+	def ChopTheBushes(self):
+		i = 0
+		found = False
+		while i < len(self.orig_stack):
+			if self.orig_stack[i] == 'nature20':
+				self.orig_stack[i] = ''
+				found = True
+			i += 1
+		if found:
+			self.initialize()
 	
 	def initialize(self):
 		tile_stack = []

@@ -34,6 +34,19 @@ class Player:
 	def Stab(self):
 		self.state_counter = 7
 		self.state = 'stabbing'
+		x = self.x
+		y = self.y
+		if self.direction == 'left':
+			x -= 16
+		elif self.direction == 'up':
+			y -= 16
+		elif self.direction == 'down':
+			y += 16
+		else:
+			x += 16
+		game_scene = ActiveGame().GetActiveGameScene()
+		
+		game_scene.place_death_circle('sword', x, y, 8, 5)
 		play_sound('sword')
 	def Shoot(self, bullet_type, game_scene):
 		self.state_count = 7

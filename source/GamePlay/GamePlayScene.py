@@ -1,4 +1,26 @@
 
+class DeathCircle:
+	def __init__(self, x, y, radius, duration, type):
+		self.x = x
+		self.y = y
+		self.r = radius
+		self.time_left = duration
+		self.type = type
+		self.expired = False
+	
+	def update(self):
+		self.time_left -= 1
+		if self.time_left < 0:
+			self.expired = True
+	
+	def touches_sprite(self, sprite):
+		dx = sprite.x - self.x
+		dy = sprite.y - self.y
+		max_distance = self.r + sprite.r
+		if dx ** 2 + dy ** 2 < max_distance ** 2:
+			return True
+		return False
+
 class GamePlayScene:
 	
 	def __init__(self, level_name, startX, startY):
@@ -11,6 +33,7 @@ class GamePlayScene:
 		self.player.x = startX
 		self.player.y = startY
 		self.level = Level(level_name)
+		self.death_circles = []
 		self.name = level_name
 		self.player_invisible = False
 		self.sprites = []
@@ -42,19 +65,38 @@ class GamePlayScene:
 				return sprite
 		return None
 	
+	def place_death_circle(self, type, x, y, radius, duration):
+		self.death_circles.append(DeathCircle(x, y, radius, duration, type))
+		
+		if type == 'sword':
+			tile_x = x >> 4
+			tile_y = y >> 4
+			layer = self.level.layers[self.player.layer]
+			if layer.contains_stuff and tile_x >= 0 and tile_y >= 0 and tile_x < layer.width and tile_y < layer.height:
+				layer.tiles[tile_x][tile_y].ChopTheBushes()
 	def ProcessInput(self, events):
 	
 		if self.cutscene != None and not self.cutscene.is_done():
 			events = self.cutscene.get_input_events()
-			
+		
+		actions = {
+			'stab' : False,
+			'shoot' : False,
+			'drill' : False,
+			'hammer' : False
+		}
 		for event in events:
 			if event.down and event.key == 'B':
 				if self.player.state == 'walking':
-					self.player.Stab()
+					actions['stab'] = True
 			elif event.down and event.key == 'A':
 				self.player.Shoot('basic', self)
 			elif event.down and event.key == 'start':
 				self.next = InventoryScene(self)
+		
+		if actions['stab']:
+			self.player.Stab()
+		
 		v = 3
 		vx = 0
 		vy = 0
