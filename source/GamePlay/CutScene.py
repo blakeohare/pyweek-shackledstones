@@ -258,6 +258,10 @@ _cutSceneStore = {
 'loud_switch_noise': """
 	pause 10
 	
+""",
+#TODO: play TADA
+'sword_found' : """
+	dialog sword_found
 """
 }
 
