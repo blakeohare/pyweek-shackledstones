@@ -94,8 +94,8 @@ class TransitionScene:
 		minimum_h = 7
 		maximum_h = image.get_height()
 		
-		width = minimum_w * amount + maximum_w * (1.0 - amount)
-		height = minimum_h * amount + maximum_h * (1.0 - amount)
+		width = int(minimum_w * amount + maximum_w * (1.0 - amount))
+		height = int(minimum_h * amount + maximum_h * (1.0 - amount))
 		
 		tempScreen = GetTempScreenSize(width, height)
 		pygame.transform.scale(image, (width, height), tempScreen)
