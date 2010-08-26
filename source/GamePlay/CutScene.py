@@ -282,7 +282,8 @@ _cutSceneStore = {
 
 _play_once = {
 	'interrogation' : False,
-	'at_water_temple' : False
+	'at_water_temple' : False,
+	
 }
 
 def get_cutscene(name):
@@ -293,17 +294,23 @@ def get_cutscene(name):
 def get_cutscene_for_map(map_name):
 	global _play_once
 	cs = None
+	cs_name = None
 	if map_name == 'transport_1':
-		cs = get_cutscene('interrogation')
+		cs_name = 'interrogation'
 	elif map_name == 'escape_pod':
-		cs = get_cutscene('to_water_temple')
+		cs_name = 'to_water_temple'
 	elif map_name == 'world_A':
-		cs = get_cutscene('at_water_temple')
-	played_already = _play_once.get(cs)
+		cs_name = 'at_water_temple'
+	
+	if cs_name != None:
+		cs = get_cutscene(cs_name)
+	played_already = _play_once.get(cs_name)
 	if played_already != None:
-		_play_once[cs] = True
-		if played_already:
+		key = 'cut_scene_play_once_' + cs_name
+		if ActiveGame().GetVar(key) == 1:
 			cs = None
+		else:
+			ActiveGame().SetSavedVar(key, 1)
 			
 	return cs
 	
