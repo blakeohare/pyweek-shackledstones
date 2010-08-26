@@ -10,6 +10,7 @@ class MapScript(Scripted):
       self._addFn('music', do_music)
       self._addFn('launch cutscene', do_cutscene)
       self._addFn('toggle mirror', do_toggle_mirror)
+      self._addFn('get key', do_getkey)
    
    # get the next bit of stuff to display
    def Advance(self):
@@ -28,3 +29,5 @@ class MapScript(Scripted):
    def _end(self):
       # what to do?
       return Scripted._end(self)
+   
+   
