@@ -20,10 +20,7 @@ def main():
 	
 	_inputManager.initializeJoystick()
 	
-	#scene = DialogScene(Dialog(Parser.LoadFile(scriptPath('test'))), MainMenuScene())
 	scene = MainMenuScene()
-	#scene = InventoryScene(MainMenuScene())
-	#scene = NameEntryScene(1, MainMenuScene())
 	
 	screen_width = screen.get_width()
 	screen_height = screen.get_height()

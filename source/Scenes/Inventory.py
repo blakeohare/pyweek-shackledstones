@@ -3,16 +3,6 @@ class InventoryScene:
       self.next = self
       
       i = Inventory()
-      ag = ActiveGame()
-      ag.SetSavedVar(i.Sabre(), 1)
-      ag.SetSavedVar(i.Hammer(), 1)
-      ag.SetSavedVar(i.Cannon(), 1)
-      ag.SetSavedVar(i.Drill(), 1)
-      ag.SetSavedVar(i.Hook(), 1)
-      ag.SetSavedVar(i.CannonFire(), 1)
-      ag.SetSavedVar(i.CannonIce(), 1)
-      ag.SetSavedVar(i.CannonMulti(), 1)
-
       self._layout = ([i.Sabre(), i.Hammer(), i.Drill(), i.Hook()],
                       [i.Cannon(), i.CannonFire(), i.CannonIce(), i.CannonMulti()])
       

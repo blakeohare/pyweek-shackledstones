@@ -20,6 +20,13 @@ equipped_b
 equipped_x
 equipped_y
 
+The following will be used to track which stones a play has acquired
+stone_water
+stone_light
+stone_life
+stone_fire
+stone_dark
+stone_death
 """
 class GameInstance:
 	def __init__(self, slot):
@@ -43,7 +50,7 @@ class GameInstance:
 		self.values[name] = value
 	def SetTempVar(self, name, value):
 		self.temp_vars[name] = value
-	
+   
 	def parse(self, slot):
 		values = {}
 		c = open('saves' + os.sep + 'slot' + str(slot) + '.txt', 'rt')
@@ -100,6 +107,7 @@ class GameContext:
 		return self.slots[slot_num - 1].GetVar('name')
 	
 	def DeletePlayer(self, slot_num):
+		print('deleted player slot %d' % slot_num)
 		game = self.slots[slot_num - 1]
 		
 		#shut up

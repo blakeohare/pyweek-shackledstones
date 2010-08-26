@@ -26,6 +26,9 @@ D_TEXT_OFFSET_Y = 198
 MENU_FONT = os.path.join('media', 'fortunaschwein.ttf')
 TEXT_FONT = os.path.join('media', 'rm_typewriter_old.ttf')
 
+ALPHA = 128
+GAME_NAME = "Steampunk Game"
+
 ### STATIC ###
 
 _font = None

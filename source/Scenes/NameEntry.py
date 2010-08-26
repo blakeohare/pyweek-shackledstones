@@ -1,11 +1,9 @@
 class NameEntryScene:
-   def __init__(self, slotNum, nextScene):
+   def __init__(self):
       self.next = self
-      self._nextScene = nextScene
       self._selection = [0, 0]
       self._erase = False
       self._done = False
-      self._slot = slotNum
       self._name = 'Lapis'
       self._nameLen = 10
       self._tic = 0
@@ -25,12 +23,27 @@ class NameEntryScene:
             if e.A():
                if self._isCommand():
                   if len(self._name) != 0 and self._done:
-                     GameContext().SetPlayerName(self._slot, self._name)
-                     self._nextScene.next = self._nextScene
-                     self.next = self._nextScene
+                     ActiveGame().SetSavedVar('name', self._name)
+                     for s in ['water', 'light', 'life', 'fire', 'dark', 'death']:
+                        ActiveGame().SetSavedVar('stone_%s' % s, 1)
+                     ActiveGame().SaveToFile()
+
+                     c = open('map_test.txt', 'rt')
+                     t = c.read().split('\n')
+                     c.close()
+                     map_name = trim(t[0])
+                     coords = trim(t[1]).split(',')
+                     scene = GamePlayScene(map_name, int(coords[0]) << 4, int(coords[1]) << 4)
+                     
+                     scene.next = scene
+                     self.next = scene
+                     return
+                     
                   if self._erase:
                      if len(self._name):
                         self._name = self._name[0:-1]
+                        return
+                        
                else:
                   if (len(self._name) < self._nameLen):
                      self._name += self._toLetter()
