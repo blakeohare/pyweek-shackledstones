@@ -16,7 +16,7 @@ class SimpleAnimationScene:
 		self.expiration -= 1
 		if self.expiration <= 0:
 			if self.name == 'flyaway':
-				self.next = GamePlayScene('escape_pod', 30, 30)
+				self.next = GamePlayScene('escape_pod', 30, 46)
 
 	def Render(self, screen):
 		if self.name == 'flyaway':
