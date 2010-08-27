@@ -8,15 +8,25 @@ class JukeBox:
 	
 	def PlaySong(self, name):
 		return
+		if not name:
+			pygame.mixer.music.stop()
+			return
+		
 		if self.now_playing != name:
 			self.MakeMusicLoud()
 			self.now_playing = name
-			pygame.mixer.music.load('media' + os.sep + 'music' + os.sep + name + '.mp3')
+			if not name.endswith('.mp3'):
+				name=name+".mp3"
+			pygame.mixer.music.load('media' + os.sep + 'music' + os.sep + name)
 			pygame.mixer.music.play(-1)
 	
 	def PlaySound(self, name):
+		if not name:
+			return
 		sound = self.sound_library.get(name)
 		if sound == None:
+			if not name.endswith('.wav'):
+				name=name+".wav"
 			sound = pygame.mixer.Sound('media' + os.sep + 'sound' + os.sep + name + '.wav')
 			self.sound_library[name] = sound
 		sound.play()

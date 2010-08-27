@@ -13,6 +13,7 @@ class TransitionScene:
 		self.max_duration = self.duration + 0.0
 		self.temp_screen = None
 		self.transition_type = transition_type
+		play_music(self.to_scene.level.music)
 		
 		if dest_tile == None:
 			self.next = from_scene
