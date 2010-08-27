@@ -751,7 +751,7 @@ pipe10	Pipe	xxxx	pipes/bottomend.png
 metal168	Metal Doodads	xxxx	metaltable.png
 floor1	Wood Floor	floor	woodfloor.png
 furnace	Furnace	xxxx	furnace/1.png|furnace/2.png|furnace/3.png|furnace/2.png	6
-pedestal	Pedestal	xxxx	itempedestal.png
+pedestal	Pedestal	oooo	itempedestal.png
 key1	Keys	oooo	keys/yellow/key.png
 key2	Keys	oooo	keys/red/key.png
 key3	Keys	oooo	keys/green/key.png
