@@ -12,7 +12,7 @@ class CompassRenderer:
 		if ActiveGame().GetVar('is_compass_active') == 1 or True:
 			screen.blit(compass_image, (10, 200))
 			spin_angle = self.counter * 3.14159 * 2 / 30
-			if game_scene != None and game_scene.dungeon == 'light':
+			if game_scene != None and game_scene.level.dungeon == 'light':
 				angle = spin_angle
 			elif game_scene == None or game_scene.name != 'world_W':
 				angle = 3.14159 / 2

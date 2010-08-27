@@ -3,8 +3,8 @@ class InventoryScene:
       self.next = self
       
       i = Inventory()
-      self._layout = ([i.Sabre(), i.Hammer(), i.Drill(), i.Hook()],
-                      [i.Cannon(), i.CannonFire(), i.CannonIce(), i.CannonMulti()])
+      self._layout = ([i.Sabre(), i.Hammer(), i.Drill(), i.Hook(), i.Compass()],
+                      [i.Cannon(), i.CannonFire(), i.CannonIce(), i.CannonMulti(), i.Shovel()])
       
       self._i = i
       self._baseScene = overlay
@@ -23,6 +23,8 @@ class InventoryScene:
       isurf[i.Hammer()] = il.FromFile(uiImgPath('hammer-have'))
       isurf[i.Drill()] = il.FromFile(uiImgPath('drill-have'))
       isurf[i.Hook()] = il.FromFile(uiImgPath('hook-have'))
+      isurf[i.Compass()] = il.FromFile(uiImgPath('compass-have'))
+      isurf[i.Shovel()] = get_image('ui/shovel-have')
    
    def ProcessInput(self, events):
       for e in events:
@@ -40,10 +42,10 @@ class InventoryScene:
                self._selection[1] %= 2
             elif e.key == 'right':
                self._selection[0] += 1
-               self._selection[0] %= 4
+               self._selection[0] %= 5
             elif e.key =='left':
                self._selection[0] -= 1
-               self._selection[0] %= 4
+               self._selection[0] %= 5
             else:
                self._select(e.key, self._selection[0], self._selection[1])
 
@@ -68,7 +70,7 @@ class InventoryScene:
       titleSurf = pygame.Surface((200, 25))
       titleSurf.set_alpha(120)
       
-      itemSurf = pygame.Surface((112, 60))
+      itemSurf = pygame.Surface((140, 60))
       itemSurf.set_alpha(120)
       
       vBorder = 7
@@ -84,11 +86,12 @@ class InventoryScene:
       
       # draw all items the player has:
       col = 0
-      while col < 4:
+      while col < 5:
          row = 0
          while row < 2:
             item = self._layout[row][col]
-            if isurf[item] and i.Check(item):
+            if isurf[item]:
+             if i.Check(item):
                screen.blit(isurf[item], (item_off_x + 4 + (28 * col),
                                           item_off_y + 4 + (28 * row)))
             
@@ -155,6 +158,12 @@ class Inventory:
    def HasCannonMulti(self):
       return self.Check('item_cannon_multi')
    
+   def HasCompass(self):
+      return self.Check('item_compass')
+      
+   def HasShovel(self):
+      return self.Check('item_shovel')
+   
    def HasAnyCannon(self):
       return self.HasCannon() or self.HasCannonFire() or self.HasCannonIce() or self.HasCannonMulti()
    
@@ -217,6 +226,10 @@ class Inventory:
       return 'item_cannon_ice'
    def CannonMulti(self):
       return 'item_cannon_multi'
+   def Compass(self):
+      return 'item_compass'
+   def Shovel(self):
+      return 'item_shovel'
    
    def Description(self, item):
       table = {}
@@ -228,6 +241,8 @@ class Inventory:
       table[self.CannonFire()] = 'Flame Ammo'
       table[self.CannonIce()] = 'Frost Ammo'
       table[self.CannonMulti()] = 'Multi-shot Ammo'
+      table[self.Compass()] = 'Compass'
+      table[self.Shovel()] = 'Shovel'
       return table.get(item, '')
    
    def PrintEquipped(self):

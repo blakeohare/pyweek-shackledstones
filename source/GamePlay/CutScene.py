@@ -202,7 +202,6 @@ _play_once = {
 def get_cutscene(name):
 	global _cutSceneStore
 	script = _cutSceneStore.get(name)
-	print name
 	if script == None:
 		c = open('data' + os.sep + 'cutscenes' + os.sep + name + '.txt', 'rt')
 		t = c.read()
