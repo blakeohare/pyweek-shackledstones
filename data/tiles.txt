@@ -622,7 +622,7 @@ blackside12	Black Side Doors	blackkey	sidedoor/black/lr2.png
 boulder1	Cracked Boulder	xxxx	crackedboulder.png
 dirt13	Planting Stuff	oooo	dirtmound.png
 172	Misc	xxxx	crate.png
-fire2	Magma	oooo	magma/1.png|magma/2.png|magma/3.png|magma/4.png	6
+fire2	Magma	xxxx	magma/1.png|magma/2.png|magma/3.png|magma/4.png	6
 nature18	Palm Tree	oooo	nature/palmtop.png
 nature19	Palm Tree	xxxx	nature/palmbottom.png
 nature20	Bushes	xxxx	nature/plant.png
