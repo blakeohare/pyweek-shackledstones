@@ -27,7 +27,7 @@ class JukeBox:
 		if sound == None:
 			if not name.endswith('.wav'):
 				name=name+".wav"
-			sound = pygame.mixer.Sound('media' + os.sep + 'sound' + os.sep + name + '.wav')
+			sound = pygame.mixer.Sound('media' + os.sep + 'sound' + os.sep + name)
 			self.sound_library[name] = sound
 		sound.play()
 	
