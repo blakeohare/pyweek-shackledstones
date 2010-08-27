@@ -4,7 +4,7 @@ class SimpleAnimationScene:
 		self.name = name
 		self.render_counter = 0
 		if name == 'flyaway':
-			
+			play_sound("flying")
 			self.expiration = 60
 		else:
 			self.expiration = 0

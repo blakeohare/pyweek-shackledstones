@@ -1,6 +1,7 @@
 
 	script [remove tile][water_stone][doodad]
 	pause 15
+	script [sound][explosion]
 	shakescreen 30
 	pause 10
 	script [remove tile][to_north][doodad]

@@ -43,10 +43,10 @@ def do_setTile(posId, detailLayer, tileTypeId):
 cr.Register('set tile', do_setTile, 3)
 
 def do_sound(file):
-   pass
+   play_sound(file)
 
 def do_music(file, loop = False):
-   pass
+   play_music(file)
 
 def do_toggle_mirror(mirror_name):
 	current = ActiveGame().GetVar('mirror_state_' + mirror_name)

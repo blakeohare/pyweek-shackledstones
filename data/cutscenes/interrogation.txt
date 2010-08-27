@@ -1,6 +1,8 @@
-
+	script [music][intropreboom]
 	sprite create meyer meyer 7 4 A standing left
 	dialog transport1
+	script [music][intropostboom]
+	script [sound][explosion]
 	shakescreen 60
 	pause 20
 	dialog transport2
