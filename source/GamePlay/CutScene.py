@@ -29,7 +29,7 @@ class CutSceneEvent:
 			self.expiration = -1
 		elif name == 'playsound':
 			self.do = self.do_play_sound
-			self.sound = args[1]
+			self.sound = args[0]
 			self.instant = True
 		elif name == 'shakescreen':
 			self.expiration = int(args[0])
