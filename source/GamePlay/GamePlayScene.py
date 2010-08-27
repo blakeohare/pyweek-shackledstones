@@ -20,6 +20,22 @@ class GamePlayScene:
 		if len(on_load_script) > 0:
 			go_script_go(on_load_script)
 		
+		if self.level.dungeon == 'light':
+			mirrors = self.light_puzzle_get_mirror_states()
+			setvar = ActiveGame().SetSavedVar
+			setvar('mirror_door_open', 'None')
+			if str(ActiveGame().GetVar('light_puzzle_on')) == '1':
+				if mirrors['A'] == 'mirror1':
+					if mirrors['B'] == 'mirror2' and mirrors['C'] == 'mirror3' and mirrors['D'] == 'mirror1' and mirrors['E'] == 'mirror3' and mirrors['F'] == 'mirror1':
+						setvar('mirror_door_open', 'Blue')
+				elif mirrors['A'] == 'mirror2':
+					if mirrors['G'] == 'mirror1' and mirrors['H'] == 'mirror3':
+						if mirrors['I'] == 'mirror4' and mirrors['L'] == 'mirror1' and mirrors['M'] == 'mirror2':
+							setvar('mirror_door_open', 'Yellow')
+						elif mirrors['I'] == 'mirror1' and mirrors['J'] == 'mirror4' and mirrors['K'] == 'mirror2':
+							setvar('mirror_door_open', 'Red')
+				
+		
 		self.light_puz = level_name == 'light_puzzle1_f1'
 		self.initialize_enemies()
 	
