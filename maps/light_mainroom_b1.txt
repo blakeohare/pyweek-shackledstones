@@ -5,3 +5,4 @@
 #IDs:bs_light_to_stairs_f_mainroom_b1|A|1|8,bs_light_to_rightroom_b1|A|22|8,bs_light_to_southroom_b1|A|12|16,bs_light_to_treasureroom_b1|A|12|1
 #scripts:bs_light_to_stairs_f_mainroom_b1|[warp][light_stairs_b1][bs_light_to_mainroom_b1][west scroll]|||bs_light_to_rightroom_b1|[warp][light_rightroom_b1][bs_light_to_mainroom_b1_f_rightroom_b1][east scroll]|||bs_light_to_southroom_b1|[warp][light_southroom_b1][bs_light_to_mainroom_b1_f_southroom_b1][south scroll]|||bs_light_to_treasureroom_b1|[warp][light_treasureroom_b1][bs_light_to_mainroom_b1_f_treasureroom][north scroll]
 #on_load:[check][mirror_door_open][eq][Yellow][open][dont]\n[label][open]\n[remove tile][bs_light_to_treasureroom_b1][basedetail]\n[label][dont]
+#music:sneakylight.mp3
