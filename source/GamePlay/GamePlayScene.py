@@ -61,7 +61,8 @@ class GamePlayScene:
 			'[set tile][6][doodad][d4]',
 			'[set tile][7][doodad][d12]',
 			'[set tile][8][doodad][d164]',
-			'[set tile][9][doodad][d11]'
+			'[set tile][9][doodad][d11]',
+			'[set tile][5][excessive][d41]'
 			]))
 		ActiveGame().SetSavedVar('swamp_opened', '1')
 	
@@ -179,6 +180,8 @@ class GamePlayScene:
 		
 		if self.cutscene != None and not self.cutscene.is_done():
 			self.cutscene.do(self)
+			if self.cutscene.is_done():
+				self.cutscene = None
 		
 		for sprite in self.get_sprites():
 			sprite.Update()
@@ -251,28 +254,25 @@ class GamePlayScene:
 		
 		name = None
 		if self.cutscene != None: name = self.cutscene.name
-		#print current, last, name
 		
 		if self.firstTimeOnTile and current != None and current != last and self.cutscene == None:
 			if last == 'H' and current == 'I':
-				self.cutscene = 'shake for 1 second'
+				self.cutscene = get_cutscene('torch_win')
 				self.open_dark_temple()
 			elif last == None and current == 'A':
 				self.last_torch_pressed = current
 				play_sound('fwuf')
-				#print '-3'
 				go_script_go('[remove tile][t' + current + '][doodad]')
 			elif last != None and activation.find(last) == activation.find(current) - 1:
 				self.last_torch_pressed = current
-				#print '-2'
 				play_sound('fwuf')
 				go_script_go('[remove tile][t' + current + '][doodad]')
 			else:
-				#print '-1', self.cutscene
 				play_sound('fwuf')
 				go_script_go('[remove tile][t' + current + '][doodad]')
 				current = None
 				last = None
+				self.last_torch_pressed = None
 				self.cutscene = get_cutscene('torch_fail')
 	
 	def torch_puzzle_relight(self):

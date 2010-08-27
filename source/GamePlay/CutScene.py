@@ -290,6 +290,9 @@ _cutSceneStore = {
 'torch_fail' : """
 	pause 60
 	relighttorches
+""",
+'torch_win' : """
+	shakescreen 30
 """
 }
 
