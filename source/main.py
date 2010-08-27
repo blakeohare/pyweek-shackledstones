@@ -15,6 +15,7 @@ def main():
 	height = TILE_ROW_COUNT * 16
 	
 	screen = pygame.display.set_mode((width * 2, height * 2))
+	pygame.display.set_icon(pygame.image.load("icon.png"))
 		
 	virtual_screen = pygame.Surface((width, height))
 	
