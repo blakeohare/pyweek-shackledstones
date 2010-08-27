@@ -839,3 +839,9 @@ escapepod8	Escape Pod	xxxx	escapepod/8.png
 escapepod9	Escape Pod	xxxx	escapepod/9.png
 escapepod10	Escape Pod	xxxx	escapepod/10.png
 escapepod11	Escape Pod	xxxx	escapepod/11.png
+stones1	Stones	oooo	sixstones/water/water.png
+stones2	Stones	oooo	sixstones/light/light.png
+stones3	Stones	oooo	sixstones/dark/dark.png
+stones4	Stones	oooo	sixstones/fire/fire.png
+stones5	Stones	oooo	sixstones/life/life.png
+stones6	Stones	oooo	sixstones/death/death.png
