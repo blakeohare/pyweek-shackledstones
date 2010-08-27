@@ -105,12 +105,18 @@ class GamePlayScene:
 	def place_death_circle(self, type, x, y, radius, duration):
 		self.death_circles.append(DeathCircle(x, y, radius, duration, type))
 		
-		if type == 'sword':
-			tile_x = x >> 4
-			tile_y = y >> 4
-			layer = self.level.layers[self.player.layer]
-			if layer.contains_stuff and tile_x >= 0 and tile_y >= 0 and tile_x < layer.width and tile_y < layer.height:
-				layer.tiles[tile_x][tile_y].ChopTheBushes()
+		tile_x = x >> 4
+		tile_y = y >> 4
+		layer = self.level.layers[self.player.layer]
+		if layer.contains_stuff and tile_x >= 0 and tile_y >= 0 and tile_x < layer.width and tile_y < layer.height:
+			tile = layer.tiles[tile_x][tile_y]
+			if type == 'sword':
+				tile.ChopTheBushes()
+			elif type == 'hammer':
+				tile.SmashBoulders()
+			elif type == 'drill':
+				tile.DrillThrough()
+			
 	def ProcessInput(self, events):
 	
 		if self.cutscene != None and not self.cutscene.is_done():

@@ -21,7 +21,27 @@ class Tile:
 			i += 1
 		if found:
 			self.initialize()
-	
+	def SmashBoulders(self):
+		i = 0
+		found = False
+		while i < len(self.orig_stack):
+			if self.orig_stack[i] == 'boulder1':
+				self.orig_stack[i] = ''
+				found = True
+			i += 1
+		if found:
+			self.initialize()
+	def DrillThrough(self):
+		i = 0
+		found = False
+		while i < len(self.orig_stack):
+			if self.orig_stack[i] == 'nature20':
+				self.orig_stack[i] = ''
+				found = True
+			i += 1
+		if found:
+			self.initialize()
+		
 	def RemoveKey(self):
 		i = 0
 		found = False

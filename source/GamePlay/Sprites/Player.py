@@ -94,7 +94,6 @@ class Player:
 		
 		game_scene.place_death_circle('hammer', x, y, 8, 5)
 		play_sound('hammer')
-		#TODO: destroy boulders
 	
 	def Grapple(self):
 		pass
