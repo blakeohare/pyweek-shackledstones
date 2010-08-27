@@ -115,7 +115,6 @@ class Player:
 			if self.direction == 'down':
 				return get_image('sprites/maincharacter/down' + counter)
 		elif self.state == 'stabbing' or self.state == 'hammering' or self.state == 'drilling':
-			print 'hi'
 			if self.state == 'stabbing':
 				img_name = 'stab'
 				counter = ('1','2','2','1','1')[(self.state_counter // 2) % 5]
