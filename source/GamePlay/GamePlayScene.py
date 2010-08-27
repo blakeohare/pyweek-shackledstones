@@ -15,7 +15,11 @@ class GamePlayScene:
 		self.name = level_name
 		self.player_invisible = False
 		self.sprites = []
+		self.overlayRenderer = OverlayRenderer()
 		self.cutscene = get_cutscene_for_map(level_name)
+		self.last_torch_pressed = None
+		self.prevTile = None
+		self.firstTimeOnTile = True
 		on_load_script = trim(self.level.on_load)
 		if len(on_load_script) > 0:
 			go_script_go(on_load_script)
@@ -34,10 +38,32 @@ class GamePlayScene:
 							setvar('mirror_door_open', 'Yellow')
 						elif mirrors['I'] == 'mirror1' and mirrors['J'] == 'mirror4' and mirrors['K'] == 'mirror2':
 							setvar('mirror_door_open', 'Red')
-				
 		
+		self.torch_puz = level_name == 'dark_swamp'
 		self.light_puz = level_name == 'light_puzzle1_f1'
+		
+		if self.torch_puz:
+			self.swamp_opened = ActiveGame().GetVar('swamp_opened') != None
+			
+			if self.swamp_opened:
+				self.open_dark_temple()
+		
 		self.initialize_enemies()
+	
+	def open_dark_temple(self):
+		ids = self.level.ids
+		go_script_go('\n'.join([
+			'[set tile][1][doodad][d9]',
+			'[set tile][2][doodad][d7]',
+			'[set tile][3][doodad][d10]',
+			'[set tile][4][doodad][d5]',
+			'[set tile][5][doodad][94]',
+			'[set tile][6][doodad][d4]',
+			'[set tile][7][doodad][d12]',
+			'[set tile][8][doodad][d164]',
+			'[set tile][9][doodad][d11]'
+			]))
+		ActiveGame().SetSavedVar('swamp_opened', '1')
 	
 	def initialize_enemies(self):
 		for enemy in self.level.enemies:
@@ -131,8 +157,14 @@ class GamePlayScene:
 		self.do_sprite_move(self.player, vx, vy, False)
 		
 	def Update(self, game_counter):
-		play_music('highlightsoflight')
 		self.level.update_tile_standing_on(self.player.layer, self.player.x, self.player.y)
+		if self.prevTile != self.level.playerStandingOn:
+			self.prevTile = self.level.playerStandingOn
+			self.firstTimeOnTile = True
+		else:
+			self.firstTimeOnTile = False
+		if self.torch_puz and not self.swamp_opened:
+			self.torch_puzzle_update()
 		
 		if self.level.dungeon != None and len(self.level.locked_doors) > 0:
 			tile_x = self.player.x >> 4
@@ -199,6 +231,55 @@ class GamePlayScene:
 			self.render_light_puzzle(screen, offset)
 		
 		self.render_counter += 1
+	
+		if self.overlayRenderer != None:
+			self.overlayRenderer.Render(screen)
+		
+	def torch_puzzle_update(self):
+		ids = self.level.ids
+		activation = 'ABCDEFGHI'
+		x = self.player.x >> 4
+		y = self.player.y >> 4
+		current = None
+		
+		last = self.last_torch_pressed
+		for active_tile in activation:
+			tile = ids[active_tile]
+			if tile.x == x and tile.y == y:
+				current = active_tile
+				break
+		
+		name = None
+		if self.cutscene != None: name = self.cutscene.name
+		#print current, last, name
+		
+		if self.firstTimeOnTile and current != None and current != last and self.cutscene == None:
+			if last == 'H' and current == 'I':
+				self.cutscene = 'shake for 1 second'
+				self.open_dark_temple()
+			elif last == None and current == 'A':
+				self.last_torch_pressed = current
+				play_sound('fwuf')
+				#print '-3'
+				go_script_go('[remove tile][t' + current + '][doodad]')
+			elif last != None and activation.find(last) == activation.find(current) - 1:
+				self.last_torch_pressed = current
+				#print '-2'
+				play_sound('fwuf')
+				go_script_go('[remove tile][t' + current + '][doodad]')
+			else:
+				#print '-1', self.cutscene
+				play_sound('fwuf')
+				go_script_go('[remove tile][t' + current + '][doodad]')
+				current = None
+				last = None
+				self.cutscene = get_cutscene('torch_fail')
+	
+	def torch_puzzle_relight(self):
+		for tile in 'ABCDEFGHI':
+			go_script_go('[set tile][t' + tile + '][doodad][torch3]')
+		play_sound('bad')
+			
 	
 	def render_light_puzzle(self, screen, offset):
 		get_var = ActiveGame().GetVar

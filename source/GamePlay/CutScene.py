@@ -43,6 +43,9 @@ class CutSceneEvent:
 			self.expiration = int(args[0])
 			self.play_sound_on = self.expiration
 			self.do = self.shake_screen
+		elif name == 'relighttorches':
+			self.instant = True
+			self.do = self.do_relighttorches
 		elif name == 'sprite':
 			if args[0].lower() == 'setstate':
 				self.sprite_id = args[1]
@@ -78,6 +81,9 @@ class CutSceneEvent:
 	
 	def do_script(self, game_scene):
 		go_script_go(self.script)
+	
+	def do_relighttorches(self, game_scene):
+		game_scene.torch_puzzle_relight()
 	
 	def save(self, game_scene):
 		ActiveGame().SaveToFile()
@@ -144,7 +150,8 @@ class CutSceneEvent:
 
 class CutScene:
 	
-	def __init__(self, command_script):
+	def __init__(self, command_script, name):
+		self.name = name
 		lines = trim(command_script).split('\n')
 		commands = []
 		for line in lines:
@@ -279,6 +286,10 @@ _cutSceneStore = {
 """,
 'save_point_routine' : """
 	dialog do_save
+""",
+'torch_fail' : """
+	pause 60
+	relighttorches
 """
 }
 
@@ -292,7 +303,8 @@ _play_once = {
 def get_cutscene(name):
 	global _cutSceneStore
 	script = _cutSceneStore[name]
-	return CutScene(script)
+	return CutScene(script, name)
+	
 	
 def get_cutscene_for_map(map_name):
 	global _play_once
