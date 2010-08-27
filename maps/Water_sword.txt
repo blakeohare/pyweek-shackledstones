@@ -8,3 +8,4 @@
 #IDs:W|A|0|8,WA|A|0|9,sword|C|11|8
 #scripts:W|[warp][Water_mainroom][E2][west scroll]|||WA|[warp][Water_mainroom][E2][west scroll]|||sword|[check][item_sabre][eq][1][do][dont]\n[label][dont]\n[remove tile][sword][doodad]\n[set][item_sabre][1]\n[launch cutscene][sword_found]\n[label][do]
 #on_load:[check][item_sabre][eq][1][do][dont]\n[label][dont]\n[set tile][sword][doodad][items1]\n[label][do]
+#music:hostilewaters.mp3

@@ -7,3 +7,4 @@
 #IDs:S|A|12|17,E|A|23|9,EA|A|23|8,key|A|1|5,start|A|12|16
 #scripts:S|[warp][Water_mainroom][N][south scroll]|||E|[warp][Water_rm7][W2][east scroll]|||EA|[warp][Water_rm7][W2][east scroll]|||key|[check][has_water_hidden_key][eq][1][dont][do]\n[label][do]\n[get key][red]\n[set][has_water_hidden_key][1]\n[remove tile][key][basedetail]\n[remove tile][EA][doodad]\n[remove tile][E][doodad]\n[remove tile][S][doodad]\n[label][dont]
 #on_load:[check][has_water_hidden_key][eq][1][do][dont]\n[label][do]\n[remove tile][key][basedetail]\n[remove tile][EA][doodad]\n[remove tile][E][doodad]\n[remove tile][S][doodad]\n[label][dont]
+#music:hostilewaters.mp3
