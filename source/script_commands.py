@@ -54,6 +54,7 @@ def do_toggle_mirror(mirror_name):
 	elif current == 'mirror2': current = 'mirror3'
 	elif current == 'mirror3': current = 'mirror4'
 	else: current = 'mirror1'
+	play_sound('mirrorrotate')
 	ActiveGame().SetSavedVar('mirror_state_' + mirror_name, current)
 	#print 'toggle ', mirror_name
 
