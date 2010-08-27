@@ -1,6 +1,7 @@
 _bulletSwitches = {
 	'Fire_Room2' : 'switch',
-	'Fire_Key1' : 'switch_B'
+	'Fire_Key1' : 'switch_B',
+	'light_rightroom_b1' : 'switch'
 }
 
 class Projectile:
