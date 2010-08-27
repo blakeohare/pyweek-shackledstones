@@ -1,7 +1,8 @@
 _bulletSwitches = {
-	'Fire_Room2' : 'switch',
-	'Fire_Key1' : 'switch_B',
-	'light_rightroom_b1' : 'switch'
+	'Fire_Room2' : ['switch'],
+	'Fire_Key1' : ['switch_B'],
+	'light_rightroom_b1' : ['switch'],
+	'light_south_southroom' : ['switch_left','switch_right']
 }
 
 class Projectile:
@@ -32,8 +33,8 @@ class Projectile:
 	
 	def Update(self):
 		global _bulletSwitches
-		tile = _bulletSwitches.get(self.game_scene.name)
-		if tile != None:
+		tiles = _bulletSwitches.get(self.game_scene.name, [])
+		for tile in tiles:
 			tile = self.game_scene.level.ids[tile]
 			x = abs((tile.x << 4) + 8 - self.x)
 			y = abs((tile.y << 4) + 8 - self.y)
@@ -41,6 +42,7 @@ class Projectile:
 			if self.layer == layer and x < 8 and y < 8:
 				self.expired = True
 				go_script_go(tile.script)
+				break
 		
 		self.state_counter -= 1
 		if self.state_counter <= 0 and self.state != 'walking' and self.state != 'standing':

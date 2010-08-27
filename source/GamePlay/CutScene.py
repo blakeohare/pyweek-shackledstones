@@ -38,6 +38,9 @@ class CutSceneEvent:
 		elif name == 'relighttorches':
 			self.instant = True
 			self.do = self.do_relighttorches
+		elif name == 'turnlightswitchesoff':
+			self.instant = True
+			self.do = self.do_turnlightswitchesoff
 		elif name == 'sprite':
 			if args[0].lower() == 'setstate':
 				self.sprite_id = args[1]
@@ -70,6 +73,9 @@ class CutSceneEvent:
 				if not self.instant:
 					self.expiration = int(args[4])
 					self.total = self.expiration
+	
+	def do_turnlightswitchesoff(self, game_scene):
+		game_scene.turnlightswitchesoff()
 	
 	def do_script(self, game_scene):
 		go_script_go(self.script)

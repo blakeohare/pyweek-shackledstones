@@ -18,6 +18,10 @@ class GamePlayScene:
 		self.overlayRenderer = OverlayRenderer()
 		self.cutscene = get_cutscene_for_map(level_name)
 		self.last_torch_pressed = None
+		self.lever_a_pressed = False
+		self.lever_b_pressed = False
+		self.puz_flag = False
+		
 		self.prevTile = None
 		self.firstTimeOnTile = True
 		on_load_script = trim(self.level.on_load)
@@ -43,6 +47,7 @@ class GamePlayScene:
 		self.torch_puz = level_name == 'dark_swamp'
 		self.light_puz = level_name == 'light_puzzle1_f1'
 		self.desert_puz = level_name == 'world_W'
+		self.lever_puz = level_name == 'light_south_southroom'
 		
 		if self.torch_puz:
 			self.swamp_opened = ActiveGame().GetVar('swamp_opened') != None
@@ -90,7 +95,7 @@ class GamePlayScene:
 		self.level.synch_stand_key(layer, self.player.x >> 4, self.player.y >> 4)
 	
 	def is_key_pressed(self, key):
-		if self.cutscene != None and not self.cutscene.is_done():
+		if self.cutscene != None and not self.cutscene.is_done() and self.cutscene.name != 'asynch':
 			return self.cutscene.is_key_pressed(key)
 		return is_pressed(key)
 			
@@ -120,7 +125,7 @@ class GamePlayScene:
 			
 	def ProcessInput(self, events):
 	
-		if self.cutscene != None and not self.cutscene.is_done():
+		if self.cutscene != None and not self.cutscene.is_done() and self.cutscene.name != 'asynch':
 			events = self.cutscene.get_input_events()
 		
 		actions = {
@@ -213,7 +218,8 @@ class GamePlayScene:
 			self.firstTimeOnTile = False
 		if self.torch_puz and not self.swamp_opened:
 			self.torch_puzzle_update()
-		
+		elif self.lever_puz:
+			self.light_lever_puzzle()
 		if self.desert_puz:
 			self.desert_puzzle_update()
 		
@@ -230,7 +236,7 @@ class GamePlayScene:
 		
 		if self.cutscene != None and not self.cutscene.is_done():
 			self.cutscene.do(self)
-			if self.cutscene.is_done():
+			if self.cutscene != None and self.cutscene.is_done():
 				self.cutscene = None
 		
 		for sprite in self.get_sprites():
@@ -255,6 +261,47 @@ class GamePlayScene:
 			if len(enemy_kill_script) > 0:
 				go_script_go(enemy_kill_script)
 
+	def light_lever_puzzle(self):
+		getvar = ActiveGame().GetVar
+		
+		if str(getvar('light_timed_lever_A')) == '1' and str(getvar('light_timed_lever_B')) == '1' and not self.puz_flag:
+			go_script_go('[set][light_timed_lever_solved][1]')
+			go_script_go('[remove tile][closed_door][baseadorn]')
+			self.puz_flag = True
+			self.cutscene = None
+			
+		if self.firstTimeOnTile:
+			if not str(getvar('light_timed_lever_solved')) == '1':
+				if str(getvar('light_timed_lever_A')) == '1' and not self.lever_a_pressed:
+					self.lever_a_pressed = True
+					if self.lever_b_pressed:
+						go_script_go('[set][light_timed_lever_solved][1]')
+						self.cutscene = None
+					else:
+						script = '[set][light_timed_lever_A][0]'
+						self.cutscene = CutScene(('pause 15\nplaysound tick\n' * 8) + 'turnlightswitchesoff', 'asynch')
+				if str(getvar('light_timed_lever_B')) == '1' and not self.lever_b_pressed:
+					self.lever_b_pressed = True
+					if self.lever_a_pressed:
+						go_script_go('[set][light_timed_lever_solved][1]')
+						self.cutscene = None
+					else:
+						script = '[set][light_timed_lever_B][0]'
+						self.cutscene = CutScene(('pause 15\nplaysound tick\n' * 8) + 'turnlightswitchesoff', 'asynch')
+				
+				if str(getvar('light_timed_lever_A')) == '1' and str(getvar('light_timed_lever_B')) == '1':
+					self.turnlightswitchesoff()
+					go_script_go('[set][light_timed_lever_solved][1]')
+	
+	def turnlightswitchesoff(self):
+		self.lever_a_pressed = False
+		self.lever_b_pressed = False
+		go_script_go('[set tile][switch_left][baseadorn][57]')
+		go_script_go('[set tile][switch_right][baseadorn][57]')
+		go_script_go('[set][light_timed_lever_A][0]')
+		go_script_go('[set][light_timed_lever_B][0]')
+		self.cutscene = None
+		
 	def desert_puzzle_update(self):
 		opened = str(ActiveGame().GetVar('light_temple_opened')) == '1'
 		if not opened and self.player.state == 'shovelling':
