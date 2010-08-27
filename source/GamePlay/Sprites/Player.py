@@ -56,7 +56,9 @@ class Player:
 		play_sound('gunshot')
 		
 	def Dig(self):
-		pass
+		self.state_counter = 20
+		self.state = 'shovelling'
+		play_sound('dig')
 	
 	def Drill(self):
 		self.state_counter = 15
@@ -75,7 +77,6 @@ class Player:
 		
 		game_scene.place_death_circle('drill', x, y, 8, 5)
 		play_sound('drill')
-		#TODO: destroy boulders
 	
 	def Hammer(self):
 		self.state_counter = 15
@@ -114,7 +115,7 @@ class Player:
 				return get_image('sprites/maincharacter/up' + counter)
 			if self.direction == 'down':
 				return get_image('sprites/maincharacter/down' + counter)
-		elif self.state == 'stabbing' or self.state == 'hammering' or self.state == 'drilling':
+		elif self.state == 'stabbing' or self.state == 'hammering' or self.state == 'drilling' or self.state == 'shovelling':
 			if self.state == 'stabbing':
 				img_name = 'stab'
 				counter = ('1','2','2','1','1')[(self.state_counter // 2) % 5]
@@ -124,6 +125,10 @@ class Player:
 			if self.state == 'hammering':
 				img_name = 'hammer'
 				counter = ('1','1','2','3','3','3','3','3','3','3','3','3','2','1','1')[self.state_counter % 15]
+			if self.state == 'shovelling':
+				img_name = 'shovel'
+				counter = 2 - ((self.state_counter // 11) % 2)
+				self.direction = 'right'
 			counter = str(counter)
 			if self.direction == 'right':
 				return get_image('sprites/maincharacter/'+img_name+'right' + counter)

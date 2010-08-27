@@ -42,6 +42,7 @@ class GamePlayScene:
 		
 		self.torch_puz = level_name == 'dark_swamp'
 		self.light_puz = level_name == 'light_puzzle1_f1'
+		self.desert_puz = level_name == 'world_W'
 		
 		if self.torch_puz:
 			self.swamp_opened = ActiveGame().GetVar('swamp_opened') != None
@@ -213,6 +214,9 @@ class GamePlayScene:
 		if self.torch_puz and not self.swamp_opened:
 			self.torch_puzzle_update()
 		
+		if self.desert_puz:
+			self.desert_puzzle_update()
+		
 		if self.level.dungeon != None and len(self.level.locked_doors) > 0:
 			tile_x = self.player.x >> 4
 			tile_y = self.player.y >> 4
@@ -251,6 +255,18 @@ class GamePlayScene:
 			if len(enemy_kill_script) > 0:
 				go_script_go(enemy_kill_script)
 
+	def desert_puzzle_update(self):
+		opened = str(ActiveGame().GetVar('light_temple_opened')) == '1'
+		if not opened and self.player.state == 'shovelling':
+			target = self.level.ids['temple']
+			x = self.player.x >> 4
+			y = self.player.y >> 4
+			if target.x == x and target.y == y:
+				ActiveGame().SetSavedVar('light_temple_opened', '1')
+				self.cutscene = CutScene('pause 5\nplaysound itemget\nscript [set tile][entrance][base][171]', 'open_light_temple')
+			
+		
+		
 	def get_enemy_count(self):
 		count = 0
 		for sprite in self.sprites:
