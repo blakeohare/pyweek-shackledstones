@@ -61,3 +61,41 @@ def make_table(width, height):
 		i += 1
 	return cols
 	
+
+def get_money():
+	value = ActiveGame().GetVar('money_amount')
+	if value == None:
+		return 0
+	else:
+		return int(value)
+
+def set_money(amount):
+	ActiveGame().SetSavedVar('money_amount', int(amount))
+
+def modify_money(amount):
+	set_money(max(0, get_money() + amount))
+
+def has_money(amont):
+	return get_money() >= amount
+
+def get_life():
+	value = ActiveGame().GetVar('life_meter')
+	if value == None:
+		return 3
+	else:
+		return max(0, int(value))
+
+def get_max_life():
+	value = ActiveGame().GetVar('has_armor')
+	if value == None or value == 0:
+		return 10
+	else:
+		return 20
+		
+def set_life(amount):
+	ActiveGame().SetTempVar('life_meter', min(10, amount))
+def take_damage(amount):
+	set_life(get_life() - amount)
+	return get_life() <= 0
+def heal_damage():
+	set_life(get_life() + 1)

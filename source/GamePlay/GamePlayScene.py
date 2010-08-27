@@ -148,6 +148,21 @@ class GamePlayScene:
 				self.player.Stab()
 			elif actions['item_cannon']:
 				self.player.Shoot('basic', self)
+			elif actions['item_cannon_fire']:
+				self.player.Shoot('fire', self)
+			elif actions['item_cannon_ice']:
+				self.player.Shoot('ice', self)
+			elif actions['item_cannon_multi']:
+				self.player.Shoot('multi', self)
+			elif actions['item_shovel']:
+				self.player.Dig()
+			elif actions['item_drill']:
+				self.player.Drill()
+			elif actions['item_hammer']:
+				self.player.Hammer()
+			elif actions['item_hook']:
+				self.player.Grapple()
+			
 		
 		if actions['item_compass']:
 			compass_active = ActiveGame().GetVar('is_compass_active')
