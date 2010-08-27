@@ -9,7 +9,7 @@ class CompassRenderer:
 		compass_image = get_image('ui/compass')
 		self.counter += 1
 		game_scene = ActiveGame().GetActiveGameScene()
-		if ActiveGame().GetVar('is_compass_active') == 1 or True:
+		if ActiveGame().GetVar('is_compass_active') == 1:
 			screen.blit(compass_image, (10, 200))
 			spin_angle = self.counter * 3.14159 * 2 / 30
 			if game_scene != None and game_scene.level.dungeon == 'light':

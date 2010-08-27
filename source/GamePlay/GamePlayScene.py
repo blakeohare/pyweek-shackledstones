@@ -21,6 +21,7 @@ class GamePlayScene:
 		self.prevTile = None
 		self.firstTimeOnTile = True
 		on_load_script = trim(self.level.on_load)
+		self.inventory = Inventory()
 		if len(on_load_script) > 0:
 			go_script_go(on_load_script)
 		
@@ -116,23 +117,47 @@ class GamePlayScene:
 			events = self.cutscene.get_input_events()
 		
 		actions = {
-			'stab' : False,
-			'shoot' : False,
-			'drill' : False,
-			'hammer' : False
+			'item_sabre' : False,
+			'item_hammer' : False,
+			'item_drill' : False,
+			'item_hook' : False,
+			'item_cannon' : False,
+			'item_cannon_fire' : False,
+			'item_cannon_ice' : False,
+			'item_cannon_multi' : False,
+			'item_compass' : False,
+			'item_shovel' : False
 		}
+		
+		items_pressed = []
+		
 		for event in events:
 			if event.down and event.key == 'B':
-				if self.player.state == 'walking':
-					actions['stab'] = True
+				actions[self.inventory.EquippedB()] = True
 			elif event.down and event.key == 'A':
-				self.player.Shoot('basic', self)
+				actions[self.inventory.EquippedA()] = True
+			elif event.down and event.key == 'Y':
+				actions[self.inventory.EquippedY()] = True
+			elif event.down and event.key == 'X':
+				actions[self.inventory.EquippedX()] = True
 			elif event.down and event.key == 'start':
 				self.next = InventoryScene(self)
 		
-		if actions['stab']:
-			self.player.Stab()
+		if self.player.state == 'walking':
+			if actions['item_sabre']:
+				self.player.Stab()
+			elif actions['item_cannon']:
+				self.player.Shoot('basic', self)
 		
+		if actions['item_compass']:
+			compass_active = ActiveGame().GetVar('is_compass_active')
+			if compass_active == None: compass_active = 0
+			else: compass_active = int(compass_active)
+			
+			if compass_active == 1:
+				ActiveGame().SetTempVar('is_compass_active', 0)
+			else:
+				ActiveGame().SetTempVar('is_compass_active', 1)
 		v = 3
 		vx = 0
 		vy = 0

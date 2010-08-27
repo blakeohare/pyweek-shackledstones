@@ -13,6 +13,8 @@ item_cannon
 item_cannon_fire
 item_cannon_ice
 item_cannon_multi
+item_compass
+item_shovel
 
 The following holds one of the above to indicate what each button has assigned
 equipped_a
@@ -39,7 +41,7 @@ class GameInstance:
 		value = self.temp_vars.get(varName)
 		if value == None:
 			return self.values.get(varName)
-		return None
+		return value
 	
 	def SetActiveGameScene(self, game_scene):
 		self.active_game_scene = game_scene
