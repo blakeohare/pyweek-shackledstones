@@ -78,4 +78,12 @@ def do_getkey(color):
 def do_save_point():
 	do_cutscene('save_point_routine')
 	return True
-	
+
+def do_sign_display(text):
+	lines = trim(str(text)).split('$')
+	game_scene = ActiveGame().GetActiveGameScene()
+	ds = DialogScene(
+		Dialog(ScriptIter(['[profile][]'] + lines + ['[pause]','','[end]'])),
+		game_scene)
+	game_scene.next = ds
+	game_scene.player.walking = False

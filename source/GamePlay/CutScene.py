@@ -99,8 +99,6 @@ class CutSceneEvent:
 	
 	def setspritedirection(self, game_scene):
 		sprite = game_scene.get_sprite_by_id(self.sprite_id)
-		#print sprite
-		#print self.direction
 		sprite.direction = self.direction
 	
 	def createsprite(self, game_scene):

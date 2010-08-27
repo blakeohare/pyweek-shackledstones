@@ -12,6 +12,7 @@ class MapScript(Scripted):
       self._addFn('toggle mirror', do_toggle_mirror)
       self._addFn('get key', do_getkey)
       self._addFn('save', do_save_point)
+      self._addFn('sign', do_sign_display)
    
    # get the next bit of stuff to display
    def Advance(self):
