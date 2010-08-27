@@ -869,3 +869,4 @@ epd1	Escape Pod Decor	xxxx	escapepoddecor/largewindow.png
 epd2	Escape Pod Decor	xxxx	escapepoddecor/controlpanela.png
 epd3	Escape Pod Decor	xxxx	escapepoddecor/controlpanelb.png
 epd4	Escape Pod Decor	xxxx	escapepoddecor/controlpanelc.png
+epd5	Escape Pod Decor	xxxx	escapepoddecor/emptypanel.png
