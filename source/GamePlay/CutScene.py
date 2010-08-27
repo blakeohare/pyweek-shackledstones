@@ -116,8 +116,8 @@ class CutSceneEvent:
 	
 	def setspritestate(self, game_scene):
 		sprite = game_scene.get_sprite_by_id(self.sprite_id)
-		sprite.direction = self.direction
-	
+		sprite.state = self.sprite_state
+		
 	def setspriteloc(self, game_scene):
 		sprite = game_scene.get_sprite_by_id(self.sprite_id)
 		if self.first_time_through:
