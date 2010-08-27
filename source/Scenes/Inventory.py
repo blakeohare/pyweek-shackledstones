@@ -132,7 +132,7 @@ class Inventory:
       self._ag = ActiveGame()
    
    def Check(self, item):
-      return self._ag.GetVar(item) == 1
+      return str(self._ag.GetVar(item)) == '1'
    
    def HasSabre(self):
       return self.Check('item_sabre')
