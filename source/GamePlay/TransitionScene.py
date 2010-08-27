@@ -3,6 +3,9 @@ class TransitionScene:
 	def __init__(self, from_scene, to_level, to_tile, transition_type):
 		self.from_scene = from_scene
 		self.to_scene = GamePlayScene(to_level, 1, 1)
+		self.to_scene.overlayRenderer = None
+		self.from_scene.overlayRenderer = None
+		self.overlayRenderer = OverlayRenderer()
 		dest_tile = self.to_scene.level.ids.get(to_tile)
 		self.duration = 30
 		if transition_type == WARP_PIXELATE:
@@ -26,6 +29,7 @@ class TransitionScene:
 		self.duration -= 1
 		if self.duration <= 0:
 			self.next = self.to_scene
+			self.next.overlayRenderer = self.overlayRenderer
 			self.to_scene.player_invisible = False
 		
 	def get_to_screen(self):
@@ -86,6 +90,7 @@ class TransitionScene:
 			
 			image.set_alpha(alpha)
 			screen.blit(image, (0,0))
+		self.overlayRenderer.Render(screen)
 		
 			
 	def pixelate_this(self, image, amount):
