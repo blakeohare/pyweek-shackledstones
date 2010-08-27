@@ -28,6 +28,7 @@ class KeyRegistry:
 			if self.IsDoorLocked(map, dungeon, x, y, color):
 				self.SetVar(self.GetKeyCountIndex(dungeon, color), self.GetKeyCount(dungeon, color) - 1)
 				self.SetVar(self.GetPreferredIndexForDoor(map, dungeon, x, y, color), 1)
+				play_sound("unlock")
 				return True
 		return False
 	
