@@ -865,3 +865,7 @@ counter1	Counter	xxxx	counter/horizontal.png
 counter2	Counter	xxxx	counter/vertical.png
 counter3	Counter	xxxx	counter/bottomleft.png
 counter4	Counter	xxxx	counter/bottomright.png
+epd1	Escape Pod Decor	xxxx	escapepoddecor/largewindow.png
+epd2	Escape Pod Decor	xxxx	escapepoddecor/controlpanela.png
+epd3	Escape Pod Decor	xxxx	escapepoddecor/controlpanelb.png
+epd4	Escape Pod Decor	xxxx	escapepoddecor/controlpanelc.png
