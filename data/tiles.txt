@@ -712,6 +712,22 @@ doors11	Building Doors	oooo	doors/stoneopenright.png
 doors12	Building Doors	oooo	doors/stoneopenbottom.png
 doors5	Building Doors	oooo	doors/curvedopen.png
 doors6	Building Doors	oooo	doors/squareopen.png
+windows1	Windows	oooo	windows/1top.png
+windows2	Windows	oooo	windows/1bottom.png
+windows3	Windows	oooo	windows/1left.png
+windows4	Windows	oooo	windows/1right.png
+windows5	Windows	oooo	windows/2top.png
+windows6	Windows	oooo	windows/2bottom.png
+windows7	Windows	oooo	windows/2left.png
+windows8	Windows	oooo	windows/2right.png
+windows9	Windows	oooo	windows/3top.png
+windows10	Windows	oooo	windows/3bottom.png
+windows11	Windows	oooo	windows/3left.png
+windows12	Windows	oooo	windows/3right.png
+windows13	Windows	oooo	windows/4top.png
+windows14	Windows	oooo	windows/4bottom.png
+windows15	Windows	oooo	windows/4left.png
+windows16	Windows	oooo	windows/4right.png
 details1	Building Details	oooo	details/top.png
 details2	Building Details	oooo	details/bottom.png
 details3	Building Details	oooo	details/left.png
