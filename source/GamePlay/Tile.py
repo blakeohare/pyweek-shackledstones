@@ -92,7 +92,7 @@ class Tile:
 				elif tphys == 'greenkey': self.keytype = 'green'
 				elif tphys == 'yellowkey': self.keytype = 'yellow'
 				elif tphys == 'whitekey': self.keytype = 'white'
-				
+				elif tphys == 'blackkey': self.keytype = 'black'
 				if self.keytype != None:
 					physics = [False, False, False, False]
 					break
