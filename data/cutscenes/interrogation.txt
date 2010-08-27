@@ -1,0 +1,10 @@
+
+	sprite create meyer meyer 7 4 A standing left
+	dialog transport1
+	shakescreen 60
+	pause 20
+	dialog transport2
+	pause 20
+	sprite create pierce pierce 8 1 A standing down
+	script [remove tile][to_north][doodad]
+	dialog transport3

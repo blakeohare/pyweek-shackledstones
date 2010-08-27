@@ -1,0 +1,9 @@
+
+	script [remove tile][water_stone][doodad]
+	pause 15
+	shakescreen 30
+	pause 10
+	script [remove tile][to_north][doodad]
+	pause 12
+	sprite create maple maple 7 1 A standing down
+	dialog transport4

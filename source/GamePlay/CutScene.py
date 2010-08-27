@@ -1,15 +1,3 @@
-"""
-pause duration
-input button duration
-dialog script_name
-sprite setState sprite_id state
-sprite create sprite_type sprite_id X Y layer state direction
-sprite setdirection direction
-sprite setXY sprite_id X Y duration|instant
-shakescreen duration
-save
-script scriptline
-"""
 class CutSceneEvent:
 	def __init__(self, command):
 		parts = trim(command).split(' ')
@@ -39,6 +27,10 @@ class CutSceneEvent:
 			self.do = self.show_dialog
 			self.dialog_script = args[0]
 			self.expiration = -1
+		elif name == 'playsound':
+			self.do = self.do_play_sound
+			self.sound = args[1]
+			self.instant = True
 		elif name == 'shakescreen':
 			self.expiration = int(args[0])
 			self.play_sound_on = self.expiration
@@ -81,6 +73,9 @@ class CutSceneEvent:
 	
 	def do_script(self, game_scene):
 		go_script_go(self.script)
+	
+	def do_play_sound(self, game_scene):
+		play_sound(self.sound)
 	
 	def do_relighttorches(self, game_scene):
 		game_scene.torch_puzzle_relight()
@@ -195,106 +190,7 @@ class CutScene:
 
 ### STATIC ###
 
-_cutSceneStore = {
-'test' : """
-	input left 30
-	dialog test
-	input down 30
-	input B 4
-""",
-
-'interrogation' : """
-	sprite create meyer meyer 7 4 A standing left
-	dialog transport1
-	shakescreen 60
-	pause 20
-	dialog transport2
-	pause 20
-	sprite create pierce pierce 8 1 A standing down
-	script [remove tile][to_north][doodad]
-	dialog transport3
-""",
-
-'maple_crashes_in' : """
-	script [remove tile][water_stone][doodad]
-	pause 15
-	shakescreen 30
-	pause 10
-	script [remove tile][to_north][doodad]
-	pause 12
-	sprite create maple maple 7 1 A standing down
-	dialog transport4
-""",
-
-'to_water_temple' : """
-	sprite create maple maple 8 2 A standing left
-	sprite create hanlon hanlon 7 7 A standing left
-	sprite create pierce pierce 3 6 A standing right
-	pause 15
-	dialog to_water_temple1
-	pause 90
-	dialog to_water_temple2
-	script [remove tile][door][doodad]
-""",
-
-'at_water_temple' : """
-	input right 50
-	input up 1
-	
-	sprite create hanlon hanlon 16 13 A walking right
-	sprite setxy hanlon 22 13 30
-	sprite setdirection hanlon right
-	sprite setstate hanlon standing
-	sprite setdirection hanlon up
-	
-	sprite create pierce pierce 16 13 A walking right
-	sprite setxy pierce 20 13 30
-	sprite setdirection pierce right
-	sprite setstate pierce standing
-	sprite setdirection pierce up
-	
-	sprite create maple maple 16 13 A walking right
-	sprite setxy maple 18 13 10
-	sprite setdirection maple right
-	sprite setstate maple standing
-	sprite setdirection maple up
-	
-	dialog water_temple_explain
-""",
-
-#TODO: play noise
-'heard_mainroom_noise': """
-	pause 15
-	dialog heard_mainroom_noise
-""",
-#TODO: play noise
-'loud_switch_noise': """
-	pause 10
-	
-""",
-#TODO: play TADA
-'sword_found' : """
-	dialog sword_found
-""",
-
-'water_elemental' : """
-	pause 60
-	dialog water_elemental
-	pause 10
-	script [set][stone_water][1]
-	script [warp][world_A][water_entrance][pixelate]
-""",
-'save_point_routine' : """
-	dialog do_save
-""",
-'torch_fail' : """
-	pause 60
-	relighttorches
-""",
-'torch_win' : """
-	shakescreen 30
-"""
-}
+_cutSceneStore = { }
 
 
 _play_once = {
@@ -305,7 +201,15 @@ _play_once = {
 
 def get_cutscene(name):
 	global _cutSceneStore
-	script = _cutSceneStore[name]
+	script = _cutSceneStore.get(name)
+	print name
+	if script == None:
+		c = open('data' + os.sep + 'cutscenes' + os.sep + name + '.txt', 'rt')
+		t = c.read()
+		c.close()
+		script = trim(t)
+		_cutSceneStore[name] = script
+		
 	return CutScene(script, name)
 	
 	

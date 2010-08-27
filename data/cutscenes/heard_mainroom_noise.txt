@@ -1,0 +1,4 @@
+
+	playsound distantsound
+	pause 15
+	dialog heard_mainroom_noise
