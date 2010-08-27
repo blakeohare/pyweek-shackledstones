@@ -2,7 +2,8 @@ _bulletSwitches = {
 	'Fire_Room2' : ['switch'],
 	'Fire_Key1' : ['switch_B'],
 	'light_rightroom_b1' : ['switch'],
-	'light_south_southroom' : ['switch_left','switch_right']
+	'light_south_southroom' : ['switch_left','switch_right'],
+	'light_southroom_b1' : ['switch']
 }
 
 class Projectile:
