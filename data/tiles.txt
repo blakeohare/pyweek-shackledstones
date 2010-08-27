@@ -861,3 +861,7 @@ stones3	Stones	oooo	sixstones/dark/dark.png
 stones4	Stones	oooo	sixstones/fire/fire.png
 stones5	Stones	oooo	sixstones/life/life.png
 stones6	Stones	oooo	sixstones/death/death.png
+counter1	Counter	xxxx	counter/horizontal.png
+counter2	Counter	xxxx	counter/vertical.png
+counter3	Counter	xxxx	counter/bottomleft.png
+counter4	Counter	xxxx	counter/bottomright.png
