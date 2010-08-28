@@ -51,6 +51,8 @@ def insert_enemy(key):
 				type = 'mechanicalman'
 			elif key == '3':
 				type = 'eyeball'
+			elif key == '4':
+				type = 'beetle'
 			else:
 				type = None
 			

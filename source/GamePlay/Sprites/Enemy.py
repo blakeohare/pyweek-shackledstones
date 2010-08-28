@@ -30,11 +30,16 @@ class Enemy:
 			self.state_counter = int(30 * random.random())
 			self.r = 8
 		elif self.name == 'mechanicalman':
-			
 			self.life = 4
 			self.state = 'walking'
 			self.state_counter = int(30 * random.random())
 			self.r = 8
+		elif self.name == 'beetle':
+			self.life = 1
+			self.state = 'walking'
+			self.state_counter = int(30 * random.random())
+			self.r = 8
+			
 	
 	def DrawingCoords(self):
 		offsets = (0,0)
@@ -84,10 +89,21 @@ class Enemy:
 					self.dy = 1
 				elif player_y < self.y:
 					self.dy = -1
-		elif self.name == 'eyeball':
+		elif self.name == 'eyeball' or self.name == 'beetle':
 			if self.state_counter <= 0:
 				self.state_counter = 50
+				if self.name == 'beetle':
+					self.state_counter = 50
 				self.direction = random.choice('right left down up'.split(' '))
+				
+			if self.direction == 'left':
+				self.dx = -1
+			elif self.direction == 'right':
+				self.dx = 1
+			elif self.direction == 'up':
+				self.dy = -1
+			else:
+				self.dy = 1
 		elif self.name == 'mechanicalman':
 			if self.state_counter <= 0:
 				if self.state == 'walking':
@@ -118,10 +134,16 @@ class Enemy:
 			return None
 			
 		if self.name == 'blob':
-			counter = str(render_counter & 1)
+			counter = str((render_counter // 4) & 1)
 			return get_image('sprites/blob/anim' + counter)
 		elif self.name == 'eyeball':
 			return get_image('sprites/eyeball/' + self.direction)
+		elif self.name == 'beetle':
+			counter = str(1 + ((render_counter // 4) & 1))
+			f = 'horizontal'
+			if self.direction == 'up' or self.direction == 'down':
+				f = 'vertical'
+			return get_image('sprites/beetle/' + f + counter)
 		elif self.name == 'mechanicalman':
 			if self.state == 'standing':
 				counter = '0'
