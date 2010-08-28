@@ -106,6 +106,7 @@ class Tile:
 			if len(tphys) == 4 and tphys[0] in 'ox' and tphys[1] in 'ox' and tphys[2] in 'ox' and tphys[3] in 'ox':
 				for i in (0,1,2,3):
 					physics[i] = physics[i] and tphys[i] == 'o'
+				self.submerged = False
 			else:
 				if tphys == 'water': self.submerged = True
 				elif tphys == 'ice': self.ice = True

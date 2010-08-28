@@ -1,0 +1,38 @@
+[comment] A simple script to demonstrate how a dialogue script would look.
+
+[label][top]
+
+[profile][filler2]
+[question][What would you like to buy?]
+[choice][a][Life refill - 5 GP]
+[choice][b][Compass - 15 GP]
+[choice][c][Shovel - 20 GP]
+[choice][fin][Exit]
+[/question]
+
+[label][a]
+[buy][life]
+[jump][thanks]
+
+[label][b]
+[buy][compass]
+[jump][thanks]
+
+[label][c]
+[buy][shovel]
+[jump][thanks]
+
+[label][thanks]
+[check][transaction_failed][eq][1][failure]
+[profile][]
+Thank you!
+[pause]
+[jump][top]
+
+[label][failure]
+[profile][]
+You don't have enough money!
+[pause]
+
+[label][fin]
+[end]

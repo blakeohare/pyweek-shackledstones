@@ -48,6 +48,7 @@ class Player:
 							take_damage(1)
 	
 	def Stab(self):
+		if self.is_submerged(): return
 		self.state_counter = 7
 		self.state = 'stabbing'
 		x = self.x
@@ -65,6 +66,7 @@ class Player:
 		game_scene.place_death_circle('sword', x, y, 8, 5)
 		play_sound('sword')
 	def Shoot(self, bullet_type, game_scene):
+		if self.is_submerged(): return
 		self.state_count = 7
 		self.state = 'shooting'
 		sprite = Projectile(bullet_type, True, self.layer, self.x, self.y, self.direction, game_scene)
@@ -72,11 +74,13 @@ class Player:
 		play_sound('gunshot')
 		
 	def Dig(self):
+		if self.is_submerged(): return
 		self.state_counter = 20
 		self.state = 'shovelling'
 		play_sound('dig')
 	
 	def Drill(self):
+		if self.is_submerged(): return
 		self.state_counter = 15
 		self.state = 'drilling'
 		x = self.x
@@ -95,6 +99,7 @@ class Player:
 		play_sound('drill')
 	
 	def Hammer(self):
+		if self.is_submerged(): return
 		self.state_counter = 15
 		self.state = 'hammering'
 		x = self.x
@@ -113,6 +118,7 @@ class Player:
 		play_sound('hammer')
 	
 	def Grapple(self):
+		if self.is_submerged(): return
 		game_scene = ActiveGame().GetActiveGameScene()
 		if game_scene.grapple == None:
 			start_x = self.x
@@ -133,13 +139,32 @@ class Player:
 			grapple.end_y = end_y
 			game_scene.sprites.append(grapple)
 			game_scene.grapple = grapple
-		
+	
+	def is_submerged(self):
+		gs = ActiveGame().GetActiveGameScene()
+		if gs != None:
+			layer = gs.level.layers[self.layer]
+			x = self.x >> 4
+			y = self.y >> 4
+			if x >= 0 and x < layer.width and y >= 0 and y < layer.height:
+				value = layer.tiles[x][y].submerged
+				return value
+	
 	def CurrentImage(self, render_counter):
 		if self.flash_counter > 0 and (self.flash_counter & 1) == 0:
 			return None
 		
 		counter = '0'
-		if self.state == 'walking':
+		if self.is_submerged():
+			if self.direction == 'right':
+				return get_image('sprites/maincharacter/sinkright2')
+			if self.direction == 'left':
+				return get_image('sprites/maincharacter/sinkleft2')
+			if self.direction == 'up':
+				return get_image('sprites/maincharacter/sinkup2')
+			if self.direction == 'down':
+				return get_image('sprites/maincharacter/sinkdown2')
+		elif self.state == 'walking':
 			if self.walking:
 				counter = ('0','1','0','2')[(render_counter // 3) & 3]
 			else:
