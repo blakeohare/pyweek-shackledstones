@@ -7,7 +7,7 @@
 	pause 30
 	dialog to_water_temple2
     pause 10
-    setbg images/misc/darkstones.png
+    setbg misc/darkstones.png
     dialog to_water_temple3
     pause 10
     clearbg
