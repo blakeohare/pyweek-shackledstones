@@ -90,6 +90,7 @@ def do_sign_display(text):
 		game_scene)
 	game_scene.next = ds
 	game_scene.player.walking = False
+	return True
 	
 def do_buy(item):
 	price = 0
