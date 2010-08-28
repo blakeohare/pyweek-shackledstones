@@ -25,7 +25,9 @@ def reserializeEnemies():
 						current = value.split(',') + _new_enemies
 					else:
 						current = _new_enemies[:]
-			output.append('#enemies:' + ','.join(current))
+			if len(current) > 0:
+				print current
+				output.append('#enemies:' + ','.join(current))
 			output = '\n'.join(output)
 			c = open('maps' + os.sep + file + '.txt', 'wt')
 			c.write(output)

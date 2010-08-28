@@ -2,7 +2,8 @@
 class GamePlayScene:
 	
 	def __init__(self, level_name, startX, startY):
-	
+		global _new_enemies
+		_new_enemies = []
 		ActiveGame().SetActiveGameScene(self)
 		print(level_name)
 		self.render_counter = 0
