@@ -49,6 +49,9 @@ def render_text_size(size, string, color = BLACK, fontPath = MENU_FONT):
       _fontBucket[fontKey] = f
    return f.render(string, True, color)
 
+def render_number(num, color=BLACK, sz=15):
+   return render_text_size(sz, str(num), color, TEXT_FONT)
+
 	
 def make_list(size):
 	return [None] * size
