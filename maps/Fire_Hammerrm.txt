@@ -6,3 +6,4 @@
 #scripts:WA|[warp][Fire_HammerHall][E][west scroll]|||W|[warp][Fire_HammerHall][E][west scroll]|||item|[check][item_hammer][eq][1][has][hasnt]\n[label][has]\n[jump][finish]\n[label][hasnt]\n[remove tile][item][basedetail]\n[set][item_hammer][1]\n[sign][You found the hammer!$Now you can smash through boulders]\n\n[label][finish]
 #music:flamingjazz.mp3
 #on_load:[check][item_hammer][eq][1][has][hasnt]\n[label][has]\n[remove tile][item][basedetail]\n[label][hasnt]
+#enemies:mechanicalman|A|14|4,mechanicalman|A|14|10
