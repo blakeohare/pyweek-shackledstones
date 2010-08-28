@@ -4,7 +4,7 @@ class GamePlayScene:
 	def __init__(self, level_name, startX, startY):
 	
 		ActiveGame().SetActiveGameScene(self)
-		
+		print(level_name)
 		self.render_counter = 0
 		self.next = self
 		self.player = Player()
