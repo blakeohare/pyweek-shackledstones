@@ -68,7 +68,7 @@ class GameSelectScene:
                   print('TODO: set up to resume gameplay')
                   
    def Update(self, conter):
-      pass
+      play_music("menuwaitingroom")
    
    def Render(self, screen):
       # what color is used for everything else

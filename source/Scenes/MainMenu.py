@@ -49,7 +49,7 @@ class MainMenuScene:
                   self.Credits()
 
    def Update(self, conter):
-      play_music('menuwaitingroom')
+      play_music('title')
    
    def Render(self, screen):
       self._fc += 1

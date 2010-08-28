@@ -7,7 +7,7 @@ class JukeBox:
 		pygame.mixer.music.set_volume(1.0)
 	
 	def PlaySong(self, name):
-		return
+		#return
 		if not name:
 			pygame.mixer.music.stop()
 			return

@@ -82,6 +82,7 @@ class NameEntryScene:
                self._done = True
    
    def Update(self, conter):
+      play_music("menuwaitingroom")
       pass
    
    def Render(self, screen):
