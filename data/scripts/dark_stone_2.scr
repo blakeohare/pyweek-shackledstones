@@ -1,7 +1,101 @@
 [comment] A simple script to demonstrate how a dialogue script would look.
 
 [profile][mc_portrait]
-STUB FOR DARK SPIRIT
+Hanlon...
+[pause]
+
+[profile][hanlon]
+You have all been quite impressive.  Entrusting
+you to this great mission was a just decision.
+[pause]
+
+[profile][mc_portrait]
+You're the dark spirit?
+[pause]
+
+[profile][hanlon]
+Aye, it is I.  This old man's body is becoming a
+nuisance.  I fear every day of becoming a wayward
+spirit if it expires.  I remember when he came to
+me as a young heartbroken soul.
+[pause]
+
+[profile][hanlon]
+By that time, water, Fire, and Light had become
+silent, and I grew worried.  He accepted my company
+with a smile.
+[pause]
+
+[profile][mc_portrait]
+...
+[pause]
+
+[profile][hanlon]
+He and I became a most capable musketeer.  We waited
+long enough to pu ta ball between the Eternal
+Commander's eyes.
+[pause]
+
+[profile][pierce]
+You assassinated the Supreme Commander's father!?
+[pause]
+
+[profile][hanlon]
+If only that did a thing.  His son knew better.  He
+took my stone, leaving me in this body.  I'm sorry.
+[pause]
+
+[profile][mc_portrait]
+For what?
+[pause]
+
+[profile][hanlon]
+For imposing such a great responsibility on your
+shoulders.  We spirits have deigned to seek nothing
+from mortals, though fire always found it amusing
+that water would get rivers of blood sent to her.  Haha...
+[pause]
+
+[profile][mc_portrait]
+...
+[pause]
+
+[profile][mc_portrait]
+Well, old man, where to next?
+[pause]
+
+[profile][hanlon]
+!
+[pause]
+
+[profile][pierce]
+Yeah, quit sitting there now, we need a place to go!
+[pause]
+
+[profile][maple]
+Tell me where to steer, Uncle Hanlon!
+[pause]
+
+[profile][hanlon]
+...youngers have no patience for things.  Fire is
+stuck feeding the dogs in Mesembria.
+[pause]
+
+[profile][mc_portrait]
+Mesembria Power Plant!?
+[pause]
+
+[profile][maple]
+That's... the biggest power plant in the country!
+[pause]
+
+[profile][pierce]
+What else has the government been hiding from us!?
+[pause]
+
+[profile][hanlon]
+Everything, boy.  Now go.  Water and Light and I
+need to talk.
 [pause]
 
 [label][end]

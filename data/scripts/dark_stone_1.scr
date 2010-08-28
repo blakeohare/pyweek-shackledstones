@@ -1,7 +1,23 @@
 [comment] A simple script to demonstrate how a dialogue script would look.
 
 [profile][mc_portrait]
-STUB FOR DARK SPIRIT
+...huh?
+[pause]
+
+[profile][pierce]
+What?
+[pause]
+
+[profile][mc_portrait]
+The stone... it's not glowing.
+[pause]
+
+[profile][maple]
+Wait... is this a decoy?
+[pause]
+
+[profile][hanlon]
+No, dear.  It is real, alright.
 [pause]
 
 [label][end]
