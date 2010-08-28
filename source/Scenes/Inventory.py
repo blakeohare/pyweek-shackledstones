@@ -31,7 +31,7 @@ class InventoryScene:
          if e.down and e.key == 'start':
             self._baseScene.next = self._baseScene
             self.next = self._baseScene
-            self._i.PrintEquipped()
+            # self._i.PrintEquipped()
             return
          if e.down:
             if e.key == 'up':
@@ -70,20 +70,42 @@ class InventoryScene:
       titleSurf = pygame.Surface((200, 25))
       titleSurf.set_alpha(120)
       
+      moneySurf = pygame.Surface((140, 25))
+      moneySurf.set_alpha(120)
+      
       itemSurf = pygame.Surface((140, 60))
       itemSurf.set_alpha(120)
       
+      ss = 1 # strokeSize
       vBorder = 7
       
-      title_off_x = int((screen.get_width() - titleSurf.get_width()) / 2)
-      title_off_y = 180
+      money_off_x = int((screen.get_width() - moneySurf.get_width()) / 2)
+      money_off_y = 150
+      pygame.draw.rect(screen, WHITE, pygame.Rect(money_off_x - ss, money_off_y - ss, 140 + (2 *ss), 25 + (2 *ss)), ss)
       
       item_off_x = int((screen.get_width() - itemSurf.get_width()) / 2)
-      item_off_y = title_off_y + titleSurf.get_height() + vBorder
+      item_off_y = money_off_y + titleSurf.get_height() + vBorder
+      pygame.draw.rect(screen, WHITE, pygame.Rect(item_off_x - ss, item_off_y - ss, 140 + (2 *ss), 60 + (2 *ss)), ss)
+      
+      title_off_x = int((screen.get_width() - titleSurf.get_width()) / 2)
+      title_off_y = item_off_y + itemSurf.get_height() + vBorder
+      pygame.draw.rect(screen, WHITE, pygame.Rect(title_off_x - ss, title_off_y - ss, 200 + (2 *ss), 25 + (2 *ss)), ss)
       
       screen.blit(titleSurf, (title_off_x, title_off_y))
       screen.blit(itemSurf, (item_off_x, item_off_y))
+      screen.blit(moneySurf, (money_off_x, money_off_y))
+
+      # draw player money:
+      coinSurf = ImageLib.FromFile(os.path.join('images', 'misc', 'money0.png'))
+      cx = money_off_x + 4 # moneySurf.get_width() - coinSurf.get_width() - 5
+      cy = money_off_y + int((moneySurf.get_height() - coinSurf.get_height()) / 2)
+      screen.blit(coinSurf, (cx, cy))
       
+      amt = render_number(get_money(), WHITE)
+      mx = money_off_x + moneySurf.get_width() - 5 - amt.get_width()
+      my = money_off_y + int((moneySurf.get_height() - amt.get_height()) / 2)
+      screen.blit(amt, (mx, my))
+
       # draw all items the player has:
       col = 0
       while col < 5:
@@ -119,17 +141,24 @@ class InventoryScene:
       except:
          pass
       
-      # draw selection box
-      sel_off_x = item_off_x + 2 + (28 * self._selection[0])
-      sel_off_y = item_off_y + 2 + (28 * self._selection[1])
-      pygame.draw.rect(screen, RED, pygame.Rect(sel_off_x, sel_off_y, 24, 24), 1)
-   
+      if i.HasAny():
+         # draw selection box
+         sel_off_x = item_off_x + 2 + (28 * self._selection[0])
+         sel_off_y = item_off_y + 2 + (28 * self._selection[1])
+         pygame.draw.rect(screen, RED, pygame.Rect(sel_off_x, sel_off_y, 24, 24), 1)
    
    
    
 class Inventory:
    def __init__(self):
       self._ag = ActiveGame()
+   
+   def HasAny(self):
+      i = self
+      items = (i.Sabre(), i.Hammer(), i.Drill(), i.Hook(), i.Compass(), i.Cannon(), i.CannonFire(), i.CannonIce(), i.CannonMulti(), i.Shovel())
+      for it in items:
+         if self.Check(it):
+            return True
    
    def Check(self, item):
       return str(self._ag.GetVar(item)) == '1'
