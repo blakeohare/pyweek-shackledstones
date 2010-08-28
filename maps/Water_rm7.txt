@@ -6,4 +6,4 @@
 #IDs:W2|A|0|3,W|A|0|14,W2A|A|0|2,WA|A|0|13
 #scripts:W2|[warp][Water_key2rm][E][west scroll]|||W|[warp][Water_mainroom][w][west scroll]|||W2A|[warp][Water_key2rm][EA][west scroll]|||WA|[warp][Water_mainroom][q][west scroll]
 #music:hostilewaters.mp3
-#enemies:
+#enemies:blob|A|13|3,blob|A|20|10,blob|A|12|13
