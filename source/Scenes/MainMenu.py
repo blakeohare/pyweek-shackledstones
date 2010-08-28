@@ -7,6 +7,8 @@ class MainMenuScene:
       self.next = JoystickConfigScene()
    
    def Credits(self):
+      self.next = CreditsScene()
+      return
       GameContext().SetActiveGame(1)
       ActiveGame().SetSavedVar('name', 'SUE')
       if os.path.exists('map_test.txt'):
@@ -24,7 +26,7 @@ class MainMenuScene:
    def __init__(self):
       self._fc = 0
       self.next = self
-      self._selection = 2
+      self._selection = 0
       self._frame = 0
       
       self._gears = []

@@ -9,6 +9,19 @@ class JoystickConfigScene:
 		self.text = render_text_size(45, "Push this button", WHITE, MENU_FONT)
 		self.error = render_text_size(20, "No Gamepads are plugged in!", WHITE, MENU_FONT)
 		self.error_explain = render_text_size(14, "Plug in a USB game pad and relaunch the game", WHITE, MENU_FONT)
+		self.texts = [
+		'Without a gamepad, use the following keys:',
+		' Space - item 1',
+		' A - item 2',
+		' S - item 3',
+		' D - item 4',
+		' Enter - inventory screen',
+		' Esc - Exit'
+		]
+		for i in range(len(self.texts)):
+			self.texts[i] =  render_text_size(14, self.texts[i], WHITE, MENU_FONT)
+			
+		self.keyboard = render_text_size(14, "Plug in a USB game pad and relaunch the game", WHITE, MENU_FONT)
 		self.is_error = _inputManager.active_joystick == None
 		self.render_counter = 1
 		self.active_key_index = 0
@@ -65,6 +78,9 @@ class JoystickConfigScene:
 		if self.is_error:
 			screen.blit(self.error, (10, 10))
 			screen.blit(self.error_explain, (10, 60))
+			
+			for i in range(len(self.texts)):
+				screen.blit(self.texts[i], (10, 100 + i * 20))
 			return
 		
 		image = get_image('ui/joystick/base_control')
