@@ -7,10 +7,10 @@
 [/question]
 
 [label][yes]
+[save]
 [profile][]
 Your game has been saved
 [pause]
-[save]
 
 [label][no]
 [end]

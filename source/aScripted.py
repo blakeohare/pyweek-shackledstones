@@ -13,7 +13,14 @@ class Scripted:
       self._addFn('end', self._end)
       self._addFn('switch scene', do_switch_scene)
       self._addFn('buy', do_buy)
-
+      self._addFn('save', self.save_game_foo)
+   def save_game_foo(self):
+    
+    ActiveGame().SetSavedVar('save_map', game_scene.name)
+    ActiveGame().SetSavedVar('save_x', game_scene.player.x)
+    ActiveGame().SetSavedVar('save_y', game_scene.player.y)
+    ActiveGame().SaveToFile()
+      
    def _parse(self):
       for line in self._script:
          if DEBUG_SCRIPTS:

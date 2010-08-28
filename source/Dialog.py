@@ -91,6 +91,10 @@ class Dialog(Scripted):
       return True
    
    def _saveGame(self):
+      game_scene = ActiveGame().GetActiveGameScene()
+      ActiveGame().SetSavedVar('save_map', game_scene.name)
+      ActiveGame().SetSavedVar('save_x', game_scene.player.x)
+      ActiveGame().SetSavedVar('save_y', game_scene.player.y)
       ActiveGame().SaveToFile()
       return True
    

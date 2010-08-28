@@ -13,6 +13,7 @@ class GamePlayScene:
 		self.flash_amount = 0
 		self.level = Level(level_name)
 		self.death_circles = []
+		self.disable_save = False
 		self.name = level_name
 		self.bg = None
 		self.player_invisible = False
@@ -216,6 +217,7 @@ class GamePlayScene:
 		
 	def Update(self, game_counter):
 		self.level.update_tile_standing_on(self.player.layer, self.player.x, self.player.y)
+		
 		if self.prevTile != self.level.playerStandingOn:
 			self.prevTile = self.level.playerStandingOn
 			self.firstTimeOnTile = True

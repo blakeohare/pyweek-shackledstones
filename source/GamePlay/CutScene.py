@@ -117,11 +117,15 @@ class CutSceneEvent:
 		game_scene.torch_puzzle_relight()
 	
 	def save(self, game_scene):
+		ActiveGame().SetSavedVar('save_map', game_scene.name)
+		ActiveGame().SetSavedVar('save_x', game_scene.player.x)
+		ActiveGame().SetSavedVar('save_y', game_scene.player.y)
 		ActiveGame().SaveToFile()
 	
 	def shake_screen(self, game_scene):
 		if self.expiration == self.play_sound_on:
-			print("TODO: play shaking sound")
+			pass
+			#print("TODO: play shaking sound")
 		self.render_offset = (-2,2)[(self.expiration & 1) == 0]
 		
 	def is_key_pressed(self, key):
