@@ -10,12 +10,12 @@ $has_water_hidden_key:1
 #keyregistry_[Water_mainroom]water_34_20_red:1
 $finished_water:1
 #cut_scene_play_once_at_water_temple:1
-$_temp:1
+$_temp:0
 $stone_water:1
-#money_amount:7
+#money_amount:50
 #key_registry_count_water_green:0
-$has_water_blue_key:1
 $name:Lapis
+$has_water_blue_key:1
 #keyregistry_[Water_mainroom]water_0_18_blue:1
 $water_mini_boss_killed:1
 $save_map:world_A
