@@ -1,0 +1,23 @@
+
+    input right 50
+	input up 1
+	
+	sprite create hanlon hanlon 16 13 A walking right
+	sprite setxy hanlon 22 13 30
+	sprite setdirection hanlon right
+	sprite setstate hanlon standing
+	sprite setdirection hanlon up
+	
+	sprite create pierce pierce 16 13 A walking right
+	sprite setxy pierce 20 13 30
+	sprite setdirection pierce right
+	sprite setstate pierce standing
+	sprite setdirection pierce up
+	
+	sprite create maple maple 16 13 A walking right
+	sprite setxy maple 18 13 10
+	sprite setdirection maple right
+	sprite setstate maple standing
+	sprite setdirection maple up
+	
+	dialog light_temple_explain

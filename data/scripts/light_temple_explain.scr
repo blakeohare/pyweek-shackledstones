@@ -1,0 +1,32 @@
+[comment] A simple script to demonstrate how a dialogue script would look.
+
+[profile][mc_portrait]
+Alright, do you know where the Light Temple is, Hanlon?
+[pause]
+
+[profile][hanlon]
+The old saying is that it was located in the Takmoreb
+Desert in the southeast. The government had a massive
+operation there to bury almost everything.
+[pause]
+
+[profile][hanlon]
+We can't go in the only entrance that they left open.
+It has an entire army guarding it. We'll have to dig
+a way in the parts that they don't care about somehow.
+[pause]
+
+[profile][pierce]
+So we'll have to go get a shovel...
+[pause]
+
+[profile][maple]
+And a compass!
+[pause]
+
+[profile][hanlon]
+Mmhmm. The towns nearby should have something. We should
+go check.
+[pause]
+
+[end]
