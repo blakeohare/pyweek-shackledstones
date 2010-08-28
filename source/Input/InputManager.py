@@ -14,6 +14,7 @@ def reserializeEnemies():
 			
 			output = []
 			current = []
+			enemies_found = False
 			for rline in lines:
 				line = trim(rline)
 				pieces = line.split(':')
@@ -22,11 +23,16 @@ def reserializeEnemies():
 				else:
 					value = trim(pieces[1])
 					if len(value) > 0:
+						enemies_found = True
 						current = value.split(',') + _new_enemies
-					else:
-						current = _new_enemies[:]
+						
+			if not enemies_found:
+				current = []
+			
+			current = current + _new_enemies
+			_new_enemies = []
 			if len(current) > 0:
-				print current
+				
 				output.append('#enemies:' + ','.join(current))
 			output = '\n'.join(output)
 			c = open('maps' + os.sep + file + '.txt', 'wt')
