@@ -2,6 +2,8 @@ input up 20
 dialog look_the_ld_stones
 input up 15
 
+script [music][latinbattle]
+
 dialog not_so_fast_ld
 
 sprite create mechanicalman mA 12 16 A walking up
@@ -23,6 +25,4 @@ sprite setxy mC 12 13 20
 sprite setstate mC standing
 
 dialog robot_talk_ld
-
-
 

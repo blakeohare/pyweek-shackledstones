@@ -1,3 +1,2 @@
 
-	playsound itemget
-	dialog sword_found
+	dialog first_enter_capital
