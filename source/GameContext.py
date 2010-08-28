@@ -29,6 +29,15 @@ stone_life
 stone_fire
 stone_dark
 stone_death
+
+The following will be used to track which temples have been completed
+A temple is complete when the stone is replaced on the altar
+finish_water
+finish_light
+finish_dark
+finish_fire
+finish_life
+finish_death
 """
 class GameInstance:
 	def __init__(self, slot):

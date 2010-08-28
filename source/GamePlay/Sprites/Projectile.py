@@ -4,7 +4,8 @@ _bulletSwitches = {
 	'light_rightroom_b1' : ['switch'],
 	'light_south_southroom' : ['switch_left','switch_right'],
 	'light_southroom_b1' : ['switch'],
-	'light_bosshall_f1' : ['left','right']
+	'light_bosshall_f1' : ['left','right'],
+	'world_bridge' : ['switch']
 }
 
 class Projectile:
