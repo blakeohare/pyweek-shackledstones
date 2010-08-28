@@ -1,3 +1,68 @@
+
+_new_enemies = []
+
+def reserializeEnemies():
+	global _new_enemies
+	active_game = ActiveGame()
+	if active_game != None:
+		gs = active_game.GetActiveGameScene()
+		if gs != None:
+			file = gs.name
+			c = open('maps' + os.sep + file  + '.txt', 'rt')
+			lines = c.read().split('\n')
+			c.close()
+			
+			output = []
+			current = []
+			for rline in lines:
+				line = trim(rline)
+				pieces = line.split(':')
+				if pieces[0] != '#enemies':
+					output.append(line)
+				else:
+					value = trim(pieces[1])
+					if len(value) > 0:
+						current = value.split(',') + _new_enemies
+					else:
+						current = _new_enemies[:]
+			output.append('#enemies:' + ','.join(current))
+			output = '\n'.join(output)
+			c = open('maps' + os.sep + file + '.txt', 'wt')
+			c.write(output)
+			c.close()
+			
+					
+def start_enemy_insertion_session():
+	global _new_enemies
+	_new_enmies = []
+
+def insert_enemy(key):
+	global _new_enemies
+	active_game = ActiveGame()
+	if active_game != None:
+		gs = active_game.GetActiveGameScene()
+		if gs != None:
+			x = gs.player.x >> 4
+			y = gs.player.y >> 4
+			layer = gs.player.layer
+			if key == '1':
+				type = 'blob'
+			elif key == '2':
+				type = 'mechanicalman'
+			elif key == '3':
+				type = 'eyeball'
+			else:
+				type = None
+			
+			if type != None:
+				_new_enemies.append(type + '|' + layer + '|' + str(x) + '|' + str(y))
+				sprite = Enemy(type)
+				sprite.x = (x << 4) + 8
+				sprite.y = (y << 4) + 8
+				sprite.layer = layer
+				gs.sprites.append(sprite)
+			
+
 class InputEvent:
 	def __init__(self, key, down):
 		self.key = key
@@ -131,10 +196,14 @@ class Joystick:
 		return None
 					
 	
-	
+_allowEnemyEdit = True
+_enemyEditMode = False
+
 class InputManager:
 	
 	def __init__(self):
+		self.key_pressed_now = ''
+		
 		self.is_pressed = {
 			'up' : False,
 			'down' : False,
@@ -166,6 +235,10 @@ class InputManager:
 		return self.video_mode
 	
 	def get_events(self):
+		
+		global _allowEnemyEdit, _enemyEditMode
+		
+		self.key_pressed_now = ''
 		events = []
 		joystick = self.active_joystick
 		if joystick != None:
@@ -202,7 +275,36 @@ class InputManager:
 					self.video_mode = 'full'
 				elif event.key == K_w:
 					self.video_mode = 'wide'
-					
+				if _allowEnemyEdit:
+					if event.key == K_e:
+						_enemyEditMode = not _enemyEditMode
+						if _enemyEditMode:
+							start_enemy_insertion_session()
+						else:
+							reserializeEnemies()
+							
+					elif _enemyEditMode:
+						if event.key == K_1:
+							insert_enemy('1')
+						elif event.key == K_2:
+							insert_enemy('2')
+						elif event.key == K_3:
+							insert_enemy('3')
+						elif event.key == K_4:
+							insert_enemy('4')
+						elif event.key == K_5:
+							insert_enemy('5')
+						elif event.key == K_6:
+							insert_enemy('6')
+						elif event.key == K_7:
+							insert_enemy('7')
+						elif event.key == K_8:
+							insert_enemy('8')
+						elif event.key == K_9:
+							insert_enemy('9')
+						elif event.key == K_0:
+							insert_enemy('0')
+						
 			elif event.type == KEYUP:
 				if event.key == K_UP:
 					events.append(InputEvent('up', False))
@@ -222,7 +324,7 @@ class InputManager:
 					events.append(InputEvent('X', False))
 				elif event.key == K_RETURN:
 					events.append(InputEvent('start', False))
-		
+			
 		for event in events:
 			self.is_pressed[event.key] = event.down
 		

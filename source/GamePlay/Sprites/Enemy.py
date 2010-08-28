@@ -41,7 +41,7 @@ class Enemy:
 		if self.name == 'mechanicalman':
 			offsets = (0, 13)
 		elif self.name == 'eyeball':
-			offsets = (0, (self.state_counter / 10) & 1)
+			offsets = (0, (self.state_counter // 10) & 1)
 		coords = (self.x - self.r - offsets[0], self.y - self.r - offsets[1])
 		
 		return coords
