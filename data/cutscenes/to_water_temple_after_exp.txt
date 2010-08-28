@@ -3,6 +3,7 @@
 	sprite create hanlon hanlon 7 7 A standing left
 	sprite create pierce pierce 3 6 A standing right
 	pause 15
-	dialog to_water_temple1
+	dialog to_water_temple3
 	pause 30
-	dialog to_water_temple2
+	dialog to_water_temple4
+	script [remove tile][door][doodad]
