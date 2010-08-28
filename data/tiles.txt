@@ -874,3 +874,5 @@ shop	Shop	oooo	shop.png
 furniture1	Furniture	xxxx	furniture/shelves.png
 furniture2	Furniture	xxxx	furniture/chairleft.png
 Furniture3	Furniture	xxxx	furniture/chairright.png
+furniture4	Furniture	oooo	furniture/cashregisterleft.png
+furniture5	Furniture	oooo	furniture/cashregisterright.png
