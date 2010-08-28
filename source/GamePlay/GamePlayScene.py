@@ -60,6 +60,7 @@ class GamePlayScene:
 				self.open_dark_temple()
 		
 		self.initialize_enemies()
+		play_music(self.level.music)
 	
 	def open_dark_temple(self):
 		ids = self.level.ids
