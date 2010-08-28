@@ -610,8 +610,8 @@ class GamePlayScene:
 			if sprite.layer == layer:
 				sprites.append(sprite)
 		
-		#print sprites
-		#
+		
+		
 		if self.player.layer == layer and not self.player_invisible:
 			
 			return [self.player] + sprites
