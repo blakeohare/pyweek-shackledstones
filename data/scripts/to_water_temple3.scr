@@ -1,0 +1,29 @@
+[comment] A simple script to demonstrate how a dialogue script would look.
+
+[profile][hanlon]
+After the elemental gods created the world, they constructed
+temples hidden throughout the world, in which they supposedly
+reside to this day in the form of gemstones.
+[pause]
+
+[profile][mc_portrait]
+So this is...
+[pause]
+
+[profile][hanlon]
+The Water Stone, yes.
+[pause]
+
+[profile][hanlon]
+In the ancient times, the Order of Haskell used to protect
+these temples... then this government came into being and
+hunted them to extinction.
+[pause]
+
+[profile][hanlon]
+These gemstones can give the person who commands it god-like
+power over the elements. The government caught most of them
+and since then, they've been ruling the world.
+[pause]
+
+[end]

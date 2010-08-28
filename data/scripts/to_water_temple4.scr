@@ -1,0 +1,47 @@
+[comment] A simple script to demonstrate how a dialogue script would look.
+
+[profile][mc_portrait]
+So what do we do with this Water Stone?
+[pause]
+
+[profile][hanlon]
+We put it back where it should be - the Water Temple.
+[pause]
+
+[profile][pierce]
+What?! After all the hell we went through to get it?
+[pause]
+
+[profile][hanlon]
+Have you ever noticed that rain has never been the same
+since you're little?
+[pause]
+
+[profile][mc_portrait]
+Come to think of it... we had droughts for several years
+before it got better...
+[pause]
+
+[profile][hanlon]
+Because the government took the stone, and it took them
+that long to figure out how to get water to the fields.
+Putting them back will restore the balance of the world.
+[pause]
+
+[profile][mc_portrait]
+...I guess if we have nothing better to do with it...
+[pause]
+
+[profile][maple]
+...is that it, Hanlon?
+[pause]
+
+[profile][hanlon]
+Yep, there it is... the Water Temple.
+[pause]
+
+[profile][mc_portrait]
+Well, let's head out then.
+[pause]
+
+[end]

@@ -4,7 +4,8 @@
 	sprite create pierce pierce 3 6 A standing right
 	pause 15
 	dialog to_water_temple1
-	pause 30
+    flash 10
+	pause 20
 	dialog to_water_temple2
     pause 10
     setbg misc/darkstones.png
