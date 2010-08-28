@@ -8,6 +8,7 @@ class JukeBox:
 	
 	def PlaySong(self, name):
 		#return
+		if name == 'STOP': name = None
 		if not name:
 			pygame.mixer.music.stop()
 			return
