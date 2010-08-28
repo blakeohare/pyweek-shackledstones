@@ -51,6 +51,10 @@ class MainMenuScene:
                scene = GameOverScene()
                self.next = scene
                scene.next = scene
+            if e.Y():
+               scene = CreditsScene()
+               self.next = scene
+               scene.next = scene
 
    def Update(self, conter):
       play_music('title')
