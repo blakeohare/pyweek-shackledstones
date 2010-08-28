@@ -31,6 +31,7 @@ class Projectile:
 		self.y = y
 		self.dx = 0
 		self.dy = 0
+		self.is_goody = False
 		self.grapple_start_x = self.x
 		self.grapple_start_y = self.y
 		self.grapple_duration = 15

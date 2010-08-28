@@ -13,6 +13,7 @@ class Enemy:
 		self.expired = False
 		self.state = 'standing'
 		self.flying = False
+		self.is_goody = False
 		self.state_counter = 0
 		self.dx = 0
 		self.dy = 0

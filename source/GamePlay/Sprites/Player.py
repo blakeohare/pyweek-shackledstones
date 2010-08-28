@@ -6,6 +6,7 @@ class Player:
 		self.r = 8
 		self.id = 'MC'
 		self.dx = 0
+		self.is_goody = False
 		self.dy = 0
 		self.is_enemy = False
 		self.direction = 'right'

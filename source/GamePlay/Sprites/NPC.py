@@ -6,6 +6,7 @@ class NPC:
 		self.y = 100
 		self.dx = 0
 		self.dy = 0
+		self.is_goody = False
 		self.is_enemy = False
 		self.layer = 'A'
 		self.r = 8

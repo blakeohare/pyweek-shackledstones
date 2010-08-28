@@ -273,6 +273,18 @@ class GamePlayScene:
 				dcs.append(dc)
 		self.death_circles = dcs
 		
+		for sprite in self.sprites:
+			if sprite.is_goody:
+				dx = sprite.x - self.player.x
+				dy = sprite.y - self.player.y
+				if dx ** 2 + dy ** 2 < 16 ** 2:
+					sprite.expired = True
+					if sprite.name == 'money':
+						modify_money(1)
+					else:
+						heal_damage()
+						
+		
 		enemy_count = self.get_enemy_count()
 		self.gc_sprites()
 		if enemy_count > 0 and self.get_enemy_count() == 0:
