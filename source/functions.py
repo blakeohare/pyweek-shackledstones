@@ -75,7 +75,7 @@ def set_money(amount):
 def modify_money(amount):
 	set_money(max(0, get_money() + amount))
 
-def has_money(amont):
+def has_money(amount):
 	return get_money() >= amount
 
 def get_life():

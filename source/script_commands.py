@@ -88,3 +88,47 @@ def do_sign_display(text):
 		game_scene)
 	game_scene.next = ds
 	game_scene.player.walking = False
+	
+def do_buy(item):
+	price = 0
+	if item == 'life':
+		price = 5
+		var = '_temp'
+	if item == 'compass':
+		price = 15
+		var = 'item_compass'
+	elif item == 'shovel':
+		price = 20
+		var = 'item_shovel'
+	elif item == 'fire':
+		price = 30
+		var = 'item_cannon_fire'
+	elif item == 'ice':
+		price = 30
+		var = 'item_cannon_ice'
+	elif item == 'multi':
+		price = 50
+		var = 'item_cannon_multi'
+	elif item == 'armor':
+		price = 50
+		var = 'has_armor'
+	
+	if price == 0:
+		return True
+	
+	if has_money(price):
+		ActiveGame().SetTempVar('transaction_failed', 0)
+		ActiveGame().SetSavedVar(var, 1)
+		print 'set',var, 'to 1'
+		modify_money(-price)
+		if item == 'life':
+			heal_damage()
+			heal_damage()
+			heal_damage()
+			
+	else:
+		print 'failure!'
+		ActiveGame().SetTempVar('transaction_failed', '1')
+	
+	return True
+	

@@ -12,6 +12,7 @@ class Scripted:
       self._addFn('set', self._set)
       self._addFn('end', self._end)
       self._addFn('switch scene', do_switch_scene)
+      self._addFn('buy', do_buy)
 
    def _parse(self):
       for line in self._script:
