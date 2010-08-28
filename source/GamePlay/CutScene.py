@@ -42,6 +42,10 @@ class CutSceneEvent:
 			self.instant = True
 			self.do = self.do_turnlightswitchesoff
 		elif name == 'sprite':
+			if args[0].lower() == 'delete':
+				self.sprite_id =args[1]
+				self.do = self.deletesprite
+				self.instant=True
 			if args[0].lower() == 'setstate':
 				self.sprite_id = args[1]
 				self.sprite_state = args[2]
@@ -105,7 +109,7 @@ class CutSceneEvent:
 	
 	def setspritedirection(self, game_scene):
 		sprite = game_scene.get_sprite_by_id(self.sprite_id)
-		sprite.direction = self.direction
+		sprite.expired=True
 	
 	def createsprite(self, game_scene):
 		sprite = create_sprite(self.sprite_name, self.sprite_id)
@@ -115,6 +119,10 @@ class CutSceneEvent:
 		sprite.layer = self.layer
 		sprite.direction = self.direction
 		game_scene.add_sprite(sprite)
+	
+	def deletesprite(self, game_scene)
+		sprite = game_scene.get_sprite_by_id(self.sprite_id)
+		game_scene.sprites.remove(sprite)
 	
 	def show_dialog(self, game_scene):
 		game_scene.next = DialogScene(
