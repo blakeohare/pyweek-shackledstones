@@ -71,7 +71,7 @@ class MainMenuScene:
       start = render_text_size(20, "Start", WHITE, MENU_FONT)
       setup = render_text_size(20, "Setup", WHITE, MENU_FONT) 
       credits = render_text_size(20, "Credits", WHITE, MENU_FONT) 
-      art = ImageLib.FromFile(os.path.join('images', 'misc', 'mm-alt.png'))
+      art = ImageLib.FromFile(os.path.join('images', 'misc', 'mainmenu-bg.png'))
       
       titleOffset = (int((screen.get_width() - title.get_width()) / 2), 20)
       startOffset = (100, 100)
