@@ -35,7 +35,7 @@ class Tile:
 		i = 0
 		found = False
 		while i < len(self.orig_stack):
-			if self.orig_stack[i] == 'nature20':
+			if self.orig_stack[i] in '49 50 51 52 124 125 126 127 d49 d50 d51 d52 r49 r50 r51 r52 green49 green50 green51 green52 indigo49 indigo50 indigo51 indigo52'.split(' '):
 				self.orig_stack[i] = ''
 				found = True
 			i += 1
