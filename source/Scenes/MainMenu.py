@@ -71,12 +71,15 @@ class MainMenuScene:
       start = render_text_size(20, "Start", WHITE, MENU_FONT)
       setup = render_text_size(20, "Setup", WHITE, MENU_FONT) 
       credits = render_text_size(20, "Credits", WHITE, MENU_FONT) 
+      art = ImageLib.FromFile(os.path.join('images', 'misc', 'mm-alt.png'))
       
       titleOffset = (int((screen.get_width() - title.get_width()) / 2), 20)
       startOffset = (100, 100)
       setupOffset = (100, 150)
       creditsOffset = (100, 200)
+      artOffset = (190, 20)
       
+      screen.blit(art, artOffset)
       screen.blit(title, titleOffset)
       screen.blit(start, startOffset)
       screen.blit(setup, setupOffset)
