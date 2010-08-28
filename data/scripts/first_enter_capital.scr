@@ -1,0 +1,50 @@
+[comment] Prompt the player to go to the facility on the left after reaching the capital.
+
+[profile][pierce]
+Hey, %Name%.
+[pause]
+
+[profile][mc_portrait]
+Did you find out anything?
+[pause]
+
+[profile][pierce]
+Yeah, called in almost all the favors I have in this
+place.
+[pause]
+
+[profile][pierce]
+The main research facility is located in the west end
+of the capital. It looks relatively unguarded in the
+outside, but they have automatons guarding inside.
+[pause]
+
+[profile][hanlon]
+Ah, the automatons. Nothing like a new invention to
+make us mercenaries obsolete.
+[pause]
+
+[profile][pierce]
+Useless contraptions, though, if you know what you're
+doing.
+[pause]
+
+[profile][mc_portrait]
+Aim for the head, right?
+[pause]
+
+[profile][pierce]
+It's that simple.
+[pause]
+
+[profile][mc_portrait]
+Thanks, Pierce. Now, let's go.
+[pause]
+
+[profile][pierce]
+West end of the capital. Act normal, don't look at
+anyone on your way in. I'll find a good getaway
+route.
+[pause]
+
+[end]
