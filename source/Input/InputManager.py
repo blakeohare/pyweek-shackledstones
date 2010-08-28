@@ -33,8 +33,9 @@ def reserializeEnemies():
 			
 					
 def start_enemy_insertion_session():
-	global _new_enemies
+	global _new_enemies, _invincible
 	_new_enmies = []
+	_invincible = True
 
 def insert_enemy(key):
 	global _new_enemies

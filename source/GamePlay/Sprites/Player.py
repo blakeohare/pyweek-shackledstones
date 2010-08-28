@@ -1,3 +1,5 @@
+_invincible = False
+
 class Player:
 	def __init__(self):
 		self.x = 100
@@ -29,19 +31,21 @@ class Player:
 		return coords
 	
 	def Update(self):
+		global _invincible
 		self.state_counter -= 1
 		self.flash_counter -= 1
 		if self.state_counter <= 0:
 			self.state = 'walking'
 		if self.flash_counter < 0:
-			game_scene = ActiveGame().GetActiveGameScene()
-			for sprite in game_scene.sprites:
-				if sprite.is_enemy:
-					dx = sprite.x - self.x
-					dy = sprite.y - self.y
-					if dx ** 2 + dy ** 2 < (self.r + sprite.r) ** 2:
-						self.flash_counter = 30
-						take_damage(1)
+			if not _invincible:
+				game_scene = ActiveGame().GetActiveGameScene()
+				for sprite in game_scene.sprites:
+					if sprite.is_enemy:
+						dx = sprite.x - self.x
+						dy = sprite.y - self.y
+						if dx ** 2 + dy ** 2 < (self.r + sprite.r) ** 2:
+							self.flash_counter = 30
+							take_damage(1)
 	
 	def Stab(self):
 		self.state_counter = 7
