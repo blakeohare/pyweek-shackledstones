@@ -41,6 +41,11 @@ class Enemy:
 			self.state = 'walking'
 			self.state_counter = int(30 * random.random())
 			self.r = 8
+		elif self.name == 'death':
+			self.r = 16
+			self.life = 15
+			self.state = 'walking'
+			
 			
 	
 	def DrawingCoords(self):
@@ -49,6 +54,8 @@ class Enemy:
 			offsets = (0, -6)
 		elif self.name == 'eyeball':
 			offsets = (0, (self.state_counter // 10) & 1)
+		elif self.name == 'death':
+			offsets = (0, 8)
 		coords = (self.x - self.r - offsets[0], self.y - self.r - offsets[1])
 		
 		return coords
@@ -56,6 +63,7 @@ class Enemy:
 	def get_goody(self):
 		i = int(random.random() * 10)
 		g = None
+		if self.name== 'death': return None
 		if i < 3:
 			g = Goody('life')
 		else:
@@ -93,7 +101,16 @@ class Enemy:
 			return
 		
 		if not self.frozen:
-			if self.name == 'blob':
+			if self.name == 'death':
+				if player_x < self.x:
+					self.dx = -1
+				elif player_x > self.x:
+					self.dx = 1
+				if player_y < self.y:
+					self.dy = -1
+				elif player_y > self.y:
+					self.dy = 1
+			elif self.name == 'blob':
 				if self.state_counter <= 0:
 					if self.state == 'thinking':
 						self.state = 'approach'
@@ -159,6 +176,9 @@ class Enemy:
 		if self.name == 'blob':
 			counter = str((render_counter // 4) & 1)
 			return get_image('sprites/blob/anim' + counter)
+		elif self.name == 'death':
+			counter = ('0','1','0','2')[render_counter & 3]
+			return get_image('sprites/death/' + counter)
 		elif self.name == 'eyeball':
 			return get_image('sprites/eyeball/' + self.direction)
 		elif self.name == 'beetle':
