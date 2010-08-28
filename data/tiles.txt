@@ -871,3 +871,6 @@ epd3	Escape Pod Decor	xxxx	escapepoddecor/controlpanelb.png
 epd4	Escape Pod Decor	xxxx	escapepoddecor/controlpanelc.png
 epd5	Escape Pod Decor	xxxx	escapepoddecor/emptypanel.png
 shop	Shop	oooo	shop.png
+furniture1	Furniture	xxxx	furniture/shelves.png
+furniture2	Furniture	xxxx	furniture/chairleft.png
+Furniture3	Furniture	xxxx	furniture/chairright.png
