@@ -273,7 +273,6 @@ class GamePlayScene:
 				dcs.append(dc)
 		self.death_circles = dcs
 		
-		
 		enemy_count = self.get_enemy_count()
 		self.gc_sprites()
 		if enemy_count > 0 and self.get_enemy_count() == 0:
@@ -611,6 +610,8 @@ class GamePlayScene:
 			if sprite.layer == layer:
 				sprites.append(sprite)
 		
+		#print sprites
+		#
 		if self.player.layer == layer and not self.player_invisible:
 			
 			return [self.player] + sprites

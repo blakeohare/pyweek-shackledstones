@@ -51,6 +51,20 @@ class Enemy:
 		
 		return coords
 	
+	def get_goody(self):
+		i = int(random.random() * 10)
+		g = None
+		if i < 3:
+			g = Goody('life')
+		else:
+			g = Goody('money')
+			
+		if g != None:
+			g.layer = self.layer
+			g.x = self.x
+			g.y = self.y
+		return g
+	
 	def Update(self):
 		self.state_counter -= 1
 		self.flash_counter -= 1
@@ -70,8 +84,11 @@ class Enemy:
 				self.life -= 1
 				if self.life <= 0:
 					self.expired = True
+					goody = self.get_goody()
+					if goody != None:
+						self.game_scene.sprites.append(goody)
 				return
-		
+
 		if self.name == 'blob':
 			if self.state_counter <= 0:
 				if self.state == 'thinking':
@@ -104,6 +121,7 @@ class Enemy:
 				self.dy = -1
 			else:
 				self.dy = 1
+		
 		elif self.name == 'mechanicalman':
 			if self.state_counter <= 0:
 				if self.state == 'walking':
