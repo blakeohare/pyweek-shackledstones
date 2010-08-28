@@ -65,6 +65,7 @@ class InventoryScene:
       self._baseScene.Render(screen)
       i = self._i
       isurf = self._itemSurf
+      sw = screen.get_width()
       
       
       titleSurf = pygame.Surface((200, 25))
@@ -94,6 +95,51 @@ class InventoryScene:
       screen.blit(titleSurf, (title_off_x, title_off_y))
       screen.blit(itemSurf, (item_off_x, item_off_y))
       screen.blit(moneySurf, (money_off_x, money_off_y))
+
+      if i.HasAny():
+         # TODO: this is ugly and terrible, fix it
+         a = render_text_size(17, 'A', WHITE)
+         aw = a.get_width()
+         ah = a.get_height()
+         b = render_text_size(17, 'B', WHITE)
+         bw = b.get_width()
+         bh = b.get_height()
+         x = render_text_size(17, 'X', WHITE)
+         xw = x.get_width()
+         xh = x.get_height()
+         y = render_text_size(17, 'Y', WHITE)
+         yw = y.get_width()
+         yh = y.get_height()
+         eq = pygame.Surface((aw+bw+40+18, 46))
+         eq.set_alpha(120)
+         eq.fill(BLACK)
+         ex = int((sw - eq.get_width())/2)
+         ey = 50
+         screen.blit(eq, (ex, ey))
+         pygame.draw.rect(screen, WHITE, pygame.Rect(ex - ss, ey - ss, eq.get_width() + (2 * ss), eq.get_height() + (2 * ss)), ss)
+         '''
+         a    x
+         b    y
+         '''
+         surf = i.Surf('a')
+         screen.blit(a, (ex + 3, ey + 0))
+         if surf:
+            screen.blit(surf, (ex + aw + 6, ey))
+         
+         surf = i.Surf('b')
+         screen.blit(b, (ex + 3, ey + 23))
+         if surf:
+            screen.blit(surf, (ex + bw + 6, ey + 23))
+         
+         surf = i.Surf('x')
+         screen.blit(x, (ex + aw + 26, ey + 0))
+         if surf:
+            screen.blit(surf, (ex + xw + aw + 26 + 3, ey))
+         
+         surf = i.Surf('y')
+         screen.blit(y, (ex + bw + 26, ey + 23)) 
+         if surf:
+            screen.blit(surf, (ex + bw + yw + 26 + 3, ey + 23))
 
       # draw player money:
       coinSurf = ImageLib.FromFile(os.path.join('images', 'misc', 'money0.png'))
@@ -152,6 +198,13 @@ class InventoryScene:
 class Inventory:
    def __init__(self):
       self._ag = ActiveGame()
+   
+   def Surf(self, slot):
+      i = self._Equipped(slot)
+      if i:
+         return ImageLib.FromFile(uiImgPath('%s' % i))
+      else:
+         return None
    
    def HasAny(self):
       i = self
