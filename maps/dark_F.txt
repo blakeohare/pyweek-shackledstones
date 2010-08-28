@@ -4,3 +4,4 @@
 #IDs:item|A|7|4,S|A|7|9
 #scripts:item|[check][item_hook][eq][1][has][hasnt]\n[label][hasnt]\n[remove tile][item][excessive]\n[set][item_hook][1]\n[label][has]|||S|[warp][dark_A][NE][south scroll]
 #on_load:[check][item_hook][eq][1][has][hasnt]\n[label][has]\n[remove tile][item][excessive]\n[label][hasnt]
+#music:swampadventure.mp3
