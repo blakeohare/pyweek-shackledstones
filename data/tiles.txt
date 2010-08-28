@@ -843,9 +843,9 @@ airshipb14	Brown Airship	oooo	brownairshipwall/underdoorleft.png
 airshipb15	Brown Airship	oooo	brownairshipwall/underdoorright.png
 airshipb16	Brown Airship	oooo	brownairshipwall/underdoorbottom.png
 signpost	Misc	oooo	signpost.png
-escapepod0	Escape Pod	ooxx	escapepod/0.png
+escapepod0	Escape Pod	xxxx	escapepod/0.png
 escapepod1	Escape Pod	xxxx	escapepod/1.png
-escapepod2	Escape Pod	ooxx	escapepod/2.png
+escapepod2	Escape Pod	xxxx	escapepod/2.png
 escapepod3	Escape Pod	xxxx	escapepod/3.png
 escapepod4	Escape Pod	xxxx	escapepod/4.png
 escapepod5	Escape Pod	xxxx	escapepod/5.png
@@ -870,3 +870,4 @@ epd2	Escape Pod Decor	xxxx	escapepoddecor/controlpanela.png
 epd3	Escape Pod Decor	xxxx	escapepoddecor/controlpanelb.png
 epd4	Escape Pod Decor	xxxx	escapepoddecor/controlpanelc.png
 epd5	Escape Pod Decor	xxxx	escapepoddecor/emptypanel.png
+shop	Shop	oooo	shop.png
