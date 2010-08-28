@@ -12,7 +12,14 @@ namespace MapEditor
 
 		public static Tile Get(string id)
 		{
-			return tiles[id];
+			try
+			{
+				return tiles[id];
+			}
+			catch (Exception)
+			{
+				return null;
+			}
 		}
 
 		public static string[] Categories
