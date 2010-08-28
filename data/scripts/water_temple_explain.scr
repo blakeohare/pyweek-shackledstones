@@ -21,8 +21,8 @@ Yeah.
 [pause]
 
 [profile][mc_portrait]
-And what happens after that? Who said that this thing won't
-sink and take me with it?
+And what happens after that? What says that this thing 
+won't sink or explode and take me with it?
 [pause]
 
 [profile][hanlon]
@@ -34,7 +34,12 @@ You're hard to understand sometimes, old man.
 [pause]
 
 [profile][hanlon]
-Rumor has it that this temple is full of traps. TRAP ONE TRAP TWO TRAP THREE
+Rumor has it that this temple is guarded by mystical
+beasts. Stay sharp, %Name%.
+[pause]
+
+[profile][mc_portrait]
+Will do. Heading out.
 [pause]
 
 [end]
