@@ -7,10 +7,6 @@ class MainMenuScene:
       self.next = JoystickConfigScene()
    
    def Credits(self):
-      #scene = GameOverScene()
-      #self.next = scene
-      #scene.next = scene
-      #return
       GameContext().SetActiveGame(1)
       ActiveGame().SetSavedVar('name', 'SUE')
       if os.path.exists('map_test.txt'):
@@ -51,6 +47,10 @@ class MainMenuScene:
                   self.Setup()
                elif self._selection == 2:
                   self.Credits()
+            if e.X():
+               scene = GameOverScene()
+               self.next = scene
+               scene.next = scene
 
    def Update(self, conter):
       play_music('title')
