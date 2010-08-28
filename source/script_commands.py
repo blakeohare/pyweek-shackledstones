@@ -79,6 +79,7 @@ def do_getkey(color):
 	return True
 	
 def do_save_point():
+	game_scene = ActiveGame().GetActiveGameScene()
 	do_cutscene('save_point_routine')
 	return True
 
