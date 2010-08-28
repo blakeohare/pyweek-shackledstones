@@ -1,4 +1,4 @@
-GAME_NAME = "Steampunk Game"
+GAME_NAME = "Shackled Stones"
 DEBUG_SCRIPTS = True
 
 testCode = True
