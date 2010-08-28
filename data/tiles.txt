@@ -876,3 +876,4 @@ furniture2	Furniture	xxxx	furniture/chairleft.png
 Furniture3	Furniture	xxxx	furniture/chairright.png
 furniture4	Furniture	oooo	furniture/cashregisterleft.png
 furniture5	Furniture	oooo	furniture/cashregisterright.png
+furniture6	Furniture	xxxx	furniture/table.png
