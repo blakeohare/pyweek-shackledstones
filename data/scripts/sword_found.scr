@@ -4,6 +4,19 @@
 You found the Sabre!
 [pause]
 
+[profile][pierce]
+Hold it there, %Name%. I think you need a tutorial.
+[pause]
+
+[profile][mc_portrait]
+Pierce, how is this a good time?
+[pause]
+
+[profile][pierce]
+Well, you got caught, and I had to bust you out. So yes,
+now is as good a time as any.
+[pause]
+
 [profile][]
 Press start on your gamepad, or enter on your keyboard, to
 view your inventory.
@@ -11,7 +24,11 @@ view your inventory.
 
 [profile][]
 Then press a command key (a, b, x, or y on a gamepad, 
-or a, s d, or space on a keyboard) to equip it to that slot.
+or a, s, d, or space on a keyboard) to equip it to that slot.
+[pause]
+
+[profile][]
+Press that key to use the sword.
 [pause]
 
 [end]
