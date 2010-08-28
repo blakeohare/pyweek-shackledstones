@@ -109,7 +109,7 @@ class CutSceneEvent:
 	
 	def setspritedirection(self, game_scene):
 		sprite = game_scene.get_sprite_by_id(self.sprite_id)
-		sprite.expired=True
+		sprite.direction = self.direction
 	
 	def createsprite(self, game_scene):
 		sprite = create_sprite(self.sprite_name, self.sprite_id)
@@ -122,7 +122,7 @@ class CutSceneEvent:
 	
 	def deletesprite(self, game_scene):
 		sprite = game_scene.get_sprite_by_id(self.sprite_id)
-		game_scene.sprites.remove(sprite)
+		sprite.expired=True
 	
 	def show_dialog(self, game_scene):
 		game_scene.next = DialogScene(
