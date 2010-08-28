@@ -4,3 +4,4 @@
 #IDs:shop|A|12|14,shopl|A|11|14,buy|A|12|7
 #scripts:shop|[warp][world_capital][shopp][south scroll]|||shopl|[warp][world_capital][shopp][south scroll]|||buy|[launch cutscene][capital_store]
 #music:longoverworld.mp3
+#on_load:[launch cutscene][add_shopkeeper]

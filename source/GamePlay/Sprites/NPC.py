@@ -21,14 +21,18 @@ class NPC:
 	def DrawingCoords(self):
 	
 		coords = (self.x - self.r, self.y - self.r - 13)
+		if self.name == 'shopkeeper': return (coords[0], coords[1] - 3)
 		return coords
 	
 	def Update(self):
 		self.state_counter -= 1
 		if self.state_counter <= 0 and self.state != 'walking' and self.state != 'standing':
 			self.state = 'standing'
+		
 	
 	def CurrentImage(self, render_counter):
+		if self.name == 'shopkeeper':
+			return get_image('sprites/townsdude/down0')
 		if self.state == 'walking' or self.state == 'standing':
 			if self.state == 'walking':
 				counter = ('0','1','0','2')[(render_counter // 3) & 3]
