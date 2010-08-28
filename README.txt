@@ -37,17 +37,10 @@ The Quick Version:
   button  
 
  Running the Game - WINDOWS:
-  We have wrapper scripts for Python 2.6 (run26.bat) and 3.1 (run31.bat).
-  These assume a default install directory.  If that isn't your setup you
-  can either edit them directly or set an environment variable for %py26%
-  or %py31% as appropriate.
+  Run game.exe
 
- Running the Game - LINUX:
-  run.sh _should_ work for you using the default python install it finds in
-  your path... if it doesn't ask us and we can try to help.
-
- Running the Game - OSX:
-  I hope the run.sh approach works, couldn't test it =(
+ Everyone else:
+  Run game.py
 
 Assets:
   All pixel art, character art, menu/ui art, and music was made by us.
