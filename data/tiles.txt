@@ -609,14 +609,14 @@ yellowside11	Yellow Side Doors	yellowkey	sidedoor/yellow/lr1.png
 yellowside12	Yellow Side Doors	yellowkey	sidedoor/yellow/lr2.png
 blackside1	Black Side Doors	oooo	sidedoor/black/l1.png
 blackside2	Black Side Doors	oooo	sidedoor/black/l2.png
-blackside3	Black Side Doors	oooo	sidedoor/black/cl1.png
-blackside4	Black Side Doors	oooo	sidedoor/black/cl2.png
+blackside3	Black Side Doors	xxxx	sidedoor/black/cl1.png
+blackside4	Black Side Doors	xxxx	sidedoor/black/cl2.png
 blackside5	Black Side Doors	blackkey	sidedoor/black/ll1.png
 blackside6	Black Side Doors	blackkey	sidedoor/black/ll2.png
 blackside7	Black Side Doors	oooo	sidedoor/black/r1.png
 blackside8	Black Side Doors	oooo	sidedoor/black/r2.png
-blackside9	Black Side Doors	oooo	sidedoor/black/cr1.png
-blackside10	Black Side Doors	oooo	sidedoor/black/cr2.png
+blackside9	Black Side Doors	xxxx	sidedoor/black/cr1.png
+blackside10	Black Side Doors	xxxx	sidedoor/black/cr2.png
 blackside11	Black Side Doors	blackkey	sidedoor/black/lr1.png
 blackside12	Black Side Doors	blackkey	sidedoor/black/lr2.png
 boulder1	Cracked Boulder	xxxx	crackedboulder.png
