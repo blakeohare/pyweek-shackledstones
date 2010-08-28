@@ -5,16 +5,32 @@ Dammit Maple, at least wait until we're out before
 blowing the ship up!
 [pause]
 
+[profile][mc_portrait]
+Pierce, where am I going?
+[pause]
+
 [profile][pierce]
-Get going, %NAME%. I'll cover you. Head to the cargo deck.
+Cargo deck. All the way down the hall. Maple shorted all
+the doors to lock the guards in, so you should be
+clear.
 [pause]
 
 [profile][mc_portrait]
-Can you handle all the guards?
+Think you can handle the rest of them?
 [pause]
 
 [profile][pierce]
-That's what the bombs are for. I'll see you back there.
+That's what the bombs are for. Get going, %NAME%. Hanlon 
+can only hold our ship up here for so long. I'll see you
+back there.
+[pause]
+
+[profile][meyer]
+%NAME%, I'll be after you.
+[pause]
+
+[profile][mc_portrait]
+Aren't you always? See ya, Meyer.
 [pause]
 
 [end]
