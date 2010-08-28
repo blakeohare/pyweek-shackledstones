@@ -1,7 +1,23 @@
 [comment] A simple script to demonstrate how a dialogue script would look.
 
 [profile][maple]
-We're here!
+Whaaaaa what did you do?!
+[pause]
+
+[profile][mc_portrait]
+What the...
+[pause]
+
+[profile][pierce]
+Well... that's a new one...
+[pause]
+
+[profile][hanlon]
+The Water Stone...
+[pause]
+
+[profile][pierce]
+What Stone?
 [pause]
 
 [end]

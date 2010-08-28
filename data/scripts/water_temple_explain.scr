@@ -1,7 +1,40 @@
 [comment] A simple script to demonstrate how a dialogue script would look.
 
 [profile][hanlon]
-Go inside and stuff!
+This is it...
+[pause]
+
+[profile][pierce]
+Well I'll be damned...
+[pause]
+
+[profile][mc_profile]
+So I should just go in and put the stone back?
+[pause]
+
+[profile][pierce]
+After all that effort...
+[pause]
+
+[profile][hanlon]
+Yeah.
+[pause]
+
+[profile][mc_profile]
+And what happens after that? Who said that this thing won't
+sink and take me with it?
+[pause]
+
+[profile][hanlon]
+...well, won't know until we try.
+[pause]
+
+[profile][mc_profile]
+You're hard to understand sometimes, old man.
+[pause]
+
+[profile][hanlon]
+Rumor has it that this temple is full of traps. TRAP ONE TRAP TWO TRAP THREE
 [pause]
 
 [end]

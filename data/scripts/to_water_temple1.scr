@@ -1,39 +1,24 @@
 [comment] A simple script to demonstrate how a dialogue script would look.
 
-[profile][hanlon]
-blah blah blah looks like one of them 
-water stones blah blah blah
-[pause]
-
-[profile][hanlon]
-blah blah blah elementals blah
- blah blah blah our country blah
-[pause]
-
-[profile][mc_portrait]
-blah blah blah ooooh shiny blah
+[profile][maple]
+Wow, they make their radios so light these days...
 [pause]
 
 [profile][pierce]
-Does my name have anything to do with
-the fact that I'm good with knives?
+So what's in that box?
 [pause]
 
-[profile][maple]
-I'm a leprechaun!
-[pause]
-
-[profile][maple]
-(I'm writing this at 3AM and it's all
-very hilarious. I'm sure when I wake up
-it won't be as funny. Fixception, can
-you rewrite all this? It's in /data/scripts/
+[profile][mc_portrait]
+Some gem. Hanlon, you wanted to look at it, right? 
+Catch.
 [pause]
 
 [profile][hanlon]
-Let's go to the water temple.
-blah blah blah something about
-Knights-o-Haskell blah blah.
+Ah... she's safe, alright...
+[pause]
+
+[profile][mc_portrait]
+What is?
 [pause]
 
 [end]

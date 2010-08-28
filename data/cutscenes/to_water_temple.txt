@@ -4,6 +4,6 @@
 	sprite create pierce pierce 3 6 A standing right
 	pause 15
 	dialog to_water_temple1
-	pause 90
+	pause 30
 	dialog to_water_temple2
 	script [remove tile][door][doodad]
