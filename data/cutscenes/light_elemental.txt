@@ -1,5 +1,5 @@
 	pause 60
 	dialog light_elemental
 	pause 10
-    script [set][finished_water][1]
-	script [warp][world_W][water_entrance][pixelate]
+    script [set][finished_light][1]
+	script [warp][world_W][light_entrance][pixelate]
