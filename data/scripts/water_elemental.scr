@@ -1,7 +1,81 @@
 [comment] A simple script to demonstrate how a dialogue script would look.
 
 [profile][water_spirit]
-Sup.
+Ah, brave ones. I must thank you. It has been far too
+long.
+
+[profile][mc_portrait]
+How long have they been holding you?
+
+[profile][water_spirit]
+Sixty long years, brave ones. A most unpleasant
+containment, being thrown around like cattle.
+
+[profile][mc_portrait]
+What were they doing with you?
+
+[profile][water_spirit]
+Your lords have been harnessing our power. Even now,
+part of me lives in your vessel on the surface.
+
+[profile][maple]
+Wait... the steam engines run on your power? The entire
+nation's? Even mine?
+[pause]
+
+[profile][water_spirit]
+I sense them through your land. Mere mortals cannot fathom
+harnessing more than a hair of my power. Your people are
+ahead of your time.
+[pause]
+
+[profile][hanlon]
+...
+[pause]
+
+[profile][water_spirit]
+Hmm... most troubling...
+[pause]
+
+
+[profile][water_spirit]
+You must go. They are coming. Worry not. I shall lie in
+the ocean for a while. Let me deliver the rain that your
+land has long thirsted for.
+[pause]
+
+[profile][mc_portrait]
+I see.
+[pause]
+
+[profile][water_spirit]
+May my brother Light benefit from your assistance? He is
+at His temple, shackled and weary.
+[pause]
+
+[profile][mc_portrait]
+I shall, spirit.
+[pause]
+
+[profile][water_spirit]
+And little one...
+[pause]
+
+[profile][maple]
+M-me?
+[pause]
+
+[profile][water_spirit]
+Let me carry your ship onwards. Yours shall be a vessel of
+glory.
+[pause]
+
+[profile][maple]
+...yes!
+[pause]
+
+[profile][water_spirit]
+Very well, off you go then, brave ones.
 [pause]
 
 [label][end]
