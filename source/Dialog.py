@@ -73,7 +73,8 @@ class Dialog(Scripted):
          
       if line == '\\n':
          line = '$nl$'
-      line = line.replace('%Name%', ActiveGame().GetVar('name'))
+      name = ActiveGame().GetVar('name')
+      line = line.replace('%Name%', name).replace('%NAME%', name)
       self._buffer += line + '\n'
 
    # function implementations
