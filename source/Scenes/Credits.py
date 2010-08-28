@@ -21,8 +21,13 @@ class CreditsScene:
          "",
          "",
          "",
-         "heading:Cutscene, Menu Art",
+         "heading:Character Art",
          "Fixception",
+         "",
+         "",
+         "",
+         "heading:UI Art",
+         "Richard Bailey",
          "",
          "",
          "",
@@ -78,7 +83,7 @@ class CreditsScene:
    def ProcessInput(self, events):
       for e in events:
          if e.down:
-            if e.Start():
+            if e.Start() or e.A() or e.B():
                mm = MainMenuScene()
                self.next = mm
                mm.next = mm
