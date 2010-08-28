@@ -20,11 +20,13 @@ class GameSelectScene:
          if e.down:
             if self._erase or self._cancel:
                if e.Up():
+                  play_sound("menu2")
                   self._erase = False
                   self._cancel = False
                   self._selection = 2
                   return
                if e.Down():
+                  play_sound("menu2")
                   self._erase = False
                   self._cancel = False
                   self._selection = 0
@@ -34,10 +36,12 @@ class GameSelectScene:
                   self._cancel = not self._cancel
                   return
             elif e.Up():
+               play_sound("menu2")
                self._selection -= 1
                self._selection %= 4
                
             elif e.Down():
+               play_sound("menu2")
                self._selection += 1
                self._selection %= 4
             

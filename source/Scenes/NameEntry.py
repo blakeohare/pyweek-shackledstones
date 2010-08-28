@@ -13,13 +13,17 @@ class NameEntryScene:
       for e in events:
          if e.down:
             if e.Up():
+               play_sound("menu2")
                self._move(0, -1)
             if e.Down():
+               play_sound("menu2")
                self._move(0, 1)
             if e.Left():
                self._move(-1, 0)
+               play_sound("menu2")
             if e.Right():
                self._move(1, 0)
+               play_sound("menu2")
             if (e.A() or e.B() or e.Start()) and self._isCommand():
                if len(self._name) != 0 and self._done:
                   ActiveGame().SetSavedVar('name', self._name)

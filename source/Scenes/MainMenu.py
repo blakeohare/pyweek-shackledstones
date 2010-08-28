@@ -37,8 +37,10 @@ class MainMenuScene:
       for e in events:
          if e.down:
             if e.Down():
+               play_sound("menu2")
                self._selection = (self._selection + 1) % 3
             if e.Up():
+               play_sound("menu2")
                self._selection = (self._selection - 1) % 3
             if e.A() or e.B() or e.Start():
                if self._selection == 0:
