@@ -20,30 +20,21 @@ class NameEntryScene:
                self._move(-1, 0)
             if e.Right():
                self._move(1, 0)
-            if e.A():
-               if self._isCommand():
-                  if len(self._name) != 0 and self._done:
-                     ActiveGame().SetSavedVar('name', self._name)
-                     ActiveGame().SaveToFile()
-
-                     # TODO
-                     c = open('map_test.txt', 'rt')
-                     t = c.read().split('\n')
-                     c.close()
-                     map_name = trim(t[0])
-                     coords = trim(t[1]).split(',')
-                     scene = GamePlayScene(map_name, int(coords[0]) << 4, int(coords[1]) << 4)
-                     
-                     scene.next = scene
-                     self.next = scene
+            if (e.A() or e.B() or e.Start()) and self._isCommand():
+               if len(self._name) != 0 and self._done:
+                  ActiveGame().SetSavedVar('name', self._name)
+                  ActiveGame().SaveToFile()
+                  scene = GamePlayScene('transport_1', 64, 64)
+                  
+                  scene.next = scene
+                  self.next = scene
+                  return
+                  
+               if self._erase:
+                  if len(self._name):
+                     self._name = self._name[0:-1]
                      return
-                     
-                  if self._erase:
-                     if len(self._name):
-                        self._name = self._name[0:-1]
-                        return
-                        
-               else:
+            elif e.A() or e.B() or e.Start()
                   if (len(self._name) < self._nameLen):
                      self._name += self._toLetter()
    

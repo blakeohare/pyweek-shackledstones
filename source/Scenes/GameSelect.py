@@ -44,7 +44,7 @@ class GameSelectScene:
             if (e.Up() or e.Down()) and self._selection == 3:
                self._erase = True
 
-            if e.A():
+            if e.A() or e.B() or e.Start():
                if self._cancel:
                   self.next = self._prevScene
                   self._prevScene.next = self._prevScene

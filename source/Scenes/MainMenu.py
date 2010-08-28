@@ -7,6 +7,10 @@ class MainMenuScene:
       self.next = JoystickConfigScene()
    
    def Credits(self):
+      scene = GameOverScene()
+      self.next = scene
+      scene.next = scene
+      return
       GameContext().SetActiveGame(1)
       ActiveGame().SetSavedVar('name', 'SUE')
       if os.path.exists('map_test.txt'):
@@ -40,7 +44,7 @@ class MainMenuScene:
                self._selection = (self._selection + 1) % 3
             if e.Up():
                self._selection = (self._selection - 1) % 3
-            if e.A() or e.Start():
+            if e.A() or e.B() or e.Start():
                if self._selection == 0:
                   self.StartGame()
                elif self._selection == 1:

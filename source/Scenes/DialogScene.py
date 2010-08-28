@@ -25,7 +25,7 @@ class DialogScene:
                   self._choice += 1
                   self._choice %= len(self._dlg.Choices())
             else:
-               if e.A():
+               if e.A() or e.B():
                   if self._dlg.State() == D_QUESTION:
                      self._dlg.Answer(self._choice)
                   self._dlg.Advance()
