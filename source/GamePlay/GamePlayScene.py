@@ -95,7 +95,7 @@ class GamePlayScene:
 	def place_player(self, layer, x, y):
 		self.player.layer = layer
 		self.player.x = (x << 4) + 8
-		self.player.y = (y << 4) + 2
+		self.player.y = (y << 4) + 8
 		self.level.synch_stand_key(layer, self.player.x >> 4, self.player.y >> 4)
 	
 	def is_key_pressed(self, key):
@@ -214,7 +214,7 @@ class GamePlayScene:
 		self.do_sprite_move(self.player, vx, vy, False)
 		
 	def Update(self, game_counter):
-		self.level.update_tile_standing_on(self.player.layer, self.player.x, self.player.y+6)
+		self.level.update_tile_standing_on(self.player.layer, self.player.x, self.player.y)
 		if self.prevTile != self.level.playerStandingOn:
 			self.prevTile = self.level.playerStandingOn
 			self.firstTimeOnTile = True
@@ -658,10 +658,10 @@ class GamePlayScene:
 		vx = int(vx)
 		vy = int(vy)
 		#hacked in a lower location for the center of the sprite in the particular case of the player
-		params = self.level.move_request(sprite.layer, sprite.x, sprite.y+6, vx, vy, sprite.r - 4, is_flying_sprite)
+		params = self.level.move_request(sprite.layer, sprite.x, sprite.y, vx, vy, sprite.r - 4, is_flying_sprite)
 		sprite.layer = params[0]
 		sprite.x = params[1]
-		sprite.y = params[2]-6
+		sprite.y = params[2]
 		return params[3]
 
 ### STATIC ###
