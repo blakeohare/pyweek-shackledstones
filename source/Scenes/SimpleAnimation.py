@@ -21,7 +21,7 @@ class SimpleAnimationScene:
 			if self.name == 'flyaway':
 				self.next = GamePlayScene('escape_pod', 30, 46)
 			elif self.name == 'flyhome':
-				self.next = GamePlayScene('world_B', 17 *16, 11*16)
+				self.next = GamePlayScene('world_B', 18 *16 + 8, 11*16)
 	def Render(self, screen):
 		if self.name == 'flyaway':
 			x = (4 * self.render_counter) % 384
