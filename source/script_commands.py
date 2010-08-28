@@ -62,6 +62,8 @@ def do_switch_scene(newScene):
 	game_scene = ActiveGame().GetActiveGameScene()
 	if newScene == 'flyaway':
 		game_scene.next = SimpleAnimationScene('flyaway')
+	if newScene == 'flyhome':
+		game_scene.next = SimpleAnimationScene('flyhome')
    
    
 def do_cutscene(cutscene):
