@@ -71,7 +71,7 @@
 61	Blue Doodads	xxxx	bluedoodads/blueblock.png
 62	Blue Doodads	xxxx	bluedoodads/blueboulder.png
 63	Metal Pillar	xxxx	metalpillar.png
-64	Water	oooo	water/1.png|water/2.png|water/3.png|water/4.png
+64	Water	water	water/1.png|water/2.png|water/3.png|water/4.png
 65	Blue Floor	floor	bluefloor/lightmiddle.png
 66	Blue Floor	floor	bluefloor/lightunderdoortop.png
 67	Blue Floor	floor	bluefloor/lightunderdoorleft.png
@@ -472,8 +472,8 @@ mirror4	Mirrors	oxxx	mirrors/bottomright.png
 torch1	Torches	xxxx	torches/on1.png|torches/on2.png	6
 torch2	Torches	xxxx	torches/off.png
 fire	Fire	xxxx	fire/1.png|fire/2.png	6
-swamp1	Swamp Water	oooo	swamp/1.png|swamp/2.png|swamp/3.png|swamp/4.png	8
-swamp2	Swamp Water	oooo	swamp/solid.png
+swamp1	Swamp Water	water	swamp/1.png|swamp/2.png|swamp/3.png|swamp/4.png	8
+swamp2	Swamp Water	water	swamp/solid.png
 swamp3	Swamp Ground	oooo	swamp/ground1.png
 swamp4	Swamp Ground	oooo	swamp/ground2.png
 swamp5	Swamp Ground	oooo	swamp/ground3.png
