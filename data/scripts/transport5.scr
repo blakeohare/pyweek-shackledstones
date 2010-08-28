@@ -1,9 +1,36 @@
-[profile][pierce]
-Come on, Maple, I got you their new radio!
+[comment] A simple script to demonstrate how a dialogue script would look.
+
+[profile][maple]
+They didn't bully you too much, did they?
+[pause]
+
+[profile][mc_portrait]
+Nope.  Did you rig another charge somewhere?
 [pause]
 
 [profile][maple]
-Wha- wait!
+It's already done.  Rear stabilizers.
+Can we not blow it all up?
+It's such a pretty little thing...
+[pause]
+
+[profile][mc_portrait]
+Sure thing, we got what we came for.
+[pause]
+
+[profile][maple]
+Yay!  We should have plenty of time while 
+they're trying to defuse it.  If they can.
+Hehehe.
+[pause]
+
+[profile][mc_portrait]
+Right, let's go!
+[pause]
+
+[profile][maple]
+Aww, but it's the first time I've ever seen
+a Dauntless class up close...
 [pause]
 
 [end]

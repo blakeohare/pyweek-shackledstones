@@ -7,14 +7,14 @@
 	script [remove tile][to_north][doodad]
 	pause 12
 	sprite create maple maple 7 1 A standing down
-	dialog transport4
-	sprite create pierce pierce 1 3 A standing right
 	dialog transport5
+	sprite create pierce pierce 1 3 A standing right
+	dialog transport6
 	sprite setdirection maple up
 	sprite setstate maple walking up
 	sprite setXY maple 6 0 5
 	sprite delete maple
-	dialog transport6
+	dialog transport7
 	sprite setstate pierce walking right
 	sprite setXY pierce 6 3 15
 	sprite setdirection pierce up

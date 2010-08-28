@@ -1,36 +1,20 @@
 [comment] A simple script to demonstrate how a dialogue script would look.
 
-[profile][maple]
-They didn't bully you too much, did they?
+[profile][pierce]
+Dammit Maple, at least wait until we're out before 
+blowing the ship up!
+[pause]
+
+[profile][pierce]
+Get going, %NAME%. I'll cover you. Head to the cargo deck.
 [pause]
 
 [profile][mc_portrait]
-Nope.  Did you rig another charge somewhere?
+Can you handle all the guards?
 [pause]
 
-[profile][maple]
-It's already done.  Rear stabilizers.
-Can we not blow it all up?
-It's such a pretty little thing...
-[pause]
-
-[profile][mc_portrait]
-Sure thing, we got what we came for.
-[pause]
-
-[profile][maple]
-Yay!  We should have plenty of time while 
-they're trying to defuse it.  If they can.
-Hehehe.
-[pause]
-
-[profile][mc_portrait]
-Right, let's go!
-[pause]
-
-[profile][maple]
-Aww, but it's the first time I've ever seen
-a Dauntless class up close...
+[profile][pierce]
+That's what the bombs are for. I'll see you back there.
 [pause]
 
 [end]

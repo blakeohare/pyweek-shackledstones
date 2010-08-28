@@ -7,6 +7,17 @@
 	pause 20
 	dialog transport2
 	pause 20
-	sprite create pierce pierce 8 1 A standing down
+    script [sound][unlock]
+	pause 5
 	script [remove tile][to_north][doodad]
+	sprite create pierce pierce 8 1 A walking down
+    script [sound][sword2]
+    sprite setxy pierce 8 4 10
+    sprite setdirection pierce left
+    sprite setstate pierce standing
+
 	dialog transport3
+    script [sound][explosion]
+    shakescreen 40
+    pause 10
+    dialog transport4

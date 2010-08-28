@@ -1,7 +1,7 @@
 [comment] A simple script to demonstrate how a dialogue script would look.
 
 [profile][pierce]
-Good day.
+Good day. I'm here to pick up an old friend.
 [pause]
 
 [profile][meyer]
@@ -13,7 +13,7 @@ Yep. Told you that'd be an issue.
 [pause]
 
 [profile][meyer]
-I'll take that as a compliment.
+...I'll take that as a compliment.
 [pause]
 
 [end]
