@@ -41,11 +41,12 @@ class Player:
 				game_scene = ActiveGame().GetActiveGameScene()
 				for sprite in game_scene.sprites:
 					if sprite.is_enemy:
-						dx = sprite.x - self.x
-						dy = sprite.y - self.y
-						if dx ** 2 + dy ** 2 < (self.r + sprite.r) ** 2:
-							self.flash_counter = 30
-							take_damage(1)
+						if sprite.layer = self.layer:
+							dx = sprite.x - self.x
+							dy = sprite.y - self.y
+							if dx ** 2 + dy ** 2 < (self.r + sprite.r) ** 2:
+								self.flash_counter = 30
+								take_damage(1)
 	
 	def Stab(self):
 		if self.is_submerged(): return
