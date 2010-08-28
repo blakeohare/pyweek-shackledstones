@@ -633,10 +633,11 @@ class GamePlayScene:
 	def do_sprite_move(self, sprite, vx, vy, is_flying_sprite):
 		vx = int(vx)
 		vy = int(vy)
-		params = self.level.move_request(sprite.layer, sprite.x, sprite.y, vx, vy, sprite.r - 4, is_flying_sprite)
+		#hacked in a lower location for the center of the sprite in the particular case of the player
+		params = self.level.move_request(sprite.layer, sprite.x, sprite.y+6, vx, vy, sprite.r - 4, is_flying_sprite)
 		sprite.layer = params[0]
 		sprite.x = params[1]
-		sprite.y = params[2]
+		sprite.y = params[2]-6
 		return params[3]
 
 ### STATIC ###
