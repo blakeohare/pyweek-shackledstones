@@ -7,3 +7,4 @@
 #IDs:key|C|21|8,E|B|22|13
 #scripts:key|[check][life_has_pkey][eq][1][has][hasnt]\n[label][hasnt]\n[remove tile][key][doodad]\n[get key][indigo]\n[set][life_has_pkey][1]\n[label][has]|||E|[warp][life_C][W][east scroll]
 #on_load:[check][life_has_pkey][eq][1][has][hasnt]\n[label][has]\n[remove tile][key][doodad]\n[label][hasnt]
+#music:naturalcharm.mp3
