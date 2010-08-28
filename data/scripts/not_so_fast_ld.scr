@@ -1,7 +1,7 @@
 [comment] A simple script to demonstrate how a dialogue script would look.
 
-[profile][robot]
-Not so fast!
+[profile][]
+NOT SO FAST! GUARDS!
 [pause]
 
 [end]

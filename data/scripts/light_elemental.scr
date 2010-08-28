@@ -1,17 +1,16 @@
 [comment] A simple script to demonstrate how a dialogue script would look.
 
 [profile][light_spirit]
-Ah, brave ones. I must thank you. It has been far too
-long.
+Brave ones, it is I, the Light Spirit. Thank you.
+I was beginning to think that this day will never come.
 [pause]
 
 [profile][mc_portrait]
-How long have they been holding you?
+What are they doing to you on that altar of theirs?
 [pause]
 
 [profile][light_spirit]
-Sixty long years, brave ones. A most unpleasant
-containment, being thrown around like cattle.
+They do nothing but suck out our energy.
 [pause]
 
 [profile][mc_portrait]
