@@ -1,11 +1,13 @@
 [comment] A simple script to demonstrate how a dialogue script would look.
 
 [profile][meyer]
-Meyer: "Master Thief %NAME%. Well, catching you only took 8 years."
+Master Thief %NAME%. Well, catching you only took 8
+years.
 [pause]
 
 [profile][mc_portrait]
-Worth all of 64 million. I hope you enjoyed the chase at least?
+Worth all of 64 million. I hope you enjoyed the chase 
+at least?
 [pause]
 
 [profile][meyer]
