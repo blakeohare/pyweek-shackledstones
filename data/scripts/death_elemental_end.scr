@@ -1,0 +1,9 @@
+[comment] A simple script to demonstrate how a dialogue script would look.
+
+[profile][death_spirit]
+NOOOO! Not again! I am Death, the destroyer of all!
+You will not shackle me again! No!
+[pause]
+
+[label][end]
+[end]

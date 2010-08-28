@@ -1,0 +1,58 @@
+[comment] A simple script to demonstrate how a dialogue script would look.
+
+[profile][death_spirit]
+Ah, brave ones. I must thank you. It has been far too
+long. Heheheh...
+[pause]
+
+[profile][mc_profile]
+What the hell...
+[pause]
+
+[profile][death_spirit]
+It is I, Death, that first left His altar. It is I,
+Death, that will rule all.
+[pause]
+
+[profile][mc_profile]
+You were the first to... but... Life told us...
+[pause]
+
+[profile][death_spirit]
+It is true, I am finally in my pure form once again.
+The Supreme Commander has been a great vessel indeed.
+Heheheheh...
+[pause]
+
+[profile][mc_profile]
+You've been ruling the country as the Supreme
+Commander?!
+[pause]
+
+[profile][death_spirit]
+Why the angry face? Look at your country's great
+accomplishments. How would any of these be possible
+without the Energy Altars?
+[pause]
+
+[profile][death_spirit]
+Why, before all this, your puny civilzation all lived
+in the fields. How pathetic.
+[pause]
+
+[profile][mc_profile]
+... I guess there's nothing to do but to fight, then.
+[pause]
+
+[profile][death_spirit]
+Allow me to repeat myself, then...
+[pause]
+
+[profile][death_spirit]
+It is I, Death, that first left His altar. It is I,
+Death, that will rule all.
+Come meet your end, human.
+[pause]
+
+[label][end]
+[end]

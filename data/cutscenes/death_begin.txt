@@ -1,0 +1,1 @@
+dialog death_elemental_begin
