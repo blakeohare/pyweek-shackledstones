@@ -96,10 +96,10 @@ class CutSceneEvent:
 		go_script_go(self.script)
 	
 	def do_setbg(self, game_scene):
-		self.bg = get_image(self.image)
+		game_scene.bg = get_image(self.image)
 	
 	def do_clearbg(self, game_scene):
-		self.bg = None
+		game_scene.bg = None
 	
 	def do_flash(self, game_scene):
 		antiprogress = min(1.0, max(0.0, (0.0 + self.expiration) / self.full_length))
