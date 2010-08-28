@@ -24,7 +24,7 @@ class InventoryScene:
       isurf[i.Drill()] = il.FromFile(uiImgPath('drill-have'))
       isurf[i.Hook()] = il.FromFile(uiImgPath('hook-have'))
       isurf[i.Compass()] = il.FromFile(uiImgPath('compass-have'))
-      isurf[i.Shovel()] = get_image('ui/shovel-have')
+      isurf[i.Shovel()] = il.FromFile(uiImgPath('shovel-have'))
    
    def ProcessInput(self, events):
       for e in events:
