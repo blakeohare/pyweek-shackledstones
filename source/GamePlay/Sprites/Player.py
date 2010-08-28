@@ -69,8 +69,19 @@ class Player:
 		if self.is_submerged(): return
 		self.state_count = 7
 		self.state = 'shooting'
-		sprite = Projectile(bullet_type, True, self.layer, self.x, self.y, self.direction, game_scene)
-		game_scene.sprites.append(sprite)
+		
+		sprites = []
+		if bullet_type == 'multi':
+			also = []
+			if self.direction == 'left' or self.direction == 'right':
+				also = ['up','down']
+			if self.direction == 'down' or self.direction == 'up':
+				also = ['left','right']
+			for b in also:
+				sprites.append(Projectile(bullet_type, True, self.layer, self.x, self.y, b, game_scene))
+		sprites.append(Projectile(bullet_type, True, self.layer, self.x, self.y, self.direction, game_scene))
+		for s in sprites:
+			game_scene.sprites.append(s)
 		play_sound('gunshot')
 		
 	def Dig(self):

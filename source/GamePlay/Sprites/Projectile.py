@@ -99,5 +99,9 @@ class Projectile:
 	def CurrentImage(self, render_counter):
 		if self.kind == 'grapple':
 			return get_image('sprites/magnet/' + self.direction)
+		elif self.kind == 'ice':
+			return get_image('sprites/bullets/ice')
+		elif self.kind == 'fire':
+			return get_image('sprites/bullets/fire')
 		return get_image('sprites/bullets/basic')
 		
