@@ -1,11 +1,19 @@
 [comment] A simple script to demonstrate how a dialogue script would look.
 
 [profile][meyer]
-Well, getting you here only took me 8 years.
+Meyer: "Master Thief %NAME%. Well, catching you only took 8 years."
 [pause]
 
 [profile][mc_portrait]
-Hmph, did you have a good time?
+Worth all of 64 million. I hope you enjoyed the chase at least?
+[pause]
+
+[profile][meyer]
+I ask the questions now, %NAME%....
+[pause]
+
+[profile][mc_portrait]
+Hmph, fine.
 [pause]
 
 [profile][meyer]
@@ -24,13 +32,31 @@ So, of all the good stuff out there, why this one?
 [pause]
 
 [profile][mc_portrait]
+Well, do you know what that is?
+[pause]
+
+[profile][meyer]
+Classified. And irrelevant.
+[pause]
+
+[profile][mc_portrait]
+Ah, you don't know either. Sounds important enough
+if the star inspector of the National Police isn't
+high enough clearance.
+[pause]
+
+[profile][meyer]
+Answer the question, %NAME%.
+[pause]
+
+[profile][mc_portrait]
 Look at it, it has a whole battalion guarding it. 
 Don't you know how much fun it is to steal it from 
 that many people?
 [pause]
 
 [profile][meyer]
-Cut it. Is there someone you're working f
+Cut it. Who are you working f...
 [pause]
 
 [end]
