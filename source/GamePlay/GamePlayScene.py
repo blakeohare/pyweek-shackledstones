@@ -92,7 +92,7 @@ class GamePlayScene:
 	def place_player(self, layer, x, y):
 		self.player.layer = layer
 		self.player.x = (x << 4) + 8
-		self.player.y = (y << 4) + 8
+		self.player.y = (y << 4) + 2
 		self.level.synch_stand_key(layer, self.player.x >> 4, self.player.y >> 4)
 	
 	def is_key_pressed(self, key):
@@ -211,7 +211,7 @@ class GamePlayScene:
 		self.do_sprite_move(self.player, vx, vy, False)
 		
 	def Update(self, game_counter):
-		self.level.update_tile_standing_on(self.player.layer, self.player.x, self.player.y)
+		self.level.update_tile_standing_on(self.player.layer, self.player.x, self.player.y+6)
 		if self.prevTile != self.level.playerStandingOn:
 			self.prevTile = self.level.playerStandingOn
 			self.firstTimeOnTile = True
