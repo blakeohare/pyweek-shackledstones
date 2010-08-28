@@ -1,86 +1,75 @@
 [comment] A simple script to demonstrate how a dialogue script would look.
 
-[profile][water_spirit]
-Ah, brave ones. I must thank you. It has been far too
-long.
+[profile][fire_spirit]
+Brave Ones! That was a good fight you put up to get
+here. Light is right to call you the new Order of
+Haskell.
 [pause]
 
 [profile][mc_portrait]
-How long have they been holding you?
+Thank you, Fire Spirit. I hope they have not tired
+you so much.
 [pause]
 
-[profile][water_spirit]
-Sixty long years, brave ones. A most unpleasant
-containment, being thrown around like cattle.
+[profile][fire_spirit]
+Hah! Mortals can never extract enough power from me.
+Don't you worry.
 [pause]
 
-[profile][mc_portrait]
-What were they doing with you?
-[pause]
-
-[profile][water_spirit]
-Your lords have been harnessing our power. Even now,
-part of me lives in your vessel on the surface.
-[pause]
-
-[profile][maple]
-Wait... the steam engines run on your power? The entire
-nation's? Even mine?
-[pause]
-
-[profile][water_spirit]
-I sense them through your land. Mere mortals cannot
-fathom harnessing more than a hair of my power. Your
-people are truly ahead of your time.
-[pause]
-
-[profile][hanlon]
-...
-[pause]
-
-[profile][water_spirit]
-Hmm... most troubling...
-[pause]
-
-
-[profile][water_spirit]
-You must go. They are coming. Worry not. I shall lie
-in the ocean for a while. Let me deliver the rain that
-your land has long thirsted for.
+[profile][meyer]
+I see... so that's how it is.
 [pause]
 
 [profile][mc_portrait]
-I see.
+Meyer?!
 [pause]
 
-[profile][water_spirit]
-May my brother Light benefit from your assistance? He
-is at his Light Temple, shackled and weary.
+[profile][meyer]
+That diversion didn't quite work, %Name%.
+[pause]
+
+[profile][meyer]
+Spirits of the earth as power sources. I knew that the
+Supreme Nation suddenly cropping up from nothing is too
+good to be true.
+[pause]
+
+[profile][meyer]
+%Name%, I suppose you have the Life Temple next. It's
+in the Forbidden Forest in the southwest.
 [pause]
 
 [profile][mc_portrait]
-I shall, spirit.
+How did you know?
 [pause]
 
-[profile][water_spirit]
-And little one...
+[profile][meyer]
+I told you, I'm always after you. You and your Order
+now, that is.
 [pause]
 
-[profile][maple]
-M-me?
+[profile][meyer]
+Now get out. I'm going to blow up this place.
 [pause]
 
-[profile][water_spirit]
-Let me carry your ship onwards. Yours shall be a vessel
-of glory.
+[profile][mc_portrait]
+Wha... why? They'll have your head!
 [pause]
 
-[profile][maple]
-...yes!
+[profile][meyer]
+With you getting this far, they're already going to.
+Now get out. You didn't see me.
 [pause]
 
-[profile][water_spirit]
-Very well, off you go then, brave ones.
+[profile][fire_spirit]
+Hah! A government lackey with a backbone! Meyer, is
+it? Do your best. I'll watch over you.
+[pause]
+
+[profile][meyer]
+It is my honor, Fire Spirit.
+
+Go, %Name%. Southwest. We'll meet again.
 [pause]
 
 [label][end]

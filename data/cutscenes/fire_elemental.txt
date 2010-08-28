@@ -1,0 +1,5 @@
+	pause 60
+	dialog fire_elemental
+	pause 10
+    script [set][finished_fire][1]
+	script [warp][world_X][fire_entrance][pixelate]

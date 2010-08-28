@@ -1,0 +1,5 @@
+	pause 60
+	dialog life_elemental
+	pause 10
+    script [set][finished_life][1]
+	script [warp][world_N][life_entrance][pixelate]

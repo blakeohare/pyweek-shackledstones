@@ -73,12 +73,13 @@ Yeah, quit sitting there now, we need a place to go!
 [pause]
 
 [profile][maple]
-Tell me where to steer, Uncle Hanlon!
+Tell me where to steer, Hanlon!
 [pause]
 
 [profile][hanlon]
-...youngers have no patience for things.  Fire is
-stuck feeding the dogs in Mesembria.
+...youngsters have no patience for things.  Fire is
+stuck feeding the dogs in Mesembria in the Southern
+Mountains.
 [pause]
 
 [profile][mc_portrait]
@@ -96,6 +97,15 @@ What else has the government been hiding from us!?
 [profile][hanlon]
 Everything, boy.  Now go.  Water and Light and I
 need to talk.
+[pause]
+
+[profile][mc_portrait]
+Southern Mountains, right! I'll see you later,
+Hanlon!
+[pause]
+
+[profile][hanlon]
+Stay sharp, Order of Haskell, and thank you.
 [pause]
 
 [label][end]
