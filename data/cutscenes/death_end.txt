@@ -1,1 +1,1 @@
-dialog death_end
+dialog death_elemental_end
