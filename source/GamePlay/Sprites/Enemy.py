@@ -24,10 +24,19 @@ class Enemy:
 			self.state = 'thinking'
 			self.state_counter = int(30 * random.random())
 			self.r = 8
+		elif self.name == 'mechanicalman':
+			
+			self.life = 4
+			self.state = 'walking'
+			self.state_counter = int(30 * random.random())
+			self.r = 8
 	
 	def DrawingCoords(self):
 		offsets = (0,0)
+		if self.name == 'mechanicalman':
+			offsets = (0, 13)
 		coords = (self.x - self.r - offsets[0], self.y - self.r - offsets[1])
+		
 		return coords
 	
 	def Update(self):
@@ -35,6 +44,9 @@ class Enemy:
 		self.flash_counter -= 1
 		player_x = self.game_scene.player.x
 		player_y = self.game_scene.player.y
+		
+		delta_x = self.x - player_x
+		delta_y = self.y - player_y
 		
 		dc = None
 		for death_circle in self.game_scene.death_circles:
@@ -65,6 +77,28 @@ class Enemy:
 					self.dy = 1
 				elif player_y < self.y:
 					self.dy = -1
+		elif self.name == 'mechanicalman':
+			if self.state_counter <= 0:
+				if self.state == 'walking':
+					self.state = 'standing'
+				elif self.state == 'standing':
+					self.state = 'walking'
+				self.state_counter = 15
+			if self.state == 'walking':
+				if abs(delta_x) > abs(delta_y):
+					if delta_x > 0:
+						self.direction = 'left'
+						self.dx = -1
+					else:
+						self.direction = 'right'
+						self.dx = 1
+				else:
+					if delta_y > 0:
+						self.direction = 'up'
+						self.dy = -1
+					else:
+						self.direction = 'down'
+						self.dy = 1
 		
 			
 	
@@ -75,5 +109,11 @@ class Enemy:
 		if self.name == 'blob':
 			counter = str(render_counter & 1)
 			return get_image('sprites/blob/anim' + counter)
+		elif self.name == 'mechanicalman':
+			if self.state == 'standing':
+				counter = '0'
+			else:
+				counter = ('0','1','0','2')[render_counter & 3]
+			return get_image('sprites/mechanicalman/' + self.direction + str(counter))
 		return get_image('sprites/blob/anim0')
 		

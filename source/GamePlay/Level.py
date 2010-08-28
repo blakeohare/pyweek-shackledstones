@@ -155,6 +155,8 @@ class Level:
 		return False
 	
 	def move_request(self, orig_layer, orig_x, orig_y, dx, dy, radius, is_flying):
+		orig_x = int(orig_x)
+		orig_y = int(orig_y)
 		dest_x = orig_x + dx
 		dest_y = orig_y + dy
 		

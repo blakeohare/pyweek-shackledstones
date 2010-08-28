@@ -1,0 +1,28 @@
+input up 20
+dialog look_the_ld_stones
+input up 15
+
+dialog not_so_fast_ld
+
+sprite create mechanicalman mA 12 16 A walking up
+sprite setxy mA 12 14 10
+sprite setdirection mA right
+sprite setxy mA 14 14 10
+sprite setdirection mA up
+sprite setstate mA standing
+
+sprite create mechanicalman mB 12 16 A walking up
+sprite setxy mB 12 14 10
+sprite setdirection mB left
+sprite setxy mB 10 14 10
+sprite setdirection mB up
+sprite setstate mB standing
+
+sprite create mechanicalman mC 12 16 A walking up
+sprite setxy mC 12 13 20
+sprite setstate mC standing
+
+dialog robot_talk_ld
+
+
+

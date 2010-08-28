@@ -109,8 +109,8 @@ class CutSceneEvent:
 	
 	def createsprite(self, game_scene):
 		sprite = create_sprite(self.sprite_name, self.sprite_id)
-		sprite.x = (self.x << 4)
-		sprite.y = (self.y << 4)
+		sprite.x = (self.x << 4) + 8
+		sprite.y = (self.y << 4) + 8
 		sprite.state = self.state
 		sprite.layer = self.layer
 		sprite.direction = self.direction

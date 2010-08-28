@@ -560,6 +560,8 @@ class GamePlayScene:
 			return sprites
 	
 	def do_sprite_move(self, sprite, vx, vy, is_flying_sprite):
+		vx = int(vx)
+		vy = int(vy)
 		params = self.level.move_request(sprite.layer, sprite.x, sprite.y, vx, vy, sprite.r - 4, is_flying_sprite)
 		sprite.layer = params[0]
 		sprite.x = params[1]
