@@ -1,0 +1,3 @@
+playsound itemget
+pause 15
+script [sign][You got the arm cannon!$Now you can shoot switches from across gaps]
