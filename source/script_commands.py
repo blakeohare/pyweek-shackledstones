@@ -119,7 +119,7 @@ def do_buy(item):
 	if has_money(price):
 		ActiveGame().SetTempVar('transaction_failed', 0)
 		ActiveGame().SetSavedVar(var, 1)
-		print 'set',var, 'to 1'
+		print('set %s to 1' % str(var))
 		modify_money(-price)
 		if item == 'life':
 			heal_damage()
@@ -127,7 +127,7 @@ def do_buy(item):
 			heal_damage()
 			
 	else:
-		print 'failure!'
+		print('failure!')
 		ActiveGame().SetTempVar('transaction_failed', '1')
 	
 	return True
