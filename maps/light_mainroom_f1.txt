@@ -6,3 +6,4 @@
 #scripts:bs_light_to_entry|[warp][light_entry_f1][bs_light_to_mainroom][south scroll]|||bs_light_to_stairs_f1|[warp][light_stairs_f1][bs_light_to_mainroom_f_stairs][west scroll]|||bs_light_to_puzzle1_f1|[warp][light_puzzle1_f1][bs_light_to_mainroom_f_puzzle][east scroll]|||bs_light_to_bosshall_left|[warp][light_bosshall_f1][bs_light_to_mainroom_f_bosshall_left][north scroll]|||bs_light_to_bosshall_middle|[warp][light_bosshall_f1][bs_light_to_mainroom_f_bosshall_middle][north scroll]|||bs_light_to_bosshall_right|[warp][light_bosshall_f1][bs_light_to_mainroom_f_bosshall_right][north scroll]|||temp_save|[save]
 #music:sneakylight.mp3
 #on_load:[check][light_right_boss_pressed][eq][1][openA][dont]\n[label][openA]\n[check][light_left_boss_pressed][eq][1][open][dont]\n[label][open]\n[remove tile][bs_light_to_bosshall_middle][basedetail]\n[label][dont]
+#enemies:
