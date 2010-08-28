@@ -41,6 +41,14 @@ class CreditsScene:
          "heading:Special Thanks...",
          "www.anke-art.de, for Fortunaschwein font",
          "Ray Meadows, for RM Typerighter font",
+         "",
+         "",
+         "",
+         "heading:Welcoming To Team",
+         "heading:Nerdparadise",
+         "Christine Sandquist",
+         "YY",
+         "Fixception",
       ]
       
       cSurf = []
