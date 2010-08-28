@@ -41,7 +41,7 @@ class Player:
 				game_scene = ActiveGame().GetActiveGameScene()
 				for sprite in game_scene.sprites:
 					if sprite.is_enemy:
-						if sprite.layer = self.layer:
+						if sprite.layer == self.layer:
 							dx = sprite.x - self.x
 							dy = sprite.y - self.y
 							if dx ** 2 + dy ** 2 < (self.r + sprite.r) ** 2:
