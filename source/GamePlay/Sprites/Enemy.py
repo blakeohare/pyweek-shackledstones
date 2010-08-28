@@ -24,6 +24,11 @@ class Enemy:
 			self.state = 'thinking'
 			self.state_counter = int(30 * random.random())
 			self.r = 8
+		elif self.name == 'eyeball':
+			self.life = 2
+			self.state = 'walking'
+			self.state_counter = int(30 * random.random())
+			self.r = 8
 		elif self.name == 'mechanicalman':
 			
 			self.life = 4
@@ -35,6 +40,8 @@ class Enemy:
 		offsets = (0,0)
 		if self.name == 'mechanicalman':
 			offsets = (0, 13)
+		elif self.name == 'eyeball':
+			offsets = (0, (self.state_counter / 10) & 1)
 		coords = (self.x - self.r - offsets[0], self.y - self.r - offsets[1])
 		
 		return coords
@@ -77,6 +84,10 @@ class Enemy:
 					self.dy = 1
 				elif player_y < self.y:
 					self.dy = -1
+		elif self.name == 'eyeball':
+			if self.state_counter <= 0:
+				self.state_counter = 50
+				self.direction = random.choice('right left down up'.split(' '))
 		elif self.name == 'mechanicalman':
 			if self.state_counter <= 0:
 				if self.state == 'walking':
@@ -109,6 +120,8 @@ class Enemy:
 		if self.name == 'blob':
 			counter = str(render_counter & 1)
 			return get_image('sprites/blob/anim' + counter)
+		elif self.name == 'eyeball':
+			return get_image('sprites/eyeball/' + self.direction)
 		elif self.name == 'mechanicalman':
 			if self.state == 'standing':
 				counter = '0'
