@@ -10,6 +10,8 @@
 	dialog to_water_temple2
     pause 10
     setbg misc/darkstones.png
+    script [playmusic][STOP]
+    pause 5
     script [music][mysticexplanation]
     dialog to_water_temple3
     pause 10
