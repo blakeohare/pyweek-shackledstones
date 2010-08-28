@@ -5,3 +5,4 @@
 #IDs:N|A|11|0,E|A|23|7,S|A|11|17,EA|A|23|6
 #scripts:N|[warp][Water_Boss][S][north scroll]|||E|[warp][Water_mainroom][West2][east scroll]|||S|[warp][Water_room5][N][south scroll]|||EA|[warp][Water_mainroom][West2][east scroll]
 #music:hostilewaters.mp3
+#enemies:eyeball|A|11|8,blob|A|1|8,blob|A|20|7

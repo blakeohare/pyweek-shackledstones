@@ -5,3 +5,4 @@
 #IDs:N|A|11|0,S|A|11|17
 #scripts:N|[warp][Water_Rockrm][S][north scroll]|||S|[warp][Water_room5B][N][south scroll]
 #music:hostilewaters.mp3
+#enemies:
