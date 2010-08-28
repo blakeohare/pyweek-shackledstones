@@ -7,3 +7,4 @@
 #scripts:N|[warp][Fire_Room3][S][north scroll]|||EA|[warp][Fire_Workroom][WA][east scroll]|||E|[warp][Fire_Workroom][W][east scroll]|||switch_B|[check][fire_switch_key1][eq][1][dont]\n[set tile][switch_B][baseadorn][54]\n[set][fire_switch_key1][1]\n[set tile][key_appear][doodad][key5]\n[label][dont]|||key_appear|[check][fire_switch_key1][eq][1][do]\n[jump][dont]\n[label][do]\n[check][fire_has_purple_key][eq][1][dont]\n[remove tile][key_appear][doodad]\n[set][fire_has_purple_key][1]\n[label][dont]
 #on_load:[set][fire_open_left_door_main][1]\n[check][fire_switch_key1][eq][1][do][dont]\n[label][do]\n[check][fire_has_purple_key][eq][1][dont]\n[set tile][switch_B][baseadorn][54]\n[set][fire_switch_key1][1]\n[set tile][key_appear][doodad][key5]\n[label][dont]
 #music:flamingjazz.mp3
+#enemies:
