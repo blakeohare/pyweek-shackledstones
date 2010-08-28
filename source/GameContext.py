@@ -62,7 +62,9 @@ class GameInstance:
 	def SetTempVar(self, name, value):
 		self.temp_vars[name] = value
    
-	def parse(self, slot):
+	def parse(self, slot=None):
+		if slot == None:
+			slot = self.slot
 		values = {}
 		c = open('saves' + os.sep + 'slot' + str(slot) + '.txt', 'rt')
 		lines = trim(c.read()).split('\n')

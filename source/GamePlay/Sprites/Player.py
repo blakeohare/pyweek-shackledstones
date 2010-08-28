@@ -47,6 +47,9 @@ class Player:
 							if dx ** 2 + dy ** 2 < (self.r + sprite.r) ** 2:
 								self.flash_counter = 30
 								take_damage(1)
+								if get_life() == 0:
+									set_life(3)
+									ActiveGame().GetActiveGameScene().next = GameOverScene()
 	
 	def Stab(self):
 		if self.is_submerged(): return
