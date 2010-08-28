@@ -879,3 +879,10 @@ furniture5	Furniture	oooo	furniture/cashregisterright.png
 furniture6	Furniture	xxxx	furniture/table.png
 furniture7	Furniture	xxxx	furniture/bed.png
 furniture8	Furniture	oooo	furniture/sink.png
+furniture9	Furniture	xxxx	furniture/armchair.png
+furniture10	Furniture	xxxx	furniture/couchleft.png
+furniture11	Furniture	xxxx	furniture/couchright.png
+furniture12	Furniture	xxxx	furniture/couchtop.png
+furniture13	Furniture	xxxx	furniture/couchbottom.png
+furniture14	Furniture	xxxx	furniture/couchrighttop.png
+furniture15	Furniture	xxxx	furniture/couchrightbottom.png
