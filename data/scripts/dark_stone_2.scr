@@ -1,0 +1,8 @@
+[comment] A simple script to demonstrate how a dialogue script would look.
+
+[profile][mc_portrait]
+STUB FOR DARK SPIRIT
+[pause]
+
+[label][end]
+[end]
