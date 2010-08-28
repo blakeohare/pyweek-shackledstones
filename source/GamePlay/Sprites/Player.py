@@ -14,6 +14,7 @@ class Player:
 		self.state = 'walking'
 		self.expired = False
 		self.flying = False
+		self.flash_counter = -1
 		self.state_counter = 0
 		self.explode_on_impact = False
 	
@@ -29,8 +30,18 @@ class Player:
 	
 	def Update(self):
 		self.state_counter -= 1
+		self.flash_counter -= 1
 		if self.state_counter <= 0:
 			self.state = 'walking'
+		if self.flash_counter < 0:
+			game_scene = ActiveGame().GetActiveGameScene()
+			for sprite in game_scene.sprites:
+				if sprite.is_enemy:
+					dx = sprite.x - self.x
+					dy = sprite.y - self.y
+					if dx ** 2 + dy ** 2 < (self.r + sprite.r) ** 2:
+						self.flash_counter = 30
+						take_damage(1)
 	
 	def Stab(self):
 		self.state_counter = 7
@@ -120,6 +131,9 @@ class Player:
 			game_scene.grapple = grapple
 		
 	def CurrentImage(self, render_counter):
+		if self.flash_counter > 0 and (self.flash_counter & 1) == 0:
+			return None
+		
 		counter = '0'
 		if self.state == 'walking':
 			if self.walking:
