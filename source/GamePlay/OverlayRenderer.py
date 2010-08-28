@@ -1,9 +1,11 @@
 class OverlayRenderer:
 	def __init__(self):
 		self.compass = CompassRenderer()
+		self.keys = KeyRenderer()
 	
 	def Render(self, screen):
 		self.compass.Render(screen, None)
+		self.keys.Render(screen,ActiveGame().GetActiveGameScene())
 		
 		life = get_life()
 		max_life = get_max_life()
