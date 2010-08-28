@@ -12,6 +12,13 @@ class CutSceneEvent:
 		if name == 'pause':
 			self.do = self.pause
 			self.expiration = int(args[0])
+		elif name == 'clearbg':
+			self.do = self.do_clearbg
+			self.instant = True
+		elif name == 'setbg':
+			self.do = self.do_setbg
+			self.instant = True
+			self.image = args[0]
 		elif name == 'flash':
 			self.do = self.do_flash
 			self.expiration = int(args[0])
@@ -87,6 +94,12 @@ class CutSceneEvent:
 	
 	def do_script(self, game_scene):
 		go_script_go(self.script)
+	
+	def do_setbg(self, game_scene):
+		self.bg = get_image(self.image)
+	
+	def do_clearbg(self, game_scene):
+		self.bg = None
 	
 	def do_flash(self, game_scene):
 		antiprogress = min(1.0, max(0.0, (0.0 + self.expiration) / self.full_length))

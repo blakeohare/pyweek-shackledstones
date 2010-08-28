@@ -14,6 +14,7 @@ class GamePlayScene:
 		self.level = Level(level_name)
 		self.death_circles = []
 		self.name = level_name
+		self.bg = None
 		self.player_invisible = False
 		self.sprites = []
 		self.overlayRenderer = OverlayRenderer()
@@ -378,40 +379,45 @@ class GamePlayScene:
 		
 	def Render(self, screen):
 		
-		offset = self.get_camera_offset()
-		
-		if self.cutscene != None and not self.cutscene.is_done():
-			r_offset = self.cutscene.render_offset()
-			offset = (offset[0] + r_offset, offset[1])
-		
-		self.level.Render('Stairs', screen, offset[0], offset[1], self.render_counter)
-		for layerName in 'A B C D E F Stairs'.split(' '):
-			if layerName != 'Stairs':
-				self.level.Render(layerName, screen, offset[0], offset[1], self.render_counter)
+		if self.bg != None:
+			screen.blit(self.bg, (0,0))
+		else:
 			
-			for sprite in self.get_renderable_sprites(layerName):
-				img = sprite.CurrentImage(self.render_counter)
-				if img != None:
-					coords = sprite.DrawingCoords()
-					screen.blit(img, (coords[0] + offset[0], coords[1] + offset[1]))
-				if sprite == self.grapple:
-					x = sprite.x
-					y = sprite.y
-					if sprite.direction == 'left':
-						x += 14
-					elif sprite.direction == 'right':
-						x -= 14
-					elif sprite.direction == 'up':
-						y += 14
-					else:
-						y -= 14
-					pygame.draw.line(screen, (255, 200,40), (sprite.x, sprite.y), (self.player.x, self.player.y))
-		
-		
-		
-		if self.light_puz:
-			self.render_light_puzzle(screen, offset)
-		
+			offset = self.get_camera_offset()
+			
+			
+			if self.cutscene != None and not self.cutscene.is_done():
+				r_offset = self.cutscene.render_offset()
+				offset = (offset[0] + r_offset, offset[1])
+			
+			self.level.Render('Stairs', screen, offset[0], offset[1], self.render_counter)
+			for layerName in 'A B C D E F Stairs'.split(' '):
+				if layerName != 'Stairs':
+					self.level.Render(layerName, screen, offset[0], offset[1], self.render_counter)
+				
+				for sprite in self.get_renderable_sprites(layerName):
+					img = sprite.CurrentImage(self.render_counter)
+					if img != None:
+						coords = sprite.DrawingCoords()
+						screen.blit(img, (coords[0] + offset[0], coords[1] + offset[1]))
+					if sprite == self.grapple:
+						x = sprite.x
+						y = sprite.y
+						if sprite.direction == 'left':
+							x += 14
+						elif sprite.direction == 'right':
+							x -= 14
+						elif sprite.direction == 'up':
+							y += 14
+						else:
+							y -= 14
+						pygame.draw.line(screen, (255, 200,40), (sprite.x, sprite.y), (self.player.x, self.player.y))
+			
+			
+			
+			if self.light_puz:
+				self.render_light_puzzle(screen, offset)
+			
 		if self.cutscene != None:
 			self.make_white(screen, self.flash_amount)
 		else:
