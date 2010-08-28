@@ -5,3 +5,4 @@
 #IDs:WA|A|0|8,W|A|0|9,EA|A|23|8,E|A|23|9,q|A|1|8,w|A|1|9
 #scripts:WA|[warp][Fire_MainHall_entry][EA][west scroll]|||W|[warp][Fire_MainHall_entry][E][west scroll]|||EA|[warp][Fire_Hammerrm][WA][east scroll]|||E|[warp][Fire_Hammerrm][W][east scroll]
 #music:flamingjazz.mp3
+#enemies:
