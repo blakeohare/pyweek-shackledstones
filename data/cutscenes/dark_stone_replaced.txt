@@ -1,0 +1,7 @@
+
+	pause 60
+	dialog dark_stone_1
+	pause 10
+	script [set][stone_water][1]
+    script [set][finished_water][1]
+	script [warp][world_A][water_entrance][pixelate]

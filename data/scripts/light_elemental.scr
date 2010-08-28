@@ -1,6 +1,6 @@
 [comment] A simple script to demonstrate how a dialogue script would look.
 
-[profile][water_spirit]
+[profile][light_spirit]
 Ah, brave ones. I must thank you. It has been far too
 long.
 [pause]
@@ -9,7 +9,7 @@ long.
 How long have they been holding you?
 [pause]
 
-[profile][water_spirit]
+[profile][light_spirit]
 Sixty long years, brave ones. A most unpleasant
 containment, being thrown around like cattle.
 [pause]
@@ -18,7 +18,7 @@ containment, being thrown around like cattle.
 What were they doing with you?
 [pause]
 
-[profile][water_spirit]
+[profile][light_spirit]
 Your lords have been harnessing our power. Even now,
 part of me lives in your vessel on the surface.
 [pause]
@@ -28,7 +28,7 @@ Wait... the steam engines run on your power? The entire
 nation's? Even mine?
 [pause]
 
-[profile][water_spirit]
+[profile][light_spirit]
 I sense them through your land. Mere mortals cannot fathom
 harnessing more than a hair of my power. Your people are
 ahead of your time.
@@ -38,12 +38,12 @@ ahead of your time.
 ...
 [pause]
 
-[profile][water_spirit]
+[profile][light_spirit]
 Hmm... most troubling...
 [pause]
 
 
-[profile][water_spirit]
+[profile][light_spirit]
 You must go. They are coming. Worry not. I shall lie in
 the ocean for a while. Let me deliver the rain that your
 land has long thirsted for.
@@ -53,7 +53,7 @@ land has long thirsted for.
 I see.
 [pause]
 
-[profile][water_spirit]
+[profile][light_spirit]
 May my brother Light benefit from your assistance? He is
 at His temple, shackled and weary.
 [pause]
@@ -62,7 +62,7 @@ at His temple, shackled and weary.
 I shall, spirit.
 [pause]
 
-[profile][water_spirit]
+[profile][light_spirit]
 And little one...
 [pause]
 
@@ -70,7 +70,7 @@ And little one...
 M-me?
 [pause]
 
-[profile][water_spirit]
+[profile][light_spirit]
 Let me carry your ship onwards. Yours shall be a vessel of
 glory.
 [pause]
@@ -79,7 +79,7 @@ glory.
 ...yes!
 [pause]
 
-[profile][water_spirit]
+[profile][light_spirit]
 Very well, off you go then, brave ones.
 [pause]
 
