@@ -34,7 +34,7 @@ class NameEntryScene:
                   if len(self._name):
                      self._name = self._name[0:-1]
                      return
-            elif e.A() or e.B() or e.Start()
+            elif e.A() or e.B() or e.Start():
                   if (len(self._name) < self._nameLen):
                      self._name += self._toLetter()
    
