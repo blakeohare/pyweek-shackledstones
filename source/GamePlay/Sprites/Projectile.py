@@ -72,6 +72,21 @@ class Projectile:
 				go_script_go(tile.script)
 				break
 		
+		for sprite in self.game_scene.sprites:
+			if sprite.is_enemy:
+				dx = sprite.x - self.x
+				dy = sprite.y - self.y
+				if dx ** 2 + dy ** 2 < (self.r + sprite.r) ** 2:
+					
+					self.expired = True
+					sprite.life -= 1
+					if self.kind == 'fire':
+						sprite.life -= 1
+					elif self.kind == 'ice':
+						sprite.life += 1
+						sprite.expired = False
+						sprite.frozen = True
+		
 		self.state_counter -= 1
 		if self.state_counter <= 0 and self.state != 'walking' and self.state != 'standing':
 			self.state = 'standing'

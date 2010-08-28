@@ -412,6 +412,8 @@ class GamePlayScene:
 						else:
 							y -= 14
 						pygame.draw.line(screen, (255, 200,40), (sprite.x, sprite.y), (self.player.x, self.player.y))
+					if sprite.is_enemy and sprite.frozen and img != None:
+						pygame.draw.rect(screen, (100, 100, 255), Rect(coords[0] + offset[0]- 2, coords[1] + offset[1]-2, sprite.r * 2  +4, sprite.r * 2+4), 1)
 			
 			
 			

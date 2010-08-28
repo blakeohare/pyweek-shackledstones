@@ -13,6 +13,7 @@ class Enemy:
 		self.expired = False
 		self.state = 'standing'
 		self.flying = False
+		self.frozen = False
 		self.is_goody = False
 		self.state_counter = 0
 		self.dx = 0
@@ -45,7 +46,7 @@ class Enemy:
 	def DrawingCoords(self):
 		offsets = (0,0)
 		if self.name == 'mechanicalman':
-			offsets = (0, 13)
+			offsets = (0, -6)
 		elif self.name == 'eyeball':
 			offsets = (0, (self.state_counter // 10) & 1)
 		coords = (self.x - self.r - offsets[0], self.y - self.r - offsets[1])
@@ -67,6 +68,8 @@ class Enemy:
 		return g
 	
 	def Update(self):
+		self.dx = 0
+		self.dy = 0
 		self.state_counter -= 1
 		self.flash_counter -= 1
 		player_x = self.game_scene.player.x
@@ -80,75 +83,76 @@ class Enemy:
 			if death_circle.touches_sprite(self):
 				dc = death_circle
 				self.flash_counter = 10
-				#TODO: play sound 
-				#TODO: vector move away
 				self.life -= 1
-				if self.life <= 0:
-					self.expired = True
-					goody = self.get_goody()
-					if goody != None:
-						self.game_scene.sprites.append(goody)
-				return
-
-		if self.name == 'blob':
-			if self.state_counter <= 0:
-				if self.state == 'thinking':
-					self.state = 'approach'
-					self.state_counter = 15
-				elif self.state == 'approach':
-					self.state = 'thinking'
-					self.state_counter = 30
-			if self.state == 'approach':
-				if player_x > self.x:
-					self.dx = 1
-				elif player_x < self.x:
-					self.dx = -1
-				if player_y > self.y:
-					self.dy = 1
-				elif player_y < self.y:
-					self.dy = -1
-		elif self.name == 'eyeball' or self.name == 'beetle':
-			if self.state_counter <= 0:
-				self.state_counter = 50
-				if self.name == 'beetle':
-					self.state_counter = 50
-				self.direction = random.choice('right left down up'.split(' '))
-				
-			if self.direction == 'left':
-				self.dx = -1
-			elif self.direction == 'right':
-				self.dx = 1
-			elif self.direction == 'up':
-				self.dy = -1
-			else:
-				self.dy = 1
 		
-		elif self.name == 'mechanicalman':
-			if self.state_counter <= 0:
-				if self.state == 'walking':
-					self.state = 'standing'
-				elif self.state == 'standing':
-					self.state = 'walking'
-				self.state_counter = 15
-			if self.state == 'walking':
-				if abs(delta_x) > abs(delta_y):
-					if delta_x > 0:
-						self.direction = 'left'
-						self.dx = -1
-					else:
-						self.direction = 'right'
+		if self.life <= 0:
+			self.expired = True
+			goody = self.get_goody()
+			if goody != None:
+				self.game_scene.sprites.append(goody)
+			return
+		
+		if not self.frozen:
+			if self.name == 'blob':
+				if self.state_counter <= 0:
+					if self.state == 'thinking':
+						self.state = 'approach'
+						self.state_counter = 15
+					elif self.state == 'approach':
+						self.state = 'thinking'
+						self.state_counter = 30
+				if self.state == 'approach':
+					if player_x > self.x:
 						self.dx = 1
-				else:
-					if delta_y > 0:
-						self.direction = 'up'
-						self.dy = -1
-					else:
-						self.direction = 'down'
+					elif player_x < self.x:
+						self.dx = -1
+					if player_y > self.y:
 						self.dy = 1
-		
+					elif player_y < self.y:
+						self.dy = -1
+			elif self.name == 'eyeball' or self.name == 'beetle':
+				if self.state_counter <= 0:
+					self.state_counter = 50
+					if self.name == 'beetle':
+						self.state_counter = 50
+					self.direction = random.choice('right left down up'.split(' '))
+					
+				if self.direction == 'left':
+					self.dx = -1
+				elif self.direction == 'right':
+					self.dx = 1
+				elif self.direction == 'up':
+					self.dy = -1
+				else:
+					self.dy = 1
+			
+			elif self.name == 'mechanicalman':
+				if self.state_counter <= 0:
+					if self.state == 'walking':
+						self.state = 'standing'
+					elif self.state == 'standing':
+						self.state = 'walking'
+					self.state_counter = 15
+				if self.state == 'walking':
+					if abs(delta_x) > abs(delta_y):
+						if delta_x > 0:
+							self.direction = 'left'
+							self.dx = -1
+						else:
+							self.direction = 'right'
+							self.dx = 1
+					else:
+						if delta_y > 0:
+							self.direction = 'up'
+							self.dy = -1
+						else:
+							self.direction = 'down'
+							self.dy = 1
+			
 			
 	
 	def CurrentImage(self, render_counter):
+		if self.frozen: render_counter = 0
 		if self.flash_counter > 0 and self.flash_counter & 2 == 0:
 			return None
 			
