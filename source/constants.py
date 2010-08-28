@@ -1,4 +1,5 @@
 GAME_NAME = "Steampunk Game"
+DEBUG_SCRIPTS = False
 
 testCode = True
 testCode = False

@@ -16,7 +16,8 @@ class Scripted:
 
    def _parse(self):
       for line in self._script:
-         print(line)
+         if DEBUG_SCRIPTS:
+            print(line)
          if Parser.IsCommand(line):
             (cmd, args) = Parser.Segment(line)
             if self._fnTable.get(cmd):
