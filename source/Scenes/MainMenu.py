@@ -7,10 +7,10 @@ class MainMenuScene:
       self.next = JoystickConfigScene()
    
    def Credits(self):
-      scene = GameOverScene()
-      self.next = scene
-      scene.next = scene
-      return
+      #scene = GameOverScene()
+      #self.next = scene
+      #scene.next = scene
+      #return
       GameContext().SetActiveGame(1)
       ActiveGame().SetSavedVar('name', 'SUE')
       if os.path.exists('map_test.txt'):
