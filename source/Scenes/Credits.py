@@ -22,7 +22,7 @@ class CreditsScene:
          "",
          "",
          "heading:Character Art",
-         "Fixception",
+         "Chun Y",
          "",
          "",
          "",
@@ -33,7 +33,7 @@ class CreditsScene:
          "",
          "heading:Level Design",
          "Christine Sandquist",
-         "YY",
+         "Yan Yan",
          "Brett S."
          "",
          "",
@@ -47,8 +47,8 @@ class CreditsScene:
          "heading:Welcoming To Team",
          "heading:Nerdparadise",
          "Christine Sandquist",
-         "YY",
-         "Fixception",
+         "Yan Yan",
+         "Chun Y",
       ]
       
       cSurf = []
