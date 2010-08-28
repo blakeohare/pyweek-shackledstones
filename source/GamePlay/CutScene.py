@@ -12,6 +12,10 @@ class CutSceneEvent:
 		if name == 'pause':
 			self.do = self.pause
 			self.expiration = int(args[0])
+		elif name == 'flash':
+			self.do = self.do_flash
+			self.expiration = int(args[0])
+			self.full_length = self.expiration
 		elif name == 'save':
 			self.do = self.save
 		elif name == 'script':
@@ -83,6 +87,15 @@ class CutSceneEvent:
 	
 	def do_script(self, game_scene):
 		go_script_go(self.script)
+	
+	def do_flash(self, game_scene):
+		antiprogress = min(1.0, max(0.0, (0.0 + self.expiration) / self.full_length))
+		
+		antiprogress = antiprogress * 2 - 1
+		
+		antiprogress = 1.0 - abs(antiprogress)
+		#antiprogress = 1.0 - antiprogress
+		game_scene.flash_amount = abs(antiprogress)
 	
 	def do_play_sound(self, game_scene):
 		play_sound(self.sound)
@@ -186,6 +199,7 @@ class CutScene:
 		return events
 	
 	def do(self, game_scene):
+		game_scene.flash_amount = 0
 		while not self.is_done():
 			command = self.commands[0]
 			command.do(game_scene)

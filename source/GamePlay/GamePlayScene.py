@@ -10,6 +10,7 @@ class GamePlayScene:
 		self.player = Player()
 		self.player.x = startX
 		self.player.y = startY
+		self.flash_amount = 0
 		self.level = Level(level_name)
 		self.death_circles = []
 		self.name = level_name
@@ -22,6 +23,7 @@ class GamePlayScene:
 		self.lever_a_pressed = False
 		self.lever_b_pressed = False
 		self.puz_flag = False
+		self.temp_screen = None
 		
 		self.prevTile = None
 		self.firstTimeOnTile = True
@@ -410,11 +412,25 @@ class GamePlayScene:
 		if self.light_puz:
 			self.render_light_puzzle(screen, offset)
 		
+		if self.cutscene != None:
+			self.make_white(screen, self.flash_amount)
+		else:
+			self.flash_amount = 0
+		
 		
 		self.render_counter += 1
 		
 		if self.overlayRenderer != None:
 			self.overlayRenderer.Render(screen)
+	
+	def make_white(self, screen, amount):
+		if amount == 0: return
+		if self.temp_screen == None:
+			self.temp_screen = pygame.Surface((screen.get_width(), screen.get_height()))
+		value = min(255, max(0, 255 * amount))
+		self.temp_screen.fill((255,255,255))
+		self.temp_screen.set_alpha(value)
+		screen.blit(self.temp_screen, (0,0))
 		
 	def torch_puzzle_update(self):
 		ids = self.level.ids
