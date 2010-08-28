@@ -120,7 +120,7 @@ class CutSceneEvent:
 		sprite.direction = self.direction
 		game_scene.add_sprite(sprite)
 	
-	def deletesprite(self, game_scene)
+	def deletesprite(self, game_scene):
 		sprite = game_scene.get_sprite_by_id(self.sprite_id)
 		game_scene.sprites.remove(sprite)
 	
