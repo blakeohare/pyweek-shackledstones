@@ -97,7 +97,26 @@ class Player:
 		play_sound('hammer')
 	
 	def Grapple(self):
-		pass
+		game_scene = ActiveGame().GetActiveGameScene()
+		if game_scene.grapple == None:
+			start_x = self.x
+			start_y = self.y
+			end_x = start_x
+			end_y = start_y
+			if self.direction == 'up':
+				end_y -= 16 * 6
+			elif self.direction == 'down':
+				end_y += 16 * 6
+			elif self.direction == 'left':
+				end_x -= 16 * 6
+			elif self.direction == 'right':
+				end_x += 16 * 6
+			
+			grapple = Projectile('grapple', True, self.layer, self.x, self.y, self.direction, game_scene)
+			grapple.end_x = end_x
+			grapple.end_y = end_y
+			game_scene.sprites.append(grapple)
+			game_scene.grapple = grapple
 		
 	def CurrentImage(self, render_counter):
 		counter = '0'

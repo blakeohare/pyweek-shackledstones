@@ -8,6 +8,19 @@ _bulletSwitches = {
 	'world_bridge' : ['switch']
 }
 
+_grapple_singleton = None
+def clear_grapple():
+	global _grapple_singleton
+	_grapple_singleton = None
+
+def set_grapple(grapple):
+	global _grapple_singleton
+	_grapple_singleton = grapple
+
+def grapple_exists():
+	global _grapple_singleton
+	return _grapple_singleton != None
+
 class Projectile:
 	def __init__(self, type, friendly, layer, x, y, direction, game_scene):
 		self.name = ''
@@ -18,8 +31,16 @@ class Projectile:
 		self.y = y
 		self.dx = 0
 		self.dy = 0
+		self.grapple_start_x = self.x
+		self.grapple_start_y = self.y
+		self.grapple_duration = 15
+		self.grapple_counter = 0
+		self.grappled = False
+		
 		self.layer = layer
 		self.r = 4
+		if type == 'grapple':
+			self.r = 8
 		self.direction = direction
 		self.walking = False
 		self.expired = False
@@ -28,6 +49,9 @@ class Projectile:
 		self.state_counter = 0
 		self.explode_on_impact = True
 		self.flying = True
+		self.end_x = None
+		self.end_y = None
+		self.kind = type
 	
 	def DrawingCoords(self):
 	
@@ -50,17 +74,29 @@ class Projectile:
 		self.state_counter -= 1
 		if self.state_counter <= 0 and self.state != 'walking' and self.state != 'standing':
 			self.state = 'standing'
+		
 		if self.direction == 'left':
 			self.dx = -self.velocity
+			if self.end_x != None and self.x < self.end_x:
+				self.expired = True
 		elif self.direction == 'right':
 			self.dx = self.velocity
+			if self.end_x != None and self.x > self.end_x:
+				self.expired = True
 		elif self.direction == 'up':
 			self.dy = -self.velocity
+			if self.end_y != None and self.y < self.end_y:
+				self.expired = True
 		else:
 			self.dy = self.velocity
+			if self.end_y != None and self.y > self.end_y:
+				self.expired = True
+		
 		
 		
 	
 	def CurrentImage(self, render_counter):
+		if self.kind == 'grapple':
+			return get_image('sprites/magnet/' + self.direction)
 		return get_image('sprites/bullets/basic')
 		

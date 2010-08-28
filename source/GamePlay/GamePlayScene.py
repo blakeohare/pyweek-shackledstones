@@ -16,6 +16,7 @@ class GamePlayScene:
 		self.player_invisible = False
 		self.sprites = []
 		self.overlayRenderer = OverlayRenderer()
+		self.grapple = None
 		self.cutscene = get_cutscene_for_map(level_name)
 		self.last_torch_pressed = None
 		self.lever_a_pressed = False
@@ -245,6 +246,25 @@ class GamePlayScene:
 				if self.do_sprite_move(sprite, sprite.dx, sprite.dy, sprite.flying):
 					if sprite.explode_on_impact:
 						sprite.expired = True
+						if sprite.kind == 'grapple':
+							if not self.grapple.grappled and not self.try_grapple_to(self.player):
+								self.grapple = None
+							else:
+								self.grapple.expired = False
+		
+		if self.grapple != None:
+			if self.grapple.grappled:
+				self.grapple.grapple_counter += 1
+				progress = (0.0 + self.grapple.grapple_counter) / self.grapple.grapple_duration
+				antiprogress = 1 - progress
+				self.player.x = int(self.grapple.x * progress + self.grapple.grapple_start_x * antiprogress)
+				self.player.y = int(self.grapple.y * progress + self.grapple.grapple_start_y * antiprogress)
+				if self.grapple.grapple_counter >= self.grapple.grapple_duration:
+					self.grapple.expired = True
+					self.grapple = None
+			elif self.grapple.expired:
+				self.grapple = None
+			
 		
 		dcs = []
 		for dc in self.death_circles:
@@ -260,6 +280,29 @@ class GamePlayScene:
 			enemy_kill_script = self.level.on_enemies_killed
 			if len(enemy_kill_script) > 0:
 				go_script_go(enemy_kill_script)
+
+	def try_grapple_to(self, player):
+		if self.grapple:
+			x = self.grapple.x
+			y = self.grapple.y
+			d = self.grapple.direction
+			if d == 'left':
+				x -= 8
+			elif d == 'right':
+				x += 8
+			elif d == 'down':
+				y += 8
+			else:
+				y -= 8
+			x = x >> 4
+			y = y >> 4
+			layer = self.level.layers[self.grapple.layer]
+			if x >= 0 and x < layer.width and y >= 0 and y < layer.height:
+				tile = layer.tiles[x][y]
+				if tile.is_grappleable:
+					self.grapple.grappled = True
+					return True
+		return False
 
 	def light_lever_puzzle(self):
 		getvar = ActiveGame().GetVar
@@ -338,12 +381,27 @@ class GamePlayScene:
 				if img != None:
 					coords = sprite.DrawingCoords()
 					screen.blit(img, (coords[0] + offset[0], coords[1] + offset[1]))
+				if sprite == self.grapple:
+					x = sprite.x
+					y = sprite.y
+					if sprite.direction == 'left':
+						x += 14
+					elif sprite.direction == 'right':
+						x -= 14
+					elif sprite.direction == 'up':
+						y += 14
+					else:
+						y -= 14
+					pygame.draw.line(screen, (255, 200,40), (sprite.x, sprite.y), (self.player.x, self.player.y))
+		
+		
 		
 		if self.light_puz:
 			self.render_light_puzzle(screen, offset)
 		
+		
 		self.render_counter += 1
-	
+		
 		if self.overlayRenderer != None:
 			self.overlayRenderer.Render(screen)
 		
