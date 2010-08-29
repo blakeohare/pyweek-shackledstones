@@ -2,4 +2,6 @@
 	dialog fire_elemental
 	pause 10
     script [set][finished_fire][1]
-	script [warp][world_X][fire_entrance][pixelate]
+    script [set][finish_fire][1]
+    script [set][stone_fire][1]
+	script [warp][world_X][to_fire][pixelate]

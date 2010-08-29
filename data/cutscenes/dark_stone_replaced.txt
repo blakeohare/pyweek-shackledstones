@@ -4,4 +4,7 @@
 	dialog dark_stone_1
 	pause 10
     flash 10
+    script [set][finished_dark][1]
+    script [set][finish_dark][1]
+    script [set][stone_dark][1]
     dialog dark_stone_2

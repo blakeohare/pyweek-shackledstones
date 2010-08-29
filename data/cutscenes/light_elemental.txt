@@ -2,4 +2,6 @@
 	dialog light_elemental
 	pause 10
     script [set][finished_light][1]
-	script [warp][world_W][light_entrance][pixelate]
+    script [set][finish_light][1]
+    script [set][stone_light][1]
+	script [warp][world_W][entrance][pixelate]

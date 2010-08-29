@@ -2,4 +2,6 @@
 	dialog life_elemental
 	pause 10
     script [set][finished_life][1]
-	script [warp][world_N][life_entrance][pixelate]
+    script [set][finish_life][1]
+    script [set][stone_life][1]
+	script [warp][world_N][to_east][pixelate]
