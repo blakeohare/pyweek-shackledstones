@@ -25,6 +25,7 @@ class Dialog(Scripted):
       self._addFn('choice', self._addChoice)
       self._addFn('/question', self._poseQuestion)
       self._addFn('save', self._saveGame)
+      self._addFn('credits', self._credits)
       
       # perform the initial parse (fill the buffer)
       self.Advance()
@@ -32,6 +33,9 @@ class Dialog(Scripted):
    # Get the path to the current profile
    def Profile(self):
       return self._profile
+   
+   def _credits(self):
+      ActiveGame().GetActiveGameScene().gotocredits = True
    
    # Find out what mode the dialog is in
    def State(self):

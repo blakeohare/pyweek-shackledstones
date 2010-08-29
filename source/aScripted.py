@@ -14,6 +14,11 @@ class Scripted:
       self._addFn('switch scene', do_switch_scene)
       self._addFn('buy', do_buy)
       self._addFn('save', self.save_game_foo)
+      self._addFn('credits', self._credits)
+      
+   def _credits(self):
+      ActiveGame().GetActiveGameScene().gotocredits = True
+      
    def save_game_foo(self):
     
     ActiveGame().SetSavedVar('save_map', game_scene.name)

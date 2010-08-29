@@ -17,6 +17,7 @@ class GamePlayScene:
 		self.disable_save = False
 		self.name = level_name
 		self.bg = None
+		self.gotocredits = False
 		self.player_invisible = False
 		self.sprites = []
 		self.overlayRenderer = OverlayRenderer()
@@ -241,6 +242,9 @@ class GamePlayScene:
 				color = door[2]
 				if GetKeyRegistry().UseKey(self.level.dungeon, color, self.level.name, x, y):
 					self.level.RemoveLockedDoor(x, y)
+		
+		if self.gotocredits:
+			self.next = CreditsScene()
 		
 		if self.cutscene != None and not self.cutscene.is_done():
 			self.cutscene.do(self)
