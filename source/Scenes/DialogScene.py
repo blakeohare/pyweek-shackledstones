@@ -10,6 +10,10 @@ class DialogScene:
       self._choice = 0
       self._tick = 0
       self._fin = False
+      self._txt = []
+      self._curWord = 0
+      
+      self._prepText(dlg.Text())
       
    def ProcessInput(self, events):
       d = self._dlg
@@ -29,11 +33,34 @@ class DialogScene:
                   if self._dlg.State() == D_QUESTION:
                      self._dlg.Answer(self._choice)
                   self._dlg.Advance()
+                  self._prepText(self._dlg.Text())
+
+   def _prepText(self, txt):
+      self._curWord = 0
+      if txt:
+         self._txt = []
+         
+         lines = txt.split('\n')
+         for l in lines:
+            print('Line: %s' % l)
+            if l == '$nl$':
+               self._txt.append('')
+            else:
+               words = l.split(' ')
+               for w in words:
+                  print('   "%s"' % w)
+                  self._txt.append(trim(w))
+               self._txt.append('')
+      else:
+         self._txt = ['']
+   
+      print('post _prepText: %s' % str(self._txt))
 
    def Update(self, game_counter):
       pass
 
    def Render(self, screen):
+      self._curWord += 1
       self._source
       d = self._dlg
       
@@ -62,14 +89,23 @@ class DialogScene:
       df = ImageLib.Get('d-frame')
       screen.blit(df, (0,screen.get_height() - df.get_height() - 4))
 
-      txt = d.Text()
-      txt = txt.split('\n')
       tSurf = []
-      for t in txt:
-         if t == '$nl$':
-            t = ''
-         tSurf.append(_font.render(t, True, BLACK))
+      curLine = ''
+      wordNum = 0
       
+      for t in self._txt:
+         if t == '' or wordNum >= self._curWord:
+            # turn words into lines
+            tSurf.append(_font.render(curLine, True, BLACK))
+            curLine = ''
+         else:
+            curLine += '%s ' % t
+            
+         if wordNum >= self._curWord:
+            break
+      
+         wordNum += 1
+         
       lineNo = 0
       for t in tSurf:
          screen.blit(t, (D_TEXT_OFFSET_X, D_TEXT_OFFSET_Y + lineNo * _font.get_height()))
