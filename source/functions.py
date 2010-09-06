@@ -102,3 +102,44 @@ def take_damage(amount):
 	return get_life() <= 0
 def heal_damage():
 	set_life(get_life() + 1)
+
+def wrap_text(surf, txt, fnt):
+   lineWidth = surf.get_width()
+   words = re.split("\s", txt)
+   clr = pygame.Color('#ffffff')
+   
+   lineSet = []
+   curLine = ''
+   curWidth = 0
+   for word in words:
+      word = trim(word)
+      
+      if (word == '$nl$'):
+         lineSet.append(curLine)
+         curLine = ''
+         curWidth = 0
+         continue
+
+      if (curLine != ''):
+         renderWord = ' %s' % word
+      else:
+         renderWord = word
+      
+      wSurf = fnt.render(renderWord, True, clr)
+      wordWidth = wSurf.get_width()
+      
+      if (curWidth + wordWidth) < lineWidth:
+         curLine += renderWord
+         curWidth += wordWidth
+      else:
+         lineSet.append(curLine)
+         curLine = word
+         curWidth = 0
+   
+   if (curLine != ''):
+      lineSet.append(curLine)
+   
+   return lineSet
+
+def lines_visible(surf, fnt):
+   return int(surf.get_height() / fnt.get_height())
