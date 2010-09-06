@@ -115,9 +115,11 @@ def wrap_text(surf, txt, fnt):
       word = trim(word)
       
       if (word == '$nl$'):
-         lineSet.append(curLine)
-         curLine = ''
-         curWidth = 0
+         if curLine != '':
+            lineSet.append(curLine)
+            curLine = ''
+            curWidth = 0
+         lineSet.append('')
          continue
 
       if (curLine != ''):

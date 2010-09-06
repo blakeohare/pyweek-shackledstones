@@ -12,8 +12,7 @@ class DialogScene:
       self._fin = False
       self._txt = []
       self._curWord = 0
-      
-      self._prepText(dlg.Text())
+      self._curLetter = 0
       
    def ProcessInput(self, events):
       d = self._dlg
@@ -37,30 +36,26 @@ class DialogScene:
 
    def _prepText(self, txt):
       self._curWord = 0
+      self._curLetter = 0
       if txt:
          self._txt = []
          
          lines = txt.split('\n')
          for l in lines:
-            print('Line: %s' % l)
             if l == '$nl$':
                self._txt.append('')
             else:
                words = l.split(' ')
                for w in words:
-                  print('   "%s"' % w)
                   self._txt.append(trim(w))
                self._txt.append('')
       else:
          self._txt = ['']
-   
-      print('post _prepText: %s' % str(self._txt))
 
    def Update(self, game_counter):
       pass
 
    def Render(self, screen):
-      self._curWord += 1
       self._source
       d = self._dlg
       
@@ -88,24 +83,16 @@ class DialogScene:
          
       df = ImageLib.Get('d-frame')
       screen.blit(df, (0,screen.get_height() - df.get_height() - 4))
+      
+      textSurface= pygame.Surface(((df.get_width() - (2 * D_TEXT_OFFSET_X)), df.get_height()))
+      wt = wrap_text(textSurface, d.Text(), _font)
 
       tSurf = []
       curLine = ''
-      wordNum = 0
-      
-      for t in self._txt:
-         if t == '' or wordNum >= self._curWord:
-            # turn words into lines
-            tSurf.append(_font.render(curLine, True, BLACK))
-            curLine = ''
-         else:
-            curLine += '%s ' % t
-            
-         if wordNum >= self._curWord:
-            break
-      
-         wordNum += 1
-         
+
+      for line in wt:
+         tSurf.append(_font.render(line, True, BLACK))
+
       lineNo = 0
       for t in tSurf:
          screen.blit(t, (D_TEXT_OFFSET_X, D_TEXT_OFFSET_Y + lineNo * _font.get_height()))
