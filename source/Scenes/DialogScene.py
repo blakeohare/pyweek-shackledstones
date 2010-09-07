@@ -8,6 +8,11 @@ class DialogScene:
       self._source = sourceScene
       self._dlg = dlg
       self._choice = 0
+      self._lineHave = 5
+      self._more = False
+      self._moreDot = True
+      self._curLine = 0
+      self._tick = 0
       
    def ProcessInput(self, events):
       d = self._dlg
@@ -24,14 +29,19 @@ class DialogScene:
                   self._choice %= len(self._dlg.Choices())
             else:
                if e.A() or e.B():
-                  if self._dlg.State() == D_QUESTION:
-                     self._dlg.Answer(self._choice)
-                  self._dlg.Advance()
+                  if self._more:
+                     self._curLine += self._lineHave
+                  else:
+                     if self._dlg.State() == D_QUESTION:
+                        self._dlg.Answer(self._choice)
+                     self._curLine = 0
+                     self._dlg.Advance()
 
    def Update(self, game_counter):
       pass
 
    def Render(self, screen):
+      self._tick += 1
       self._source
       d = self._dlg
       
@@ -62,13 +72,25 @@ class DialogScene:
       
       textSurface= pygame.Surface(((df.get_width() - (2 * D_TEXT_OFFSET_X)), df.get_height()))
       wt = wrap_text(textSurface, d.Text(), _font)
-
+      
+      linesRequired = len(wt)
+      
+      if linesRequired > self._lineHave:
+         self._more = True
+      if self._curLine + self._lineHave >= linesRequired:
+         self._more = False
+      
       tSurf = []
       curLine = ''
 
-      for line in wt:
-         tSurf.append(_font.render(line, True, BLACK))
-
+      lineNo = 0
+      while lineNo < self._lineHave:
+         idx = self._curLine + lineNo
+         if idx < len(wt):
+            line = wt[idx]
+            tSurf.append(_font.render(line, True, BLACK))
+         lineNo += 1
+      
       lineNo = 0
       for t in tSurf:
          screen.blit(t, (D_TEXT_OFFSET_X, D_TEXT_OFFSET_Y + lineNo * _font.get_height()))
@@ -87,3 +109,8 @@ class DialogScene:
             screen.blit(cSurf, (D_ANSWER_OFFSET_X, D_TEXT_OFFSET_Y + lineNo * _font.get_height()))
             lineNo += 1
          
+      if self._more:
+         if (self._tick % 10 == 0):
+            self._moreDot = not self._moreDot
+         if self._moreDot:
+            pygame.draw.circle(screen, WHITE, (370, 273), 2)
