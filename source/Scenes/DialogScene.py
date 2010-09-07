@@ -8,11 +8,6 @@ class DialogScene:
       self._source = sourceScene
       self._dlg = dlg
       self._choice = 0
-      self._tick = 0
-      self._fin = False
-      self._txt = []
-      self._curWord = 0
-      self._curLetter = 0
       
    def ProcessInput(self, events):
       d = self._dlg
@@ -32,25 +27,6 @@ class DialogScene:
                   if self._dlg.State() == D_QUESTION:
                      self._dlg.Answer(self._choice)
                   self._dlg.Advance()
-                  self._prepText(self._dlg.Text())
-
-   def _prepText(self, txt):
-      self._curWord = 0
-      self._curLetter = 0
-      if txt:
-         self._txt = []
-         
-         lines = txt.split('\n')
-         for l in lines:
-            if l == '$nl$':
-               self._txt.append('')
-            else:
-               words = l.split(' ')
-               for w in words:
-                  self._txt.append(trim(w))
-               self._txt.append('')
-      else:
-         self._txt = ['']
 
    def Update(self, game_counter):
       pass
