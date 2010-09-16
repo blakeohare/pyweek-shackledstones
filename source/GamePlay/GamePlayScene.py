@@ -5,7 +5,6 @@ class GamePlayScene:
 		global _new_enemies
 		_new_enemies = []
 		ActiveGame().SetActiveGameScene(self)
-		print(level_name)
 		self.render_counter = 0
 		self.next = self
 		self.player = Player()
@@ -658,9 +657,30 @@ class GamePlayScene:
 		
 		if self.player.layer == layer and not self.player_invisible:
 			
-			return [self.player] + sprites
+			unsorted_spritelist = [self.player] + sprites
 		else:
-			return sprites
+			unsorted_spritelist = sprites
+		
+		
+		
+		return self.sort_sprite_list(unsorted_spritelist)
+	
+	def sort_sprite_list(self, sprites, pivot=None):
+		if len(sprites) <= 1: return sprites
+		if pivot == None:
+			return self.sort_sprite_list(sprites[1:], sprites[0])
+		left = []
+		right = []
+		for sprite in sprites:
+			if sprite.y < pivot.y:
+				left.append(sprite)
+			else:
+				right.append(sprite)
+		
+		left = self.sort_sprite_list(left)
+		right = self.sort_sprite_list(right)
+		
+		return left + [pivot] + right
 	
 	def do_sprite_move(self, sprite, vx, vy, is_flying_sprite):
 		vx = int(vx)
