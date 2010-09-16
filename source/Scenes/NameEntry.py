@@ -28,7 +28,7 @@ class NameEntryScene:
                if len(self._name) != 0 and self._done:
                   ActiveGame().SetSavedVar('name', self._name)
                   ActiveGame().SaveToFile()
-                  scene = GamePlayScene('transport_1', 64, 64)
+                  scene = GamePlayScene('transport_1', 64, 72)
                   
                   scene.next = scene
                   self.next = scene

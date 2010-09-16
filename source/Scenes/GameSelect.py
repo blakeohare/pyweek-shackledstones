@@ -74,11 +74,11 @@ class GameSelectScene:
 						if m == None:
 							m = 'transport_1'
 							x = 64
-							y = 64
+							y = 56
 						x = ActiveGame().GetVar('save_x')
 						y = ActiveGame().GetVar('save_y')
-						if x == None: x = 0
-						if y == None: y = 0
+						if x == None: x = 64
+						if y == None: y = 56
 						self.next = GamePlayScene(m, x, y + 16)
 						self.next.level.update_tile_standing_on(self.next.player.layer, self.next.player.x, self.next.player.y)
 						self.next.prevTile = self.next.level.playerStandingOn

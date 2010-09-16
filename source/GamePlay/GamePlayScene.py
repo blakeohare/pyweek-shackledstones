@@ -666,9 +666,11 @@ class GamePlayScene:
 		return self.sort_sprite_list(unsorted_spritelist)
 	
 	def sort_sprite_list(self, sprites, pivot=None):
-		if len(sprites) <= 1: return sprites
 		if pivot == None:
+			if len(sprites) == 0:
+				return []
 			return self.sort_sprite_list(sprites[1:], sprites[0])
+		
 		left = []
 		right = []
 		for sprite in sprites:
