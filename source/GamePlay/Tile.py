@@ -16,7 +16,7 @@ class Tile:
 		found = False
 		while i < len(self.orig_stack):
 			if self.orig_stack[i] == 'nature20':
-				self.orig_stack[i] = ''
+				self.orig_stack[i] = 'nature21'
 				found = True
 			i += 1
 		if found:
