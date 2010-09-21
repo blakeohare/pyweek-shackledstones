@@ -38,6 +38,9 @@ finish_dark
 finish_fire
 finish_life
 finish_death
+
+Used to indicate which area of the world we're in (stores the map name)
+current_zone
 """
 class GameInstance:
 	def __init__(self, slot):
@@ -80,6 +83,13 @@ class GameInstance:
 					name = name[1:]
 					values[name] = value
 		return values
+
+	def SetZone(self, newVal):
+		print('SetZone: %s' % newVal)
+		self.SetTempVar('current_zone', newVal)
+	
+	def GetZone(self):
+		return self.GetVar('current_zone')
 	
 	def SaveToFile(self):
 		output = []

@@ -5,6 +5,7 @@ class GamePlayScene:
 		global _new_enemies
 		_new_enemies = []
 		ActiveGame().SetActiveGameScene(self)
+		ActiveGame().SetZone(level_name)
 		self.render_counter = 0
 		self.next = self
 		self.player = Player()
