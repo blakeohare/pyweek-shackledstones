@@ -37,7 +37,6 @@ class DialogScene:
                      self._fastText = True
                      self._truncating = False
                   elif self._more:
-                     print('advance _curLine')
                      self._curLine += self._lineHave
                      self._curLetter = 0
                      self._fastText = False
@@ -46,7 +45,6 @@ class DialogScene:
                   else:
                      if self._dlg.State() == D_QUESTION:
                         self._dlg.Answer(self._choice)
-                     print('reset _curLetter')
                      self._curLine = 0
                      self._curLetter = 0
                      self._fastText = False

@@ -136,7 +136,7 @@ def wrap_text(surf, txt, fnt):
       else:
          lineSet.append(curLine)
          curLine = word
-         curWidth = 0
+         curWidth = wordWidth
    
    if (curLine != ''):
       lineSet.append(curLine)
