@@ -33,13 +33,16 @@ class DialogScene:
             else:
                if e.A() or e.B():
                   if self._truncating:
+                     self._curLetter = 0
                      self._fastText = True
                      self._truncating = False
                   elif self._more:
+                     print('advance _curLine')
                      self._curLine += self._lineHave
                      self._curLetter = 0
                      self._fastText = False
                      self._truncating = False
+                     self._more = False
                   else:
                      if self._dlg.State() == D_QUESTION:
                         self._dlg.Answer(self._choice)
@@ -89,11 +92,6 @@ class DialogScene:
       
       linesRequired = len(wt)
       
-      if linesRequired > self._lineHave:
-         self._more = True
-      if self._curLine + self._lineHave >= linesRequired:
-         self._more = False
-      
       tSurf = []
 
       lineNo = 0
@@ -108,16 +106,25 @@ class DialogScene:
                   delta = self._curLetter - runningTotal
                   line = line[0:delta]
                   self._truncating = True
-            
+               else:
+                  self._truncating = False
             runningTotal += len(line)
             tSurf.append(_font.render(line, True, BLACK))
+            
+            if self._truncating:
+               break
          lineNo += 1
-      
+
+      if linesRequired > self._lineHave and (lineNo == self._lineHave):
+         self._more = True
+      if self._curLine + self._lineHave >= linesRequired:
+         self._more = False
+
       lineNo = 0
       for t in tSurf:
          screen.blit(t, (D_TEXT_OFFSET_X, D_TEXT_OFFSET_Y + lineNo * _font.get_height()))
          lineNo += 1
-      if D_QUESTION == d.State():
+      if D_QUESTION == d.State() and not self._truncating:
          cy = int(D_TEXT_OFFSET_Y + (lineNo + self._choice) * _font.get_height() + (.5 * _font.get_height()))
          cx = D_TEXT_OFFSET_X + 6
          
