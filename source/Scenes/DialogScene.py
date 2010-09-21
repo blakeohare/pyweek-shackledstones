@@ -11,7 +11,10 @@ class DialogScene:
       self._lineHave = 5
       self._more = False
       self._moreDot = True
+      self._truncating = True
+      self._fastText = False
       self._curLine = 0
+      self._curLetter = 0
       self._tick = 0
       
    def ProcessInput(self, events):
@@ -29,12 +32,22 @@ class DialogScene:
                   self._choice %= len(self._dlg.Choices())
             else:
                if e.A() or e.B():
-                  if self._more:
+                  if self._truncating:
+                     self._fastText = True
+                     self._truncating = False
+                  elif self._more:
                      self._curLine += self._lineHave
+                     self._curLetter = 0
+                     self._fastText = False
+                     self._truncating = False
                   else:
                      if self._dlg.State() == D_QUESTION:
                         self._dlg.Answer(self._choice)
+                     print('reset _curLetter')
                      self._curLine = 0
+                     self._curLetter = 0
+                     self._fastText = False
+                     self._truncating = False
                      self._dlg.Advance()
 
    def Update(self, game_counter):
@@ -44,6 +57,7 @@ class DialogScene:
       self._tick += 1
       self._source
       d = self._dlg
+      self._curLetter += 1
       
       if d.State() == D_END:
          self.next = self._source
@@ -81,13 +95,21 @@ class DialogScene:
          self._more = False
       
       tSurf = []
-      curLine = ''
 
       lineNo = 0
+      runningTotal = 0
+
       while lineNo < self._lineHave:
          idx = self._curLine + lineNo
          if idx < len(wt):
             line = wt[idx]
+            if not self._fastText:
+               if not (runningTotal + len(line) <= self._curLetter):
+                  delta = self._curLetter - runningTotal
+                  line = line[0:delta]
+                  self._truncating = True
+            
+            runningTotal += len(line)
             tSurf.append(_font.render(line, True, BLACK))
          lineNo += 1
       
@@ -95,7 +117,6 @@ class DialogScene:
       for t in tSurf:
          screen.blit(t, (D_TEXT_OFFSET_X, D_TEXT_OFFSET_Y + lineNo * _font.get_height()))
          lineNo += 1
-
       if D_QUESTION == d.State():
          cy = int(D_TEXT_OFFSET_Y + (lineNo + self._choice) * _font.get_height() + (.5 * _font.get_height()))
          cx = D_TEXT_OFFSET_X + 6
