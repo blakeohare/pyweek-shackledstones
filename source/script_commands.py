@@ -85,9 +85,16 @@ def do_save_point():
 
 def do_sign_display(text):
 	lines = trim(str(text)).split('$')
+	i = 1
+	finLines = []
+	finLines.append(lines[0])
+	while i < len(lines):
+		finLines.append('\\n')
+		finLines.append(lines[i])
+		i += 1
 	game_scene = ActiveGame().GetActiveGameScene()
 	ds = DialogScene(
-		Dialog(ScriptIter(['[profile][]'] + lines + ['[pause]','','[end]'])),
+		Dialog(ScriptIter(['[profile][]'] + finLines + ['[pause]','','[end]'])),
 		game_scene)
 	game_scene.next = ds
 	game_scene.player.walking = False

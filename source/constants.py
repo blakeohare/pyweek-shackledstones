@@ -1,5 +1,5 @@
 GAME_NAME = "Shackled Stones"
-DEBUG_SCRIPTS = True
+DEBUG_SCRIPTS = False
 
 testCode = True
 testCode = False
