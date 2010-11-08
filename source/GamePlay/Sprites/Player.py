@@ -18,6 +18,9 @@ class Player:
 		self.flying = False
 		self.flash_counter = -1
 		self.state_counter = 0
+		self.flying_damage = -42
+		self.damage_dx = 0
+		self.damage_dy = 0
 		self.explode_on_impact = False
 	
 	def DrawingCoords(self):
@@ -34,8 +37,10 @@ class Player:
 		global _invincible
 		self.state_counter -= 1
 		self.flash_counter -= 1
+		self.flying_damage -= 1
 		if self.state_counter <= 0:
 			self.state = 'walking'
+			
 		if self.flash_counter < 0:
 			if not _invincible:
 				game_scene = ActiveGame().GetActiveGameScene()
@@ -50,6 +55,11 @@ class Player:
 								if get_life() == 0:
 									set_life(3)
 									ActiveGame().GetActiveGameScene().next = GameOverScene()
+								else:
+									self.flying_damage = 5
+									nv = get_normalized_vector(sprite.x, sprite.y, self.x, self.y)
+									self.damage_dx = nv[0] * 7
+									self.damage_dy = nv[1] * 7
 	
 	def Stab(self):
 		if self.is_submerged(): return

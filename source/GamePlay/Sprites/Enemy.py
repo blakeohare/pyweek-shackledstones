@@ -20,6 +20,9 @@ class Enemy:
 		self.dy = 0
 		self.life = 0
 		self.flash_counter = -1
+		self.flying_damage = -42
+		self.damage_dx = 0.0
+		self.damage_dy = 0.0
 		self.game_scene = ActiveGame().GetActiveGameScene()
 		if self.name == 'blob':
 			self.life = 2
@@ -80,6 +83,7 @@ class Enemy:
 		self.dy = 0
 		self.state_counter -= 1
 		self.flash_counter -= 1
+		self.flying_damage -= 1
 		player_x = self.game_scene.player.x
 		player_y = self.game_scene.player.y
 		
@@ -92,6 +96,10 @@ class Enemy:
 				dc = death_circle
 				self.flash_counter = 10
 				self.life -= 1
+				self.flying_damage = 9
+				nv = get_normalized_vector(death_circle.x, death_circle.y, self.x, self.y)
+				self.damage_dx = nv[0] * 4
+				self.damage_dy = nv[1] * 4
 		
 		if self.life <= 0:
 			self.expired = True
@@ -100,7 +108,10 @@ class Enemy:
 				self.game_scene.sprites.append(goody)
 			return
 		
-		if not self.frozen:
+		if self.flying_damage > 0:
+			self.dx = int(self.damage_dx)
+			self.dy = int(self.damage_dy)
+		elif not self.frozen:
 			if self.name == 'death':
 				if player_x < self.x:
 					self.dx = -1

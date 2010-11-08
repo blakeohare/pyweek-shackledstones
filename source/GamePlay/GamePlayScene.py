@@ -215,6 +215,10 @@ class GamePlayScene:
 		if vx != 0 or vy != 0:
 			self.player.walking = True
 		
+		if self.player.flying_damage > 0:
+			vx = self.player.damage_dx
+			vy = self.player.damage_dy
+		
 		self.do_sprite_move(self.player, vx, vy, False)
 		
 	def Update(self, game_counter):
