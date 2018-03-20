@@ -48,10 +48,8 @@ class Enemy:
 			self.r = 16
 			self.life = 15
 			self.state = 'walking'
-			
-			
 	
-	def DrawingCoords(self):
+	def drawingCoords(self):
 		offsets = (0,0)
 		if self.name == 'mechanicalman':
 			offsets = (0, -6)
@@ -179,7 +177,7 @@ class Enemy:
 			
 			
 	
-	def CurrentImage(self, render_counter):
+	def currentImage(self, render_counter):
 		if self.frozen: render_counter = 0
 		if self.flash_counter > 0 and self.flash_counter & 2 == 0:
 			return None

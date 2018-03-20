@@ -3,8 +3,8 @@ class InventoryScene:
 		self.next = self
 		
 		i = Inventory()
-		self._layout = ([i.Sabre(), i.Hammer(), i.Drill(), i.Hook(), i.Compass()],
-							 [i.Cannon(), i.CannonFire(), i.CannonIce(), i.CannonMulti(), i.Shovel()])
+		self._layout = ([i.sabre(), i.hammer(), i.drill(), i.hook(), i.compass()],
+						[i.cannon(), i.cannonFire(), i.cannonIce(), i.cannonMulti(), i.shovel()])
 		
 		self._i = i
 		self._baseScene = overlay
@@ -14,16 +14,16 @@ class InventoryScene:
 		isurf = self._itemSurf
 		
 		isurf['cannon-icon'] = get_image('ui/cannon-icon.png')
-		isurf[i.Cannon()] = get_image('ui/ammo-sshot.png')
-		isurf[i.CannonFire()] = get_image('ui/ammo-fire.png')
-		isurf[i.CannonIce()] = get_image('ui/ammo-ice.png')
-		isurf[i.CannonMulti()] = get_image('ui/ammo-multi.png')
-		isurf[i.Sabre()] = get_image('ui/sabre-have.png')
-		isurf[i.Hammer()] = get_image('ui/hammer-have.png')
-		isurf[i.Drill()] = get_image('ui/drill-have.png')
-		isurf[i.Hook()] = get_image('ui/hook-have.png')
-		isurf[i.Compass()] = get_image('ui/compass-have.png')
-		isurf[i.Shovel()] = get_image('ui/shovel-have.png')
+		isurf[i.cannon()] = get_image('ui/ammo-sshot.png')
+		isurf[i.cannonFire()] = get_image('ui/ammo-fire.png')
+		isurf[i.cannonIce()] = get_image('ui/ammo-ice.png')
+		isurf[i.cannonMulti()] = get_image('ui/ammo-multi.png')
+		isurf[i.sabre()] = get_image('ui/sabre-have.png')
+		isurf[i.hammer()] = get_image('ui/hammer-have.png')
+		isurf[i.drill()] = get_image('ui/drill-have.png')
+		isurf[i.hook()] = get_image('ui/hook-have.png')
+		isurf[i.compass()] = get_image('ui/compass-have.png')
+		isurf[i.shovel()] = get_image('ui/shovel-have.png')
 	
 	def processInput(self, events):
 		for e in events:
@@ -52,10 +52,10 @@ class InventoryScene:
 		item = self._layout[col][row]
 
 		i = self._i
-		if not i.Check(item):
-			print('player does not have %s' % item)
+		if not i.check(item):
+			print('player does not have ' + item)
 		else:
-			i.Equip(key.lower(), item)
+			i.equip(key.lower(), item)
 
 	def update(self, conter):
 		pass
@@ -95,7 +95,7 @@ class InventoryScene:
 		screen.blit(itemSurf, (item_off_x, item_off_y))
 		screen.blit(moneySurf, (money_off_x, money_off_y))
 
-		if i.HasAny():
+		if i.hasAny():
 			# TODO: this is ugly and terrible, fix it
 			a = render_text_size(17, 'A', WHITE)
 			aw = a.get_width()
@@ -109,10 +109,10 @@ class InventoryScene:
 			y = render_text_size(17, 'Y', WHITE)
 			yw = y.get_width()
 			yh = y.get_height()
-			eq = pygame.Surface((aw+bw+40+18, 46))
+			eq = pygame.Surface((aw + bw + 40 + 18, 46))
 			eq.set_alpha(120)
 			eq.fill(BLACK)
-			ex = int((sw - eq.get_width())/2)
+			ex = int((sw - eq.get_width()) / 2)
 			ey = 50
 			screen.blit(eq, (ex, ey))
 			pygame.draw.rect(screen, WHITE, pygame.Rect(ex - ss, ey - ss, eq.get_width() + (2 * ss), eq.get_height() + (2 * ss)), ss)
@@ -120,22 +120,22 @@ class InventoryScene:
 			a	 x
 			b	 y
 			'''
-			surf = i.Surf('a')
+			surf = i.getItemIcon('a')
 			screen.blit(a, (ex + 3, ey + 0))
 			if surf:
 				screen.blit(surf, (ex + aw + 6, ey))
 			
-			surf = i.Surf('b')
+			surf = i.getItemIcon('b')
 			screen.blit(b, (ex + 3, ey + 23))
 			if surf:
 				screen.blit(surf, (ex + bw + 6, ey + 23))
 			
-			surf = i.Surf('x')
+			surf = i.getItemIcon('x')
 			screen.blit(x, (ex + aw + 26, ey + 0))
 			if surf:
 				screen.blit(surf, (ex + xw + aw + 26 + 3, ey))
 			
-			surf = i.Surf('y')
+			surf = i.getItemIcon('y')
 			screen.blit(y, (ex + bw + 26, ey + 23)) 
 			if surf:
 				screen.blit(surf, (ex + bw + yw + 26 + 3, ey + 23))
@@ -158,7 +158,7 @@ class InventoryScene:
 			while row < 2:
 				item = self._layout[row][col]
 				if isurf[item]:
-				 if i.Check(item):
+				 if i.check(item):
 					screen.blit(isurf[item], (item_off_x + 4 + (28 * col),
 														item_off_y + 4 + (28 * row)))
 				
@@ -167,8 +167,8 @@ class InventoryScene:
 		
 		# deal with selected item label:
 		item = self._layout[self._selection[1]][self._selection[0]]
-		if i.Check(item):
-			text = render_text_size(17, i.Description(item), WHITE)
+		if i.check(item):
+			text = render_text_size(17, i.description(item), WHITE)
 			
 			if text:
 				txt_off_x = title_off_x + int((titleSurf.get_width() - text.get_width()) / 2)
@@ -178,7 +178,7 @@ class InventoryScene:
 		
 		# draw cannon overlay
 		try:
-			idx = self._layout[1].index(i.WhichCannonEquipped())
+			idx = self._layout[1].index(i.whichCannonEquipped())
 			cannonSurf = self._itemSurf['cannon-icon']
 			cannon_off_x = item_off_x + (28 * idx) + 8
 			cannon_off_y = item_off_y + 28 + 10
@@ -186,7 +186,7 @@ class InventoryScene:
 		except:
 			pass
 		
-		if i.HasAny():
+		if i.hasAny():
 			# draw selection box
 			sel_off_x = item_off_x + 2 + (28 * self._selection[0])
 			sel_off_y = item_off_y + 2 + (28 * self._selection[1])

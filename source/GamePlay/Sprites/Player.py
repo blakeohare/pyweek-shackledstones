@@ -23,7 +23,7 @@ class Player:
 		self.damage_dy = 0
 		self.explode_on_impact = False
 	
-	def DrawingCoords(self):
+	def drawingCoords(self):
 	
 		coords = (self.x - self.r, self.y - self.r - 13)
 		if self.state == 'stabbing' or self.state == 'hammering' or self.state == 'drilling':
@@ -61,7 +61,7 @@ class Player:
 									self.damage_dx = nv[0] * 7
 									self.damage_dy = nv[1] * 7
 	
-	def Stab(self):
+	def stab(self):
 		if self.is_submerged(): return
 		self.state_counter = 7
 		self.state = 'stabbing'
@@ -79,7 +79,8 @@ class Player:
 		
 		game_scene.place_death_circle('sword', x, y, 8, 5)
 		play_sound('sword')
-	def Shoot(self, bullet_type, game_scene):
+
+	def shoot(self, bullet_type, game_scene):
 		if self.is_submerged(): return
 		self.state_count = 7
 		self.state = 'shooting'
@@ -98,13 +99,13 @@ class Player:
 			game_scene.sprites.append(s)
 		play_sound('gunshot')
 		
-	def Dig(self):
+	def dig(self):
 		if self.is_submerged(): return
 		self.state_counter = 20
 		self.state = 'shovelling'
 		play_sound('dig')
 	
-	def Drill(self):
+	def drill(self):
 		if self.is_submerged(): return
 		self.state_counter = 15
 		self.state = 'drilling'
@@ -123,7 +124,7 @@ class Player:
 		game_scene.place_death_circle('drill', x, y, 8, 5)
 		play_sound('drill')
 	
-	def Hammer(self):
+	def hammer(self):
 		if self.is_submerged(): return
 		self.state_counter = 15
 		self.state = 'hammering'
@@ -175,7 +176,7 @@ class Player:
 				value = layer.tiles[x][y].submerged
 				return value
 	
-	def CurrentImage(self, render_counter):
+	def currentImage(self, render_counter):
 		if self.flash_counter > 0 and (self.flash_counter & 1) == 0:
 			return None
 		

@@ -54,7 +54,7 @@ class Projectile:
 		self.end_y = None
 		self.kind = type
 	
-	def DrawingCoords(self):
+	def drawingCoords(self):
 	
 		coords = (self.x - self.r, self.y - self.r)
 		return coords
@@ -111,7 +111,7 @@ class Projectile:
 		
 		
 	
-	def CurrentImage(self, render_counter):
+	def currentImage(self, render_counter):
 		if self.kind == 'grapple':
 			return get_image('sprites/magnet/' + self.direction)
 		elif self.kind == 'ice':

@@ -152,33 +152,33 @@ class GamePlayScene:
 		
 		for event in events:
 			if event.down and event.key == 'B':
-				actions[self.inventory.EquippedB()] = True
+				actions[self.inventory.equippedB()] = True
 			elif event.down and event.key == 'A':
-				actions[self.inventory.EquippedA()] = True
+				actions[self.inventory.equippedA()] = True
 			elif event.down and event.key == 'Y':
-				actions[self.inventory.EquippedY()] = True
+				actions[self.inventory.equippedY()] = True
 			elif event.down and event.key == 'X':
-				actions[self.inventory.EquippedX()] = True
+				actions[self.inventory.equippedX()] = True
 			elif event.down and event.key == 'start':
 				self.next = InventoryScene(self)
 		
 		if self.player.state == 'walking':
 			if actions['item_sabre']:
-				self.player.Stab()
+				self.player.stab()
 			elif actions['item_cannon']:
-				self.player.Shoot('basic', self)
+				self.player.shoot('basic', self)
 			elif actions['item_cannon_fire']:
-				self.player.Shoot('fire', self)
+				self.player.shoot('fire', self)
 			elif actions['item_cannon_ice']:
-				self.player.Shoot('ice', self)
+				self.player.shoot('ice', self)
 			elif actions['item_cannon_multi']:
-				self.player.Shoot('multi', self)
+				self.player.shoot('multi', self)
 			elif actions['item_shovel']:
-				self.player.Dig()
+				self.player.dig()
 			elif actions['item_drill']:
-				self.player.Drill()
+				self.player.drill()
 			elif actions['item_hammer']:
-				self.player.Hammer()
+				self.player.hammer()
 			elif actions['item_hook']:
 				self.player.Grapple()
 			
@@ -407,9 +407,9 @@ class GamePlayScene:
 					self.level.render(layerName, screen, offset[0], offset[1], self.render_counter)
 				
 				for sprite in self.get_renderable_sprites(layerName):
-					img = sprite.CurrentImage(self.render_counter)
+					img = sprite.currentImage(self.render_counter)
 					if img != None:
-						coords = sprite.DrawingCoords()
+						coords = sprite.drawingCoords()
 						screen.blit(img, (coords[0] + offset[0], coords[1] + offset[1]))
 					if sprite == self.grapple:
 						x = sprite.x

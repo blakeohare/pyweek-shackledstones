@@ -18,13 +18,13 @@ class Goody:
 		self.state_counter = 0
 		self.explode_on_impact = False
 	
-	def DrawingCoords(self):
+	def drawingCoords(self):
 		return (self.x,self.y)
 	
 	def update(self):
 		pass
 		
-	def CurrentImage(self, render_counter):
+	def currentImage(self, render_counter):
 		counter = render_counter % 30
 		if counter < 4:
 			counter = '1'
