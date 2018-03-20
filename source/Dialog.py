@@ -127,23 +127,3 @@ class Choice:
 		return self._text
 	def Label(self):
 		return self._label
-	
-###############################################################################
-# Testing Code
-
-def testDialog():
-	si = Parser.LoadFile('data/scripts/test.txt')
-	d = Dialog(si)
-	
-	print('----------------------')
-	print('current dialog text:')
-	print("'%s'" % d.Text())
-	print('----------------------')
-	
-	d.advance()
-	print('----------------------')
-	print('current dialog text:')
-	print("'%s'" % d.Text())
-	print('----------------------')
-	
-AddTest('testDialog', testDialog)

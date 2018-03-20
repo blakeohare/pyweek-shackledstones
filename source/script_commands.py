@@ -6,7 +6,6 @@ def do_warp(mapFile, tileId, transitionStyle = WARP_INSTANT):
 	game_scene = getActiveGame().getActiveGameScene()
 	game_scene.next = TransitionScene(game_scene, mapFile, tileId, transitionStyle)
 
-cr.Register("warp", do_warp, 3)
 
 
 # dialog: transitions to a dialogue scene using the indicated file as script
@@ -14,15 +13,13 @@ cr.Register("warp", do_warp, 3)
 def do_dialog(scriptFile):
 	pass
 	
-cr.Register("dialog", do_dialog, 1)
 
 # remove tile: removes a tile from the map
 # tileId ------ id indicating which position and layer
 # detailLayer - which detail layer to remove it from
 def do_removeTile(tileId, detailLayer):
 	return do_setTile(tileId, detailLayer, '')
-	
-cr.Register('remove tile', do_removeTile, 2)
+
 
 # set tile: updates the tile at a location
 # posId ------- id indicating which position and layer
@@ -40,7 +37,6 @@ def do_setTile(posId, detailLayer, tileTypeId):
 			return
 		layers[id.layer].tiles[id.x][id.y].setTile(detailLayer, tileTypeId)
 	return True
-cr.Register('set tile', do_setTile, 3)
 
 def do_sound(file):
 	play_sound(file)

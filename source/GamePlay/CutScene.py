@@ -156,7 +156,7 @@ class CutSceneEvent:
 	
 	def show_dialog(self, game_scene):
 		game_scene.next = DialogScene(
-			Dialog(Parser.LoadFile('data/scripts/' + self.dialog_script + '.txt')), game_scene)
+			Dialog(ScriptUtil_loadFile('data/scripts/' + self.dialog_script + '.txt')), game_scene)
 	
 	def setspritestate(self, game_scene):
 		sprite = game_scene.get_sprite_by_id(self.sprite_id)

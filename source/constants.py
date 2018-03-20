@@ -1,9 +1,6 @@
 GAME_NAME = "Shackled Stones"
 DEBUG_SCRIPTS = False
 
-testCode = True
-testCode = False
-
 WARP_NSCROLL  = "north scroll"
 WARP_SSCROLL  = "south scroll"
 WARP_ESCROLL  = "east scroll"
@@ -30,6 +27,8 @@ MENU_FONT = os.path.join('media', 'fortunaschwein.ttf')
 TEXT_FONT = os.path.join('media', 'rm_typewriter_old.ttf')
 
 ALPHA = 128
+
+_re_bracket = re.compile('\s*\[(.*?)\]')
 
 # not constants, but globals.
 # technically since this is Python, the above aren't constants either.

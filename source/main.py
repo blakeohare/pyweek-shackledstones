@@ -1,8 +1,9 @@
 TILE_COLUMN_COUNT = 24
 TILE_ROW_COUNT = 18
 
+
 def main():
-	
+
 	counter = 0
 	global _font, _activeScreen
 	
@@ -76,11 +77,5 @@ def main():
 		difference = 1 / 30.0 - duration
 		if difference > 0:
 			time.sleep(difference)
-		else:
-			#print("Framerate dropping! (" + str(counter) + ")")
-			pass
 
-if testCode:
-   RunTests()
-else:
-   main()
+main()

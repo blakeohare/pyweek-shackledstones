@@ -30,8 +30,8 @@ class Scripted:
 		for line in self._script:
 			if DEBUG_SCRIPTS:
 				print(line)
-			if Parser.IsCommand(line):
-				(cmd, args) = Parser.Segment(line)
+			if ScriptUtil_isCommand(line):
+				(cmd, args) = ScriptUtil_splitCommand(line)
 				if self._fnTable.get(cmd):
 					c = self._call(cmd, args)
 					
