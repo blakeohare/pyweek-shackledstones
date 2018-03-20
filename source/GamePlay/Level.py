@@ -27,18 +27,17 @@ class Level:
 		
 		values = {}
 		for line in lines:
-			parts = trim(line).split(':')
+			parts = line.strip().split(':')
 			if len(parts) >= 2:
-				
 				name = parts[0].split('#')[-1]
-				value = trim(':'.join(parts[1:]))
+				value = ':'.join(parts[1:]).strip()
 				values[name] = value
 
 		self.width = int(values['width'])
 		self.height = int(values['height'])
 		self.music = values.get('music', None)
 		self.layers = {}
-		self.dungeon = trim(values.get('dungeon'))
+		self.dungeon = values.get('dungeon', '').strip()
 		
 		GetKeyRegistry().doors = {}
 		
@@ -47,7 +46,7 @@ class Level:
 			content = values.get('Layer' + layerName)
 			layer = Layer(self.width, self.height)
 			if content != None:
-				spots = trim(content).split(',')
+				spots = content.strip().split(',')
 				raw_tile_list = []
 				for spot in spots:
 					tiles = spot.split('|')
@@ -102,9 +101,9 @@ class Level:
 		script_strings = values.get('scripts')
 		scripts = {}
 		if script_strings != None:
-			scripts_banana = trim(script_strings).split('|||')
+			scripts_banana = script_strings.strip().split('|||')
 			for banana in scripts_banana:
-				lines = trim(banana).split('|')
+				lines = banana.strip().split('|')
 				if len(lines) > 1:
 					name = lines[0]
 					body = '\n'.join(lines[1:])
@@ -112,9 +111,9 @@ class Level:
 		id_strings = values.get('IDs')
 		ids = {}
 		if id_strings != None:
-			id_strings = trim(id_strings).split(',')
+			id_strings = id_strings.strip().split(',')
 			for id_string in id_strings:
-				parts = trim(id_string).split('|')
+				parts = id_string.strip().split('|')
 				if len(parts) == 4:
 					name = parts[0]
 					layer = parts[1]
@@ -125,9 +124,9 @@ class Level:
 					self.layers[layer].tiles[x][y].SetId(id)
 					ids[name] = id
 		self.ids = ids
-		self.enemies = trim(values.get('enemies', '')).split(',')
-		self.on_load = trim(values.get('on_load', '').replace("\\n","\n").replace("\\\\","\\"))
-		self.on_enemies_killed = trim(values.get('on_enemies_killed', '').replace("\\n","\n").replace("\\\\","\\"))
+		self.enemies = values.get('enemies', '').strip().split(',')
+		self.on_load = values.get('on_load', '').replace("\\n", "\n").replace("\\\\", "\\").strip()
+		self.on_enemies_killed = values.get('on_enemies_killed', '').replace("\\n", "\n").replace("\\\\", "\\").strip()
 		
 	def RemoveLockedDoor(self, x, y):
 		for layerName in 'A B C D E F'.split(' '):

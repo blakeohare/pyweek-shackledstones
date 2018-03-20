@@ -61,7 +61,7 @@ class Tile:
 		self.door_color = None
 		self.is_grappleable = False
 		for id in self.orig_stack:
-			if trim(id) != '':
+			if id.strip() != '':
 				if id == '63':
 					self.is_grappleable = True
 				tile = _tileStore.GetTile(id)

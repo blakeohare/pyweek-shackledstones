@@ -70,13 +70,13 @@ class GameInstance:
 			slot = self.slot
 		values = {}
 		c = open('saves' + os.sep + 'slot' + str(slot) + '.txt', 'rt')
-		lines = trim(c.read()).split('\n')
+		lines = c.read().strip().split('\n')
 		c.close()
 		for line in lines:
-			parts = trim(line).split(':')
+			parts = line.strip().split(':')
 			if len(parts) > 1:
-				name = trim(parts[0])
-				value = trim(':'.join(parts[1:]))
+				name = parts[0].strip()
+				value = ':'.join(parts[1:]).strip()
 				if len(name) > 1 and name[0] in '$#':
 					if name[0] == '#':
 						value = int(value)

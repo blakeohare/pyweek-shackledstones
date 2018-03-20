@@ -7,7 +7,7 @@ class TileStore:
 		
 		self.templates = {}
 		for line in lines:
-			tline = trim(line)
+			tline = line.strip()
 			if len(tline) > 0 and tline[0] != '#':
 				parts = tline.split('\t')
 				if len(parts) == 4 or len(parts) == 5:

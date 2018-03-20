@@ -1,22 +1,4 @@
 
-def trim(string):
-	if string == None: return ''
-	while len(string) > 0 and string[0] in ' \n\r\t':
-		string = string[1:]
-	while len(string) > 0 and string[-1] in ' \r\n\t':
-		string = string[:-1]
-	return string
-
-def min(a, b):
-	if a < b: return a
-	return b
-def max(a, b):
-	if a < b: return b
-	return a
-def abs(a):
-	if a < 0: return -a
-	return a
-	
 def go_script_go(script_contents):
 	script_contents = script_contents.replace('\\n', '\n') # -_-
 	MapScript(ScriptIter(script_contents.split('\n'))).Exec()
@@ -102,7 +84,7 @@ def wrap_text(surf, txt, fnt):
 	curLine = ''
 	curWidth = 0
 	for word in words:
-		word = trim(word)
+		word = word.strip()
 		
 		if (word == '$nl$'):
 			if curLine != '':

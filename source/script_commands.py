@@ -84,7 +84,7 @@ def do_save_point():
 	return True
 
 def do_sign_display(text):
-	lines = trim(str(text)).split('$')
+	lines = str(text).strip().split('$')
 	i = 1
 	finLines = []
 	finLines.append(lines[0])

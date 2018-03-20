@@ -52,7 +52,7 @@ class Dialog(Scripted):
 	
 	# What we should be displaying if we're in "talk" mode (D_NORMAL)
 	def Text(self):
-		return trim(self._buffer)
+		return self._buffer.strip()
 	
 	# what choices are available
 	def Choices(self):

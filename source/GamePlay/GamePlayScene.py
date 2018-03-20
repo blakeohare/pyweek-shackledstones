@@ -30,7 +30,7 @@ class GamePlayScene:
 		
 		self.prevTile = None
 		self.firstTimeOnTile = True
-		on_load_script = trim(self.level.on_load)
+		on_load_script = self.level.on_load.strip()
 		self.inventory = Inventory()
 		if len(on_load_script) > 0:
 			go_script_go(on_load_script)
@@ -82,7 +82,7 @@ class GamePlayScene:
 	
 	def initialize_enemies(self):
 		for enemy in self.level.enemies:
-			data = trim(enemy)
+			data = enemy.strip()
 			if len(data) > 0:
 				parts = data.split('|')
 				kind = parts[0]

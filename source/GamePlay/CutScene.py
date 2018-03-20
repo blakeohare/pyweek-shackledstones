@@ -1,6 +1,6 @@
 class CutSceneEvent:
 	def __init__(self, command):
-		parts = trim(command).split(' ')
+		parts = command.strip().split(' ')
 		args = parts[1:]
 		name = parts[0].lower()
 		self.expiration = -1
@@ -186,10 +186,10 @@ class CutScene:
 	
 	def __init__(self, command_script, name):
 		self.name = name
-		lines = trim(command_script).split('\n')
+		lines = command_script.strip().split('\n')
 		commands = []
 		for line in lines:
-			command_line = trim(line)
+			command_line = line.strip()
 			if len(command_line) > 0:
 				commands.append(CutSceneEvent(command_line))
 		self.commands = commands
@@ -241,9 +241,8 @@ def get_cutscene(name):
 	script = _cutSceneStore.get(name)
 	if script == None:
 		c = open('data' + os.sep + 'cutscenes' + os.sep + name + '.txt', 'rt')
-		t = c.read()
+		script = c.read().strip()
 		c.close()
-		script = trim(t)
 		_cutSceneStore[name] = script
 		
 	return CutScene(script, name)

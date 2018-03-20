@@ -16,12 +16,12 @@ def reserializeEnemies():
 			current = []
 			enemies_found = False
 			for rline in lines:
-				line = trim(rline)
+				line = rline.strip()
 				pieces = line.split(':')
 				if pieces[0] != '#enemies':
 					output.append(line)
 				else:
-					value = trim(pieces[1])
+					value = pieces[1].strip()
 					if len(value) > 0:
 						enemies_found = True
 						current = value.split(',') + _new_enemies

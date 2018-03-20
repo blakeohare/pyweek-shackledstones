@@ -6,7 +6,7 @@ class TileTemplate:
 		
 		images = []
 		for img in self.imagefiles:
-			images.append(get_image('tiles' + os.sep + trim(img)))
+			images.append(get_image('tiles/' + img.strip()))
 		self.images = images
 		
 		if len(parts) == 5:

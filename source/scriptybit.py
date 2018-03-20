@@ -24,14 +24,14 @@ class ParserClass:
 		
 		p = self._re_bracket
 		m = p.match(string)
-		cmd = trim(m.group(1))
+		cmd = m.group(1).strip()
 		args = []
 		
 		while True:
 			m = p.match(string, m.end())
 			if not m:
 				break
-			args.append(trim(m.group(1)))
+			args.append(m.group(1).strip())
 		
 		return (cmd, args)
 	
@@ -44,7 +44,7 @@ class ParserClass:
 		
 		scr = []
 		for line in f:
-			scr.append(trim(line))
+			scr.append(line.strip())
 		return ScriptIter(scr)
 Parser = ParserClass()
 
