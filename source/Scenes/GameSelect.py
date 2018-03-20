@@ -181,5 +181,3 @@ class GameSelectScene:
 			screen.blit(g, (cx + 10 + cancel.get_width(), gy))
 			
 		# stone badges
-		
-		

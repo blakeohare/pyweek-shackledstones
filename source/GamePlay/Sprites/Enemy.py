@@ -205,4 +205,3 @@ class Enemy:
 				counter = ('0','1','0','2')[render_counter & 3]
 			return get_image('sprites/mechanicalman/' + self.direction + str(counter))
 		return get_image('sprites/blob/anim0')
-		

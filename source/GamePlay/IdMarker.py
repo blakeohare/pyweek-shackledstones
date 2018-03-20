@@ -1,4 +1,3 @@
-
 class IdMarker:
 	def __init__(self, name, layer, x, y, script):
 		self.name = name
@@ -6,4 +5,3 @@ class IdMarker:
 		self.layer = layer
 		self.y = y
 		self.x = x
-	

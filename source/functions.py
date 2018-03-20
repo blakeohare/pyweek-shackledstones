@@ -22,35 +22,35 @@ def go_script_go(script_contents):
 	MapScript(ScriptIter(script_contents.split('\n'))).Exec()
 
 def scriptPath(*path):
-   p = os.path.join('data', 'scripts', *path)
-   p = '%s.scr' % (p)
-   return p
+	p = os.path.join('data', 'scripts', *path)
+	p = '%s.scr' % (p)
+	return p
 
 def portraitPath(*path):
-   p = os.path.join('images', 'portraits', *path)
-   p = '%s.png' % p
-   return p
+	p = os.path.join('images', 'portraits', *path)
+	p = '%s.png' % p
+	return p
 
 def uiImgPath(*path):
-   p = os.path.join('images', 'ui', *path)
-   p = '%s.png' % p
-   return p
+	p = os.path.join('images', 'ui', *path)
+	p = '%s.png' % p
+	return p
 
 def render_text(string, color = BLACK):
-   return _font.render(string, True, color)
+	return _font.render(string, True, color)
 
 _fontBucket = {}
 def render_text_size(size, string, color = BLACK, fontPath = MENU_FONT):
-   fontKey = '%s-%s' % (fontPath, str(size))
-   f = _fontBucket.get(fontKey)
-   
-   if not f:
-      f = pygame.font.Font(fontPath, size)
-      _fontBucket[fontKey] = f
-   return f.render(string, True, color)
+	fontKey = '%s-%s' % (fontPath, str(size))
+	f = _fontBucket.get(fontKey)
+	
+	if not f:
+		f = pygame.font.Font(fontPath, size)
+		_fontBucket[fontKey] = f
+	return f.render(string, True, color)
 
 def render_number(num, color=BLACK, sz=15):
-   return render_text_size(sz, str(num), color, TEXT_FONT)
+	return render_text_size(sz, str(num), color, TEXT_FONT)
 
 	
 def make_list(size):
@@ -104,44 +104,44 @@ def heal_damage():
 	set_life(get_life() + 1)
 
 def wrap_text(surf, txt, fnt):
-   lineWidth = surf.get_width()
-   words = re.split("\s", txt)
-   clr = pygame.Color('#ffffff')
-   
-   lineSet = []
-   curLine = ''
-   curWidth = 0
-   for word in words:
-      word = trim(word)
-      
-      if (word == '$nl$'):
-         if curLine != '':
-            lineSet.append(curLine)
-            curLine = ''
-            curWidth = 0
-         lineSet.append('')
-         continue
+	lineWidth = surf.get_width()
+	words = re.split("\s", txt)
+	clr = pygame.Color('#ffffff')
+	
+	lineSet = []
+	curLine = ''
+	curWidth = 0
+	for word in words:
+		word = trim(word)
+		
+		if (word == '$nl$'):
+			if curLine != '':
+				lineSet.append(curLine)
+				curLine = ''
+				curWidth = 0
+			lineSet.append('')
+			continue
 
-      if (curLine != ''):
-         renderWord = ' %s' % word
-      else:
-         renderWord = word
-      
-      wSurf = fnt.render(renderWord, True, clr)
-      wordWidth = wSurf.get_width()
-      
-      if (curWidth + wordWidth) < lineWidth:
-         curLine += renderWord
-         curWidth += wordWidth
-      else:
-         lineSet.append(curLine)
-         curLine = word
-         curWidth = wordWidth
-   
-   if (curLine != ''):
-      lineSet.append(curLine)
-   
-   return lineSet
+		if (curLine != ''):
+			renderWord = ' %s' % word
+		else:
+			renderWord = word
+		
+		wSurf = fnt.render(renderWord, True, clr)
+		wordWidth = wSurf.get_width()
+		
+		if (curWidth + wordWidth) < lineWidth:
+			curLine += renderWord
+			curWidth += wordWidth
+		else:
+			lineSet.append(curLine)
+			curLine = word
+			curWidth = wordWidth
+	
+	if (curLine != ''):
+		lineSet.append(curLine)
+	
+	return lineSet
 
 def lines_visible(surf, fnt):
-   return int(surf.get_height() / fnt.get_height())
+	return int(surf.get_height() / fnt.get_height())

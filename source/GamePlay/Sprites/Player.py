@@ -228,4 +228,3 @@ class Player:
 				return get_image('sprites/maincharacter/'+img_name+'down' + counter)
 			
 		return get_image('sprites/maincharacter/down' + counter)
-		

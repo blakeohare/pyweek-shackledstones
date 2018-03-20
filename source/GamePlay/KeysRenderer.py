@@ -15,5 +15,3 @@ class KeyRenderer:
 				screen.blit(image, area)
 			xoffset+=16
 			screen.blit
-		
-			

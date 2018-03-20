@@ -1,5 +1,3 @@
-
-
 class TileStore:
 	def __init__(self):
 		tile_file = 'data' + os.sep + 'tiles.txt'
@@ -18,7 +16,6 @@ class TileStore:
 	
 	def GetTile(self, id):
 		return self.templates.get(id)
-			
 
 ### STATIC ###
 
@@ -28,5 +25,3 @@ def get_tile_store():
 	if _tileStore == None:
 		_tileStore = TileStore()
 	return _tileStore
-	
-	

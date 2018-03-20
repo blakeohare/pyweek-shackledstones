@@ -1,4 +1,3 @@
-
 def get_normalized_vector(xa, ya, xb, yb):
 	dx = xb - xa
 	dy = yb - ya
@@ -11,10 +10,6 @@ def get_normalized_vector(xa, ya, xb, yb):
 	dx = dx / d
 	dy = dy / d
 	return (dx, dy)
-	
-			
-	
-			
 
 class DeathCircle:
 	def __init__(self, x, y, radius, duration, type):

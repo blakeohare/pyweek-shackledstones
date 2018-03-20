@@ -1,4 +1,3 @@
-
 class TileTemplate:
 	def __init__(self, parts):
 		self.id = parts[0]

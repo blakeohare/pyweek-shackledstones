@@ -1,5 +1,3 @@
-
-	
 class Level:
 	def __init__(self, name):
 		self.name = name
@@ -312,8 +310,5 @@ class Level:
 						
 					x += 1
 				y += 1
-			
-			
 		
 		return walls
-		

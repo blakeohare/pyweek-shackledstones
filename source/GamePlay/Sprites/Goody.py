@@ -36,4 +36,3 @@ class Goody:
 			return get_image('misc/money' + counter)
 		else:
 			return get_image('misc/life_refill' + counter)
-		

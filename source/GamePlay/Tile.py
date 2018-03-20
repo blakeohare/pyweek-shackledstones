@@ -1,4 +1,3 @@
-
 class Tile:
 	def __init__(self, id_list):
 		self.orig_stack = id_list[:]
@@ -98,7 +97,6 @@ class Tile:
 			self.physics = 'xxxx'
 			return
 		
-		
 		physics = [True, True, True, True]
 		for tile in self.stack:
 			tphys = tile.physics
@@ -137,4 +135,3 @@ class Tile:
 	
 	def _dont_render(self, screen, x, y, render_counter):
 		pass
-			

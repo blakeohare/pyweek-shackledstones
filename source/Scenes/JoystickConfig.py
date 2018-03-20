@@ -1,6 +1,3 @@
-
-
-
 class JoystickConfigScene:
 	def __init__(self):
 		global _inputManager

@@ -58,4 +58,3 @@ class CompassRenderer:
 			pygame.draw.polygon(screen, (180, 0, 0), [n, e, w])
 			pygame.draw.polygon(screen, (255, 255, 255), [s, e, w])
 			pygame.draw.polygon(screen, (0,0,0), [n, e, s, w], 2)
-			

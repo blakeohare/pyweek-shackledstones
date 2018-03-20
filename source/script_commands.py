@@ -3,8 +3,8 @@
 # tileId ---------- the id of the tile to warp to (alpha numeric)
 # transitionStyle - how the warp is displayed, will be one of WARP_X from constants.py
 def do_warp(mapFile, tileId, transitionStyle = WARP_INSTANT):
-   game_scene = ActiveGame().GetActiveGameScene()
-   game_scene.next = TransitionScene(game_scene, mapFile, tileId, transitionStyle)
+	game_scene = ActiveGame().GetActiveGameScene()
+	game_scene.next = TransitionScene(game_scene, mapFile, tileId, transitionStyle)
 
 cr.Register("warp", do_warp, 3)
 
@@ -12,8 +12,8 @@ cr.Register("warp", do_warp, 3)
 # dialog: transitions to a dialogue scene using the indicated file as script
 # scriptFile - file path (relative, from base directory)
 def do_dialog(scriptFile):
-   pass
-   
+	pass
+	
 cr.Register("dialog", do_dialog, 1)
 
 # remove tile: removes a tile from the map
@@ -21,7 +21,7 @@ cr.Register("dialog", do_dialog, 1)
 # detailLayer - which detail layer to remove it from
 def do_removeTile(tileId, detailLayer):
 	return do_setTile(tileId, detailLayer, '')
-   
+	
 cr.Register('remove tile', do_removeTile, 2)
 
 # set tile: updates the tile at a location
@@ -43,10 +43,10 @@ def do_setTile(posId, detailLayer, tileTypeId):
 cr.Register('set tile', do_setTile, 3)
 
 def do_sound(file):
-   play_sound(file)
+	play_sound(file)
 
 def do_music(file, loop = False):
-   play_music(file)
+	play_music(file)
 
 def do_toggle_mirror(mirror_name):
 	current = ActiveGame().GetVar('mirror_state_' + mirror_name)
@@ -64,8 +64,8 @@ def do_switch_scene(newScene):
 		game_scene.next = SimpleAnimationScene('flyaway')
 	if newScene == 'flyhome':
 		game_scene.next = SimpleAnimationScene('flyhome')
-   
-   
+	
+	
 def do_cutscene(cutscene):
 	game_scene = ActiveGame().GetActiveGameScene()
 	game_scene.player.walking = False
@@ -142,4 +142,3 @@ def do_buy(item):
 		ActiveGame().SetTempVar('transaction_failed', '1')
 	
 	return True
-	

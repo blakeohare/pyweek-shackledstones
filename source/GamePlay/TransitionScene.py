@@ -92,8 +92,7 @@ class TransitionScene:
 			image.set_alpha(alpha)
 			screen.blit(image, (0,0))
 		self.overlayRenderer.Render(screen)
-		
-			
+
 	def pixelate_this(self, image, amount):
 		minimum_w = 10
 		maximum_w = image.get_width()
@@ -108,14 +107,9 @@ class TransitionScene:
 		
 		pygame.transform.scale(tempScreen, (image.get_width(), image.get_height()), image)
 		return image
-		
-		
-			
-		
-	
-	
 
 ### STATIC ###
+
 _temp_screen_for_transitions = None
 _temp_screens = { }
 def GetTempScreen(real_screen):

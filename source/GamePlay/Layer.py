@@ -1,10 +1,9 @@
-
-
 class Layer:
 	def __init__(self, width, height):
 		self.contains_stuff = False
 		self.width = width
 		self.height = height
+
 	def SetTiles(self, tile_list):
 		self.tiles = make_table(self.width, self.height)
 		self.contains_stuff = True

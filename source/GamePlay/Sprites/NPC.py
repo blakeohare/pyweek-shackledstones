@@ -49,4 +49,3 @@ class NPC:
 				return get_image('sprites/'+self.name+'/down' + counter)
 	
 		return get_image('sprites/'+self.name+'/down' + counter)
-		

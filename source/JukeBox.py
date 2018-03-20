@@ -17,7 +17,7 @@ class JukeBox:
 			self.MakeMusicLoud()
 			self.now_playing = name
 			if not name.endswith('.mp3'):
-				name=name+".mp3"
+				name = name+".mp3"
 			pygame.mixer.music.load('media' + os.sep + 'music' + os.sep + name)
 			pygame.mixer.music.play(-1)
 	

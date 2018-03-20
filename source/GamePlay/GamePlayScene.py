@@ -1,4 +1,3 @@
-
 class GamePlayScene:
 	
 	def __init__(self, level_name, startX, startY):
@@ -658,15 +657,11 @@ class GamePlayScene:
 			if sprite.layer == layer:
 				sprites.append(sprite)
 		
-		
-		
 		if self.player.layer == layer and not self.player_invisible:
 			
 			unsorted_spritelist = [self.player] + sprites
 		else:
 			unsorted_spritelist = sprites
-		
-		
 		
 		return self.sort_sprite_list(unsorted_spritelist)
 	

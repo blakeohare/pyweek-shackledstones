@@ -181,11 +181,6 @@ class CutSceneEvent:
 			sprite.y = target_y * progress + anti_progress * self.source_y
 			
 		self.first_time_through = False
-			
-	
-	
-		
-		
 
 class CutScene:
 	
@@ -231,17 +226,14 @@ class CutScene:
 					self.event_queue.append(InputEvent(self.commands[0].key_pressed, True))
 			if not do_again:
 				return
-				
 
 ### STATIC ###
 
 _cutSceneStore = { }
 
-
 _play_once = {
 	'interrogation' : False,
 	'at_water_temple' : False,
-	
 }
 
 def get_cutscene(name):
@@ -255,7 +247,6 @@ def get_cutscene(name):
 		_cutSceneStore[name] = script
 		
 	return CutScene(script, name)
-	
 	
 def get_cutscene_for_map(map_name):
 	global _play_once
@@ -279,4 +270,3 @@ def get_cutscene_for_map(map_name):
 			ActiveGame().SetSavedVar(key, 1)
 			
 	return cs
-	

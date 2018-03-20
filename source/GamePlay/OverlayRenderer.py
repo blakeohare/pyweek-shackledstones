@@ -10,7 +10,6 @@ class OverlayRenderer:
 		life = get_life()
 		max_life = get_max_life()
 		
-		
 		top = 8
 		left = 150
 		width = 10

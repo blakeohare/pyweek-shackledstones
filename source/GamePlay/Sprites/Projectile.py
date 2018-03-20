@@ -119,4 +119,3 @@ class Projectile:
 		elif self.kind == 'fire':
 			return get_image('sprites/bullets/fire')
 		return get_image('sprites/bullets/basic')
-		
