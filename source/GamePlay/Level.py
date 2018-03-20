@@ -21,9 +21,7 @@ class Level:
 			layer.RunScript(tile_x, tile_y)
 	
 	def parse_file(self, file):
-		c = open('maps' + os.sep + file + '.txt', 'rt')
-		lines = c.read().split('\n')
-		c.close()
+		lines = read_text_file('maps/' + file + '.txt').split('\n')
 		
 		values = {}
 		for line in lines:

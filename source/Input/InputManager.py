@@ -8,9 +8,7 @@ def reserializeEnemies():
 		gs = active_game.GetActiveGameScene()
 		if gs != None:
 			file = gs.name
-			c = open('maps' + os.sep + file  + '.txt', 'rt')
-			lines = c.read().split('\n')
-			c.close()
+			lines = read_text_file('maps/' + file  + '.txt').split('\n')
 			
 			output = []
 			current = []
@@ -32,14 +30,10 @@ def reserializeEnemies():
 			current = current + _new_enemies
 			_new_enemies = []
 			if len(current) > 0:
-				
 				output.append('#enemies:' + ','.join(current))
-			output = '\n'.join(output)
-			c = open('maps' + os.sep + file + '.txt', 'wt')
-			c.write(output)
-			c.close()
 			
-					
+			write_text_file('maps/' + file + '.txt', '\n'.join(output))
+			
 def start_enemy_insertion_session():
 	global _new_enemies, _invincible
 	_new_enmies = []

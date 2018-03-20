@@ -69,9 +69,8 @@ class GameInstance:
 		if slot == None:
 			slot = self.slot
 		values = {}
-		c = open('saves' + os.sep + 'slot' + str(slot) + '.txt', 'rt')
-		lines = c.read().strip().split('\n')
-		c.close()
+		lines = read_text_file('saves/slot' + str(slot) + '.txt').strip().split('\n')
+		
 		for line in lines:
 			parts = line.strip().split(':')
 			if len(parts) > 1:
@@ -100,19 +99,15 @@ class GameInstance:
 			else:
 				name = '#' + key
 			output.append(name + ':' + str(value))
-		c = open('saves' + os.sep + 'slot' + str(self.slot) + '.txt', 'wt')
-		c.write('\r\n'.join(output))
-		c.close()
+		write_text_file('saves/slot' + str(self.slot) + '.txt', '\n'.join(output))
 
 class GameContext:
 	
 	def __init__(self):
 		for i in (1, 2, 3):
-			file = 'saves' + os.sep + 'slot' + str(i) + '.txt'
-			if not os.path.exists(file):
-				c = open(file, 'wt')
-				c.write(' ')
-				c.close()
+			file = 'saves/slot' + str(i) + '.txt'
+			if not file_exists(file):
+				write_text_file(file, ' ')
 		self.slots = [GameInstance(1), GameInstance(2), GameInstance(3)]
 		self.active_game = None
 

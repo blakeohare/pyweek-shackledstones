@@ -37,15 +37,9 @@ class ParserClass:
 	
 	# Loads a file into a ScriptIter
 	def LoadFile(self, path):
-		if not path or not os.path.exists(path):
-			print("ERR: %s could not be found" % (str(path)))
-			return None
-		f = open(path)
-		
-		scr = []
-		for line in f:
-			scr.append(line.strip())
+		scr = read_text_file(path).split('\n')
 		return ScriptIter(scr)
+
 Parser = ParserClass()
 
 # Abstration for the varying sources a script could come from
@@ -209,7 +203,7 @@ def testParser():
 		ret = Parser.Segment(a)
 		print(ret)
 	
-	p = scriptPath('test')
+	p = 'data/scripts/test.txt'
 	print('loading: %s' % p)
 	si = Parser.LoadFile(p)
 	print(si)

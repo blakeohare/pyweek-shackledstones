@@ -156,7 +156,7 @@ class CutSceneEvent:
 	
 	def show_dialog(self, game_scene):
 		game_scene.next = DialogScene(
-			Dialog(Parser.LoadFile(scriptPath(self.dialog_script))), game_scene)
+			Dialog(Parser.LoadFile('data/scripts/' + self.dialog_script + '.txt')), game_scene)
 	
 	def setspritestate(self, game_scene):
 		sprite = game_scene.get_sprite_by_id(self.sprite_id)
@@ -240,11 +240,8 @@ def get_cutscene(name):
 	global _cutSceneStore
 	script = _cutSceneStore.get(name)
 	if script == None:
-		c = open('data' + os.sep + 'cutscenes' + os.sep + name + '.txt', 'rt')
-		script = c.read().strip()
-		c.close()
+		script = read_text_file('data/cutscenes/' + name + '.txt').strip()
 		_cutSceneStore[name] = script
-		
 	return CutScene(script, name)
 	
 def get_cutscene_for_map(map_name):

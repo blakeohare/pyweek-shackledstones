@@ -11,10 +11,8 @@ class MainMenuScene:
 		return
 		GameContext().SetActiveGame(1)
 		ActiveGame().SetSavedVar('name', 'SUE')
-		if os.path.exists('map_test.txt'):
-			c = open('map_test.txt', 'rt')
-			t = c.read().split('\n')
-			c.close()
+		if file_exists('map_test.txt'):
+			t = read_text_file('map_test.txt').split('\n')
 			map_name = t[0].strip()
 			coords = t[1].strip().split(',')
 			scene = GamePlayScene(map_name, int(coords[0]) << 4, int(coords[1]) << 4)

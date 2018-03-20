@@ -132,7 +132,7 @@ class Choice:
 # Testing Code
 
 def testDialog():
-	si = Parser.LoadFile(scriptPath('test'))
+	si = Parser.LoadFile('data/scripts/test.txt')
 	d = Dialog(si)
 	
 	print('----------------------')
