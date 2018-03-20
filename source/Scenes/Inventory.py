@@ -11,28 +11,27 @@ class InventoryScene:
 		self._itemSurf = {}
 		self._selection = [0, 0]
 		
-		il = ImageLib
 		isurf = self._itemSurf
 		
-		isurf['cannon-icon'] = il.FromFile(uiImgPath('cannon-icon'))
-		isurf[i.Cannon()] = il.FromFile(uiImgPath('ammo-sshot'))
-		isurf[i.CannonFire()] = il.FromFile(uiImgPath('ammo-fire'))
-		isurf[i.CannonIce()] = il.FromFile(uiImgPath('ammo-ice'))
-		isurf[i.CannonMulti()] = il.FromFile(uiImgPath('ammo-multi'))
-		isurf[i.Sabre()] = il.FromFile(uiImgPath('sabre-have'))
-		isurf[i.Hammer()] = il.FromFile(uiImgPath('hammer-have'))
-		isurf[i.Drill()] = il.FromFile(uiImgPath('drill-have'))
-		isurf[i.Hook()] = il.FromFile(uiImgPath('hook-have'))
-		isurf[i.Compass()] = il.FromFile(uiImgPath('compass-have'))
-		isurf[i.Shovel()] = il.FromFile(uiImgPath('shovel-have'))
+		isurf['cannon-icon'] = get_image('ui/cannon-icon.png')
+		isurf[i.Cannon()] = get_image('ui/ammo-sshot.png')
+		isurf[i.CannonFire()] = get_image('ui/ammo-fire.png')
+		isurf[i.CannonIce()] = get_image('ui/ammo-ice.png')
+		isurf[i.CannonMulti()] = get_image('ui/ammo-multi.png')
+		isurf[i.Sabre()] = get_image('ui/sabre-have.png')
+		isurf[i.Hammer()] = get_image('ui/hammer-have.png')
+		isurf[i.Drill()] = get_image('ui/drill-have.png')
+		isurf[i.Hook()] = get_image('ui/hook-have.png')
+		isurf[i.Compass()] = get_image('ui/compass-have.png')
+		isurf[i.Shovel()] = get_image('ui/shovel-have.png')
 	
 	def ProcessInput(self, events):
 		for e in events:
 			if e.down and e.key == 'start':
 				self._baseScene.next = self._baseScene
 				self.next = self._baseScene
-				# self._i.PrintEquipped()
 				return
+
 			if e.down:
 				if e.key == 'up':
 					self._selection[1] -= 1
@@ -142,8 +141,8 @@ class InventoryScene:
 				screen.blit(surf, (ex + bw + yw + 26 + 3, ey + 23))
 
 		# draw player money:
-		coinSurf = ImageLib.FromFile(os.path.join('images', 'misc', 'money0.png'))
-		cx = money_off_x + 4 # moneySurf.get_width() - coinSurf.get_width() - 5
+		coinSurf = get_image('misc/money0.png')
+		cx = money_off_x + 4
 		cy = money_off_y + int((moneySurf.get_height() - coinSurf.get_height()) / 2)
 		screen.blit(coinSurf, (cx, cy))
 		
@@ -202,7 +201,7 @@ class Inventory:
 	def Surf(self, slot):
 		i = self._Equipped(slot)
 		if i:
-			return ImageLib.FromFile(uiImgPath('%s' % i))
+			return get_image('ui/' + i + '.png')
 		else:
 			return None
 	

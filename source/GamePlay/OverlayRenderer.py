@@ -16,6 +16,5 @@ class OverlayRenderer:
 		height = 12
 		i = 0
 		
-		path = uiImgPath('health', 'h%d' % life)
-		surf = ImageLib.FromFile(path)
+		surf = get_image('ui/health/h' + str(life) + '.png')
 		screen.blit(surf, (5, 5))

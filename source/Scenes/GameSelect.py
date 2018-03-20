@@ -12,7 +12,7 @@ class GameSelectScene:
 		self._gears = []
 		i = 1
 		while i <= 4:
-			self._gears.append(ImageLib.FromFile(uiImgPath('gear%d' % i)))
+			self._gears.append(get_image('ui/gear' + str(i) + '.png'))
 			i += 1
 	
 	def ProcessInput(self, events):
@@ -143,28 +143,22 @@ class GameSelectScene:
 			else:
 				nameSurf = render_text_size(17, 'New Game', descColor)
 			
-			nx = sx + 10 #int((selSurf.get_width() - nameSurf.get_width())/2) + sx
+			nx = sx + 10
 			ny = int((selSurf.get_height() - nameSurf.get_height()) / 2) + sy
 			screen.blit(nameSurf, (nx, ny))
 
 			if name:
-				#stSurf = ImageLib.FromFile(uiImgPath('badges'))
-				#bx = sx + selSurf.get_width() - stSurf.get_width()
-				#by = int((selSurf.get_height() - stSurf.get_height()) / 2) + sy
-				#screen.blit(stSurf, (bx, by))
-
 				stones = gc.GetStones(slot_num)
 				j = 0
 				stones.reverse()
 				for st in stones:
-					stSurf = ImageLib.FromFile(uiImgPath('stones', st))
+					stSurf = get_image('ui/stones/' + st + '.png')
 					stx = sx + selSurf.get_width() - 10 - ((1 + j) * 20)
 					sty = sy + int((selSurf.get_height() - stSurf.get_height()) / 2)
 					
 					screen.blit(stSurf, (stx, sty))
 					j += 1
 
-			#end while
 			i += 1
 		
 		erase = render_text_size(20, 'Erase', txtColor)

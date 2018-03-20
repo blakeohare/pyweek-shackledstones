@@ -34,7 +34,7 @@ class GameOverScene:
 		self._gears = []
 		i = 1
 		while i <= 4:
-			self._gears.append(ImageLib.FromFile(uiImgPath('gear%d' % i)))
+			self._gears.append(get_image('ui/gear' + str(i) + '.png'))
 			i += 1
 
 	

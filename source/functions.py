@@ -26,16 +26,6 @@ def scriptPath(*path):
 	p = '%s.scr' % (p)
 	return p
 
-def portraitPath(*path):
-	p = os.path.join('images', 'portraits', *path)
-	p = '%s.png' % p
-	return p
-
-def uiImgPath(*path):
-	p = os.path.join('images', 'ui', *path)
-	p = '%s.png' % p
-	return p
-
 def render_text(string, color = BLACK):
 	return _font.render(string, True, color)
 

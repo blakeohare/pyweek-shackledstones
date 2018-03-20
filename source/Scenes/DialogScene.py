@@ -2,7 +2,6 @@ class DialogScene:
 	def __init__(self, dlg, sourceScene):
 		if not isinstance(dlg, Dialog):
 			raise Exception("dlg must an object of type Dialog")
-		ImageLib.Add('d-frame', uiImgPath('dframe'))
 		
 		self.next = self
 		self._source = sourceScene
@@ -67,22 +66,15 @@ class DialogScene:
 		self._source.Render(screen)
 		
 		p = d.Profile()
-		pSurf = None
 
 		if p:
-			side = 'right'
-			if p == 'mc_portrait':
-				side = 'left'
-			p = portraitPath(p)
-			if p:
-				pSurf = ImageLib.FromFile(p)
-		if pSurf:
-			if side == 'left':
-				screen.blit(pSurf, (4, 110))
-			else:
-				screen.blit(pSurf, (290, 110))
+			isMainCharacter = p == 'mc_portrait'
+			pSurf = get_image('portraits/' + p + '.png')
+			x = 4 if isMainCharacter else 290
+			y = 110
+			screen.blit(pSurf, (x, y))
 			
-		df = ImageLib.Get('d-frame')
+		df = get_image('ui/dframe.png')
 		screen.blit(df, (0,screen.get_height() - df.get_height() - 4))
 		
 		textSurface= pygame.Surface(((df.get_width() - (2 * D_TEXT_OFFSET_X)), df.get_height()))
