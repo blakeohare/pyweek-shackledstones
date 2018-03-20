@@ -6,20 +6,16 @@ def do_warp(mapFile, tileId, transitionStyle = WARP_INSTANT):
 	game_scene = getActiveGame().getActiveGameScene()
 	game_scene.next = TransitionScene(game_scene, mapFile, tileId, transitionStyle)
 
-
-
 # dialog: transitions to a dialogue scene using the indicated file as script
 # scriptFile - file path (relative, from base directory)
 def do_dialog(scriptFile):
 	pass
-	
 
 # remove tile: removes a tile from the map
 # tileId ------ id indicating which position and layer
 # detailLayer - which detail layer to remove it from
 def do_removeTile(tileId, detailLayer):
 	return do_setTile(tileId, detailLayer, '')
-
 
 # set tile: updates the tile at a location
 # posId ------- id indicating which position and layer
@@ -60,8 +56,7 @@ def do_switch_scene(newScene):
 		game_scene.next = SimpleAnimationScene('flyaway')
 	if newScene == 'flyhome':
 		game_scene.next = SimpleAnimationScene('flyhome')
-	
-	
+
 def do_cutscene(cutscene):
 	game_scene = getActiveGame().getActiveGameScene()
 	game_scene.player.walking = False

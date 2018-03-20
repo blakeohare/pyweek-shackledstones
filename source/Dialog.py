@@ -91,7 +91,7 @@ class Dialog(Scripted):
 		return True
 	
 	def _addChoice(self, label, text):
-		self._choices.append(Choice(text, label))
+		self._choices.append(DialogChoice(text, label))
 		return True
 	
 	def _saveGame(self):
@@ -115,15 +115,3 @@ class Dialog(Scripted):
 	
 	def _pause(self):
 		return False
-
-class Choice:
-	def __init__(self, txt, label):
-		self._text = txt
-		self._label = label
-	def __str__(self):
-		return '[%s] %s' % (self.Label(), self.Text())
-	
-	def Text(self):
-		return self._text
-	def Label(self):
-		return self._label
