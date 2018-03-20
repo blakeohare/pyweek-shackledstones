@@ -23,7 +23,7 @@ imports = pyweek_root + 'source' + os.sep + 'imports.py'
 main = pyweek_root + 'source' + os.sep + 'main.py'
 functions = pyweek_root + 'source' + os.sep + 'functions.py'
 globals = pyweek_root + 'source' + os.sep + 'globals.py'
-exempt = [imports, main, functions, constants]
+exempt = [imports, main, functions, globals]
 
 root = pyweek_root + 'source'
 
