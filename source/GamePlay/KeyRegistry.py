@@ -50,12 +50,12 @@ class KeyRegistry:
 	
 	def getVar(self, var):
 		return getActiveGame().getVar(var)
+
 	def SetVar(self, var, value):
 		getActiveGame().setSavedVar(var, value)
 
-### STATIC ###
-
-_key_registry = KeyRegistry()
 def getKeyRegistry():
 	global _key_registry
+	if _key_registry == None:
+		_key_registry = KeyRegistry()
 	return _key_registry

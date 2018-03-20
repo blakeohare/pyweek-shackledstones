@@ -19,7 +19,6 @@ class NPC:
 		self.explode_on_impact = False
 	
 	def drawingCoords(self):
-	
 		coords = (self.x - self.r, self.y - self.r - 13)
 		if self.name == 'shopkeeper': return (coords[0], coords[1] - 3)
 		return coords
@@ -28,7 +27,6 @@ class NPC:
 		self.state_counter -= 1
 		if self.state_counter <= 0 and self.state != 'walking' and self.state != 'standing':
 			self.state = 'standing'
-		
 	
 	def currentImage(self, render_counter):
 		if self.name == 'shopkeeper':

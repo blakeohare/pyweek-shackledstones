@@ -693,21 +693,3 @@ class GamePlayScene:
 		sprite.x = params[1]
 		sprite.y = params[2]
 		return params[3]
-
-### STATIC ###
-_defaultMirror = {
-	'A' : 'mirror1',
-	'B' : 'mirror2',
-	'C' : 'mirror3',
-	'D' : 'mirror4',
-	'E' : 'mirror1',
-	'F' : 'mirror2',
-	'G' : 'mirror3',
-	'H' : 'mirror4',
-	'I' : 'mirror1',
-	'J' : 'mirror2',
-	'K' : 'mirror3',
-	'L' : 'mirror4',
-	'M' : 'mirror1',
-	'N' : 'mirror3'
-}

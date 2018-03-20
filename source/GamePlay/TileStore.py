@@ -14,9 +14,6 @@ class TileStore:
 	def getTile(self, id):
 		return self.templates.get(id)
 
-### STATIC ###
-
-_tileStore = None
 def get_tile_store():
 	global _tileStore
 	if _tileStore == None:

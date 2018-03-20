@@ -19,7 +19,7 @@ def main():
 		
 	virtual_screen = pygame.Surface((width, height))
 	
-	_inputManager.initializeJoystick()
+	getInputManager().initializeJoystick()
 	
 	scene = MainMenuScene()
 	
@@ -30,7 +30,7 @@ def main():
 			
 		begin = time.time()
 		
-		scene.processInput(_inputManager.get_events())
+		scene.processInput(getInputManager().get_events())
 		
 		scene.update(counter)
 		
@@ -42,7 +42,7 @@ def main():
 		
 		scene = scene.next
 		
-		change_video_mode = _inputManager.VideoModeChange()
+		change_video_mode = getInputManager().VideoModeChange()
 		if change_video_mode != None:
 			if current_screen_mode == change_video_mode:
 				current_screen_mode = 'windowed'
@@ -62,7 +62,7 @@ def main():
 					screen_width = screen.get_width()
 					screen_height = screen.get_height()
 		
-		if _inputManager.escape_attempted:
+		if getInputManager().escape_attempted:
 			scene = None
 		
 		counter += 1

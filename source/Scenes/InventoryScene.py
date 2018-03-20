@@ -157,10 +157,8 @@ class InventoryScene:
 			row = 0
 			while row < 2:
 				item = self._layout[row][col]
-				if isurf[item]:
-				 if i.check(item):
-					screen.blit(isurf[item], (item_off_x + 4 + (28 * col),
-														item_off_y + 4 + (28 * row)))
+				if isurf[item] and i.check(item):
+					screen.blit(isurf[item], (item_off_x + 4 + (28 * col), item_off_y + 4 + (28 * row)))
 				
 				row += 1
 			col += 1

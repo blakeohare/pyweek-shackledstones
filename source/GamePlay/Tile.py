@@ -46,10 +46,10 @@ class Tile:
 	def removeKey(self):
 		i = 0
 		found = False
-		tilestore = get_tile_store()
+		tileStore = get_tile_store()
 		while i < len(self.orig_stack):
 			id = self.orig_stack[i]
-			tt = tilestore.getTile(id)
+			tt = tileStore.getTile(id)
 			if tt != None and tt.physics.endswith('key'):
 				self.orig_stack[i] = ''
 				found = True
@@ -62,11 +62,12 @@ class Tile:
 		no_animations = True
 		self.door_color = None
 		self.is_grappleable = False
+		tileStore = get_tile_store()
 		for id in self.orig_stack:
 			if id.strip() != '':
 				if id == '63':
 					self.is_grappleable = True
-				tile = _tileStore.getTile(id)
+				tile = tileStore.getTile(id)
 				if tile.physics == 'floor':
 					tile_stack = []
 					no_animations = True

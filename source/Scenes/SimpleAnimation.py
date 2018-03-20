@@ -47,6 +47,4 @@ class SimpleAnimationScene:
 			pod = get_image('misc/escapepod' + str(self.render_counter & 1))
 			screen.blit(pod, (388 + 6 *  - self.render_counter, 120 + self.render_counter))
 
-			
-			
 		self.render_counter += 1

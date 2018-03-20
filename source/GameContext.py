@@ -129,14 +129,14 @@ class GameContext:
 		
 		game.saveToFile()
 
-### STATIC ###
-
-_gameContext = GameContext()
-
 def getActiveGame():
 	global _gameContext
+	if _gameContext == None:
+		_gameContext = GameContext()
 	return _gameContext.active_game
 
 def getGameContext():
 	global _gameContext
+	if _gameContext == None:
+		_gameContext = GameContext()
 	return _gameContext

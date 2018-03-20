@@ -15,6 +15,16 @@ def file_exists(path):
 	realPath = path.replace('/', os.sep)
 	return os.path.exists(realPath)
 
+def get_image(path):
+	img = _imageLibrary.get(path)
+	if img == None:
+		file_path = 'images' + os.sep + path.replace('/', os.sep).replace('\\', os.sep)
+		if not file_path.endswith('.png'):
+			file_path += '.png'
+		
+		_imageLibrary[path] = pygame.image.load(file_path)
+	return _imageLibrary[path]
+
 def go_script_go(script_contents):
 	script_contents = script_contents.replace('\\n', '\n') # -_-
 	MapScript(ScriptIter(script_contents.split('\n'))).execute()

@@ -227,15 +227,6 @@ class CutScene:
 			if not do_again:
 				return
 
-### STATIC ###
-
-_cutSceneStore = { }
-
-_play_once = {
-	'interrogation' : False,
-	'at_water_temple' : False,
-}
-
 def get_cutscene(name):
 	global _cutSceneStore
 	script = _cutSceneStore.get(name)

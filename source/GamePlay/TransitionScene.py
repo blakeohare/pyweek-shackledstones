@@ -108,10 +108,6 @@ class TransitionScene:
 		pygame.transform.scale(tempScreen, (image.get_width(), image.get_height()), image)
 		return image
 
-### STATIC ###
-
-_temp_screen_for_transitions = None
-_temp_screens = { }
 def getTempScreen(real_screen):
 	global _temp_screen_for_transitions
 	if _temp_screen_for_transitions == None:
@@ -119,6 +115,7 @@ def getTempScreen(real_screen):
 		h = real_screen.get_height()
 		_temp_screen_for_transitions = pygame.Surface((w, h))
 	return _temp_screen_for_transitions
+
 def getTempScreenSize(width, height):
 	global _temp_screens
 	index = str(width) + '.' + str(height)

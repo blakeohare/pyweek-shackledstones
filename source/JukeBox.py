@@ -41,19 +41,22 @@ class JukeBox:
 		if not self.current_volume:
 			pygame.mixer.music.set_volume(1.0)
 			self.current_volume = True
-		
-### STATIC ###
-_jukebox = JukeBox()
+
+def getJukebox():
+	global _jukebox
+	if _jukebox == None:
+		_jukebox = JukeBox()
+	return _jukebox
+
 def play_sound(name):
-	global _jukebox
-	_jukebox.PlaySound(name)
+	getJukebox().PlaySound(name)
+
 def play_music(name):
-	global _jukebox
-	_jukebox.PlaySong(name)
+	getJukebox().PlaySong(name)
+
 def reduce_volume():
-	global _jukebox
-	_jukebox.MakeMusicSoft()
+	getJukebox().MakeMusicSoft()
+
 def increase_volume(name):
-	global _jukebox
-	_jukebox.MakeMusicLoud()
+	getJukebox().MakeMusicLoud()
 	

@@ -1,6 +1,5 @@
 class JoystickConfigScene:
 	def __init__(self):
-		global _inputManager
 		self.keys = 'up down left right start X Y A B'.split(' ')
 		
 		self.text = render_text_size(45, "Push this button", WHITE, MENU_FONT)
@@ -19,10 +18,10 @@ class JoystickConfigScene:
 			self.texts[i] =  render_text_size(14, self.texts[i], WHITE, MENU_FONT)
 			
 		self.keyboard = render_text_size(14, "Plug in a USB game pad and relaunch the game", WHITE, MENU_FONT)
-		self.is_error = _inputManager.active_joystick == None
+		self.is_error = getInputManager().active_joystick == None
 		self.render_counter = 1
 		self.active_key_index = 0
-		self.joystick = _inputManager.active_joystick
+		self.joystick = getInputManager().active_joystick
 		self.done = False
 		self.next = self
 		
@@ -87,6 +86,5 @@ class JoystickConfigScene:
 		screen.blit(image, (0, 0))
 		
 		screen.blit(self.text, (10, 10))
-		
 		
 		self.render_counter += 1

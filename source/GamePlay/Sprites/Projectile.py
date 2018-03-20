@@ -1,14 +1,3 @@
-_bulletSwitches = {
-	'Fire_Room2' : ['switch'],
-	'Fire_Key1' : ['switch_B'],
-	'light_rightroom_b1' : ['switch'],
-	'light_south_southroom' : ['switch_left','switch_right'],
-	'light_southroom_b1' : ['switch'],
-	'light_bosshall_f1' : ['left','right'],
-	'world_bridge' : ['switch']
-}
-
-_grapple_singleton = None
 def clear_grapple():
 	global _grapple_singleton
 	_grapple_singleton = None
@@ -60,7 +49,6 @@ class Projectile:
 		return coords
 	
 	def update(self):
-		global _bulletSwitches
 		tiles = _bulletSwitches.get(self.game_scene.name, [])
 		for tile in tiles:
 			tile = self.game_scene.level.ids[tile]

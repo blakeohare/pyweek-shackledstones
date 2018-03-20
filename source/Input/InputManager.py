@@ -334,11 +334,12 @@ class InputManager:
 			self.is_pressed[event.key] = event.down
 		
 		return events
-				
 
+def getInputManager():
+	global _inputManager
+	if _inputManager == None:
+		_inputManager = InputManager()
+	return _inputManager
 
-### STATIC ###
-
-_inputManager = InputManager()
 def is_pressed(key):
-	return _inputManager.is_pressed[key]
+	return getInputManager().is_pressed[key]

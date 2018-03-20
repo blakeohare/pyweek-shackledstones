@@ -174,8 +174,6 @@ class Enemy:
 						else:
 							self.direction = 'down'
 							self.dy = 1
-			
-			
 	
 	def currentImage(self, render_counter):
 		if self.frozen: render_counter = 0
