@@ -3,9 +3,9 @@ class OverlayRenderer:
 		self.compass = CompassRenderer()
 		self.keys = KeyRenderer()
 	
-	def Render(self, screen):
-		self.compass.Render(screen, None)
-		self.keys.Render(screen,ActiveGame().GetActiveGameScene())
+	def render(self, screen):
+		self.compass.render(screen, None)
+		self.keys.render(screen,getActiveGame().getActiveGameScene())
 		
 		life = get_life()
 		max_life = get_max_life()

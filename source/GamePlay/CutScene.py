@@ -117,10 +117,10 @@ class CutSceneEvent:
 		game_scene.torch_puzzle_relight()
 	
 	def save(self, game_scene):
-		ActiveGame().SetSavedVar('save_map', game_scene.name)
-		ActiveGame().SetSavedVar('save_x', game_scene.player.x)
-		ActiveGame().SetSavedVar('save_y', game_scene.player.y)
-		ActiveGame().SaveToFile()
+		getActiveGame().setSavedVar('save_map', game_scene.name)
+		getActiveGame().setSavedVar('save_x', game_scene.player.x)
+		getActiveGame().setSavedVar('save_y', game_scene.player.y)
+		getActiveGame().saveToFile()
 	
 	def shake_screen(self, game_scene):
 		if self.expiration == self.play_sound_on:
@@ -260,9 +260,9 @@ def get_cutscene_for_map(map_name):
 	played_already = _play_once.get(cs_name)
 	if played_already != None:
 		key = 'cut_scene_play_once_' + cs_name
-		if ActiveGame().GetVar(key) == 1:
+		if getActiveGame().getVar(key) == 1:
 			cs = None
 		else:
-			ActiveGame().SetSavedVar(key, 1)
+			getActiveGame().setSavedVar(key, 1)
 			
 	return cs

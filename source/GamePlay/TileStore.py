@@ -11,7 +11,7 @@ class TileStore:
 					template = TileTemplate(parts)
 					self.templates[template.id] = template
 	
-	def GetTile(self, id):
+	def getTile(self, id):
 		return self.templates.get(id)
 
 ### STATIC ###

@@ -21,7 +21,7 @@ class Goody:
 	def DrawingCoords(self):
 		return (self.x,self.y)
 	
-	def Update(self):
+	def update(self):
 		pass
 		
 	def CurrentImage(self, render_counter):

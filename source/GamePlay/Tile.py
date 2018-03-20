@@ -5,12 +5,12 @@ class Tile:
 		self.is_blank = False
 		self.initialize()
 		
-	def SetTile(self, detaillayer, id):
+	def setTile(self, detaillayer, id):
 		index = {'base' : 0, 'baseadorn' : 1, 'basedetail' : 2, 'doodad' : 3, 'doodadadorn' : 4, 'excessive' : 5 }[detaillayer]
 		self.orig_stack[index] = id
 		self.initialize()
 	
-	def ChopTheBushes(self):
+	def chopTheBushes(self):
 		i = 0
 		found = False
 		while i < len(self.orig_stack):
@@ -20,7 +20,8 @@ class Tile:
 			i += 1
 		if found:
 			self.initialize()
-	def SmashBoulders(self):
+
+	def smashBoulders(self):
 		i = 0
 		found = False
 		while i < len(self.orig_stack):
@@ -30,7 +31,8 @@ class Tile:
 			i += 1
 		if found:
 			self.initialize()
-	def DrillThrough(self):
+
+	def drillThrough(self):
 		i = 0
 		found = False
 		while i < len(self.orig_stack):
@@ -41,13 +43,13 @@ class Tile:
 		if found:
 			self.initialize()
 		
-	def RemoveKey(self):
+	def removeKey(self):
 		i = 0
 		found = False
 		tilestore = get_tile_store()
 		while i < len(self.orig_stack):
 			id = self.orig_stack[i]
-			tt = tilestore.GetTile(id)
+			tt = tilestore.getTile(id)
 			if tt != None and tt.physics.endswith('key'):
 				self.orig_stack[i] = ''
 				found = True
@@ -64,7 +66,7 @@ class Tile:
 			if id.strip() != '':
 				if id == '63':
 					self.is_grappleable = True
-				tile = _tileStore.GetTile(id)
+				tile = _tileStore.getTile(id)
 				if tile.physics == 'floor':
 					tile_stack = []
 					no_animations = True
@@ -76,12 +78,12 @@ class Tile:
 					no_animations = False
 		self.stack = tile_stack
 		if len(tile_stack) == 0:
-			self.Render = self._dont_render
+			self.render = self._dont_render
 			self.is_blank = True
 		elif no_animations:
-			self.Render = self._static_render
+			self.render = self._static_render
 		else:
-			self.Render = self._animation_render
+			self.render = self._animation_render
 		
 		self.submerged = False
 		self.ice = False
@@ -89,7 +91,7 @@ class Tile:
 		
 		self.composite_physics()
 	
-	def SetId(self, id):
+	def setId(self, id):
 		self.id = id
 	
 	def composite_physics(self):
@@ -127,7 +129,7 @@ class Tile:
 
 	def _animation_render(self, screen, x, y, render_counter):
 		for tile in self.stack:
-			tile.Render(screen, x, y, render_counter)
+			tile.render(screen, x, y, render_counter)
 	
 	def _static_render(self, screen, x, y, render_counter):
 		for tile in self.stack:

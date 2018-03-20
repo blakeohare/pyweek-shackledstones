@@ -30,13 +30,13 @@ def main():
 			
 		begin = time.time()
 		
-		scene.ProcessInput(_inputManager.get_events())
+		scene.processInput(_inputManager.get_events())
 		
-		scene.Update(counter)
+		scene.update(counter)
 		
 		virtual_screen.fill((0,0,0))
 		
-		scene.Render(virtual_screen)
+		scene.render(virtual_screen)
 		
 		pygame.transform.scale(virtual_screen, (screen_width, screen_height), screen)
 		

@@ -75,7 +75,7 @@ class CreditsScene:
 			self._credits.blit(s, (x, y))
 			y += s.get_height()
 	
-	def ProcessInput(self, events):
+	def processInput(self, events):
 		for e in events:
 			if e.down:
 				if e.Start() or e.A() or e.B():
@@ -83,10 +83,10 @@ class CreditsScene:
 					self.next = mm
 					mm.next = mm
 	
-	def Update(self, conter):
+	def update(self, conter):
 		pass
 	
-	def Render(self, screen):
+	def render(self, screen):
 		c = self._credits
 		sw = screen.get_width()
 		offy = self._y

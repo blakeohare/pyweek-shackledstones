@@ -18,7 +18,7 @@ class Level:
 		tile_y = y >> 4
 		if self.synch_stand_key(layer, tile_x, tile_y):
 			layer = self.layers[layer]
-			layer.RunScript(tile_x, tile_y)
+			layer.runScript(tile_x, tile_y)
 	
 	def parse_file(self, file):
 		lines = read_text_file('maps/' + file + '.txt').split('\n')
@@ -37,7 +37,7 @@ class Level:
 		self.layers = {}
 		self.dungeon = values.get('dungeon', '').strip()
 		
-		GetKeyRegistry().doors = {}
+		getKeyRegistry().doors = {}
 		
 		for layerName in 'A B C D E F Stairs'.split(' '):
 			
@@ -49,7 +49,7 @@ class Level:
 				for spot in spots:
 					tiles = spot.split('|')
 					raw_tile_list.append(Tile(tiles))
-				layer.SetTiles(raw_tile_list)
+				layer.setTiles(raw_tile_list)
 			self.layers[layerName] = layer
 		
 		stair_layer = self.layers['Stairs']
@@ -67,7 +67,7 @@ class Level:
 					x += 1
 				y += 1
 		
-		kr = GetKeyRegistry()
+		kr = getKeyRegistry()
 		self.locked_doors = {}
 		self.unique_locked_doors = []
 		if self.dungeon != None:
@@ -81,7 +81,7 @@ class Level:
 							tile = layer.tiles[x][y]
 							dc = tile.door_color
 							if dc != None:
-								kr.RegisterDoor(self.name, self.dungeon, x, y, dc)
+								kr.registerDoor(self.name, self.dungeon, x, y, dc)
 								for ofs in [(0,1),(0,-1),(1,0),(-1,0)]:
 									self.locked_doors[str(x + ofs[0]) + '_' + str(y + ofs[1])] = [x, y, dc]
 								self.unique_locked_doors.append([x, y, dc])
@@ -93,8 +93,8 @@ class Level:
 				x = locked_door[0]
 				y = locked_door[1]
 				color = locked_door[2]
-				if not kr.IsDoorLocked(self.name, self.dungeon, x, y, color):
-					self.RemoveLockedDoor(x, y)
+				if not kr.isDoorLocked(self.name, self.dungeon, x, y, color):
+					self.removeLockedDoor(x, y)
 	
 		script_strings = values.get('scripts')
 		scripts = {}
@@ -119,28 +119,28 @@ class Level:
 					y = int(parts[3])
 					script = scripts.get(name)
 					id = IdMarker(name, layer, x, y, script)
-					self.layers[layer].tiles[x][y].SetId(id)
+					self.layers[layer].tiles[x][y].setId(id)
 					ids[name] = id
 		self.ids = ids
 		self.enemies = values.get('enemies', '').strip().split(',')
 		self.on_load = values.get('on_load', '').replace("\\n", "\n").replace("\\\\", "\\").strip()
 		self.on_enemies_killed = values.get('on_enemies_killed', '').replace("\\n", "\n").replace("\\\\", "\\").strip()
 		
-	def RemoveLockedDoor(self, x, y):
+	def removeLockedDoor(self, x, y):
 		for layerName in 'A B C D E F'.split(' '):
 			layer = self.layers[layerName]
 			if layer.contains_stuff:
 				if layer.tiles[x][y].door_color != None:
-					layer.tiles[x][y].RemoveKey()
+					layer.tiles[x][y].removeKey()
 					if y > 0:
-						layer.tiles[x][y - 1].RemoveKey()
+						layer.tiles[x][y - 1].removeKey()
 					if y < self.height - 1:
-						layer.tiles[x][y + 1].RemoveKey()
+						layer.tiles[x][y + 1].removeKey()
 				
-	def Render(self, layername, screen, x_offset, y_offset, render_counter):
+	def render(self, layername, screen, x_offset, y_offset, render_counter):
 		layer = self.layers[layername]
 		if layer.contains_stuff:
-			layer.Render(screen, x_offset, y_offset, render_counter)
+			layer.render(screen, x_offset, y_offset, render_counter)
 	
 	
 	def is_stair_tile(self, x, y):
@@ -257,7 +257,7 @@ class Level:
 				x = tile_left
 				while x <= tile_right:
 					if not self.is_stair_tile(x, y):
-						phys = layer.GetPhysics(x, y, blank_blocked)
+						phys = layer.getPhysics(x, y, blank_blocked)
 						if phys == 'oooo':
 							pass
 						elif phys == 'xxxx':

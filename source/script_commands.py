@@ -3,7 +3,7 @@
 # tileId ---------- the id of the tile to warp to (alpha numeric)
 # transitionStyle - how the warp is displayed, will be one of WARP_X from constants.py
 def do_warp(mapFile, tileId, transitionStyle = WARP_INSTANT):
-	game_scene = ActiveGame().GetActiveGameScene()
+	game_scene = getActiveGame().getActiveGameScene()
 	game_scene.next = TransitionScene(game_scene, mapFile, tileId, transitionStyle)
 
 cr.Register("warp", do_warp, 3)
@@ -29,7 +29,7 @@ cr.Register('remove tile', do_removeTile, 2)
 # detailLayer - which detail layer we're acting in
 # tileTypeId -- ID of the tile to add (can be referenced from the tiles.txt file in /data/)
 def do_setTile(posId, detailLayer, tileTypeId):
-	game_scene = ActiveGame().GetActiveGameScene()
+	game_scene = getActiveGame().getActiveGameScene()
 	detailLayer = detailLayer.replace(' ', '').lower()
 	if game_scene != None:
 		layers = game_scene.level.layers
@@ -38,7 +38,7 @@ def do_setTile(posId, detailLayer, tileTypeId):
 		if id == None:
 			print("ERROR: " + posId + ' is not a valid tile ID on this map')
 			return
-		layers[id.layer].tiles[id.x][id.y].SetTile(detailLayer, tileTypeId)
+		layers[id.layer].tiles[id.x][id.y].setTile(detailLayer, tileTypeId)
 	return True
 cr.Register('set tile', do_setTile, 3)
 
@@ -49,17 +49,17 @@ def do_music(file, loop = False):
 	play_music(file)
 
 def do_toggle_mirror(mirror_name):
-	current = ActiveGame().GetVar('mirror_state_' + mirror_name)
+	current = getActiveGame().getVar('mirror_state_' + mirror_name)
 	if current == 'mirror1': current = 'mirror2'
 	elif current == 'mirror2': current = 'mirror3'
 	elif current == 'mirror3': current = 'mirror4'
 	else: current = 'mirror1'
 	play_sound('mirrorrotate')
-	ActiveGame().SetSavedVar('mirror_state_' + mirror_name, current)
+	getActiveGame().setSavedVar('mirror_state_' + mirror_name, current)
 	#print 'toggle ', mirror_name
 
 def do_switch_scene(newScene):
-	game_scene = ActiveGame().GetActiveGameScene()
+	game_scene = getActiveGame().getActiveGameScene()
 	if newScene == 'flyaway':
 		game_scene.next = SimpleAnimationScene('flyaway')
 	if newScene == 'flyhome':
@@ -67,19 +67,19 @@ def do_switch_scene(newScene):
 	
 	
 def do_cutscene(cutscene):
-	game_scene = ActiveGame().GetActiveGameScene()
+	game_scene = getActiveGame().getActiveGameScene()
 	game_scene.player.walking = False
 	game_scene.cutscene = get_cutscene(cutscene)
 	return True
 
 def do_getkey(color):
-	game_scene = ActiveGame().GetActiveGameScene()
+	game_scene = getActiveGame().getActiveGameScene()
 	dungeon = game_scene.level.dungeon
-	GetKeyRegistry().AddKey(dungeon, color)
+	getKeyRegistry().addKey(dungeon, color)
 	return True
 	
 def do_save_point():
-	game_scene = ActiveGame().GetActiveGameScene()
+	game_scene = getActiveGame().getActiveGameScene()
 	do_cutscene('save_point_routine')
 	return True
 
@@ -92,7 +92,7 @@ def do_sign_display(text):
 		finLines.append('\\n')
 		finLines.append(lines[i])
 		i += 1
-	game_scene = ActiveGame().GetActiveGameScene()
+	game_scene = getActiveGame().getActiveGameScene()
 	ds = DialogScene(
 		Dialog(ScriptIter(['[profile][]'] + finLines + ['[pause]','','[end]'])),
 		game_scene)
@@ -128,8 +128,8 @@ def do_buy(item):
 		return True
 	
 	if has_money(price):
-		ActiveGame().SetTempVar('transaction_failed', 0)
-		ActiveGame().SetSavedVar(var, 1)
+		getActiveGame().setTempVar('transaction_failed', 0)
+		getActiveGame().setSavedVar(var, 1)
 		print('set %s to 1' % str(var))
 		modify_money(-price)
 		if item == 'life':
@@ -139,6 +139,6 @@ def do_buy(item):
 			
 	else:
 		print('failure!')
-		ActiveGame().SetTempVar('transaction_failed', '1')
+		getActiveGame().setTempVar('transaction_failed', '1')
 	
 	return True

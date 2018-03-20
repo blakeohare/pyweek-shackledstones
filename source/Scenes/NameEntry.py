@@ -9,7 +9,7 @@ class NameEntryScene:
 		self._tic = 0
 		self._mark = True
 	
-	def ProcessInput(self, events):
+	def processInput(self, events):
 		for e in events:
 			if e.down:
 				if e.Up():
@@ -26,8 +26,8 @@ class NameEntryScene:
 					play_sound("menu2")
 				if (e.A() or e.B() or e.Start()) and self._isCommand():
 					if len(self._name) != 0 and self._done:
-						ActiveGame().SetSavedVar('name', self._name)
-						ActiveGame().SaveToFile()
+						getActiveGame().setSavedVar('name', self._name)
+						getActiveGame().saveToFile()
 						scene = GamePlayScene('transport_1', 64, 72)
 						
 						scene.next = scene
@@ -76,11 +76,11 @@ class NameEntryScene:
 				else:
 					self._done = True
 	
-	def Update(self, conter):
+	def update(self, conter):
 		play_music("menuwaitingroom")
 		pass
 	
-	def Render(self, screen):
+	def render(self, screen):
 		self._tic += 1
 		sz = 18
 		dx = int(sz * 1.3)

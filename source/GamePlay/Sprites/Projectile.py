@@ -59,7 +59,7 @@ class Projectile:
 		coords = (self.x - self.r, self.y - self.r)
 		return coords
 	
-	def Update(self):
+	def update(self):
 		global _bulletSwitches
 		tiles = _bulletSwitches.get(self.game_scene.name, [])
 		for tile in tiles:

@@ -4,7 +4,7 @@ class Layer:
 		self.width = width
 		self.height = height
 
-	def SetTiles(self, tile_list):
+	def setTiles(self, tile_list):
 		self.tiles = make_table(self.width, self.height)
 		self.contains_stuff = True
 		
@@ -32,10 +32,7 @@ class Layer:
 		self.left = left
 		self.right = right
 
-	def MarkStairTile(self, x, y):
-		self.tiles[x][y].is_stair_tile()
-	
-	def GetPhysics(self, x, y, blank_blocked):
+	def getPhysics(self, x, y, blank_blocked):
 		if x >= 0 and x < self.width and y >= 0 and y < self.height:
 			
 			if not blank_blocked and self.tiles[x][y].is_blank:
@@ -43,7 +40,7 @@ class Layer:
 			return self.tiles[x][y].physics
 		return 'xxxx'
 	
-	def RunScript(self, x, y):
+	def runScript(self, x, y):
 		if self.contains_stuff:
 			if x >= 0 and x < self.width and y >= 0 and y < self.height:
 				tile = self.tiles[x][y]
@@ -52,7 +49,7 @@ class Layer:
 					if script != None and script != '':
 						go_script_go(script)
 	
-	def Render(self, screen, x_offset, y_offset, render_counter):
+	def render(self, screen, x_offset, y_offset, render_counter):
 		width = self.width
 		height = self.height
 		tiles = self.tiles
@@ -66,6 +63,6 @@ class Layer:
 		while y < bottom:
 			x = left
 			while x < right:
-				tiles[x][y].Render(screen, x * 16 + x_offset, y * 16 + y_offset, render_counter)
+				tiles[x][y].render(screen, x * 16 + x_offset, y * 16 + y_offset, render_counter)
 				x += 1
 			y += 1

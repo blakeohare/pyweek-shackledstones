@@ -3,8 +3,8 @@ class GamePlayScene:
 	def __init__(self, level_name, startX, startY):
 		global _new_enemies
 		_new_enemies = []
-		ActiveGame().SetActiveGameScene(self)
-		ActiveGame().SetZone(level_name)
+		getActiveGame().setActiveGameScene(self)
+		getActiveGame().setZone(level_name)
 		self.render_counter = 0
 		self.next = self
 		self.player = Player()
@@ -37,9 +37,9 @@ class GamePlayScene:
 		
 		if self.level.dungeon == 'light':
 			mirrors = self.light_puzzle_get_mirror_states()
-			setvar = ActiveGame().SetSavedVar
+			setvar = getActiveGame().setSavedVar
 			setvar('mirror_door_open', 'None')
-			if str(ActiveGame().GetVar('light_puzzle_on')) == '1':
+			if str(getActiveGame().getVar('light_puzzle_on')) == '1':
 				if mirrors['A'] == 'mirror1':
 					if mirrors['B'] == 'mirror2' and mirrors['C'] == 'mirror3' and mirrors['D'] == 'mirror1' and mirrors['E'] == 'mirror3' and mirrors['F'] == 'mirror1':
 						setvar('mirror_door_open', 'Blue')
@@ -56,7 +56,7 @@ class GamePlayScene:
 		self.lever_puz = level_name == 'light_south_southroom'
 		
 		if self.torch_puz:
-			self.swamp_opened = ActiveGame().GetVar('swamp_opened') != None
+			self.swamp_opened = getActiveGame().getVar('swamp_opened') != None
 			
 			if self.swamp_opened:
 				self.open_dark_temple()
@@ -78,7 +78,7 @@ class GamePlayScene:
 			'[set tile][9][doodad][d11]',
 			'[set tile][5][excessive][d41]'
 			]))
-		ActiveGame().SetSavedVar('swamp_opened', '1')
+		getActiveGame().setSavedVar('swamp_opened', '1')
 	
 	def initialize_enemies(self):
 		for enemy in self.level.enemies:
@@ -124,13 +124,13 @@ class GamePlayScene:
 		if layer.contains_stuff and tile_x >= 0 and tile_y >= 0 and tile_x < layer.width and tile_y < layer.height:
 			tile = layer.tiles[tile_x][tile_y]
 			if type == 'sword':
-				tile.ChopTheBushes()
+				tile.chopTheBushes()
 			elif type == 'hammer':
-				tile.SmashBoulders()
+				tile.smashBoulders()
 			elif type == 'drill':
-				tile.DrillThrough()
+				tile.drillThrough()
 			
-	def ProcessInput(self, events):
+	def processInput(self, events):
 	
 		if self.cutscene != None and not self.cutscene.is_done() and self.cutscene.name != 'asynch':
 			events = self.cutscene.get_input_events()
@@ -184,14 +184,14 @@ class GamePlayScene:
 			
 		
 		if actions['item_compass']:
-			compass_active = ActiveGame().GetVar('is_compass_active')
+			compass_active = getActiveGame().getVar('is_compass_active')
 			if compass_active == None: compass_active = 0
 			else: compass_active = int(compass_active)
 			
 			if compass_active == 1:
-				ActiveGame().SetTempVar('is_compass_active', 0)
+				getActiveGame().setTempVar('is_compass_active', 0)
 			else:
-				ActiveGame().SetTempVar('is_compass_active', 1)
+				getActiveGame().setTempVar('is_compass_active', 1)
 		v = 3
 		vx = 0
 		vy = 0
@@ -220,7 +220,7 @@ class GamePlayScene:
 		
 		self.do_sprite_move(self.player, vx, vy, False)
 		
-	def Update(self, game_counter):
+	def update(self, game_counter):
 		self.level.update_tile_standing_on(self.player.layer, self.player.x, self.player.y)
 		
 		if self.prevTile != self.level.playerStandingOn:
@@ -243,8 +243,8 @@ class GamePlayScene:
 				x = door[0]
 				y = door[1]
 				color = door[2]
-				if GetKeyRegistry().UseKey(self.level.dungeon, color, self.level.name, x, y):
-					self.level.RemoveLockedDoor(x, y)
+				if getKeyRegistry().useKey(self.level.dungeon, color, self.level.name, x, y):
+					self.level.removeLockedDoor(x, y)
 		
 		if self.gotocredits:
 			self.next = CreditsScene()
@@ -255,7 +255,7 @@ class GamePlayScene:
 				self.cutscene = None
 		
 		for sprite in self.get_sprites():
-			sprite.Update()
+			sprite.update()
 			if sprite.dx != 0 or sprite.dy != 0:
 				if self.do_sprite_move(sprite, sprite.dx, sprite.dy, sprite.flying):
 					if sprite.explode_on_impact:
@@ -330,7 +330,7 @@ class GamePlayScene:
 		return False
 
 	def light_lever_puzzle(self):
-		getvar = ActiveGame().GetVar
+		getvar = getActiveGame().getVar
 		
 		if str(getvar('light_timed_lever_A')) == '1' and str(getvar('light_timed_lever_B')) == '1' and not self.puz_flag:
 			go_script_go('[set][light_timed_lever_solved][1]')
@@ -371,13 +371,13 @@ class GamePlayScene:
 		self.cutscene = None
 		
 	def desert_puzzle_update(self):
-		opened = str(ActiveGame().GetVar('light_temple_opened')) == '1'
+		opened = str(getActiveGame().getVar('light_temple_opened')) == '1'
 		if not opened and self.player.state == 'shovelling':
 			target = self.level.ids['temple']
 			x = self.player.x >> 4
 			y = self.player.y >> 4
 			if target.x == x and target.y == y:
-				ActiveGame().SetSavedVar('light_temple_opened', '1')
+				getActiveGame().setSavedVar('light_temple_opened', '1')
 				self.cutscene = CutScene('pause 5\nplaysound itemget\nscript [set tile][entrance][base][171]', 'open_light_temple')
 			
 		
@@ -388,7 +388,7 @@ class GamePlayScene:
 			if sprite.is_enemy: count += 1
 		return count
 		
-	def Render(self, screen):
+	def render(self, screen):
 		
 		if self.bg != None:
 			screen.blit(self.bg, (0,0))
@@ -401,10 +401,10 @@ class GamePlayScene:
 				r_offset = self.cutscene.render_offset()
 				offset = (offset[0] + r_offset, offset[1])
 			
-			self.level.Render('Stairs', screen, offset[0], offset[1], self.render_counter)
+			self.level.render('Stairs', screen, offset[0], offset[1], self.render_counter)
 			for layerName in 'A B C D E F Stairs'.split(' '):
 				if layerName != 'Stairs':
-					self.level.Render(layerName, screen, offset[0], offset[1], self.render_counter)
+					self.level.render(layerName, screen, offset[0], offset[1], self.render_counter)
 				
 				for sprite in self.get_renderable_sprites(layerName):
 					img = sprite.CurrentImage(self.render_counter)
@@ -440,7 +440,7 @@ class GamePlayScene:
 		self.render_counter += 1
 		
 		if self.overlayRenderer != None:
-			self.overlayRenderer.Render(screen)
+			self.overlayRenderer.render(screen)
 	
 	def make_white(self, screen, amount):
 		if amount == 0: return
@@ -495,7 +495,7 @@ class GamePlayScene:
 			
 	
 	def render_light_puzzle(self, screen, offset):
-		get_var = ActiveGame().GetVar
+		get_var = getActiveGame().getVar
 		ids = self.level.ids
 		
 		mirror_states = self.light_puzzle_get_mirror_states()
@@ -600,13 +600,13 @@ class GamePlayScene:
 	
 	def light_puzzle_get_mirror_states(self):
 		global _defaultMirror
-		get_var = ActiveGame().GetVar
+		get_var = getActiveGame().getVar
 		mirrors = {}
 		for mirror in 'ABCDEFGHIJKLMN':
 			state = get_var('mirror_state_' + mirror)
 			if state == None:
 				state = _defaultMirror[mirror]
-				ActiveGame().SetSavedVar('mirror_state_' + mirror, _defaultMirror[mirror])
+				getActiveGame().setSavedVar('mirror_state_' + mirror, _defaultMirror[mirror])
 			mirrors[mirror] = state
 		return mirrors
 	

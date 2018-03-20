@@ -49,20 +49,20 @@ class GameInstance:
 		self.temp_vars = {}
 		self.active_game_scene = None
 	
-	def GetVar(self, varName):
+	def getVar(self, varName):
 		value = self.temp_vars.get(varName)
 		if value == None:
 			return self.values.get(varName)
 		return value
 	
-	def SetActiveGameScene(self, game_scene):
+	def setActiveGameScene(self, game_scene):
 		self.active_game_scene = game_scene
-	def GetActiveGameScene(self):
+	def getActiveGameScene(self):
 		return self.active_game_scene
 	
-	def SetSavedVar(self, name, value):
+	def setSavedVar(self, name, value):
 		self.values[name] = value
-	def SetTempVar(self, name, value):
+	def setTempVar(self, name, value):
 		self.temp_vars[name] = value
    
 	def parse(self, slot=None):
@@ -83,14 +83,11 @@ class GameInstance:
 					values[name] = value
 		return values
 
-	def SetZone(self, newVal):
-		print('SetZone: %s' % newVal)
-		self.SetTempVar('current_zone', newVal)
+	def setZone(self, newVal):
+		print('setZone: %s' % newVal)
+		self.setTempVar('current_zone', newVal)
 	
-	def GetZone(self):
-		return self.GetVar('current_zone')
-	
-	def SaveToFile(self):
+	def saveToFile(self):
 		output = []
 		for key in self.values.keys():
 			value = self.values[key]
@@ -111,54 +108,35 @@ class GameContext:
 		self.slots = [GameInstance(1), GameInstance(2), GameInstance(3)]
 		self.active_game = None
 
-	def SetActiveGame(self, slot_num):
+	def setActiveGame(self, slot_num):
 		self.active_game = self.slots[slot_num - 1]
-		
-	def GetActiveGame(self):
-		return self.active_game
 	
-	def SetPlayerName(self, slot_num, name):
-		self.slots[slot_num - 1].SetSavedVar('name', name)
-	
-	def GetPlayerName(self, slot_num):
-		return self.slots[slot_num - 1].GetVar('name')
-	def GetStones(self, slot_num):
+	def getPlayerName(self, slot_num):
+		return self.slots[slot_num - 1].getVar('name')
+	def getStones(self, slot_num):
 		r = []
 		s = self.slots[slot_num - 1]
 		for st in ['water', 'light', 'dark', 'fire', 'life', 'death']:
-			if s.GetVar('stone_%s' % st):
+			if s.getVar('stone_%s' % st):
 				r.append(st)
 		return r
-		
-	
-	def DeletePlayer(self, slot_num):
+
+	def deletePlayer(self, slot_num):
 		game = self.slots[slot_num - 1]
 		
-		#shut up
 		game.temp_vars = {}
 		game.values = {}
 		
-		game.SaveToFile()
-	
-	def CopyPlayer(self, from_slot, to_slot):
-		if from_slot != to_slot:
-			from_game = self.slots[from_slot - 1]
-			to_game = self.slots[to_slot - 1]
-			
-			to_game.values = from_game.values
-			to_game.SaveToFile()
-			
-			# this will ensure that the dictionary instance is different from from_game
-			self.slots[to_slot - 1] = GameInstance(to_slot)
-			
+		game.saveToFile()
+
 ### STATIC ###
 
 _gameContext = GameContext()
 
-def ActiveGame():
+def getActiveGame():
 	global _gameContext
-	return _gameContext.GetActiveGame()
+	return _gameContext.active_game
 
-def GameContext():
+def getGameContext():
 	global _gameContext
 	return _gameContext

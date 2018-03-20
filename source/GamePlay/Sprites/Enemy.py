@@ -23,7 +23,7 @@ class Enemy:
 		self.flying_damage = -42
 		self.damage_dx = 0.0
 		self.damage_dy = 0.0
-		self.game_scene = ActiveGame().GetActiveGameScene()
+		self.game_scene = getActiveGame().getActiveGameScene()
 		if self.name == 'blob':
 			self.life = 2
 			self.state = 'thinking'
@@ -78,7 +78,7 @@ class Enemy:
 			g.y = self.y
 		return g
 	
-	def Update(self):
+	def update(self):
 		self.dx = 0
 		self.dy = 0
 		self.state_counter -= 1

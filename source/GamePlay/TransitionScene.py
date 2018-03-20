@@ -23,10 +23,10 @@ class TransitionScene:
 			self.to_scene.player_invisible = True
 			self.from_scene.player_invisible = True
 			
-	def ProcessInput(self, events):
+	def processInput(self, events):
 		pass
 		
-	def Update(self, game_counter):
+	def update(self, game_counter):
 		self.duration -= 1
 		if self.duration <= 0:
 			self.next = self.to_scene
@@ -34,20 +34,20 @@ class TransitionScene:
 			self.to_scene.player_invisible = False
 		
 	def get_to_screen(self):
-		temp = GetTempScreen(self.screen)
+		temp = getTempScreen(self.screen)
 		temp.fill((0,0,0))
-		self.to_scene.Render(temp)
+		self.to_scene.render(temp)
 		return temp
 		
 	def get_from_screen(self):
-		temp = GetTempScreen(self.screen)
+		temp = getTempScreen(self.screen)
 		temp.fill((0,0,0))
-		self.from_scene.Render(temp)
+		self.from_scene.render(temp)
 		return temp
 		
-	def Render(self, screen):
+	def render(self, screen):
 		self.screen = screen
-		temp = GetTempScreen(screen)
+		temp = getTempScreen(screen)
 		progress = self.duration / self.max_duration
 		antiprogress = 1 - progress
 		transition = self.transition_type
@@ -91,7 +91,7 @@ class TransitionScene:
 			
 			image.set_alpha(alpha)
 			screen.blit(image, (0,0))
-		self.overlayRenderer.Render(screen)
+		self.overlayRenderer.render(screen)
 
 	def pixelate_this(self, image, amount):
 		minimum_w = 10
@@ -102,7 +102,7 @@ class TransitionScene:
 		width = int(minimum_w * amount + maximum_w * (1.0 - amount))
 		height = int(minimum_h * amount + maximum_h * (1.0 - amount))
 		
-		tempScreen = GetTempScreenSize(width, height)
+		tempScreen = getTempScreenSize(width, height)
 		pygame.transform.scale(image, (width, height), tempScreen)
 		
 		pygame.transform.scale(tempScreen, (image.get_width(), image.get_height()), image)
@@ -112,14 +112,14 @@ class TransitionScene:
 
 _temp_screen_for_transitions = None
 _temp_screens = { }
-def GetTempScreen(real_screen):
+def getTempScreen(real_screen):
 	global _temp_screen_for_transitions
 	if _temp_screen_for_transitions == None:
 		w = real_screen.get_width()
 		h = real_screen.get_height()
 		_temp_screen_for_transitions = pygame.Surface((w, h))
 	return _temp_screen_for_transitions
-def GetTempScreenSize(width, height):
+def getTempScreenSize(width, height):
 	global _temp_screens
 	index = str(width) + '.' + str(height)
 	image = _temp_screens.get(index)

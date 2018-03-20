@@ -16,7 +16,7 @@ class DialogScene:
 		self._curLetter = 0
 		self._tick = 0
 		
-	def ProcessInput(self, events):
+	def processInput(self, events):
 		d = self._dlg
 		
 		if 0 != len(events):
@@ -48,12 +48,12 @@ class DialogScene:
 							self._curLetter = 0
 							self._fastText = False
 							self._truncating = False
-							self._dlg.Advance()
+							self._dlg.advance()
 
-	def Update(self, game_counter):
+	def update(self, game_counter):
 		pass
 
-	def Render(self, screen):
+	def render(self, screen):
 		self._tick += 1
 		self._source
 		d = self._dlg
@@ -63,7 +63,7 @@ class DialogScene:
 			self.next = self._source
 			self._source.next = self._source
 
-		self._source.Render(screen)
+		self._source.render(screen)
 		
 		p = d.Profile()
 

@@ -24,7 +24,7 @@ class NPC:
 		if self.name == 'shopkeeper': return (coords[0], coords[1] - 3)
 		return coords
 	
-	def Update(self):
+	def update(self):
 		self.state_counter -= 1
 		if self.state_counter <= 0 and self.state != 'walking' and self.state != 'standing':
 			self.state = 'standing'

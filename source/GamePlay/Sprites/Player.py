@@ -33,7 +33,7 @@ class Player:
 				coords = (coords[0], coords[1] - 16)
 		return coords
 	
-	def Update(self):
+	def update(self):
 		global _invincible
 		self.state_counter -= 1
 		self.flash_counter -= 1
@@ -43,7 +43,7 @@ class Player:
 			
 		if self.flash_counter < 0:
 			if not _invincible:
-				game_scene = ActiveGame().GetActiveGameScene()
+				game_scene = getActiveGame().getActiveGameScene()
 				for sprite in game_scene.sprites:
 					if sprite.is_enemy:
 						if sprite.layer == self.layer:
@@ -54,7 +54,7 @@ class Player:
 								take_damage(1)
 								if get_life() == 0:
 									set_life(3)
-									ActiveGame().GetActiveGameScene().next = GameOverScene()
+									getActiveGame().getActiveGameScene().next = GameOverScene()
 								else:
 									self.flying_damage = 5
 									nv = get_normalized_vector(sprite.x, sprite.y, self.x, self.y)
@@ -75,7 +75,7 @@ class Player:
 			y += 16
 		else:
 			x += 16
-		game_scene = ActiveGame().GetActiveGameScene()
+		game_scene = getActiveGame().getActiveGameScene()
 		
 		game_scene.place_death_circle('sword', x, y, 8, 5)
 		play_sound('sword')
@@ -118,7 +118,7 @@ class Player:
 			y += 16
 		else:
 			x += 16
-		game_scene = ActiveGame().GetActiveGameScene()
+		game_scene = getActiveGame().getActiveGameScene()
 		
 		game_scene.place_death_circle('drill', x, y, 8, 5)
 		play_sound('drill')
@@ -137,14 +137,14 @@ class Player:
 			y += 16
 		else:
 			x += 16
-		game_scene = ActiveGame().GetActiveGameScene()
+		game_scene = getActiveGame().getActiveGameScene()
 		
 		game_scene.place_death_circle('hammer', x, y, 8, 5)
 		play_sound('hammer')
 	
 	def Grapple(self):
 		if self.is_submerged(): return
-		game_scene = ActiveGame().GetActiveGameScene()
+		game_scene = getActiveGame().getActiveGameScene()
 		if game_scene.grapple == None:
 			start_x = self.x
 			start_y = self.y
@@ -166,7 +166,7 @@ class Player:
 			game_scene.grapple = grapple
 	
 	def is_submerged(self):
-		gs = ActiveGame().GetActiveGameScene()
+		gs = getActiveGame().getActiveGameScene()
 		if gs != None:
 			layer = gs.level.layers[self.layer]
 			x = self.x >> 4

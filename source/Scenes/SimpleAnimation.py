@@ -12,17 +12,17 @@ class SimpleAnimationScene:
 		else:
 			self.expiration = 0
 
-	def ProcessInput(self, events):
+	def processInput(self, events):
 		pass
 
-	def Update(self, conter):
+	def update(self, conter):
 		self.expiration -= 1
 		if self.expiration <= 0:
 			if self.name == 'flyaway':
 				self.next = GamePlayScene('escape_pod', 30, 46)
 			elif self.name == 'flyhome':
 				self.next = GamePlayScene('world_B', 18 *16 + 8, 11*16)
-	def Render(self, screen):
+	def render(self, screen):
 		if self.name == 'flyaway':
 			x = (4 * self.render_counter) % 384
 			y = self.render_counter % 288

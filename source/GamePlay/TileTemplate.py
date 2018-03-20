@@ -15,7 +15,7 @@ class TileTemplate:
 			self.anim_delay = 4
 		self.num_images = len(self.images)
 		
-	def Render(self, screen, x, y, render_counter):
+	def render(self, screen, x, y, render_counter):
 		if self.num_images == 1:
 			screen.blit(self.images[0], (x, y))
 		else:

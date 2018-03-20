@@ -15,7 +15,7 @@ class GameSelectScene:
 			self._gears.append(get_image('ui/gear' + str(i) + '.png'))
 			i += 1
 	
-	def ProcessInput(self, events):
+	def processInput(self, events):
 		for e in events:
 			if e.down:
 				if self._erase or self._cancel:
@@ -59,24 +59,24 @@ class GameSelectScene:
 						return
 					
 					if self._eraseMode:
-						GameContext().DeletePlayer(self._selection + 1)
+						getGameContext().deletePlayer(self._selection + 1)
 						self._eraseMode = False
 						return
 					
-					newGame = not GameContext().GetPlayerName(self._selection + 1)
-					GameContext().SetActiveGame(self._selection + 1)
+					newGame = not getGameContext().getPlayerName(self._selection + 1)
+					getGameContext().setActiveGame(self._selection + 1)
 					
 					if newGame:
 						self.next = NameEntryScene()
 					else:
 						#print('TODO: set up to resume gameplay')
-						m = ActiveGame().GetVar('save_map')
+						m = getActiveGame().getVar('save_map')
 						if m == None:
 							m = 'transport_1'
 							x = 64
 							y = 56
-						x = ActiveGame().GetVar('save_x')
-						y = ActiveGame().GetVar('save_y')
+						x = getActiveGame().getVar('save_x')
+						y = getActiveGame().getVar('save_y')
 						if x == None: x = 64
 						if y == None: y = 56
 						self.next = GamePlayScene(m, x, y + 16)
@@ -85,10 +85,10 @@ class GameSelectScene:
 						self.next.firstTimeOnTile = False
 						self.next.disable_save = True
 						
-	def Update(self, conter):
+	def update(self, conter):
 		play_music("menuwaitingroom")
 	
-	def Render(self, screen):
+	def render(self, screen):
 		# what color is used for everything else
 		txtColor = WHITE
 		# what color is in the game select thing
@@ -103,7 +103,7 @@ class GameSelectScene:
 			self._frame %= len(self._gears)
 		g = self._gears[frame]
 
-		gc = GameContext()
+		gc = getGameContext()
 		
 		sw = screen.get_width()
 		gameSel_y = 20
@@ -137,7 +137,7 @@ class GameSelectScene:
 			screen.blit(selSurf, (sx, sy))
 			
 			slot_num = i + 1
-			name = gc.GetPlayerName(slot_num)
+			name = gc.getPlayerName(slot_num)
 			if name:
 				nameSurf = render_text_size(17, name, descColor)
 			else:
@@ -148,7 +148,7 @@ class GameSelectScene:
 			screen.blit(nameSurf, (nx, ny))
 
 			if name:
-				stones = gc.GetStones(slot_num)
+				stones = gc.getStones(slot_num)
 				j = 0
 				stones.reverse()
 				for st in stones:

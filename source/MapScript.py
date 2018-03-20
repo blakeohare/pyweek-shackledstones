@@ -15,12 +15,12 @@ class MapScript(Scripted):
 		self._addFn('sign', do_sign_display)
 	
 	# get the next bit of stuff to display
-	def Advance(self):
-		return Scripted.Advance(self)
+	def advance(self):
+		return Scripted.advance(self)
 	
 	# fancy name so it makes more sense
-	def Exec(self):
-		return self.Advance()
+	def execute(self):
+		return self.advance()
 	
 	def _parseInternal(self, line):
 		print('MapScript._parseInternal(%s)' % line)

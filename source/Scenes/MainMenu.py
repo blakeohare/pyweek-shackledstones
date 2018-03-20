@@ -1,25 +1,13 @@
 class MainMenuScene:
-	def StartGame(self):
+	def clickStartGame(self):
 		scene = GameSelectScene(self)
 		self.next = scene
 
-	def Setup(self):
+	def clickSetup(self):
 		self.next = JoystickConfigScene()
 	
-	def Credits(self):
+	def clickCredits(self):
 		self.next = CreditsScene()
-		return
-		GameContext().SetActiveGame(1)
-		ActiveGame().SetSavedVar('name', 'SUE')
-		if file_exists('map_test.txt'):
-			t = read_text_file('map_test.txt').split('\n')
-			map_name = t[0].strip()
-			coords = t[1].strip().split(',')
-			scene = GamePlayScene(map_name, int(coords[0]) << 4, int(coords[1]) << 4)
-		else:
-			scene = GamePlayScene('test_level', 100, 100)
-		self.next = scene
-		scene.next = scene
 
 	def __init__(self):
 		self._fc = 0
@@ -33,7 +21,7 @@ class MainMenuScene:
 			self._gears.append(get_image('ui/gear' + str(i) + '.png'))
 			i += 1
 	
-	def ProcessInput(self, events):
+	def processInput(self, events):
 		for e in events:
 			if e.down:
 				if e.Down():
@@ -44,11 +32,11 @@ class MainMenuScene:
 					self._selection = (self._selection - 1) % 3
 				if e.A() or e.B() or e.Start():
 					if self._selection == 0:
-						self.StartGame()
+						self.clickStartGame()
 					elif self._selection == 1:
-						self.Setup()
+						self.clickSetup()
 					elif self._selection == 2:
-						self.Credits()
+						self.clickCredits()
 				if e.X():
 					scene = GameOverScene()
 					self.next = scene
@@ -58,10 +46,10 @@ class MainMenuScene:
 					self.next = scene
 					scene.next = scene
 
-	def Update(self, conter):
+	def update(self, conter):
 		play_music('title')
 	
-	def Render(self, screen):
+	def render(self, screen):
 		self._fc += 1
 		
 		frame = self._frame

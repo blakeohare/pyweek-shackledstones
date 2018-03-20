@@ -2,11 +2,11 @@ class BaseScene:
 	def __init__(self):
 		self.next = self
 	
-	def ProcessInput(self, events):
+	def processInput(self, events):
 		pass
 	
-	def Update(self, conter):
+	def update(self, conter):
 		pass
 	
-	def Render(self, screen):
+	def render(self, screen):
 		pass

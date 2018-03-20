@@ -28,27 +28,27 @@ class Dialog(Scripted):
 		self._addFn('credits', self._credits)
 		
 		# perform the initial parse (fill the buffer)
-		self.Advance()
+		self.advance()
 	
 	# Get the path to the current profile
 	def Profile(self):
 		return self._profile
 	
 	def _credits(self):
-		ActiveGame().GetActiveGameScene().gotocredits = True
+		getActiveGame().getActiveGameScene().gotocredits = True
 	
 	# Find out what mode the dialog is in
 	def State(self):
 		return self._state
 	
 	# get the next bit of stuff to display
-	def Advance(self):
+	def advance(self):
 		# do not allow resuming if the dialog is finished
 		if self.State() == D_END:
 			return
 		
 		self._buffer = ''
-		Scripted.Advance(self)
+		Scripted.advance(self)
 	
 	# What we should be displaying if we're in "talk" mode (D_NORMAL)
 	def Text(self):
@@ -77,7 +77,7 @@ class Dialog(Scripted):
 			
 		if line == '\\n':
 			line = '$nl$'
-		name = ActiveGame().GetVar('name')
+		name = getActiveGame().getVar('name')
 		line = line.replace('%Name%', name).replace('%NAME%', name)
 		self._buffer += line + '\n'
 
@@ -95,11 +95,11 @@ class Dialog(Scripted):
 		return True
 	
 	def _saveGame(self):
-		game_scene = ActiveGame().GetActiveGameScene()
-		ActiveGame().SetSavedVar('save_map', game_scene.name)
-		ActiveGame().SetSavedVar('save_x', game_scene.player.x)
-		ActiveGame().SetSavedVar('save_y', game_scene.player.y)
-		ActiveGame().SaveToFile()
+		game_scene = getActiveGame().getActiveGameScene()
+		getActiveGame().setSavedVar('save_map', game_scene.name)
+		getActiveGame().setSavedVar('save_x', game_scene.player.x)
+		getActiveGame().setSavedVar('save_y', game_scene.player.y)
+		getActiveGame().saveToFile()
 		return True
 	
 	def _poseQuestion(self):
@@ -140,7 +140,7 @@ def testDialog():
 	print("'%s'" % d.Text())
 	print('----------------------')
 	
-	d.Advance()
+	d.advance()
 	print('----------------------')
 	print('current dialog text:')
 	print("'%s'" % d.Text())

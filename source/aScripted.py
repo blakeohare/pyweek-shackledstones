@@ -17,14 +17,14 @@ class Scripted:
 		self._addFn('credits', self._credits)
 		
 	def _credits(self):
-		ActiveGame().GetActiveGameScene().gotocredits = True
+		getActiveGame().getActiveGameScene().gotocredits = True
 		
 	def save_game_foo(self):
 	 
-	 ActiveGame().SetSavedVar('save_map', game_scene.name)
-	 ActiveGame().SetSavedVar('save_x', game_scene.player.x)
-	 ActiveGame().SetSavedVar('save_y', game_scene.player.y)
-	 ActiveGame().SaveToFile()
+	 getActiveGame().setSavedVar('save_map', game_scene.name)
+	 getActiveGame().setSavedVar('save_x', game_scene.player.x)
+	 getActiveGame().setSavedVar('save_y', game_scene.player.y)
+	 getActiveGame().saveToFile()
 		
 	def _parse(self):
 		for line in self._script:
@@ -56,14 +56,14 @@ class Scripted:
 
 	# Move the script on if it's a multi-part deal.  Override this if you want
 	# take special actions on script resume
-	def Advance(self):
+	def advance(self):
 		self._parse()
 
 	# function implementations
 	# return indicates if script execution should continue (True) or stop until
-	# the next call to Advance(False)
+	# the next call to advance(False)
 	def _checkVar(self, var, test, val, label, failLabel=None):
-		sval = ActiveGame().GetVar(var)
+		sval = getActiveGame().getVar(var)
 		if test == 'eq':
 			ret = (sval == val)
 		elif test == 'lt':
@@ -82,7 +82,7 @@ class Scripted:
 		return True
 	
 	def _set(self, var, val):
-		ag = ActiveGame().SetSavedVar(var, val)
+		ag = getActiveGame().setSavedVar(var, val)
 		return True
 
 	def _jump(self, label):

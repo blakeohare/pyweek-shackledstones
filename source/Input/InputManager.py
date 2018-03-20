@@ -3,9 +3,9 @@ _new_enemies = []
 
 def reserializeEnemies():
 	global _new_enemies
-	active_game = ActiveGame()
+	active_game = getActiveGame()
 	if active_game != None:
-		gs = active_game.GetActiveGameScene()
+		gs = active_game.getActiveGameScene()
 		if gs != None:
 			file = gs.name
 			lines = read_text_file('maps/' + file  + '.txt').split('\n')
@@ -41,9 +41,9 @@ def start_enemy_insertion_session():
 
 def insert_enemy(key):
 	global _new_enemies
-	active_game = ActiveGame()
+	active_game = getActiveGame()
 	if active_game != None:
-		gs = active_game.GetActiveGameScene()
+		gs = active_game.getActiveGameScene()
 		if gs != None:
 			x = gs.player.x >> 4
 			y = gs.player.y >> 4

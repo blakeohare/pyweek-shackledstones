@@ -1,13 +1,13 @@
 class GameOverScene:
 	def _LastSave(self):
-		ActiveGame().parse()
-		m = ActiveGame().GetVar('save_map')
+		getActiveGame().parse()
+		m = getActiveGame().getVar('save_map')
 		if m == None:
 			m = 'transport_1'
 			x = 64
 			y = 64
-		x = ActiveGame().GetVar('save_x')
-		y = ActiveGame().GetVar('save_y')
+		x = getActiveGame().getVar('save_x')
+		y = getActiveGame().getVar('save_y')
 		if x == None: x = 0
 		if y == None: y = 0
 		self.next = GamePlayScene(m, x, y + 16)
@@ -38,7 +38,7 @@ class GameOverScene:
 			i += 1
 
 	
-	def ProcessInput(self, events):
+	def processInput(self, events):
 		for e in events:
 			if e.down:
 				if e.Up():
@@ -55,10 +55,10 @@ class GameOverScene:
 					if self._selection == 2:
 						self._Quit()
 	
-	def Update(self, conter):
+	def update(self, conter):
 		pass
 	
-	def Render(self, screen):
+	def render(self, screen):
 		self._fc += 1
 		
 		frame = self._frame

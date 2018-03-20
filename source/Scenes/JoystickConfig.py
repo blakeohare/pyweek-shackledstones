@@ -46,7 +46,7 @@ class JoystickConfigScene:
 	def get_bg_for_key(self, key):
 		return self.images[key]
 		
-	def ProcessInput(self, events):
+	def processInput(self, events):
 		if self.is_error or self.done:
 			for event in events:
 				if event.down:
@@ -59,7 +59,7 @@ class JoystickConfigScene:
 							self.next = MainMenuScene()
 							
 		
-	def Update(self, conter):
+	def update(self, conter):
 		if not self.is_error:
 			if self.active_key_index < len(self.keys):
 				active_key = self.keys[self.active_key_index]
@@ -71,7 +71,7 @@ class JoystickConfigScene:
 					
 				
 		
-	def Render(self, screen):
+	def render(self, screen):
 		if self.is_error:
 			screen.blit(self.error, (10, 10))
 			screen.blit(self.error_explain, (10, 60))
