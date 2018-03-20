@@ -81,15 +81,15 @@ class InventoryScene:
 		
 		money_off_x = int((screen.get_width() - moneySurf.get_width()) / 2)
 		money_off_y = 150
-		pygame.draw.rect(screen, WHITE, pygame.Rect(money_off_x - ss, money_off_y - ss, 140 + (2 *ss), 25 + (2 *ss)), ss)
+		draw_rect_stroke(money_off_x - ss, money_off_y - ss, 140 + (2 *ss), 25 + (2 *ss), 255, 255, 255, ss)
 		
 		item_off_x = int((screen.get_width() - itemSurf.get_width()) / 2)
 		item_off_y = money_off_y + titleSurf.get_height() + vBorder
-		pygame.draw.rect(screen, WHITE, pygame.Rect(item_off_x - ss, item_off_y - ss, 140 + (2 *ss), 60 + (2 *ss)), ss)
+		draw_rect_stroke(item_off_x - ss, item_off_y - ss, 140 + (2 *ss), 60 + (2 *ss), 255, 255, 255, ss)
 		
 		title_off_x = int((screen.get_width() - titleSurf.get_width()) / 2)
 		title_off_y = item_off_y + itemSurf.get_height() + vBorder
-		pygame.draw.rect(screen, WHITE, pygame.Rect(title_off_x - ss, title_off_y - ss, 200 + (2 *ss), 25 + (2 *ss)), ss)
+		draw_rect_stroke(title_off_x - ss, title_off_y - ss, 200 + (2 *ss), 25 + (2 *ss), 255, 255, 255, ss)
 		
 		screen.blit(titleSurf, (title_off_x, title_off_y))
 		screen.blit(itemSurf, (item_off_x, item_off_y))
@@ -115,7 +115,7 @@ class InventoryScene:
 			ex = int((sw - eq.get_width()) / 2)
 			ey = 50
 			screen.blit(eq, (ex, ey))
-			pygame.draw.rect(screen, WHITE, pygame.Rect(ex - ss, ey - ss, eq.get_width() + (2 * ss), eq.get_height() + (2 * ss)), ss)
+			draw_rect_stroke(ex - ss, ey - ss, eq.get_width() + (2 * ss), eq.get_height() + (2 * ss), 255, 255, 255, ss)
 			'''
 			a	 x
 			b	 y
@@ -188,4 +188,4 @@ class InventoryScene:
 			# draw selection box
 			sel_off_x = item_off_x + 2 + (28 * self._selection[0])
 			sel_off_y = item_off_y + 2 + (28 * self._selection[1])
-			pygame.draw.rect(screen, RED, pygame.Rect(sel_off_x, sel_off_y, 24, 24), 1)
+			draw_rect_stroke(sel_off_x, sel_off_y, 24, 24, 255, 0, 0, 1)

@@ -411,6 +411,7 @@ class GamePlayScene:
 					if img != None:
 						coords = sprite.drawingCoords()
 						screen.blit(img, (coords[0] + offset[0], coords[1] + offset[1]))
+					
 					if sprite == self.grapple:
 						x = sprite.x
 						y = sprite.y
@@ -422,9 +423,10 @@ class GamePlayScene:
 							y += 14
 						else:
 							y -= 14
-						pygame.draw.line(screen, (255, 200,40), (sprite.x, sprite.y), (self.player.x, self.player.y))
+						Graphics2D.Draw.line(sprite.x + offset[0], sprite.y + offset[1], self.player.x + offset[0], self.player.y + offset[1], 1, 255, 200, 40)
+					
 					if sprite.is_enemy and sprite.frozen and img != None:
-						pygame.draw.rect(screen, (100, 100, 255), Rect(coords[0] + offset[0]- 2, coords[1] + offset[1]-2, sprite.r * 2  +4, sprite.r * 2+4), 1)
+						Graphics2D.Draw.rectangle(coords[0] + offset[0]- 2, coords[1] + offset[1] - 2, sprite.r * 2 + 4, sprite.r * 2 + 4, 100, 100, 255, 1)
 			
 			
 			

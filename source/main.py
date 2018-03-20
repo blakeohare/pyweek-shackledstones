@@ -4,7 +4,7 @@ TILE_ROW_COUNT = 18
 def main():
 	
 	counter = 0
-	global _font
+	global _font, _activeScreen
 	
 	current_screen_mode = 'windowed'
 	
@@ -18,6 +18,7 @@ def main():
 	pygame.display.set_icon(pygame.image.load("icon.png"))
 		
 	virtual_screen = pygame.Surface((width, height))
+	_activeScreen = virtual_screen
 	
 	getInputManager().initializeJoystick()
 	

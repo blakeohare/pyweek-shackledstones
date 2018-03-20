@@ -138,3 +138,11 @@ def wrap_text(surf, txt, fnt):
 
 def lines_visible(surf, fnt):
 	return int(surf.get_height() / fnt.get_height())
+
+def draw_rect_stroke(x, y, w, h, r, g, b, strokeSize):
+	right = x + w
+	bottom = y + h
+	Graphics2D.Draw.line(x, y, right, y, strokeSize, r, g, b)
+	Graphics2D.Draw.line(x, bottom, right, bottom, strokeSize, r, g, b)
+	Graphics2D.Draw.line(x, y, x, bottom, strokeSize, r, g, b)
+	Graphics2D.Draw.line(right, y, right, bottom, strokeSize, r, g, b)
