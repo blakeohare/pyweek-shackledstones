@@ -3,7 +3,7 @@
 # Returns:
 #  False if not
 #  The command name if so
-def ScriptUtil_isCommand(self, string):
+def ScriptUtil_isCommand(string):
 	m = _re_bracket.match(string)
 	if m:
 		return m.group(1)

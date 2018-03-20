@@ -133,3 +133,13 @@ def do_buy(item):
 		getActiveGame().setTempVar('transaction_failed', '1')
 	
 	return True
+
+def do_go_to_credits():
+	getActiveGame().getActiveGameScene().gotocredits = True
+
+def do_save_game():
+	game = getActiveGame()
+	game.setSavedVar('save_map', game_scene.name)
+	game.setSavedVar('save_x', game_scene.player.x)
+	game.setSavedVar('save_y', game_scene.player.y)
+	game.saveToFile()

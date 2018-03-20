@@ -1,5 +1,6 @@
-class Scripted:
-	def __init__(self, scriptIter):
+class ScriptEngine:
+
+	def __init__(self, scriptIter, parserCallback = None, advancePreCheck = None, endPreCheck = None):
 		if not isinstance(scriptIter, ScriptIter):
 			raise Exception("scriptIter must be an object of type ScriptIter")
 		self._script = scriptIter
@@ -13,23 +14,15 @@ class Scripted:
 		self._addFn('end', self._end)
 		self._addFn('switch scene', do_switch_scene)
 		self._addFn('buy', do_buy)
-		self._addFn('save', self.save_game_foo)
-		self._addFn('credits', self._credits)
+		self._addFn('save', do_save_game)
+		self._addFn('credits', do_go_to_credits)
 		
-	def _credits(self):
-		getActiveGame().getActiveGameScene().gotocredits = True
-		
-	def save_game_foo(self):
-	 
-	 getActiveGame().setSavedVar('save_map', game_scene.name)
-	 getActiveGame().setSavedVar('save_x', game_scene.player.x)
-	 getActiveGame().setSavedVar('save_y', game_scene.player.y)
-	 getActiveGame().saveToFile()
+		self.parserCallback = parserCallback
+		self.advancePreCheck = advancePreCheck
+		self.endPreCheck = endPreCheck
 		
 	def _parse(self):
 		for line in self._script:
-			if DEBUG_SCRIPTS:
-				print(line)
 			if ScriptUtil_isCommand(line):
 				(cmd, args) = ScriptUtil_splitCommand(line)
 				if self._fnTable.get(cmd):
@@ -38,13 +31,14 @@ class Scripted:
 					if not c:
 						break
 				else:
-					print('Unrecognized command: %s' % cmd)
+					raise Exception('Unrecognized command: %s' % cmd)
 			else:
-				self._parseInternal(line)
+				if len(line) > 0:
+					if self.parserCallback != None:
+						self.parserCallback(line)
+					else:
+						raise Exception("Unrecognized text in script: " + line)
 
-	def _parseInternal(self, line):
-		print('NOT_IMPLEMENTED, dropping %s' % line)
-	
 	def _addFn(self, name, fn):
 		self._fnTable[name] = fn
 	
@@ -57,6 +51,10 @@ class Scripted:
 	# Move the script on if it's a multi-part deal.  Override this if you want
 	# take special actions on script resume
 	def advance(self):
+		if self.advancePreCheck != None:
+			cont = self.advancePreCheck()
+			if not cont:
+				return
 		self._parse()
 
 	# function implementations
@@ -93,4 +91,6 @@ class Scripted:
 		return True
 	
 	def _end(self):
+		if self.endPreCheck != None:
+			self.endPreCheck()
 		return False

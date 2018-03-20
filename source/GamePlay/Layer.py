@@ -47,7 +47,7 @@ class Layer:
 				if tile.id != None:
 					script = tile.id.script
 					if script != None and script != '':
-						go_script_go(script)
+						run_script(script)
 	
 	def render(self, screen, x_offset, y_offset, render_counter):
 		width = self.width

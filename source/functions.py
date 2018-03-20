@@ -25,9 +25,12 @@ def get_image(path):
 		_imageLibrary[path] = pygame.image.load(file_path)
 	return _imageLibrary[path]
 
-def go_script_go(script_contents):
-	script_contents = script_contents.replace('\\n', '\n') # -_-
-	MapScript(ScriptIter(script_contents.split('\n'))).execute()
+def run_script(script_contents):
+	script_contents = script_contents.replace('\\n', '\n') # TODO: fix this
+	scriptIter = ScriptIter(script_contents.split('\n'))
+	scriptEngine = ScriptEngine(scriptIter)
+	applyMapScriptFunctions(scriptEngine)
+	scriptEngine.advance()
 
 def render_text(string, color = BLACK):
 	return _font.render(string, True, color)
@@ -107,14 +110,6 @@ def wrap_text(surf, txt, fnt):
 	for word in words:
 		word = word.strip()
 		
-		if (word == '$nl$'):
-			if curLine != '':
-				lineSet.append(curLine)
-				curLine = ''
-				curWidth = 0
-			lineSet.append('')
-			continue
-
 		if (curLine != ''):
 			renderWord = ' %s' % word
 		else:

@@ -48,7 +48,7 @@ class DialogScene:
 							self._curLetter = 0
 							self._fastText = False
 							self._truncating = False
-							self._dlg.advance()
+							self._dlg.scriptEngine.advance()
 
 	def update(self, game_counter):
 		pass

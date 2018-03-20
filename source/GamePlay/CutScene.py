@@ -93,7 +93,7 @@ class CutSceneEvent:
 		game_scene.turnlightswitchesoff()
 	
 	def do_script(self, game_scene):
-		go_script_go(self.script)
+		run_script(self.script)
 	
 	def do_setbg(self, game_scene):
 		game_scene.bg = get_image(self.image)

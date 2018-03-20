@@ -57,7 +57,7 @@ class Projectile:
 			layer = tile.layer
 			if self.layer == layer and x < 8 and y < 8:
 				self.expired = True
-				go_script_go(tile.script)
+				run_script(tile.script)
 				break
 		
 		for sprite in self.game_scene.sprites:

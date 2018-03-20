@@ -5,10 +5,10 @@ D_QUESTION = 3
 D_CHECKVAR = 4 
 D_END = 5
 
-class Dialog(Scripted):
-	# script -- ScriptIter
-	def __init__(self, script):
-		Scripted.__init__(self, script)
+class Dialog:
+	
+	def __init__(self, scriptIter):
+		self.scriptEngine = ScriptEngine(scriptIter, self._parseScriptedDialog, self._advancePreCheck, self._endPreCheck)
 		self._profile = None
 		self._state = D_NORMAL
 		
@@ -19,36 +19,32 @@ class Dialog(Scripted):
 		# when we have a question what are the choices?
 		self._choices = []
 		
-		self._addFn('profile', self._setProfile)
-		self._addFn('pause', self._pause)
-		self._addFn('question', self._beginQuestion)
-		self._addFn('choice', self._addChoice)
-		self._addFn('/question', self._poseQuestion)
-		self._addFn('save', self._saveGame)
-		self._addFn('credits', self._credits)
+		self.scriptEngine._addFn('profile', self._setProfile)
+		self.scriptEngine._addFn('pause', self._pause)
+		self.scriptEngine._addFn('question', self._beginQuestion)
+		self.scriptEngine._addFn('choice', self._addChoice)
+		self.scriptEngine._addFn('/question', self._poseQuestion)
+		self.scriptEngine._addFn('save', self._saveGame)
 		
 		# perform the initial parse (fill the buffer)
-		self.advance()
+		self.scriptEngine.advance()
 	
 	# Get the path to the current profile
 	def Profile(self):
 		return self._profile
-	
-	def _credits(self):
-		getActiveGame().getActiveGameScene().gotocredits = True
 	
 	# Find out what mode the dialog is in
 	def State(self):
 		return self._state
 	
 	# get the next bit of stuff to display
-	def advance(self):
+	def _advancePreCheck(self):
 		# do not allow resuming if the dialog is finished
 		if self.State() == D_END:
-			return
+			return False
 		
 		self._buffer = ''
-		Scripted.advance(self)
+		return True
 	
 	# What we should be displaying if we're in "talk" mode (D_NORMAL)
 	def Text(self):
@@ -71,13 +67,9 @@ class Dialog(Scripted):
 		self._state = D_NORMAL
 		self._script.FindLabel(c.Label())
 	
-	def _parseInternal(self, line):
-		if len(line) == 0:
-			return
-			
-		if line == '\\n':
-			line = '$nl$'
+	def _parseScriptedDialog(self, line):
 		name = getActiveGame().getVar('name')
+		# TODO: settle on one casing
 		line = line.replace('%Name%', name).replace('%NAME%', name)
 		self._buffer += line + '\n'
 
@@ -109,9 +101,9 @@ class Dialog(Scripted):
 		self._profile = file
 		return True
 	
-	def _end(self):
+	# TODO: why not just set this as the end implementation via addFn? It'll overwrite it in the lookup.
+	def _endPreCheck(self):
 		self._state = D_END
-		return Scripted._end(self)
 	
 	def _pause(self):
 		return False

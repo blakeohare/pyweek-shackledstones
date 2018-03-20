@@ -1,5 +1,4 @@
 GAME_NAME = "Shackled Stones"
-DEBUG_SCRIPTS = False
 
 WARP_NSCROLL  = "north scroll"
 WARP_SSCROLL  = "south scroll"

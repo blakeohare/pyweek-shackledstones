@@ -33,7 +33,7 @@ class GamePlayScene:
 		on_load_script = self.level.on_load.strip()
 		self.inventory = Inventory()
 		if len(on_load_script) > 0:
-			go_script_go(on_load_script)
+			run_script(on_load_script)
 		
 		if self.level.dungeon == 'light':
 			mirrors = self.light_puzzle_get_mirror_states()
@@ -66,7 +66,7 @@ class GamePlayScene:
 	
 	def open_dark_temple(self):
 		ids = self.level.ids
-		go_script_go('\n'.join([
+		run_script('\n'.join([
 			'[set tile][1][doodad][d9]',
 			'[set tile][2][doodad][d7]',
 			'[set tile][3][doodad][d10]',
@@ -304,7 +304,7 @@ class GamePlayScene:
 		if enemy_count > 0 and self.get_enemy_count() == 0:
 			enemy_kill_script = self.level.on_enemies_killed
 			if len(enemy_kill_script) > 0:
-				go_script_go(enemy_kill_script)
+				run_script(enemy_kill_script)
 
 	def try_grapple_to(self, player):
 		if self.grapple:
@@ -333,8 +333,8 @@ class GamePlayScene:
 		getvar = getActiveGame().getVar
 		
 		if str(getvar('light_timed_lever_A')) == '1' and str(getvar('light_timed_lever_B')) == '1' and not self.puz_flag:
-			go_script_go('[set][light_timed_lever_solved][1]')
-			go_script_go('[remove tile][closed_door][baseadorn]')
+			run_script('[set][light_timed_lever_solved][1]')
+			run_script('[remove tile][closed_door][baseadorn]')
 			self.puz_flag = True
 			self.cutscene = None
 			
@@ -343,7 +343,7 @@ class GamePlayScene:
 				if str(getvar('light_timed_lever_A')) == '1' and not self.lever_a_pressed:
 					self.lever_a_pressed = True
 					if self.lever_b_pressed:
-						go_script_go('[set][light_timed_lever_solved][1]')
+						run_script('[set][light_timed_lever_solved][1]')
 						self.cutscene = None
 					else:
 						script = '[set][light_timed_lever_A][0]'
@@ -351,7 +351,7 @@ class GamePlayScene:
 				if str(getvar('light_timed_lever_B')) == '1' and not self.lever_b_pressed:
 					self.lever_b_pressed = True
 					if self.lever_a_pressed:
-						go_script_go('[set][light_timed_lever_solved][1]')
+						run_script('[set][light_timed_lever_solved][1]')
 						self.cutscene = None
 					else:
 						script = '[set][light_timed_lever_B][0]'
@@ -359,15 +359,15 @@ class GamePlayScene:
 				
 				if str(getvar('light_timed_lever_A')) == '1' and str(getvar('light_timed_lever_B')) == '1':
 					self.turnlightswitchesoff()
-					go_script_go('[set][light_timed_lever_solved][1]')
+					run_script('[set][light_timed_lever_solved][1]')
 	
 	def turnlightswitchesoff(self):
 		self.lever_a_pressed = False
 		self.lever_b_pressed = False
-		go_script_go('[set tile][switch_left][baseadorn][57]')
-		go_script_go('[set tile][switch_right][baseadorn][57]')
-		go_script_go('[set][light_timed_lever_A][0]')
-		go_script_go('[set][light_timed_lever_B][0]')
+		run_script('[set tile][switch_left][baseadorn][57]')
+		run_script('[set tile][switch_right][baseadorn][57]')
+		run_script('[set][light_timed_lever_A][0]')
+		run_script('[set][light_timed_lever_B][0]')
 		self.cutscene = None
 		
 	def desert_puzzle_update(self):
@@ -477,14 +477,14 @@ class GamePlayScene:
 			elif last == None and current == 'A':
 				self.last_torch_pressed = current
 				play_sound('fwuf')
-				go_script_go('[remove tile][t' + current + '][doodad]')
+				run_script('[remove tile][t' + current + '][doodad]')
 			elif last != None and activation.find(last) == activation.find(current) - 1:
 				self.last_torch_pressed = current
 				play_sound('fwuf')
-				go_script_go('[remove tile][t' + current + '][doodad]')
+				run_script('[remove tile][t' + current + '][doodad]')
 			else:
 				play_sound('fwuf')
-				go_script_go('[remove tile][t' + current + '][doodad]')
+				run_script('[remove tile][t' + current + '][doodad]')
 				current = None
 				last = None
 				self.last_torch_pressed = None
@@ -492,7 +492,7 @@ class GamePlayScene:
 	
 	def torch_puzzle_relight(self):
 		for tile in 'ABCDEFGHI':
-			go_script_go('[set tile][t' + tile + '][doodad][torch3]')
+			run_script('[set tile][t' + tile + '][doodad][torch3]')
 		play_sound('bad')
 			
 	
