@@ -65,7 +65,7 @@ class Dialog:
 		c = self._choices[resp]
 		self._choices = []
 		self._state = D_NORMAL
-		self._script.FindLabel(c.Label())
+		self.scriptEngine._script.FindLabel(c.Label())
 	
 	def _parseScriptedDialog(self, line):
 		name = getActiveGame().getVar('name')

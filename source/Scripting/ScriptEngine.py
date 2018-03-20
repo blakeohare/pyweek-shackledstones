@@ -6,7 +6,6 @@ class ScriptEngine:
 		self._script = scriptIter
 		self._fnTable = {}
 		
-		self._addFn('comment', self._noop)
 		self._addFn('label', self._noop)
 		self._addFn('jump', self._jump)
 		self._addFn('check', self._checkVar)

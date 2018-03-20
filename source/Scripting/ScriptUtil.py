@@ -4,10 +4,7 @@
 #  False if not
 #  The command name if so
 def ScriptUtil_isCommand(string):
-	m = _re_bracket.match(string)
-	if m:
-		return m.group(1)
-	return False
+	return len(string) > 0 and string[0] == '[' and string[-1] == ']'
 
 # Parse a script line into a tuple containing cmd and an array of args
 # Returns:
@@ -16,18 +13,9 @@ def ScriptUtil_isCommand(string):
 def ScriptUtil_splitCommand(string):
 	if not ScriptUtil_isCommand(string):
 		return False
-	
-	p = _re_bracket
-	m = p.match(string)
-	cmd = m.group(1).strip()
-	args = []
-	
-	while True:
-		m = p.match(string, m.end())
-		if not m:
-			break
-		args.append(m.group(1).strip())
-	
+	args = string[1:-1].split('][')
+	cmd = args[0]
+	args = args[1:]
 	return [cmd, args]
 
 # Loads a file into a ScriptIter

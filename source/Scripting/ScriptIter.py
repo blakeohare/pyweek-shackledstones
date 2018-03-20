@@ -3,8 +3,15 @@
 class ScriptIter:
 	# script - an array of strings from any source
 	def __init__(self, script):
+		lines = []
+		# TODO: parse the entire script
+		for line in script:
+			line = line.strip()
+			if line != '' and not line.startswith('[comment]'):
+				lines.append(line)
+				
 		self._i = 0
-		self._script = script
+		self._script = lines
 
 	# Utility to scan the script for a label.
 	# Return:

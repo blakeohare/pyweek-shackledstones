@@ -27,8 +27,6 @@ TEXT_FONT = os.path.join('media', 'rm_typewriter_old.ttf')
 
 ALPHA = 128
 
-_re_bracket = re.compile('\s*\[(.*?)\]')
-
 # not constants, but globals.
 # technically since this is Python, the above aren't constants either.
 _font = None
