@@ -1,4 +1,4 @@
-﻿#music:sneakylight.mp3
+﻿#music:sneakylight
 #dungeon:light
 #width:24
 #height:18

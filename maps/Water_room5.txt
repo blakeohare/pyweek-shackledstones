@@ -6,5 +6,5 @@
 #scripts:N|[warp][Water_room5B][S][north scroll]|||E|[warp][Water_mainroom][West1][east scroll]|||EA|[warp][Water_mainroom][West1][east scroll]
 #on_enemies_killed:[set][water_mini_boss_killed][1]\n[remove tile][N][doodad]
 #on_load:[check][water_mini_boss_killed][eq][1][is][isnt]\n[label][is]\n[remove tile][N][doodad]\n[label][isnt]
-#music:hostilewaters.mp3
+#music:hostilewaters
 #enemies:blob|A|14|12,blob|A|8|20,blob|A|24|18,blob|A|27|3,mechanicalman|A|4|4,blob|A|4|19

@@ -7,4 +7,4 @@
 #IDs:WA|B|0|6,W|B|0|7,whitekey|B|18|11,E|B|3|6
 #scripts:WA|[warp][Fire_Room4][E][west scroll]|||W|[warp][Fire_Room4][E][west scroll]|||whitekey|[check][has_fire_white_key_1][eq][1][does][doesnt]\n[label][doesnt]\n[remove tile][whitekey][doodad]\n[get key][white]\n[label][does]
 #on_load:[check][has_fire_white_key_1][eq][1][does][doesnt]\n[label][does]\n[remove tile][whitekey][doodad]\n[label][doesnt]
-#music:flamingjazz.mp3
+#music:flamingjazz
