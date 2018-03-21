@@ -2,9 +2,9 @@ class JoystickConfigScene:
 	def __init__(self):
 		self.keys = 'up down left right start X Y A B'.split(' ')
 		
-		self.text = render_text_size(45, "Push this button", WHITE, MENU_FONT)
-		self.error = render_text_size(20, "No Gamepads are plugged in!", WHITE, MENU_FONT)
-		self.error_explain = render_text_size(14, "Plug in a USB game pad and relaunch the game", WHITE, MENU_FONT)
+		self.text = render_text_size(45, "Push this button", WHITE, 'fancy')
+		self.error = render_text_size(20, "No Gamepads are plugged in!", WHITE, 'fancy')
+		self.error_explain = render_text_size(14, "Plug in a USB game pad and relaunch the game", WHITE, 'fancy')
 		self.texts = [
 		'Without a gamepad, use the following keys:',
 		' Space - item 1',
@@ -15,9 +15,9 @@ class JoystickConfigScene:
 		' Esc - Exit'
 		]
 		for i in range(len(self.texts)):
-			self.texts[i] =  render_text_size(14, self.texts[i], WHITE, MENU_FONT)
+			self.texts[i] =  render_text_size(14, self.texts[i], WHITE, 'fancy')
 			
-		self.keyboard = render_text_size(14, "Plug in a USB game pad and relaunch the game", WHITE, MENU_FONT)
+		self.keyboard = render_text_size(14, "Plug in a USB game pad and relaunch the game", WHITE, 'fancy')
 		self.is_error = getInputManager().active_joystick == None
 		self.render_counter = 1
 		self.active_key_index = 0
@@ -65,7 +65,7 @@ class JoystickConfigScene:
 				if self.joystick.configure_key(active_key):
 					self.active_key_index += 1
 					if self.active_key_index == len(self.keys):
-						self.text = render_text_size(45, "Done!", WHITE, MENU_FONT)
+						self.text = render_text_size(45, "Done!", WHITE, 'fancy')
 						self.done = True
 					
 				

@@ -81,7 +81,5 @@ _bulletSwitches = {
 
 _grapple_singleton = None
 
-_activeScreen = None
-
 class EmptyObj:
 	pass

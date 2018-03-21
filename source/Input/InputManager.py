@@ -162,7 +162,7 @@ class InputManager:
 		if len(joysticks) >= 1:
 			self.active_joystick = self.joysticks[0]
 	
-	def get_events(self):
+	def get_events(self, raw_events):
 		
 		self.key_pressed_now = ''
 		events = []
@@ -173,7 +173,7 @@ class InputManager:
 				if state != None:
 					events.append(InputEvent(key, state))
 		
-		for event in pygame.event.get():
+		for event in raw_events:
 			if event.type == QUIT or (event.type == KEYDOWN and event.key == K_ESCAPE):
 				self.escape_attempted = True
 			elif event.type == KEYDOWN:
