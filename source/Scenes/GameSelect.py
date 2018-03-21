@@ -122,9 +122,6 @@ class GameSelectScene:
 		sel_h = 45
 		# separation between game sel blocks
 		gameSel_sep = 15
-		selSurf = pygame.Surface((sel_w, sel_h))
-		selSurf.set_alpha(ALPHA)
-		selSurf.fill(gameSelColor)
 		
 		i = 0
 		while i < 3:
@@ -134,7 +131,7 @@ class GameSelectScene:
 			if i == self._selection:
 				screen.blit(g, (sx - 50, sy))
 	
-			screen.blit(selSurf, (sx, sy))
+			Graphics2D.Draw.rectangle(sx, sy, sel_w, sel_h, 128, 128, 128)
 			
 			slot_num = i + 1
 			name = gc.getPlayerName(slot_num)
@@ -144,7 +141,7 @@ class GameSelectScene:
 				nameSurf = render_text_size(17, 'New Game', descColor)
 			
 			nx = sx + 10
-			ny = int((selSurf.get_height() - nameSurf.get_height()) / 2) + sy
+			ny = int((sel_h - nameSurf.get_height()) / 2) + sy
 			screen.blit(nameSurf, (nx, ny))
 
 			if name:
@@ -153,8 +150,8 @@ class GameSelectScene:
 				stones.reverse()
 				for st in stones:
 					stSurf = get_image('ui/stones/' + st + '.png')
-					stx = sx + selSurf.get_width() - 10 - ((1 + j) * 20)
-					sty = sy + int((selSurf.get_height() - stSurf.get_height()) / 2)
+					stx = sx + sel_w - 10 - ((1 + j) * 20)
+					sty = sy + int((sel_h - stSurf.get_height()) / 2)
 					
 					screen.blit(stSurf, (stx, sty))
 					j += 1

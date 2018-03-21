@@ -77,8 +77,8 @@ class DialogScene:
 		df = get_image('ui/dframe.png')
 		screen.blit(df, (0,screen.get_height() - df.get_height() - 4))
 		
-		textSurface = pygame.Surface(((df.get_width() - (2 * D_TEXT_OFFSET_X)), df.get_height()))
-		wt = wrap_text(textSurface, d.Text(), _font)
+		lineWidth = df.get_width() - (2 * D_TEXT_OFFSET_X)
+		wt = wrap_text(lineWidth, d.Text(), _font)
 		
 		linesRequired = len(wt)
 		
@@ -119,7 +119,7 @@ class DialogScene:
 			cx = D_TEXT_OFFSET_X + 6
 			
 			# draw choice indicator
-			pygame.draw.circle(screen, BLUE, (cx, cy), 4)
+			Graphics2D.Draw.ellipse(cx - 4, cy - 4, 8, 8, 0, 0, 255)
 			
 			# print choice text
 			for c in d.Choices():
@@ -131,4 +131,4 @@ class DialogScene:
 			if (self._tick % 10 == 0):
 				self._moreDot = not self._moreDot
 			if self._moreDot:
-				pygame.draw.circle(screen, WHITE, (370, 273), 2)
+				Graphics2D.Draw.ellipse(370 - 2, 273 - 2, 4, 4, 255, 255, 255)

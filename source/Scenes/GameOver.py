@@ -66,7 +66,7 @@ class GameOverScene:
 			self._frame += 1
 			self._frame %= len(self._gears)
 
-		screen.fill(BLACK)
+		Graphics2D.Draw.fill(0, 0, 0)
 		sw = screen.get_width()
 		
 		death = render_text_size(23, "You Have Perished", WHITE)

@@ -430,8 +430,6 @@ class GamePlayScene:
 					if sprite.is_enemy and sprite.frozen and img != None:
 						Graphics2D.Draw.rectangle(coords[0] + flattenedOffset[0] - 2, coords[1] + flattenedOffset[1] - 2, sprite.r * 2 + 4, sprite.r * 2 + 4, 100, 100, 255, 1)
 			
-			
-			
 			if self.light_puz:
 				self.render_light_puzzle(screen, flattenedOffset)
 			
@@ -447,12 +445,8 @@ class GamePlayScene:
 	
 	def make_white(self, screen, amount):
 		if amount == 0: return
-		if self.temp_screen == None:
-			self.temp_screen = pygame.Surface((screen.get_width(), screen.get_height()))
-		value = min(255, max(0, 255 * amount))
-		self.temp_screen.fill((255,255,255))
-		self.temp_screen.set_alpha(value)
-		screen.blit(self.temp_screen, (0,0))
+		value = min(255, max(0, int(255 * amount)))
+		fill_screen_with_alpha(255, 255, 255, value)
 		
 	def torch_puzzle_update(self):
 		ids = self.level.ids

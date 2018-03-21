@@ -16,7 +16,6 @@ class KeyRenderer:
 			for item in items:
 				image = item[0]
 				count = item[1]
-				area = pygame.Rect(xoffset,screen.get_clip().bottom - 16, 8, 8)
-				if count:
-					screen.blit(image, area)
+				if count > 0:
+					screen.blit(image, pygame.Rect(xoffset, screen.get_clip().bottom - 16, 8, 8))
 				xoffset += 16

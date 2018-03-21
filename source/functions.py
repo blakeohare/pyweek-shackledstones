@@ -99,8 +99,7 @@ def take_damage(amount):
 def heal_damage():
 	set_life(get_life() + 1)
 
-def wrap_text(surf, txt, fnt):
-	lineWidth = surf.get_width()
+def wrap_text(lineWidth, txt, fnt):
 	
 	words = txt.replace('\n', ' ').replace('  ', ' ').replace('  ', ' ').split(' ') # bleh
 	
