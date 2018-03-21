@@ -1,6 +1,19 @@
 
+_g2dDraw_tempSurf = {}
 def Graphics2D_Draw_rectangle(x, y, w, h, r, g, b, a = 255):
-	pygame.draw.rect(_activeScreen, (r, g, b), pygame.Rect(x, y, w, h))
+	if a >= 255:
+		pygame.draw.rect(_activeScreen, (r, g, b), pygame.Rect(x, y, w, h))
+	elif a <= 0:
+		return
+	else:
+		k = w * 100000 + h
+		t = _g2dDraw_tempSurf.get(k)
+		if t == None:
+			t = pygame.Surface((w, h)).convert()
+			_g2dDraw_tempSurf[k] = t
+		t.fill((r, g, b))
+		t.set_alpha(a)
+		_activeScreen.blit(t, (x, y))
 
 def Graphics2D_Draw_ellipse(x, y, w, h, r, g, b, a = 255):
 	pygame.draw.ellipse(_activeScreen, (r, g, b), pygame.Rect(x, y, w, h))

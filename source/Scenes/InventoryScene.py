@@ -61,39 +61,38 @@ class InventoryScene:
 		pass
 	
 	def render(self, screen, renderOffset):
-		self._baseScene.render(screen)
+		self._baseScene.render(screen, renderOffset)
 		i = self._i
 		isurf = self._itemSurf
 		sw = screen.get_width()
 		
+		title_w = 200
+		title_h = 25
 		
-		titleSurf = pygame.Surface((200, 25))
-		titleSurf.set_alpha(120)
+		money_w = 140
+		money_h = 25
 		
-		moneySurf = pygame.Surface((140, 25))
-		moneySurf.set_alpha(120)
-		
-		itemSurf = pygame.Surface((140, 60))
-		itemSurf.set_alpha(120)
+		item_w = 140
+		item_h = 60
 		
 		ss = 1 # strokeSize
 		vBorder = 7
 		
-		money_off_x = int((screen.get_width() - moneySurf.get_width()) / 2)
+		money_off_x = int((screen.get_width() - money_w) / 2)
 		money_off_y = 150
 		draw_rect_stroke(money_off_x - ss, money_off_y - ss, 140 + (2 *ss), 25 + (2 *ss), 255, 255, 255, ss)
 		
-		item_off_x = int((screen.get_width() - itemSurf.get_width()) / 2)
-		item_off_y = money_off_y + titleSurf.get_height() + vBorder
+		item_off_x = int((screen.get_width() - item_w) / 2)
+		item_off_y = money_off_y + title_h + vBorder
 		draw_rect_stroke(item_off_x - ss, item_off_y - ss, 140 + (2 *ss), 60 + (2 *ss), 255, 255, 255, ss)
 		
-		title_off_x = int((screen.get_width() - titleSurf.get_width()) / 2)
-		title_off_y = item_off_y + itemSurf.get_height() + vBorder
+		title_off_x = int((screen.get_width() - title_w) / 2)
+		title_off_y = item_off_y + item_h + vBorder
 		draw_rect_stroke(title_off_x - ss, title_off_y - ss, 200 + (2 *ss), 25 + (2 *ss), 255, 255, 255, ss)
 		
-		screen.blit(titleSurf, (title_off_x, title_off_y))
-		screen.blit(itemSurf, (item_off_x, item_off_y))
-		screen.blit(moneySurf, (money_off_x, money_off_y))
+		Graphics2D.Draw.rectangle(title_off_x, title_off_y, title_w, title_h, 0, 0, 0, 120)
+		Graphics2D.Draw.rectangle(item_off_x, item_off_y, item_w, item_h, 0, 0, 0, 120)
+		Graphics2D.Draw.rectangle(money_off_x, money_off_y, money_w, money_h, 0, 0, 0, 120)
 
 		if i.hasAny():
 			# TODO: this is ugly and terrible, fix it
@@ -143,12 +142,12 @@ class InventoryScene:
 		# draw player money:
 		coinSurf = get_image('misc/money0.png')
 		cx = money_off_x + 4
-		cy = money_off_y + int((moneySurf.get_height() - coinSurf.get_height()) / 2)
+		cy = money_off_y + int((money_h - coinSurf.get_height()) / 2)
 		screen.blit(coinSurf, (cx, cy))
 		
 		amt = render_number(get_money(), WHITE)
-		mx = money_off_x + moneySurf.get_width() - 5 - amt.get_width()
-		my = money_off_y + int((moneySurf.get_height() - amt.get_height()) / 2)
+		mx = money_off_x + money_w - 5 - amt.get_width()
+		my = money_off_y + int((money_h - amt.get_height()) / 2)
 		screen.blit(amt, (mx, my))
 
 		# draw all items the player has:
@@ -169,7 +168,7 @@ class InventoryScene:
 			text = render_text_size(17, i.description(item), WHITE)
 			
 			if text:
-				txt_off_x = title_off_x + int((titleSurf.get_width() - text.get_width()) / 2)
+				txt_off_x = title_off_x + int((title_w - text.get_width()) / 2)
 				txt_off_y = title_off_y + 2
 				
 				screen.blit(text, (txt_off_x, txt_off_y))
