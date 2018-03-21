@@ -28,8 +28,8 @@ D_TEXT_OFFSET_X = 13
 D_ANSWER_OFFSET_X = 25
 D_TEXT_OFFSET_Y = 198
 
-MENU_FONT = os.path.join('media', 'fortunaschwein.ttf')
-TEXT_FONT = os.path.join('media', 'rm_typewriter_old.ttf')
+MENU_FONT = os.path.join('source', 'fonts', 'fortunaschwein.ttf')
+TEXT_FONT = os.path.join('source', 'fonts', 'rm_typerighter.ttf')
 
 ALPHA = 128
 
