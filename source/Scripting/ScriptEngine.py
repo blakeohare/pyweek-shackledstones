@@ -21,12 +21,17 @@ class ScriptEngine:
 		self.endPreCheck = endPreCheck
 		
 	def _parse(self):
-		for line in self._script:
+		while True:
+			line = self._script.next()
+			if line == None:
+				break
+			
 			if ScriptUtil_isCommand(line):
-				(cmd, args) = ScriptUtil_splitCommand(line)
+				t = ScriptUtil_splitCommand(line)
+				cmd = t[0]
+				args = t[1]
 				if self._fnTable.get(cmd):
 					c = self._call(cmd, args)
-					
 					if not c:
 						break
 				else:
@@ -45,7 +50,7 @@ class ScriptEngine:
 		if name in self._fnTable:
 			return self._fnTable[name](*args)
 		else:
-			print('%s not registered' % name)
+			print(name + ' not registered')
 
 	# Move the script on if it's a multi-part deal.  Override this if you want
 	# take special actions on script resume
@@ -59,7 +64,7 @@ class ScriptEngine:
 	# function implementations
 	# return indicates if script execution should continue (True) or stop until
 	# the next call to advance(False)
-	def _checkVar(self, var, test, val, label, failLabel=None):
+	def _checkVar(self, var, test, val, label, failLabel = None):
 		sval = getActiveGame().getVar(var)
 		if test == 'eq':
 			ret = (sval == val)
