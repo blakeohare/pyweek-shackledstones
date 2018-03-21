@@ -16,21 +16,6 @@ def run_script(script_contents):
 	applyMapScriptFunctions(scriptEngine)
 	scriptEngine.advance()
 
-# TODO: This needs to have a cache
-def render_text(string, color = BLACK):
-	return ImageWrapper(_font.render(string, True, color))
-
-# TODO: This needs to have a cache
-_fontBucket = {}
-def render_text_size(size, string, color = BLACK, fontPath = MENU_FONT):
-	fontKey = '%s-%s' % (fontPath, str(size))
-	f = _fontBucket.get(fontKey)
-	
-	if not f:
-		f = pygame.font.Font(fontPath, size)
-		_fontBucket[fontKey] = f
-	return ImageWrapper(f.render(string, True, color))
-
 def make_table(width, height):
 	cols = []
 	t = [None]
@@ -66,39 +51,6 @@ def take_damage(amount):
 
 def heal_damage():
 	set_life(get_life() + 1)
-
-def wrap_text(lineWidth, txt, fnt):
-	
-	words = txt.replace('\n', ' ').replace('  ', ' ').replace('  ', ' ').split(' ') # bleh
-	
-	clr = (255, 255, 255)
-	
-	lineSet = []
-	curLine = ''
-	curWidth = 0
-	for word in words:
-		word = word.strip()
-		
-		if (curLine != ''):
-			renderWord = ' ' + word
-		else:
-			renderWord = word
-		
-		wSurf = ImageWrapper(fnt.render(renderWord, True, clr))
-		wordWidth = wSurf.width
-		
-		if (curWidth + wordWidth) < lineWidth:
-			curLine += renderWord
-			curWidth += wordWidth
-		else:
-			lineSet.append(curLine)
-			curLine = word
-			curWidth = wordWidth
-	
-	if (curLine != ''):
-		lineSet.append(curLine)
-	
-	return lineSet
 
 def draw_rect_stroke(x, y, w, h, r, g, b, strokeSize):
 	right = x + w - 1

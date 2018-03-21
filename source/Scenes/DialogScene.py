@@ -78,7 +78,7 @@ class DialogScene:
 		df.draw(0, SCREEN_HEIGHT - df.height - 4)
 		
 		lineWidth = df.width - (2 * D_TEXT_OFFSET_X)
-		wt = wrap_text(lineWidth, d.Text(), _font)
+		wt = getFontEngine().wrap_text(lineWidth, d.Text())
 		
 		linesRequired = len(wt)
 		
@@ -110,12 +110,13 @@ class DialogScene:
 		if self._curLine + self._lineHave >= linesRequired:
 			self._more = False
 
+		fontHeight = getFontEngine().getDefaultFontHeight()
 		lineNo = 0
 		for t in tSurf:
-			t.draw(D_TEXT_OFFSET_X, D_TEXT_OFFSET_Y + lineNo * _font.get_height())
+			t.draw(D_TEXT_OFFSET_X, D_TEXT_OFFSET_Y + lineNo * fontHeight)
 			lineNo += 1
 		if D_QUESTION == d.State() and not self._truncating:
-			cy = int(D_TEXT_OFFSET_Y + (lineNo + self._choice) * _font.get_height() + (.5 * _font.get_height()))
+			cy = int(D_TEXT_OFFSET_Y + (lineNo + self._choice + .5) * fontHeight)
 			cx = D_TEXT_OFFSET_X + 6
 			
 			# draw choice indicator
@@ -124,7 +125,7 @@ class DialogScene:
 			# print choice text
 			for c in d.Choices():
 				cSurf = render_text(c, BLACK)
-				cSurf.draw(D_ANSWER_OFFSET_X, D_TEXT_OFFSET_Y + lineNo * _font.get_height())
+				cSurf.draw(D_ANSWER_OFFSET_X, D_TEXT_OFFSET_Y + lineNo * fontHeight)
 				lineNo += 1
 			
 		if self._more:

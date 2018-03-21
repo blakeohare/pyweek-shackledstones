@@ -28,14 +28,10 @@ D_TEXT_OFFSET_X = 13
 D_ANSWER_OFFSET_X = 25
 D_TEXT_OFFSET_Y = 198
 
-MENU_FONT = os.path.join('source', 'fonts', 'fortunaschwein.ttf')
-TEXT_FONT = os.path.join('source', 'fonts', 'rm_typerighter.ttf')
-
 ALPHA = 128
 
 # not constants, but globals.
 # technically since this is Python, the above aren't constants either.
-_font = None
 _gameContext = None
 _imageLibrary = {}
 _jukebox = None
@@ -44,6 +40,7 @@ _temp_screen_for_transitions = None
 _temp_screens = { }
 _tileStore = None
 _key_registry = None
+_fontEngine = None
 
 # TODO: this shouldn't be here. It should at least be tied to either the game instance or the current map.
 _invincible = False

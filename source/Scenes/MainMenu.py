@@ -57,10 +57,10 @@ class MainMenuScene:
 			self._frame += 1
 			self._frame %= len(self._gears)
 		
-		title = render_text_size(45, GAME_NAME, WHITE, MENU_FONT)
-		start = render_text_size(20, "Start", WHITE, MENU_FONT)
-		setup = render_text_size(20, "Setup", WHITE, MENU_FONT) 
-		credits = render_text_size(20, "Credits", WHITE, MENU_FONT) 
+		title = render_text_size(45, GAME_NAME, WHITE, 'fancy')
+		start = render_text_size(20, "Start", WHITE, 'fancy')
+		setup = render_text_size(20, "Setup", WHITE, 'fancy') 
+		credits = render_text_size(20, "Credits", WHITE, 'fancy') 
 		art = get_image('misc/mainmenu-bg.png')
 		
 		titleOffset = (int((SCREEN_WIDTH - title.width) / 2), 20)

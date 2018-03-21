@@ -2,12 +2,11 @@
 def main():
 
 	counter = 0
-	global _font, _activeScreen
+	global _activeScreen
 	
 	current_screen_mode = 'windowed'
 	
 	pygame.init()
-	_font = pygame.font.Font(TEXT_FONT, 13)	
 	
 	width = TILE_COLUMN_COUNT * 16
 	height = TILE_ROW_COUNT * 16

@@ -143,7 +143,7 @@ class InventoryScene:
 		cy = money_off_y + (money_h - coinSurf.height) // 2
 		coinSurf.draw(cx, cy)
 		
-		amt = render_text_size(15, str(get_money()), WHITE, TEXT_FONT)
+		amt = render_text_size(15, str(get_money()), WHITE, 'default')
 		mx = money_off_x + money_w - 5 - amt.width
 		my = money_off_y + (money_h - amt.height) // 2
 		amt.draw(mx, my)

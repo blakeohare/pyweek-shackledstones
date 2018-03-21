@@ -196,7 +196,6 @@ class InputManager:
 				elif event.key == K_RETURN:
 					events.append(InputEvent('start', True))
 				
-						
 			elif event.type == KEYUP:
 				if event.key == K_UP:
 					events.append(InputEvent('up', False))
