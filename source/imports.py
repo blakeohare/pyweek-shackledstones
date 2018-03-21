@@ -4,7 +4,4 @@ import pygame
 from pygame.locals import *
 
 import os
-import math
 import time
-import sys
-import random

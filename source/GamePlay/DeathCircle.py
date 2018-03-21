@@ -2,8 +2,8 @@ def get_normalized_vector(xa, ya, xb, yb):
 	dx = xb - xa
 	dy = yb - ya
 	if dx == 0 and dy == 0:
-		dx = random.random() * 4 - 2
-		dy = random.choice([-2, -1, 1, 2])
+		dx = Random.randomFloat() * 4 - 2
+		dy = random_choice([-2, -1, 1, 2])
 		# if the damage is applied from the identical pixel source, 
 		# pretend it's some random direction
 	d = (dx * dx + dy * dy) ** .5

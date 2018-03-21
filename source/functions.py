@@ -153,3 +153,6 @@ def draw_circle_stroke(x, y, radius, strokeSize, r, g, b):
 		x2 = Math.floor(Math.cos(bAng) * radius + x)
 		y2 = Math.floor(Math.sin(bAng) * radius + y)
 		Graphics2D.Draw.line(x1, y1, x2, y2, strokeSize, r, g, b)
+
+def random_choice(list):
+	return list[Random.randomInt(len(list))]

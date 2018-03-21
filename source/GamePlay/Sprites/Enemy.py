@@ -27,22 +27,22 @@ class Enemy:
 		if self.name == 'blob':
 			self.life = 2
 			self.state = 'thinking'
-			self.state_counter = int(30 * random.random())
+			self.state_counter = Random.randomInt(30)
 			self.r = 8
 		elif self.name == 'eyeball':
 			self.life = 2
 			self.state = 'walking'
-			self.state_counter = int(30 * random.random())
+			self.state_counter = Random.randomInt(30)
 			self.r = 8
 		elif self.name == 'mechanicalman':
 			self.life = 4
 			self.state = 'walking'
-			self.state_counter = int(30 * random.random())
+			self.state_counter = Random.randomInt(30)
 			self.r = 8
 		elif self.name == 'beetle':
 			self.life = 1
 			self.state = 'walking'
-			self.state_counter = int(30 * random.random())
+			self.state_counter = Random.randomInt(30)
 			self.r = 8
 		elif self.name == 'death':
 			self.r = 16
@@ -62,7 +62,7 @@ class Enemy:
 		return coords
 	
 	def get_goody(self):
-		i = int(random.random() * 10)
+		i = Random.randomInt(10)
 		g = None
 		if self.name== 'death': return None
 		if i < 3:
@@ -141,7 +141,7 @@ class Enemy:
 					self.state_counter = 50
 					if self.name == 'beetle':
 						self.state_counter = 50
-					self.direction = random.choice('right left down up'.split(' '))
+					self.direction = random_choice('right left down up'.split(' '))
 					
 				if self.direction == 'left':
 					self.dx = -1

@@ -1,7 +1,9 @@
+import math
 
 Math = EmptyObj()
 Math.cos = math.cos
 Math.sin = math.sin
+Math.arctan = lambda y, x: math.atan2(y, x)
 Math.abs = abs
 Math.floor = int
 Math.max = max

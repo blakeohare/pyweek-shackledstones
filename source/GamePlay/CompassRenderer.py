@@ -29,24 +29,24 @@ class CompassRenderer:
 					angle = spin_angle
 				elif dx == 0:
 					if dy < 0:
-						angle = 3.14159 / 2
+						angle = Math.PI / 2
 					else:
-						angle = -3.14159 / 2
+						angle = -Math.PI / 2
 				elif dy == 0:
 					if dx < 0:
 						angle = 0
 					else:
-						angle = 3.14159
+						angle = Math.PI
 				else:
-					angle = math.atan(dy / (0.0+ dx))
+					angle = Math.arctan(dy, dx)
 					if dx > 0:
-						angle += 3.14159
+						angle += Math.PI
 			
-			angle -= 3.14159 / 2
-			n = (math.cos(angle - 3.14159 / 2), math.sin(angle - 3.14159 / 2))
-			s = (math.cos(angle + 3.14159 / 2), math.sin(angle + 3.14159 / 2))
-			e = (math.cos(angle) / 3, math.sin(angle) / 3)
-			w = (math.cos(angle + 3.14159) / 3, math.sin(angle + 3.14159) / 3)
+			angle -= Math.PI / 2
+			n = (Math.cos(angle - Math.PI / 2), Math.sin(angle - Math.PI / 2))
+			s = (Math.cos(angle + Math.PI / 2), Math.sin(angle + Math.PI / 2))
+			e = (Math.cos(angle) / 3, Math.sin(angle) / 3)
+			w = (Math.cos(angle + Math.PI) / 3, Math.sin(angle + Math.PI) / 3)
 			
 			
 			n = (int(n[0] * 20) + 40, int(n[1] * 20) + 230)
