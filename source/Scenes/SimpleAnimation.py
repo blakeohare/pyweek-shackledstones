@@ -30,22 +30,22 @@ class SimpleAnimationScene:
 			sky = get_image('misc/sky')
 			transport = get_image('misc/airship' + str(self.render_counter & 1))
 			pod = get_image('misc/escapepod' + str(self.render_counter & 1))
-			screen.blit(sky, (x, y))
-			screen.blit(sky, (x - 384, y))
-			screen.blit(sky, (x, y - 288))
-			screen.blit(sky, (x - 384, y - 288))
+			sky.draw(x, y)
+			sky.draw(x - 384, y)
+			sky.draw(x, y - 288)
+			sky.draw(x - 384, y - 288)
 			
-			screen.blit(transport, (60, 10))
-			screen.blit(pod, (220 + 3 *  - self.render_counter, 100 + self.render_counter))
+			transport.draw(60, 10)
+			pod.draw(220 + 3 *  - self.render_counter, 100 + self.render_counter)
 		elif self.name == 'flyhome':
 			x = (4 * self.render_counter) % 384
 			y = self.render_counter % 288
 			sky = get_image('misc/sky')
-			screen.blit(sky, (x, y))
-			screen.blit(sky, (x - 384, y))
-			screen.blit(sky, (x, y - 288))
-			screen.blit(sky, (x - 384, y - 288))
+			sky.draw(x, y)
+			sky.draw(x - 384, y)
+			sky.draw(x, y - 288)
+			sky.draw(x - 384, y - 288)
 			pod = get_image('misc/escapepod' + str(self.render_counter & 1))
-			screen.blit(pod, (388 + 6 *  - self.render_counter, 120 + self.render_counter))
+			pod.draw(388 + 6 *  - self.render_counter, 120 + self.render_counter)
 
 		self.render_counter += 1

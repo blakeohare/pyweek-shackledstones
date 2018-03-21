@@ -110,9 +110,9 @@ class GameSelectScene:
 		if self._eraseMode:
 			gameTxt = 'Erase Game'
 		gameSel = render_text_size(23, gameTxt, txtColor)
-		screen.blit(gameSel, (int((SCREEN_WIDTH - gameSel.get_width()) / 2), gameSel_y))
+		gameSel.draw(int((SCREEN_WIDTH - gameSel.width) / 2), gameSel_y)
 	
-		post_title_y = gameSel_y + gameSel.get_height() + 10
+		post_title_y = gameSel_y + gameSel.height + 10
 	
 		# game sel width
 		sel_w = int(.7 * SCREEN_WIDTH)
@@ -127,7 +127,7 @@ class GameSelectScene:
 			sy = i * (gameSel_sep + sel_h) + post_title_y
 
 			if i == self._selection:
-				screen.blit(g, (sx - 50, sy))
+				g.draw(sx - 50, sy)
 	
 			Graphics2D.Draw.rectangle(sx, sy, sel_w, sel_h, 128, 128, 128)
 			
@@ -139,8 +139,8 @@ class GameSelectScene:
 				nameSurf = render_text_size(17, 'New Game', descColor)
 			
 			nx = sx + 10
-			ny = int((sel_h - nameSurf.get_height()) / 2) + sy
-			screen.blit(nameSurf, (nx, ny))
+			ny = int((sel_h - nameSurf.height) / 2) + sy
+			nameSurf.draw(nx, ny)
 
 			if name:
 				stones = gc.getStones(slot_num)
@@ -149,9 +149,9 @@ class GameSelectScene:
 				for st in stones:
 					stSurf = get_image('ui/stones/' + st + '.png')
 					stx = sx + sel_w - 10 - ((1 + j) * 20)
-					sty = sy + int((sel_h - stSurf.get_height()) / 2)
+					sty = sy + int((sel_h - stSurf.height) / 2)
 					
-					screen.blit(stSurf, (stx, sty))
+					stSurf.draw(stx, sty)
 					j += 1
 
 			i += 1
@@ -159,14 +159,14 @@ class GameSelectScene:
 		erase = render_text_size(20, 'Erase', txtColor)
 		cancel = render_text_size(20, 'Cancel', txtColor)
 		
-		screen.blit(erase, (75, 240))
+		erase.draw(75, 240)
 		cx = 230
-		screen.blit(cancel, (cx, 240))
+		cancel.draw(cx, 240)
 		
 		gy = 230
 		if self._erase:
-			screen.blit(g, (sx - 50, gy))
+			g.draw(sx - 50, gy)
 		if self._cancel:
-			screen.blit(g, (cx + 10 + cancel.get_width(), gy))
+			g.draw(cx + 10 + cancel.width, gy)
 			
 		# stone badges

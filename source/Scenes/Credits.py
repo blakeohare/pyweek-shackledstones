@@ -2,7 +2,6 @@ class CreditsScene:
 	def __init__(self):
 		self.next = self
 		self._y = 250
-		screen_width = _activeScreen.get_width()
 		
 		lines = [
 			"heading1:%s" % GAME_NAME,
@@ -64,16 +63,16 @@ class CreditsScene:
 				sz = 30
 			surf = render_text_size(sz, l, WHITE)
 			cSurf.append(surf)
-			cum_y += surf.get_height()
+			cum_y += surf.height
 		
 		self.blit_instructions = []
 		
 		y = 0
 		for s in cSurf:
 			
-			x = (screen_width - s.get_width()) // 2
+			x = (SCREEN_WIDTH - s.width) // 2
 			self.blit_instructions.append([s, x, y])
-			y += s.get_height()
+			y += s.height
 		self.cum_y = cum_y
 	
 	def processInput(self, events):
@@ -96,7 +95,7 @@ class CreditsScene:
 			img = instr[0]
 			x = instr[1]
 			y = instr[2]
-			screen.blit(img, (x, offy + y))
+			img.draw(x, offy + y)
 		
 		self._y -= 1
 		

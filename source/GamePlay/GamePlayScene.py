@@ -386,7 +386,7 @@ class GamePlayScene:
 	def render(self, screen, renderOffsets):
 		
 		if self.bg != None:
-			screen.blit(self.bg, (0,0))
+			self.bg.draw(0, 0)
 		else:
 			
 			offset = self.get_camera_offset()
@@ -407,7 +407,7 @@ class GamePlayScene:
 					img = sprite.currentImage(self.render_counter)
 					if img != None:
 						coords = sprite.drawingCoords()
-						screen.blit(img, (coords[0] + flattenedOffset[0], coords[1] + flattenedOffset[1]))
+						img.draw(coords[0] + flattenedOffset[0], coords[1] + flattenedOffset[1])
 					
 					if sprite == self.grapple:
 						x = sprite.x
@@ -501,7 +501,7 @@ class GamePlayScene:
 			loc = ids[mirror_key]
 			x = (loc.x << 4) + offset[0]
 			y = (loc.y << 4) + offset[1]
-			screen.blit(mirror_images[mirror_states[mirror_key]], (x, y))
+			mirror_images[mirror_states[mirror_key]].draw(x, y)
 		
 		if get_var('light_puzzle_on') == None:
 			return
@@ -609,28 +609,25 @@ class GamePlayScene:
 		width = self.level.width * 16
 		height = self.level.height * 16
 		
-		screen_width = SCREEN_WIDTH
-		screen_height = SCREEN_HEIGHT
-		
 		offset_x = 0
 		offset_y = 0
 		
 		player_x = self.player.x
 		player_y = self.player.y
 		
-		if width < screen_width:
-			offset_x = (screen_width - width) / 2
-		elif width > screen_width:
-			offset_x = screen_width / 2 - player_x
+		if width < SCREEN_WIDTH:
+			offset_x = (SCREEN_WIDTH - width) / 2
+		elif width > SCREEN_WIDTH:
+			offset_x = SCREEN_WIDTH / 2 - player_x
 			offset_x = min(offset_x, 0)
-			offset_x = max(offset_x, -(width - screen_width))
+			offset_x = max(offset_x, -(width - SCREEN_WIDTH))
 			
-		if height < screen_height:
-			offset_y = (screen_height - height) / 2
-		elif height > screen_height:
-			offset_y = screen_height / 2 - player_y
+		if height < SCREEN_HEIGHT:
+			offset_y = (SCREEN_HEIGHT - height) / 2
+		elif height > SCREEN_HEIGHT:
+			offset_y = SCREEN_HEIGHT / 2 - player_y
 			offset_y = min(offset_y, 0)
-			offset_y = max(offset_y, -(height - screen_height))
+			offset_y = max(offset_y, -(height - SCREEN_HEIGHT))
 		return (offset_x, offset_y)
 	
 	def gc_sprites(self):

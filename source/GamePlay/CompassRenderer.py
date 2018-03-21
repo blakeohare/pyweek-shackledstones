@@ -9,7 +9,7 @@ class CompassRenderer:
 		self.counter += 1
 		game_scene = getActiveGame().getActiveGameScene()
 		if getActiveGame().getBool('is_compass_active'):
-			screen.blit(compass_image, (10, 200))
+			compass_image.draw(10, 200)
 			spin_angle = self.counter * Math.PI * 2 / 30
 			if game_scene != None and game_scene.level.dungeon == 'light':
 				angle = spin_angle

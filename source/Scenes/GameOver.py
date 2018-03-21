@@ -74,35 +74,35 @@ class GameOverScene:
 		death_sub2 = render_text_size(15, "for salvation. Are there any that", WHITE)
 		death_sub3 = render_text_size(15, "may hope to fill your place?", WHITE)
 
-		death_x = int((sw - death.get_width()) / 2)
+		death_x = int((sw - death.width) / 2)
 		death_y = 23
-		screen.blit(death, (death_x, death_y))
-		death_x = int((sw - death_sub.get_width()) / 2)
-		death_y = death_y + death.get_height() + 4
-		screen.blit(death_sub, (death_x, death_y))
-		death_x = int((sw - death_sub2.get_width()) / 2)
-		death_y = death_y + death_sub.get_height()
-		screen.blit(death_sub2, (death_x, death_y))
-		death_x = int((sw - death_sub3.get_width()) / 2)
-		death_y = death_y + death_sub2.get_height()
-		screen.blit(death_sub3, (death_x, death_y))
+		death.draw(death_x, death_y)
+		death_x = int((sw - death_sub.width) / 2)
+		death_y = death_y + death.height + 4
+		death_sub.draw(death_x, death_y)
+		death_x = int((sw - death_sub2.width) / 2)
+		death_y = death_y + death_sub.height
+		death_sub2.draw(death_x, death_y)
+		death_x = int((sw - death_sub3.width) / 2)
+		death_y = death_y + death_sub2.height
+		death_sub3.draw(death_x, death_y)
 		
 		cont = render_text_size(23, "Go to Last Save", WHITE)
 		main = render_text_size(23, "Main Menu", WHITE)
 		quit = render_text_size(23, "Quit", RED)
 		
-		cx = 135 #int((sw - cont.get_width()) / 2)
-		cy = death_y + death_sub3.get_height() + 20
-		mx = cx #int((sw - main.get_width()) / 2)
-		my = cy + cont.get_height() + 15
-		qx = cx #int((sw - quit.get_width()) / 2)
-		qy = my + main.get_height() + 13
+		cx = 135
+		cy = death_y + death_sub3.height + 20
+		mx = cx
+		my = cy + cont.height + 15
+		qx = cx
+		qy = my + main.height + 13
 		
-		screen.blit(cont, (cx, cy))
-		screen.blit(main, (mx, my))
-		screen.blit(quit, (qx, qy))
+		cont.draw(cx, cy)
+		main.draw(mx, my)
+		quit.draw(qx, qy)
 		
 		gx = cx - 50
 		gy = cy + (43 * self._selection) - 7
 		g = self._gears[frame]
-		screen.blit(g, (gx, gy))
+		g.draw(gx, gy)

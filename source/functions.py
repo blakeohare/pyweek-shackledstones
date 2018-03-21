@@ -2,11 +2,11 @@
 def get_image(path):
 	img = _imageLibrary.get(path)
 	if img == None:
-		file_path = 'images' + os.sep + path.replace('/', os.sep).replace('\\', os.sep)
+		file_path = os.path.join('source', 'images', path.replace('/', os.sep).replace('\\', os.sep))
 		if not file_path.endswith('.png'):
 			file_path += '.png'
 		
-		_imageLibrary[path] = pygame.image.load(file_path)
+		_imageLibrary[path] = ImageWrapper(pygame.image.load(file_path))
 	return _imageLibrary[path]
 
 def run_script(script_contents):
@@ -16,9 +16,11 @@ def run_script(script_contents):
 	applyMapScriptFunctions(scriptEngine)
 	scriptEngine.advance()
 
+# TODO: This needs to have a cache
 def render_text(string, color = BLACK):
-	return _font.render(string, True, color)
+	return ImageWrapper(_font.render(string, True, color))
 
+# TODO: This needs to have a cache
 _fontBucket = {}
 def render_text_size(size, string, color = BLACK, fontPath = MENU_FONT):
 	fontKey = '%s-%s' % (fontPath, str(size))
@@ -27,7 +29,7 @@ def render_text_size(size, string, color = BLACK, fontPath = MENU_FONT):
 	if not f:
 		f = pygame.font.Font(fontPath, size)
 		_fontBucket[fontKey] = f
-	return f.render(string, True, color)
+	return ImageWrapper(f.render(string, True, color))
 
 def make_table(width, height):
 	cols = []
@@ -69,7 +71,7 @@ def wrap_text(lineWidth, txt, fnt):
 	
 	words = txt.replace('\n', ' ').replace('  ', ' ').replace('  ', ' ').split(' ') # bleh
 	
-	clr = WHITE
+	clr = (255, 255, 255)
 	
 	lineSet = []
 	curLine = ''
@@ -82,8 +84,8 @@ def wrap_text(lineWidth, txt, fnt):
 		else:
 			renderWord = word
 		
-		wSurf = fnt.render(renderWord, True, clr)
-		wordWidth = wSurf.get_width()
+		wSurf = ImageWrapper(fnt.render(renderWord, True, clr))
+		wordWidth = wSurf.width
 		
 		if (curWidth + wordWidth) < lineWidth:
 			curLine += renderWord
@@ -106,14 +108,8 @@ def draw_rect_stroke(x, y, w, h, r, g, b, strokeSize):
 	Graphics2D.Draw.line(x, y, x, bottom, strokeSize, r, g, b)
 	Graphics2D.Draw.line(right, y, right, bottom, strokeSize, r, g, b)
 
-_tempImg = None
 def fill_screen_with_alpha(r, g, b, a):
-	global _tempImg
-	if _tempImg == None:
-		_tempImg = pygame.Surface(_activeScreen.get_size()).convert()
-	_tempImg.fill((r, g, b))
-	_tempImg.set_alpha(a)
-	_activeScreen.blit(_tempImg, (0, 0))
+	Graphics2D.Draw.rectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, r, g, b, a)
 	
 def draw_circle_stroke(x, y, radius, strokeSize, r, g, b):
 	m = Math.PI * 2 / 20.0

@@ -17,4 +17,4 @@ class OverlayRenderer:
 		i = 0
 		
 		surf = get_image('ui/health/h' + str(life) + '.png')
-		screen.blit(surf, (5, 5))
+		surf.draw(5, 5)

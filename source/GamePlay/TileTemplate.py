@@ -17,8 +17,6 @@ class TileTemplate:
 		
 	def render(self, screen, x, y, render_counter):
 		if self.num_images == 1:
-			screen.blit(self.images[0], (x, y))
+			self.images[0].draw(x, y)
 		else:
-			screen.blit(
-				self.images[(render_counter // self.anim_delay) % self.num_images],
-				(x, y))
+			self.images[(render_counter // self.anim_delay) % self.num_images].draw(x, y)

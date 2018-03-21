@@ -72,12 +72,12 @@ class DialogScene:
 			pSurf = get_image('portraits/' + p + '.png')
 			x = 4 if isMainCharacter else 290
 			y = 110
-			screen.blit(pSurf, (x, y))
+			pSurf.draw(x, y)
 			
 		df = get_image('ui/dframe.png')
-		screen.blit(df, (0, SCREEN_HEIGHT - df.get_height() - 4))
+		df.draw(0, SCREEN_HEIGHT - df.height - 4)
 		
-		lineWidth = df.get_width() - (2 * D_TEXT_OFFSET_X)
+		lineWidth = df.width - (2 * D_TEXT_OFFSET_X)
 		wt = wrap_text(lineWidth, d.Text(), _font)
 		
 		linesRequired = len(wt)
@@ -99,7 +99,7 @@ class DialogScene:
 					else:
 						self._truncating = False
 				runningTotal += len(line)
-				tSurf.append(_font.render(line, True, BLACK))
+				tSurf.append(render_text(line, BLACK))
 				
 				if self._truncating:
 					break
@@ -112,7 +112,7 @@ class DialogScene:
 
 		lineNo = 0
 		for t in tSurf:
-			screen.blit(t, (D_TEXT_OFFSET_X, D_TEXT_OFFSET_Y + lineNo * _font.get_height()))
+			t.draw(D_TEXT_OFFSET_X, D_TEXT_OFFSET_Y + lineNo * _font.get_height())
 			lineNo += 1
 		if D_QUESTION == d.State() and not self._truncating:
 			cy = int(D_TEXT_OFFSET_Y + (lineNo + self._choice) * _font.get_height() + (.5 * _font.get_height()))
@@ -123,8 +123,8 @@ class DialogScene:
 			
 			# print choice text
 			for c in d.Choices():
-				cSurf = _font.render(c, True, BLACK)
-				screen.blit(cSurf, (D_ANSWER_OFFSET_X, D_TEXT_OFFSET_Y + lineNo * _font.get_height()))
+				cSurf = render_text(c, BLACK)
+				cSurf.draw(D_ANSWER_OFFSET_X, D_TEXT_OFFSET_Y + lineNo * _font.get_height())
 				lineNo += 1
 			
 		if self._more:

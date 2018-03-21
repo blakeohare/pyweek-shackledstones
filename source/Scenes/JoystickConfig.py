@@ -72,19 +72,19 @@ class JoystickConfigScene:
 		
 	def render(self, screen, renderOffset):
 		if self.is_error:
-			screen.blit(self.error, (10, 10))
-			screen.blit(self.error_explain, (10, 60))
+			self.error.draw(10, 10)
+			self.error_explain.draw(10, 60)
 			
 			for i in range(len(self.texts)):
-				screen.blit(self.texts[i], (10, 100 + i * 20))
+				self.texts[i].draw(10, 100 + i * 20)
 			return
 		
 		image = get_image('ui/joystick/base_control')
 		if self.active_key_index < len(self.keys) and (self.render_counter // 15) % 2 == 0:
 			image = self.get_bg_for_key(self.keys[self.active_key_index])
 		
-		screen.blit(image, (0, 0))
+		image.draw(0, 0)
 		
-		screen.blit(self.text, (10, 10))
+		self.text.draw(10, 10)
 		
 		self.render_counter += 1

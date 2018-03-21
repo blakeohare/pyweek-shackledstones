@@ -134,7 +134,7 @@ class Tile:
 	
 	def _static_render(self, screen, x, y, render_counter):
 		for tile in self.stack:
-			screen.blit(tile.images[0], (x, y))
+			tile.images[0].draw(x, y)
 	
 	def _dont_render(self, screen, x, y, render_counter):
 		pass

@@ -96,17 +96,17 @@ class InventoryScene:
 
 		if i.hasAny():
 			a = render_text_size(17, 'A', WHITE)
-			aw = a.get_width()
-			ah = a.get_height()
+			aw = a.width
+			ah = a.height
 			b = render_text_size(17, 'B', WHITE)
-			bw = b.get_width()
-			bh = b.get_height()
+			bw = b.width
+			bh = b.height
 			x = render_text_size(17, 'X', WHITE)
-			xw = x.get_width()
-			xh = x.get_height()
+			xw = x.width
+			xh = x.height
 			y = render_text_size(17, 'Y', WHITE)
-			yw = y.get_width()
-			yh = y.get_height()
+			yw = y.width
+			yh = y.height
 			eq_w = aw + bw + 40 + 18
 			eq_h = 46
 			ex = (sw - eq_w) // 2
@@ -118,35 +118,35 @@ class InventoryScene:
 			b	 y
 			'''
 			surf = i.getItemIcon('a')
-			screen.blit(a, (ex + 3, ey + 0))
+			a.draw(ex + 3, ey + 0)
 			if surf:
-				screen.blit(surf, (ex + aw + 6, ey))
+				surf.draw(ex + aw + 6, ey)
 			
 			surf = i.getItemIcon('b')
-			screen.blit(b, (ex + 3, ey + 23))
+			b.draw(ex + 3, ey + 23)
 			if surf:
-				screen.blit(surf, (ex + bw + 6, ey + 23))
+				surf.draw(ex + bw + 6, ey + 23)
 			
 			surf = i.getItemIcon('x')
-			screen.blit(x, (ex + aw + 26, ey + 0))
+			x.draw(ex + aw + 26, ey + 0)
 			if surf:
-				screen.blit(surf, (ex + xw + aw + 26 + 3, ey))
+				surf.draw(ex + xw + aw + 26 + 3, ey)
 			
 			surf = i.getItemIcon('y')
-			screen.blit(y, (ex + bw + 26, ey + 23)) 
+			y.draw(ex + bw + 26, ey + 23)
 			if surf:
-				screen.blit(surf, (ex + bw + yw + 26 + 3, ey + 23))
+				surf.draw(ex + bw + yw + 26 + 3, ey + 23)
 
 		# draw player money:
 		coinSurf = get_image('misc/money0.png')
 		cx = money_off_x + 4
-		cy = money_off_y + (money_h - coinSurf.get_height()) // 2
-		screen.blit(coinSurf, (cx, cy))
+		cy = money_off_y + (money_h - coinSurf.height) // 2
+		coinSurf.draw(cx, cy)
 		
 		amt = render_text_size(15, str(get_money()), WHITE, TEXT_FONT)
-		mx = money_off_x + money_w - 5 - amt.get_width()
-		my = money_off_y + (money_h - amt.get_height()) // 2
-		screen.blit(amt, (mx, my))
+		mx = money_off_x + money_w - 5 - amt.width
+		my = money_off_y + (money_h - amt.height) // 2
+		amt.draw(mx, my)
 
 		# draw all items the player has:
 		col = 0
@@ -155,7 +155,7 @@ class InventoryScene:
 			while row < 2:
 				item = self._layout[row][col]
 				if isurf[item] and i.check(item):
-					screen.blit(isurf[item], (item_off_x + 4 + (28 * col), item_off_y + 4 + (28 * row)))
+					isurf[item].draw(item_off_x + 4 + (28 * col), item_off_y + 4 + (28 * row))
 				
 				row += 1
 			col += 1
@@ -166,10 +166,10 @@ class InventoryScene:
 			text = render_text_size(17, i.description(item), WHITE)
 			
 			if text:
-				txt_off_x = title_off_x + (title_w - text.get_width()) // 2
+				txt_off_x = title_off_x + (title_w - text.width) // 2
 				txt_off_y = title_off_y + 2
 				
-				screen.blit(text, (txt_off_x, txt_off_y))
+				text.draw(txt_off_x, txt_off_y)
 		
 		# draw cannon overlay
 		try:
@@ -177,7 +177,7 @@ class InventoryScene:
 			cannonSurf = self._itemSurf['cannon-icon']
 			cannon_off_x = item_off_x + (28 * idx) + 8
 			cannon_off_y = item_off_y + 28 + 10
-			screen.blit(cannonSurf, (cannon_off_x, cannon_off_y))
+			cannonSurf.draw(cannon_off_x, cannon_off_y)
 		except:
 			pass
 		

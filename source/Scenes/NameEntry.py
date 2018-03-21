@@ -98,7 +98,7 @@ class NameEntryScene:
 			while i < 13:
 				c = chr(ord(letter) + i)
 				surf = render_text_size(sz, c, WHITE)
-				screen.blit(surf, (o_x + int((dx - surf.get_width()) / 2.0), o_y))
+				surf.draw(o_x + int((dx - surf.width) / 2.0), o_y)
 				o_x += dx
 				i += 1
 			o_y += dy
@@ -116,30 +116,30 @@ class NameEntryScene:
 		else:
 			name = render_text_size(sz, 'Name: %s' % self._name, WHITE)
 
-		screen.blit(name, (start_off_x, start_off_y/2))
+		name.draw(start_off_x, start_off_y / 2)
 		
 		# draw Done and Erase
 		by = start_off_y + 5 * dy
 		
 		erase = render_text_size(sz, 'Erase', WHITE)
 		ebx = int(SCREEN_WIDTH / 4)
-		screen.blit(erase, (ebx, by))
+		erase.draw(ebx, by)
 		
 		done = render_text_size(sz, 'Done', WHITE)
 		dbx = 3 * int(SCREEN_WIDTH / 5)
-		screen.blit(done, (dbx, by))
+		done.draw(dbx, by)
 		
 		# draw selection bubble
 		s = self._selection
 		if s[1] == 4:
-			cy = by + erase.get_height() - 5
+			cy = by + erase.height - 5
 			if self._erase:
 				b = (ebx + 20, cy)
-				e = (ebx + erase.get_width(), cy)
+				e = (ebx + erase.width, cy)
 				Graphics2D.Draw.line(b[0], b[1], e[0], e[1], 1, 255, 0, 0)
 			if self._done:
 				b = (dbx + 15, cy)
-				e = (dbx + done.get_width(), cy)
+				e = (dbx + done.width, cy)
 				Graphics2D.Draw.line(b[0], b[1], e[0], e[1], 1, 255, 0, 0)
 		else:
 			if s[1] < 2:

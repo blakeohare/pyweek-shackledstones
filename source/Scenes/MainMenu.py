@@ -63,19 +63,19 @@ class MainMenuScene:
 		credits = render_text_size(20, "Credits", WHITE, MENU_FONT) 
 		art = get_image('misc/mainmenu-bg.png')
 		
-		titleOffset = (int((SCREEN_WIDTH - title.get_width()) / 2), 20)
+		titleOffset = (int((SCREEN_WIDTH - title.width) / 2), 20)
 		startOffset = (100, 100)
 		setupOffset = (100, 150)
 		creditsOffset = (100, 200)
 		artOffset = (190, 20)
 		
-		screen.blit(art, artOffset)
-		screen.blit(title, titleOffset)
-		screen.blit(start, startOffset)
-		screen.blit(setup, setupOffset)
-		screen.blit(credits, creditsOffset)
+		art.draw(artOffset[0], artOffset[1])
+		title.draw(titleOffset[0], titleOffset[1])
+		start.draw(startOffset[0], startOffset[1])
+		setup.draw(setupOffset[0], setupOffset[1])
+		credits.draw(creditsOffset[0], creditsOffset[1])
 		
 		gx = startOffset[0] - 50
 		gy = startOffset[1] - 10 + (self._selection * 50)
 		g = self._gears[frame]
-		screen.blit(g, (gx, gy))
+		g.draw(gx, gy)
