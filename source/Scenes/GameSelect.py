@@ -69,14 +69,13 @@ class GameSelectScene:
 					if newGame:
 						self.next = NameEntryScene()
 					else:
-						#print('TODO: set up to resume gameplay')
-						m = getActiveGame().getVar('save_map')
-						if m == None:
+						m = getActiveGame().getString('save_map')
+						if m == '':
 							m = 'transport_1'
 							x = 64
 							y = 56
-						x = getActiveGame().getVar('save_x')
-						y = getActiveGame().getVar('save_y')
+						x = getActiveGame().getInt('save_x', None)
+						y = getActiveGame().getInt('save_y', None)
 						if x == None: x = 64
 						if y == None: y = 56
 						self.next = GamePlayScene(m, x, y + 16)

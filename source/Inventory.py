@@ -19,7 +19,7 @@ class Inventory:
 				return True
 	
 	def check(self, item):
-		return str(self._ag.getVar(item)) == '1'
+		return self._ag.getBool(item)
 	
 	def equip(self, button, item):
 		slots = ['a', 'b', 'x', 'y']
@@ -55,7 +55,7 @@ class Inventory:
 	def equippedY(self):
 		return self._equipped('y')
 	def _equipped(self, button):
-		i = self._ag.getVar('equipped_%s' % button) or ''
+		i = self._ag.getString('equipped_' + button)
 		return i
 	def whichCannonEquipped(self):
 		for l in ['a', 'b', 'x', 'y']:

@@ -49,7 +49,35 @@ class GameInstance:
 		self.temp_vars = {}
 		self.active_game_scene = None
 	
-	def getVar(self, varName):
+	def getBool(self, varName):
+		value = self.temp_vars.get(varName)
+		if value == None:
+			value = self.values.get(varName)
+		if value == None: return False
+		if value == '': return False
+		if value == 0: return False
+		return True
+		
+	
+	def getInt(self, varName, defaultValue = 0):
+		value = self.temp_vars.get(varName)
+		if value == None:
+			value = self.values.get(varName)
+		if value == None:
+			return defaultValue
+		if Core.isString(value):
+			return Core.parseInt(value)
+		return value
+	
+	def getString(self, varName):
+		value = self.temp_vars.get(varName)
+		if value == None:
+			value = self.values.get(varName)
+		if value == None:
+			return ''
+		return str(value)
+	
+	def _getVar(self, varName):
 		value = self.temp_vars.get(varName)
 		if value == None:
 			return self.values.get(varName)

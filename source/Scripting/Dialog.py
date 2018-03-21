@@ -68,9 +68,8 @@ class Dialog:
 		self.scriptEngine._script.FindLabel(c.Label())
 	
 	def _parseScriptedDialog(self, line):
-		name = getActiveGame().getVar('name')
-		# TODO: settle on one casing
-		line = line.replace('%Name%', name).replace('%NAME%', name)
+		name = getActiveGame().getString('name')
+		line = line.replace('%NAME%', name)
 		self._buffer += line + '\n'
 
 	# function implementations

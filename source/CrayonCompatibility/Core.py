@@ -1,6 +1,9 @@
 
+_STRING_TYPE = type('')
+
 Core = EmptyObj()
 Core.parseInt = int
+Core.isString = lambda x: type(x) == _STRING_TYPE
 
 # file IO helpers used by both UserData and Resources
 def read_text_file(path):

@@ -1,7 +1,7 @@
 [comment] Prompt the player to go to the facility on the left after reaching the capital.
 
 [profile][pierce]
-Hey, %Name%.
+Hey, %NAME%.
 [pause]
 
 [profile][mc_portrait]

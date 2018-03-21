@@ -5,7 +5,7 @@ You found the Sabre!
 [pause]
 
 [profile][pierce]
-Hold it there, %Name%. I think you need a tutorial.
+Hold it there, %NAME%. I think you need a tutorial.
 [pause]
 
 [profile][mc_portrait]

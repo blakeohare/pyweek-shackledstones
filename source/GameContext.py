@@ -13,13 +13,13 @@ class GameContext:
 		self.active_game = self.slots[slot_num - 1]
 	
 	def getPlayerName(self, slot_num):
-		return self.slots[slot_num - 1].getVar('name')
+		return self.slots[slot_num - 1].getString('name')
 
 	def getStones(self, slot_num):
 		r = []
 		s = self.slots[slot_num - 1]
 		for st in ['water', 'light', 'dark', 'fire', 'life', 'death']:
-			if s.getVar('stone_' + st):
+			if s.getBool('stone_' + st):
 				r.append(st)
 		return r
 

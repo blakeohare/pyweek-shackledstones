@@ -20,13 +20,13 @@ Think you can handle the rest of them?
 [pause]
 
 [profile][pierce]
-That's what the bombs are for. Get going, %Name%. Hanlon 
+That's what the bombs are for. Get going, %NAME%. Hanlon 
 can only hold our ship up here for so long. I'll see you
 back there.
 [pause]
 
 [profile][meyer]
-%Name%, I'll be after you.
+%NAME%, I'll be after you.
 [pause]
 
 [profile][mc_portrait]

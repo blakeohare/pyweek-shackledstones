@@ -1,7 +1,7 @@
 [comment] A simple script to demonstrate how a dialogue script would look.
 
 [profile][meyer]
-Master Thief %Name%. Well, catching you only took 8
+Master Thief %NAME%. Well, catching you only took 8
 years.
 [pause]
 
@@ -11,7 +11,7 @@ at least?
 [pause]
 
 [profile][meyer]
-I ask the questions now, %Name%....
+I ask the questions now, %NAME%....
 [pause]
 
 [profile][mc_portrait]
@@ -48,7 +48,7 @@ high enough clearance.
 [pause]
 
 [profile][meyer]
-Answer the question, %Name%.
+Answer the question, %NAME%.
 [pause]
 
 [profile][mc_portrait]

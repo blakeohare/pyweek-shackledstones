@@ -37,7 +37,7 @@ class GamePlayScene:
 			mirrors = self.light_puzzle_get_mirror_states()
 			setvar = getActiveGame().setSavedVar
 			setvar('mirror_door_open', 'None')
-			if str(getActiveGame().getVar('light_puzzle_on')) == '1':
+			if getActiveGame().getBool('light_puzzle_on'):
 				if mirrors['A'] == 'mirror1':
 					if mirrors['B'] == 'mirror2' and mirrors['C'] == 'mirror3' and mirrors['D'] == 'mirror1' and mirrors['E'] == 'mirror3' and mirrors['F'] == 'mirror1':
 						setvar('mirror_door_open', 'Blue')
@@ -54,7 +54,7 @@ class GamePlayScene:
 		self.lever_puz = level_name == 'light_south_southroom'
 		
 		if self.torch_puz:
-			self.swamp_opened = getActiveGame().getVar('swamp_opened') != None
+			self.swamp_opened = getActiveGame().getBool('swamp_opened')
 			
 			if self.swamp_opened:
 				self.open_dark_temple()
@@ -179,14 +179,11 @@ class GamePlayScene:
 				self.player.hammer()
 			elif actions['item_hook']:
 				self.player.Grapple()
-			
 		
 		if actions['item_compass']:
-			compass_active = getActiveGame().getVar('is_compass_active')
-			if compass_active == None: compass_active = 0
-			else: compass_active = int(compass_active)
+			compass_active = getActiveGame().getBool('is_compass_active')
 			
-			if compass_active == 1:
+			if compass_active:
 				getActiveGame().setTempVar('is_compass_active', 0)
 			else:
 				getActiveGame().setTempVar('is_compass_active', 1)
@@ -369,7 +366,7 @@ class GamePlayScene:
 		self.cutscene = None
 		
 	def desert_puzzle_update(self):
-		opened = str(getActiveGame().getVar('light_temple_opened')) == '1'
+		opened = getActiveGame().getBool('light_temple_opened')
 		if not opened and self.player.state == 'shovelling':
 			target = self.level.ids['temple']
 			x = self.player.x >> 4

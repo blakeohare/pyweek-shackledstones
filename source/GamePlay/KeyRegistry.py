@@ -21,7 +21,7 @@ class KeyRegistry:
 		return index
 	
 	def isDoorLocked(self, map, dungeon, x, y, color):
-		return self.getVar(self.getPreferredIndexForDoor(map, dungeon, x, y, color)) != 1
+		return getActiveGame().getBool(self.getPreferredIndexForDoor(map, dungeon, x, y, color))
 	
 	def useKey(self, dungeon, color, map, x, y):
 		if self.getKeyCount(dungeon, color) > 0:
@@ -37,19 +37,12 @@ class KeyRegistry:
 	
 	def getKeyCount(self, dungeon, color):
 		index = self.getKeyCountIndex(dungeon, color)
-		count = self.getVar(index)
-		if count == None:
-			return 0
-		return count
+		return getActiveGame().getInt(index, 0)
 	
 	def addKey(self, dungeon, color):
 		index = self.getKeyCountIndex(dungeon, color)
-		count = self.getVar(index)
-		if count == None: count = 0
+		count = getActiveGame().getInt(index, 0)
 		self.SetVar(index, count + 1)
-	
-	def getVar(self, var):
-		return getActiveGame().getVar(var)
 
 	def SetVar(self, var, value):
 		getActiveGame().setSavedVar(var, value)

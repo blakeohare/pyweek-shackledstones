@@ -38,11 +38,7 @@ def make_table(width, height):
 	return cols
 
 def get_money():
-	value = getActiveGame().getVar('money_amount')
-	if value == None:
-		return 0
-	else:
-		return int(value)
+	return getActiveGame().getInt('money_amount')
 
 def set_money(amount):
 	getActiveGame().setSavedVar('money_amount', int(amount))
@@ -54,18 +50,10 @@ def has_money(amount):
 	return get_money() >= amount
 
 def get_life():
-	value = getActiveGame().getVar('life_meter')
-	if value == None:
-		return 3
-	else:
-		return max(0, int(value))
+	return max(0, getActiveGame().getInt('life_meter', 3))
 
 def get_max_life():
-	value = getActiveGame().getVar('has_armor')
-	if value == None or value == 0:
-		return 10
-	else:
-		return 20
+	return 20 if getActiveGame().getBool('has_armor') else 10
 
 def set_life(amount):
 	getActiveGame().setTempVar('life_meter', min(10, amount))

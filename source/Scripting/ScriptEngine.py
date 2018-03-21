@@ -65,12 +65,12 @@ class ScriptEngine:
 	# return indicates if script execution should continue (True) or stop until
 	# the next call to advance(False)
 	def _checkVar(self, var, test, val, label, failLabel = None):
-		sval = getActiveGame().getVar(var)
+		sval = getActiveGame().getInt(var)
 		if test == 'eq':
 			ret = (sval == val)
 		elif test == 'lt':
 			ret = (sval < val)
-		elif test == 'lte.':
+		elif test == 'lte':
 			ret = (sval <= val)
 		elif test == 'gt':
 			ret = (sval > val)

@@ -41,14 +41,13 @@ def do_music(file, loop = False):
 	play_music(file)
 
 def do_toggle_mirror(mirror_name):
-	current = getActiveGame().getVar('mirror_state_' + mirror_name)
+	current = getActiveGame().getString('mirror_state_' + mirror_name)
 	if current == 'mirror1': current = 'mirror2'
 	elif current == 'mirror2': current = 'mirror3'
 	elif current == 'mirror3': current = 'mirror4'
 	else: current = 'mirror1'
 	play_sound('mirrorrotate')
 	getActiveGame().setSavedVar('mirror_state_' + mirror_name, current)
-	#print 'toggle ', mirror_name
 
 def do_switch_scene(newScene):
 	game_scene = getActiveGame().getActiveGameScene()

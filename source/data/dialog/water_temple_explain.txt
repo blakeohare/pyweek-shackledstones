@@ -35,7 +35,7 @@ You're hard to understand sometimes, old man.
 
 [profile][hanlon]
 Rumor has it that this temple is guarded by mystical
-beasts. Stay sharp, %Name%.
+beasts. Stay sharp, %NAME%.
 [pause]
 
 [profile][mc_portrait]

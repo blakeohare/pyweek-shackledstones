@@ -25,7 +25,7 @@ Meyer?!
 [pause]
 
 [profile][meyer]
-That diversion didn't quite work, %Name%.
+That diversion didn't quite work, %NAME%.
 [pause]
 
 [profile][meyer]
@@ -35,7 +35,7 @@ good to be true.
 [pause]
 
 [profile][meyer]
-%Name%, I suppose you have the Life Temple next. It's
+%NAME%, I suppose you have the Life Temple next. It's
 in the Forbidden Forest in the southwest.
 [pause]
 
@@ -69,7 +69,7 @@ it? Do your best. I'll watch over you.
 [profile][meyer]
 It is my honor, Fire Spirit.
 
-Go, %Name%. Southwest. We'll meet again.
+Go, %NAME%. Southwest. We'll meet again.
 [pause]
 
 [label][end]

@@ -124,9 +124,9 @@ class CutSceneEvent:
 	
 	def shake_screen(self, game_scene):
 		if self.expiration == self.play_sound_on:
+			# TODO: play shaking sound"
 			pass
-			#print("TODO: play shaking sound")
-		self.render_offset = (-2,2)[(self.expiration & 1) == 0]
+		self.render_offset = 2 if (self.expiration & 1) == 0 else -2
 		
 	def is_key_pressed(self, key):
 		return self.key_pressed == key
@@ -143,8 +143,8 @@ class CutSceneEvent:
 	
 	def createsprite(self, game_scene):
 		sprite = create_sprite(self.sprite_name, self.sprite_id)
-		sprite.x = (self.x << 4) + 8
-		sprite.y = (self.y << 4) + 8
+		sprite.x = (self.x * 16) + 8
+		sprite.y = (self.y * 16) + 8
 		sprite.state = self.state
 		sprite.layer = self.layer
 		sprite.direction = self.direction
@@ -152,7 +152,7 @@ class CutSceneEvent:
 	
 	def deletesprite(self, game_scene):
 		sprite = game_scene.get_sprite_by_id(self.sprite_id)
-		sprite.expired=True
+		sprite.expired = True
 	
 	def show_dialog(self, game_scene):
 		game_scene.next = DialogScene(
@@ -169,8 +169,8 @@ class CutSceneEvent:
 		if self.first_time_through:
 			self.source_x = sprite.x
 			self.source_y = sprite.y
-		target_x = (self.x << 4) + 8
-		target_y = (self.y << 4) + 8
+		target_x = (self.x * 16) + 8
+		target_y = (self.y * 16) + 8
 		if self.instant:
 			sprite.x = target_x
 			sprite.y = target_y
@@ -251,7 +251,7 @@ def get_cutscene_for_map(map_name):
 	played_already = _play_once.get(cs_name)
 	if played_already != None:
 		key = 'cut_scene_play_once_' + cs_name
-		if getActiveGame().getVar(key) == 1:
+		if getActiveGame().getBool(key):
 			cs = None
 		else:
 			getActiveGame().setSavedVar(key, 1)
