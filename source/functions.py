@@ -101,7 +101,9 @@ def heal_damage():
 
 def wrap_text(surf, txt, fnt):
 	lineWidth = surf.get_width()
-	words = re.split("\s", txt)
+	
+	words = txt.replace('\n', ' ').replace('  ', ' ').replace('  ', ' ').split(' ') # bleh
+	
 	clr = WHITE
 	
 	lineSet = []
@@ -111,7 +113,7 @@ def wrap_text(surf, txt, fnt):
 		word = word.strip()
 		
 		if (curLine != ''):
-			renderWord = ' %s' % word
+			renderWord = ' ' + word
 		else:
 			renderWord = word
 		
