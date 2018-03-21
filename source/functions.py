@@ -45,18 +45,12 @@ def render_text_size(size, string, color = BLACK, fontPath = MENU_FONT):
 		_fontBucket[fontKey] = f
 	return f.render(string, True, color)
 
-def render_number(num, color=BLACK, sz=15):
-	return render_text_size(sz, str(num), color, TEXT_FONT)
-
-def make_list(size):
-	return [None] * size
-
 def make_table(width, height):
-	cols = make_list(width)
-	i = 0
-	while i < width:
-		cols[i] = make_list(height)
-		i += 1
+	cols = []
+	t = [None]
+	while width > 0:
+		cols.append(t * height)
+		width -= 1
 	return cols
 
 def get_money():
@@ -131,9 +125,6 @@ def wrap_text(lineWidth, txt, fnt):
 		lineSet.append(curLine)
 	
 	return lineSet
-
-def lines_visible(surf, fnt):
-	return int(surf.get_height() / fnt.get_height())
 
 def draw_rect_stroke(x, y, w, h, r, g, b, strokeSize):
 	right = x + w - 1
