@@ -2,22 +2,30 @@ class FontEngine:
 
 	def __init__(self):
 		self.cache = {}
-		self.fontCache = {}
-		self._defaultFont = self.getFont('default', 13)
+		self.fontResources = {}
+		self.fontRenderers = {}
+		self._defaultFont = self.getFont('default', 13, (0, 0, 0))
 
-	def getFont(self, name, size):
-		k = '|'.join([name, str(size)])
-		font = self.fontCache.get(k)
-		if font == None:
+	def getFontResource(self, name):
+		output = self.fontResources.get(name)
+		if output == None:
 			if name == 'default':
-				path = 'rm_typerighter.ttf'
+				path = 'fonts/rm_typerighter.ttf'
 			elif name == 'fancy':
-				path = 'fortunaschwein.ttf'
+				path = 'fonts/fortunaschwein.ttf'
 			else:
 				raise Exception("Unknown font option")
-			path = ('source/fonts/' + path).replace('/', os.sep)
-			font = pygame.font.Font(path, size)
-			self.fontCache[k] = font
+			output = Graphics2DText.FontResource.loadFromResource(path)
+			self.fontResources[name] = output
+		return output
+	
+	def getFont(self, name, size, color):
+		k = '|'.join([name, str(size), str(color)])
+		font = self.fontRenderers.get(k)
+		if font == None:
+			fontResource = self.getFontResource(name)
+			font = fontResource.getRenderer().setColor(color[0], color[1], color[2]).setSize(size)
+			self.fontRenderers[k] = font
 		return font
 		
 	def wrap_text(self, lineWidth, txt):
@@ -60,8 +68,8 @@ class FontEngine:
 		existing = self.cache.get(k)
 		if existing != None: return existing
 		
-		font = self.getFont(fontPath, size)
-		img = ImageWrapper(font.render(string, True, color))
+		font = self.getFont(fontPath, size, color)
+		img = font.render(string)
 		if len(self.cache) > 20:
 			self.cache = {}
 		
@@ -69,7 +77,7 @@ class FontEngine:
 		return img
 
 	def getDefaultFontHeight(self):
-		return self._defaultFont.get_height()
+		return 18
 
 def render_text_size(size, string, color, fontPath = 'fancy'):
 	return getFontEngine().render_text_size(size, string, color, fontPath)
