@@ -2,6 +2,7 @@ class CreditsScene:
 	def __init__(self):
 		self.next = self
 		self._y = 250
+		screen_width = _activeScreen.get_width()
 		
 		lines = [
 			"heading1:%s" % GAME_NAME,
@@ -52,7 +53,6 @@ class CreditsScene:
 		]
 		
 		cSurf = []
-		max_x = 0
 		cum_y = 0
 		for l in lines:
 			sz = 18
@@ -64,16 +64,17 @@ class CreditsScene:
 				sz = 30
 			surf = render_text_size(sz, l, WHITE)
 			cSurf.append(surf)
-			max_x = max(max_x, surf.get_width())
 			cum_y += surf.get_height()
 		
-		self._credits = pygame.Surface((max_x, cum_y))
+		self.blit_instructions = []
 		
 		y = 0
 		for s in cSurf:
-			x = int((max_x - s.get_width()) / 2)
-			self._credits.blit(s, (x, y))
+			
+			x = (screen_width - s.get_width()) // 2
+			self.blit_instructions.append([s, x, y])
 			y += s.get_height()
+		self.cum_y = cum_y
 	
 	def processInput(self, events):
 		for e in events:
@@ -87,15 +88,19 @@ class CreditsScene:
 		pass
 	
 	def render(self, screen, renderOffset):
-		c = self._credits
+		
 		sw = screen.get_width()
 		offy = self._y
 		
-		screen.blit(c, (int((sw - c.get_width()) / 2), offy))
+		for instr in self.blit_instructions:
+			img = instr[0]
+			x = instr[1]
+			y = instr[2]
+			screen.blit(img, (x, offy + y))
 		
 		self._y -= 1
 		
-		if (c.get_height() - abs(self._y)) == -40:
+		if (self.cum_y - abs(self._y)) <= -40:
 			mm = MainMenuScene()
 			self.next = mm
 			mm.next = mm
