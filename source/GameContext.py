@@ -3,9 +3,9 @@ class GameContext:
 	
 	def __init__(self):
 		for i in (1, 2, 3):
-			file = 'saves/slot' + str(i) + '.txt'
-			if not file_exists(file):
-				write_text_file(file, ' ')
+			file = 'slot' + str(i) + '.txt'
+			if not UserData.fileExists(file):
+				UserData.fileWriteText(file, ' ')
 		self.slots = [GameInstance(1), GameInstance(2), GameInstance(3)]
 		self.active_game = None
 

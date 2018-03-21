@@ -20,5 +20,5 @@ def ScriptUtil_splitCommand(string):
 
 # Loads a file into a ScriptIter
 def ScriptUtil_loadFile(path):
-	scr = read_text_file(path).split('\n')
+	scr = Resources.readText(path).split('\n')
 	return ScriptIter(scr)

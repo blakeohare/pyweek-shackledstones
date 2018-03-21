@@ -2,7 +2,7 @@ class TileStore:
 	def __init__(self):
 		self.templates = {}
 		
-		lines = read_text_file('data/tiles.txt').split('\n')
+		lines = Resources.readText('data/tiles.txt').split('\n')
 		for line in lines:
 			tline = line.strip()
 			if len(tline) > 0 and tline[0] != '#':

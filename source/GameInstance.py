@@ -71,7 +71,7 @@ class GameInstance:
 		if slot == None:
 			slot = self.slot
 		values = {}
-		lines = read_text_file('saves/slot' + str(slot) + '.txt').strip().split('\n')
+		lines = UserData.fileReadText('slot' + str(slot) + '.txt').strip().split('\n')
 		
 		for line in lines:
 			parts = line.strip().split(':')
@@ -97,4 +97,4 @@ class GameInstance:
 			else:
 				name = '#' + key
 			output.append(name + ':' + str(value))
-		write_text_file('saves/slot' + str(self.slot) + '.txt', '\n'.join(output))
+		UserData.fileWriteText('slot' + str(self.slot) + '.txt', '\n'.join(output))
