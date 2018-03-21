@@ -75,7 +75,7 @@ class DialogScene:
 			screen.blit(pSurf, (x, y))
 			
 		df = get_image('ui/dframe.png')
-		screen.blit(df, (0,screen.get_height() - df.get_height() - 4))
+		screen.blit(df, (0, SCREEN_HEIGHT - df.get_height() - 4))
 		
 		lineWidth = df.get_width() - (2 * D_TEXT_OFFSET_X)
 		wt = wrap_text(lineWidth, d.Text(), _font)

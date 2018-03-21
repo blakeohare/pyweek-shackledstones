@@ -10,11 +10,11 @@ class CompassRenderer:
 		game_scene = getActiveGame().getActiveGameScene()
 		if getActiveGame().getVar('is_compass_active') == 1:
 			screen.blit(compass_image, (10, 200))
-			spin_angle = self.counter * 3.14159 * 2 / 30
+			spin_angle = self.counter * Math.PI * 2 / 30
 			if game_scene != None and game_scene.level.dungeon == 'light':
 				angle = spin_angle
 			elif game_scene == None or game_scene.name != 'world_W':
-				angle = 3.14159 / 2
+				angle = Math.PI / 2
 			else:
 				tile = game_scene.level.ids['temple']
 				x = (tile.x << 4) + 8

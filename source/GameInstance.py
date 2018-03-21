@@ -67,7 +67,7 @@ class GameInstance:
 	def setTempVar(self, name, value):
 		self.temp_vars[name] = value
    
-	def parse(self, slot=None):
+	def parse(self, slot = None):
 		if slot == None:
 			slot = self.slot
 		values = {}
@@ -86,7 +86,6 @@ class GameInstance:
 		return values
 
 	def setZone(self, newVal):
-		print('setZone: %s' % newVal)
 		self.setTempVar('current_zone', newVal)
 	
 	def saveToFile(self):

@@ -1,5 +1,11 @@
 GAME_NAME = "Shackled Stones"
 
+TILE_COLUMN_COUNT = 24
+TILE_ROW_COUNT = 18
+
+SCREEN_WIDTH = TILE_COLUMN_COUNT * 16
+SCREEN_HEIGHT = TILE_ROW_COUNT * 16
+
 WARP_NSCROLL  = "north scroll"
 WARP_SSCROLL  = "south scroll"
 WARP_ESCROLL  = "east scroll"

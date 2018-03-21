@@ -105,19 +105,18 @@ class GameSelectScene:
 
 		gc = getGameContext()
 		
-		sw = screen.get_width()
 		gameSel_y = 20
 		
 		gameTxt = "Game Select"
 		if self._eraseMode:
 			gameTxt = 'Erase Game'
 		gameSel = render_text_size(23, gameTxt, txtColor)
-		screen.blit(gameSel, (int((sw - gameSel.get_width()) / 2), gameSel_y))
+		screen.blit(gameSel, (int((SCREEN_WIDTH - gameSel.get_width()) / 2), gameSel_y))
 	
 		post_title_y = gameSel_y + gameSel.get_height() + 10
 	
 		# game sel width
-		sel_w = int(.7 * sw)
+		sel_w = int(.7 * SCREEN_WIDTH)
 		# game sel height
 		sel_h = 45
 		# separation between game sel blocks
@@ -125,7 +124,7 @@ class GameSelectScene:
 		
 		i = 0
 		while i < 3:
-			sx = int(sw * .2)
+			sx = int(SCREEN_WIDTH * .2)
 			sy = i * (gameSel_sep + sel_h) + post_title_y
 
 			if i == self._selection:

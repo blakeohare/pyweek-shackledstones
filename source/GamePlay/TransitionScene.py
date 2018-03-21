@@ -36,10 +36,8 @@ class TransitionScene:
 		progress = self.duration / self.max_duration
 		antiprogress = 1 - progress
 		transition = self.transition_type
-		h = screen.get_height()
-		w = screen.get_width()
-		x = int(progress * w)
-		y = int(progress * h)
+		x = int(progress * SCREEN_WIDTH)
+		y = int(progress * SCREEN_HEIGHT)
 		to_offset = [0, 0]
 		from_offset = [0, 0]
 		
@@ -47,16 +45,16 @@ class TransitionScene:
 		
 		if transition == WARP_SSCROLL:
 			to_offset[1] = y
-			from_offset[1] = y - h
+			from_offset[1] = y - SCREEN_HEIGHT
 		elif transition == WARP_NSCROLL:
 			to_offset[1] = -y
-			from_offset[1] = -y + h
+			from_offset[1] = -y + SCREEN_HEIGHT
 		elif transition == WARP_ESCROLL:
 			to_offset[0] = x
-			from_offset[0] = x - w
+			from_offset[0] = x - SCREEN_WIDTH
 		elif transition == WARP_WSCROLL:
 			to_offset[0] = -x
-			from_offset[0] = -x + w
+			from_offset[0] = -x + SCREEN_WIDTH
 		elif transition == WARP_PIXELATE or transition == WARP_FADE:
 			callRender = False
 			rProgress = 1 - progress # original calculations are backwards? 

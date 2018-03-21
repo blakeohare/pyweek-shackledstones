@@ -64,7 +64,7 @@ class InventoryScene:
 		self._baseScene.render(screen, renderOffset)
 		i = self._i
 		isurf = self._itemSurf
-		sw = screen.get_width()
+		sw = SCREEN_WIDTH
 		
 		title_w = 200
 		title_h = 25
@@ -78,15 +78,15 @@ class InventoryScene:
 		ss = 1 # strokeSize
 		vBorder = 7
 		
-		money_off_x = (screen.get_width() - money_w) // 2
+		money_off_x = (SCREEN_WIDTH - money_w) // 2
 		money_off_y = 150
 		draw_rect_stroke(money_off_x - ss, money_off_y - ss, 140 + (2 *ss), 25 + (2 *ss), 255, 255, 255, ss)
 		
-		item_off_x = (screen.get_width() - item_w) // 2
+		item_off_x = (SCREEN_WIDTH - item_w) // 2
 		item_off_y = money_off_y + title_h + vBorder
 		draw_rect_stroke(item_off_x - ss, item_off_y - ss, 140 + (2 *ss), 60 + (2 *ss), 255, 255, 255, ss)
 		
-		title_off_x = (screen.get_width() - title_w) // 2
+		title_off_x = (SCREEN_WIDTH - title_w) // 2
 		title_off_y = item_off_y + item_h + vBorder
 		draw_rect_stroke(title_off_x - ss, title_off_y - ss, 200 + (2 *ss), 25 + (2 *ss), 255, 255, 255, ss)
 		

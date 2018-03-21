@@ -122,11 +122,11 @@ class NameEntryScene:
 		by = start_off_y + 5 * dy
 		
 		erase = render_text_size(sz, 'Erase', WHITE)
-		ebx = int(screen.get_width() / 4)
+		ebx = int(SCREEN_WIDTH / 4)
 		screen.blit(erase, (ebx, by))
 		
 		done = render_text_size(sz, 'Done', WHITE)
-		dbx = 3 * int(screen.get_width() / 5)
+		dbx = 3 * int(SCREEN_WIDTH / 5)
 		screen.blit(done, (dbx, by))
 		
 		# draw selection bubble

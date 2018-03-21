@@ -89,7 +89,7 @@ class CreditsScene:
 	
 	def render(self, screen, renderOffset):
 		
-		sw = screen.get_width()
+		sw = SCREEN_WIDTH
 		offy = self._y
 		
 		for instr in self.blit_instructions:

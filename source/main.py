@@ -1,6 +1,3 @@
-TILE_COLUMN_COUNT = 24
-TILE_ROW_COUNT = 18
-
 
 def main():
 
@@ -15,19 +12,16 @@ def main():
 	width = TILE_COLUMN_COUNT * 16
 	height = TILE_ROW_COUNT * 16
 	
-	screen = pygame.display.set_mode((width * 2, height * 2))
+	screen = pygame.display.set_mode((SCREEN_WIDTH * 2, SCREEN_HEIGHT * 2))
 	pygame.display.set_icon(pygame.image.load("icon.png"))
 	pygame.display.set_caption("Shackeld Stones")
 		
-	virtual_screen = pygame.Surface((width, height))
+	virtual_screen = pygame.Surface((SCREEN_WIDTH, SCREEN_HEIGHT))
 	_activeScreen = virtual_screen
 	
 	getInputManager().initializeJoystick()
 	
 	scene = MainMenuScene()
-	
-	screen_width = screen.get_width()
-	screen_height = screen.get_height()
 	
 	while scene != None:
 			
@@ -41,29 +35,9 @@ def main():
 		
 		scene.render(virtual_screen, (0, 0))
 		
-		pygame.transform.scale(virtual_screen, (screen_width, screen_height), screen)
+		pygame.transform.scale(virtual_screen, screen.get_size(), screen)
 		
 		scene = scene.next
-		
-		change_video_mode = getInputManager().VideoModeChange()
-		if change_video_mode != None:
-			if current_screen_mode == change_video_mode:
-				current_screen_mode = 'windowed'
-				screen = pygame.display.set_mode((width * 2, height * 2))
-				screen_width = screen.get_width()
-				screen_height = screen.get_height()
-			else:
-				current_screen_mode = change_video_mode
-			
-				if change_video_mode == 'wide':
-					current_screen_mode = 'wide'
-					screen = pygame.display.set_mode((1400, 900), FULLSCREEN)
-					screen_width = screen.get_width()
-					screen_height = screen.get_height()
-				else:
-					screen = pygame.display.set_mode((width * 2, height * 2), FULLSCREEN)
-					screen_width = screen.get_width()
-					screen_height = screen.get_height()
 		
 		if getInputManager().escape_attempted:
 			scene = None

@@ -614,8 +614,8 @@ class GamePlayScene:
 		width = self.level.width * 16
 		height = self.level.height * 16
 		
-		screen_width = 24 * 16
-		screen_height = 18 * 16
+		screen_width = SCREEN_WIDTH
+		screen_height = SCREEN_HEIGHT
 		
 		offset_x = 0
 		offset_y = 0

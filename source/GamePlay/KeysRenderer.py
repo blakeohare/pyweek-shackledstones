@@ -17,5 +17,5 @@ class KeyRenderer:
 				image = item[0]
 				count = item[1]
 				if count > 0:
-					screen.blit(image, pygame.Rect(xoffset, screen.get_clip().bottom - 16, 8, 8))
+					screen.blit(image, pygame.Rect(xoffset, SCREEN_HEIGHT - 16, 8, 8))
 				xoffset += 16
