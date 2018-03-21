@@ -19,11 +19,10 @@ def read_file(file):
 
 pyweek_root = '.' + os.sep
 
-imports = pyweek_root + 'source' + os.sep + 'imports.py'
 main = pyweek_root + 'source' + os.sep + 'main.py'
 functions = pyweek_root + 'source' + os.sep + 'functions.py'
 globals = pyweek_root + 'source' + os.sep + 'globals.py'
-exempt = [imports, main, functions, globals]
+exempt = [main, functions, globals]
 
 root = pyweek_root + 'source'
 
@@ -31,7 +30,6 @@ body = []
 
 files = get_all_files(root)
 
-body.append(read_file(imports))
 body.append(read_file(globals))
 body.append(read_file(functions))
 

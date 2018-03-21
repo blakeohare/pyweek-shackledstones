@@ -83,8 +83,8 @@ class NameEntryScene:
 	def render(self, screen, renderOffset):
 		self._tic += 1
 		sz = 18
-		dx = int(sz * 1.3)
-		dy = int(sz * 1.5)
+		dx = Math.floor(sz * 1.3)
+		dy = Math.floor(sz * 1.5)
 		letters = ['A','N','a','n']
 		start_off_x = 40
 		start_off_y = 80
@@ -94,11 +94,11 @@ class NameEntryScene:
 			i = 0
 			o_x = start_off_x
 			if (letters.index(letter) >= 2):
-				o_x += int(dx / 6)
+				o_x += Math.floor(dx / 6)
 			while i < 13:
 				c = chr(ord(letter) + i)
 				surf = render_text_size(sz, c, WHITE)
-				surf.draw(o_x + int((dx - surf.width) / 2.0), o_y)
+				surf.draw(o_x + Math.floor((dx - surf.width) / 2.0), o_y)
 				o_x += dx
 				i += 1
 			o_y += dy
@@ -122,11 +122,11 @@ class NameEntryScene:
 		by = start_off_y + 5 * dy
 		
 		erase = render_text_size(sz, 'Erase', WHITE)
-		ebx = int(SCREEN_WIDTH / 4)
+		ebx = SCREEN_WIDTH // 4
 		erase.draw(ebx, by)
 		
 		done = render_text_size(sz, 'Done', WHITE)
-		dbx = 3 * int(SCREEN_WIDTH / 5)
+		dbx = 3 * (SCREEN_WIDTH // 5)
 		done.draw(dbx, by)
 		
 		# draw selection bubble
@@ -143,14 +143,14 @@ class NameEntryScene:
 				Graphics2D.Draw.line(b[0], b[1], e[0], e[1], 1, 255, 0, 0)
 		else:
 			if s[1] < 2:
-				x = start_off_x + s[0] * dx + int(dx / 2.0)
-				y = start_off_y + s[1] * dy + int(dy / 2.0)
+				x = start_off_x + s[0] * dx + Math.floor(dx / 2.0)
+				y = start_off_y + s[1] * dy + Math.floor(dy / 2.0)
 				if s[1] == 1:
-					y += int(dy / 7.0)
+					y += Math.floor(dy / 7.0)
 				draw_circle_stroke(x, y, sz * 8 // 7, 1, 255, 0, 0)
 			else:
-				x = start_off_x + s[0] * dx + int(dx / 2.0) + int(dx/6)
-				y = start_off_y + int(dy/5) + int(dy/3) + s[1] * dy + int(dy / 2.1)
+				x = start_off_x + s[0] * dx + Math.floor(dx / 2.0) + Math.floor(dx/6)
+				y = start_off_y + Math.floor(dy / 5) + Math.floor(dy/3) + s[1] * dy + Math.floor(dy / 2.1)
 				if s[1] == 1:
-					y += int(dy / 7.0)
+					y += Math.floor(dy / 7.0)
 				draw_circle_stroke(x, y, sz // 2, 1, 255, 0, 0)

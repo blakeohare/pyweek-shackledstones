@@ -36,8 +36,8 @@ class TransitionScene:
 		progress = self.duration / self.max_duration
 		antiprogress = 1 - progress
 		transition = self.transition_type
-		x = int(progress * SCREEN_WIDTH)
-		y = int(progress * SCREEN_HEIGHT)
+		x = Math.floor(progress * SCREEN_WIDTH)
+		y = Math.floor(progress * SCREEN_HEIGHT)
 		to_offset = [0, 0]
 		from_offset = [0, 0]
 		
@@ -65,7 +65,7 @@ class TransitionScene:
 				self.to_scene.render(screen, (0, 0))
 				amount = Math.floor((1 - (rProgress * 2 - 1)) * 255)
 			
-			alpha = int(max(0,min(255, 255 * (1 - amount))))
+			alpha = max(0, min(255, Math.floor(255 * (1 - amount))))
 			fill_screen_with_alpha(0, 0, 0, amount)
 		
 		if callRender:

@@ -1,14 +1,4 @@
 
-def get_image(path):
-	img = _imageLibrary.get(path)
-	if img == None:
-		file_path = os.path.join('source', 'images', path.replace('/', os.sep).replace('\\', os.sep))
-		if not file_path.endswith('.png'):
-			file_path += '.png'
-		
-		_imageLibrary[path] = ImageWrapper(pygame.image.load(file_path))
-	return _imageLibrary[path]
-
 def run_script(script_contents):
 	script_contents = script_contents.replace('\\n', '\n') # TODO: fix this
 	scriptIter = ScriptIter(script_contents.split('\n'))
@@ -24,11 +14,16 @@ def make_table(width, height):
 		width -= 1
 	return cols
 
+def ambiguous_int(value):
+	if value == None: return 0
+	if Core.isString(value): Core.parseInt(value)
+	return Math.floor(value)
+	
 def get_money():
 	return getActiveGame().getInt('money_amount')
 
 def set_money(amount):
-	getActiveGame().setSavedVar('money_amount', int(amount))
+	getActiveGame().setSavedVar('money_amount', ambiguous_int(amount))
 
 def modify_money(amount):
 	set_money(max(0, get_money() + amount))

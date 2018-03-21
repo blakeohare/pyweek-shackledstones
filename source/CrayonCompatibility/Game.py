@@ -1,4 +1,6 @@
 
+import time
+
 Game = EmptyObj()
 
 _activeScreen = None

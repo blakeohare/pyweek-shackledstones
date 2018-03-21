@@ -108,7 +108,7 @@ class GameInstance:
 				value = ':'.join(parts[1:]).strip()
 				if len(name) > 1 and name[0] in '$#':
 					if name[0] == '#':
-						value = int(value)
+						value = Core.parseInt(value)
 					name = name[1:]
 					values[name] = value
 		return values

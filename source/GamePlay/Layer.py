@@ -55,8 +55,8 @@ class Layer:
 		height = self.height
 		tiles = self.tiles
 		
-		left = max(self.left, int(x_offset / -16) - 2)
-		top = max(self.top, int(y_offset / -16) - 2)
+		left = max(self.left, Math.floor(x_offset / -16) - 2)
+		top = max(self.top, Math.floor(y_offset / -16) - 2)
 		right = min(left + 24 + 4, self.right + 1)
 		bottom = min(top + 18 + 4, self.bottom + 1)
 		

@@ -110,12 +110,12 @@ class GameSelectScene:
 		if self._eraseMode:
 			gameTxt = 'Erase Game'
 		gameSel = render_text_size(23, gameTxt, txtColor)
-		gameSel.draw(int((SCREEN_WIDTH - gameSel.width) / 2), gameSel_y)
+		gameSel.draw((SCREEN_WIDTH - gameSel.width) // 2, gameSel_y)
 	
 		post_title_y = gameSel_y + gameSel.height + 10
 	
 		# game sel width
-		sel_w = int(.7 * SCREEN_WIDTH)
+		sel_w = Math.floor(.7 * SCREEN_WIDTH)
 		# game sel height
 		sel_h = 45
 		# separation between game sel blocks
@@ -123,7 +123,7 @@ class GameSelectScene:
 		
 		i = 0
 		while i < 3:
-			sx = int(SCREEN_WIDTH * .2)
+			sx = Math.floor(SCREEN_WIDTH * .2)
 			sy = i * (gameSel_sep + sel_h) + post_title_y
 
 			if i == self._selection:
@@ -139,7 +139,7 @@ class GameSelectScene:
 				nameSurf = render_text_size(17, 'New Game', descColor)
 			
 			nx = sx + 10
-			ny = int((sel_h - nameSurf.height) / 2) + sy
+			ny = (sel_h - nameSurf.height) // 2 + sy
 			nameSurf.draw(nx, ny)
 
 			if name:
@@ -149,7 +149,7 @@ class GameSelectScene:
 				for st in stones:
 					stSurf = get_image('ui/stones/' + st + '.png')
 					stx = sx + sel_w - 10 - ((1 + j) * 20)
-					sty = sy + int((sel_h - stSurf.height) / 2)
+					sty = sy + (sel_h - stSurf.height) // 2
 					
 					stSurf.draw(stx, sty)
 					j += 1

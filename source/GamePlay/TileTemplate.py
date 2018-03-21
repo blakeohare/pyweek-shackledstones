@@ -10,7 +10,7 @@ class TileTemplate:
 		self.images = images
 		
 		if len(parts) == 5:
-			self.anim_delay = int(parts[4])
+			self.anim_delay = Core.parseInt(parts[4])
 		else:
 			self.anim_delay = 4
 		self.num_images = len(self.images)

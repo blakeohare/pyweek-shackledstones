@@ -16,7 +16,7 @@ def Audio_Music_loadFromResource(path):
 
 def Audio_SoundResource_loadFromResource(path):
 	return SoundResourceInstance(path)
-	
+
 def _audio_ensure_initialized():
 	if not Audio.is_initialized:
 		pygame.mixer.init()
@@ -26,7 +26,7 @@ def _audio_ensure_initialized():
 class MusicInstance:
 	def __init__(self, path):
 		path = 'source/' + path
-		path = path.replace('/', os.sep)
+		path = path.replace('/', _OS_SEP)
 		self.file_path = path
 	
 	def play(self, loop):
@@ -37,7 +37,7 @@ class MusicInstance:
 class SoundResourceInstance:
 	def __init__(self, path):
 		path = 'source/' + path
-		path = path.replace('/', os.sep)
+		path = path.replace('/', _OS_SEP)
 		_audio_ensure_initialized()
 		self.nativeSound = pygame.mixer.Sound(path)
 	

@@ -116,7 +116,7 @@ class DialogScene:
 			t.draw(D_TEXT_OFFSET_X, D_TEXT_OFFSET_Y + lineNo * fontHeight)
 			lineNo += 1
 		if D_QUESTION == d.State() and not self._truncating:
-			cy = int(D_TEXT_OFFSET_Y + (lineNo + self._choice + .5) * fontHeight)
+			cy = Math.floor(D_TEXT_OFFSET_Y + (lineNo + self._choice + .5) * fontHeight)
 			cx = D_TEXT_OFFSET_X + 6
 			
 			# draw choice indicator

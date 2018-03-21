@@ -63,7 +63,7 @@ class MainMenuScene:
 		credits = render_text_size(20, "Credits", WHITE, 'fancy') 
 		art = get_image('misc/mainmenu-bg.png')
 		
-		titleOffset = (int((SCREEN_WIDTH - title.width) / 2), 20)
+		titleOffset = ((SCREEN_WIDTH - title.width) // 2, 20)
 		startOffset = (100, 100)
 		setupOffset = (100, 150)
 		creditsOffset = (100, 200)

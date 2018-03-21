@@ -1,3 +1,5 @@
+# The world is a happy place
+
 GAME_NAME = "Shackled Stones"
 
 TILE_COLUMN_COUNT = 24
@@ -6,18 +8,18 @@ TILE_ROW_COUNT = 18
 SCREEN_WIDTH = TILE_COLUMN_COUNT * 16
 SCREEN_HEIGHT = TILE_ROW_COUNT * 16
 
-WARP_NSCROLL  = "north scroll"
-WARP_SSCROLL  = "south scroll"
-WARP_ESCROLL  = "east scroll"
-WARP_WSCROLL  = "west scroll"
+WARP_NSCROLL = "north scroll"
+WARP_SSCROLL = "south scroll"
+WARP_ESCROLL = "east scroll"
+WARP_WSCROLL = "west scroll"
 WARP_PIXELATE = "pixelate"
-WARP_INSTANT  = "instant"
-WARP_FADE     = "fade"
+WARP_INSTANT = "instant"
+WARP_FADE = "fade"
 
-KEY_LEFT  = 'left'
+KEY_LEFT = 'left'
 KEY_RIGHT = 'right'
-KEY_UP    = 'up'
-KEY_DOWN  = 'down'
+KEY_UP = 'up'
+KEY_DOWN = 'down'
 
 WHITE = [255, 255, 255]
 BLACK = [0, 0, 0]
@@ -28,12 +30,9 @@ D_TEXT_OFFSET_X = 13
 D_ANSWER_OFFSET_X = 25
 D_TEXT_OFFSET_Y = 198
 
-ALPHA = 128
-
 # not constants, but globals.
 # technically since this is Python, the above aren't constants either.
 _gameContext = None
-_imageLibrary = {}
 _jukebox = None
 _inputManager = None
 _temp_screen_for_transitions = None

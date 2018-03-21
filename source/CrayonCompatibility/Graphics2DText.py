@@ -23,7 +23,7 @@ class G2DText_Renderer:
 g2dtext_resources = {}
 class G2DText_FontResource:
 	def __init__(self, path):
-		self.path = ('source/' + path).replace('/', os.sep)
+		self.path = ('source/' + path).replace('/', _OS_SEP)
 		self.renderersByKey = {}
 	
 	def getRenderer(self):

@@ -74,16 +74,16 @@ class GameOverScene:
 		death_sub2 = render_text_size(15, "for salvation. Are there any that", WHITE)
 		death_sub3 = render_text_size(15, "may hope to fill your place?", WHITE)
 
-		death_x = int((sw - death.width) / 2)
+		death_x = (sw - death.width) // 2
 		death_y = 23
 		death.draw(death_x, death_y)
-		death_x = int((sw - death_sub.width) / 2)
+		death_x = (sw - death_sub.width) // 2
 		death_y = death_y + death.height + 4
 		death_sub.draw(death_x, death_y)
-		death_x = int((sw - death_sub2.width) / 2)
+		death_x = (sw - death_sub2.width) // 2
 		death_y = death_y + death_sub.height
 		death_sub2.draw(death_x, death_y)
-		death_x = int((sw - death_sub3.width) / 2)
+		death_x = (sw - death_sub3.width) // 2
 		death_y = death_y + death_sub2.height
 		death_sub3.draw(death_x, death_y)
 		

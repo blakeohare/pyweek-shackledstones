@@ -55,3 +55,14 @@ class ImageWrapper:
 	def get_width(self): return self.width
 	def get_height(self): return self.height
 	def get_size(self): return (self.width, self.height)
+
+_imageLibrary = {}
+def get_image(path):
+	img = _imageLibrary.get(path)
+	if img == None:
+		file_path = _OS_PATH_JOIN('source', 'images', path.replace('/', _OS_SEP).replace('\\', _OS_SEP))
+		if not file_path.endswith('.png'):
+			file_path += '.png'
+		
+		_imageLibrary[path] = ImageWrapper(pygame.image.load(file_path))
+	return _imageLibrary[path]

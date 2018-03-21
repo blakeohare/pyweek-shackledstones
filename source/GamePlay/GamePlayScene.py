@@ -84,8 +84,8 @@ class GamePlayScene:
 			if len(data) > 0:
 				parts = data.split('|')
 				kind = parts[0]
-				x = int(parts[2])
-				y = int(parts[3])
+				x = Core.parseInt(parts[2])
+				y = Core.parseInt(parts[3])
 				layer = parts[1]
 				sprite = create_sprite(kind)
 				sprite.x = (x << 4) + 8
@@ -266,8 +266,8 @@ class GamePlayScene:
 				self.grapple.grapple_counter += 1
 				progress = (0.0 + self.grapple.grapple_counter) / self.grapple.grapple_duration
 				antiprogress = 1 - progress
-				self.player.x = int(self.grapple.x * progress + self.grapple.grapple_start_x * antiprogress)
-				self.player.y = int(self.grapple.y * progress + self.grapple.grapple_start_y * antiprogress)
+				self.player.x = Math.floor(self.grapple.x * progress + self.grapple.grapple_start_x * antiprogress)
+				self.player.y = Math.floor(self.grapple.y * progress + self.grapple.grapple_start_y * antiprogress)
 				if self.grapple.grapple_counter >= self.grapple.grapple_duration:
 					self.grapple.expired = True
 					self.grapple = None
@@ -440,7 +440,7 @@ class GamePlayScene:
 	
 	def make_white(self, screen, amount):
 		if amount == 0: return
-		value = min(255, max(0, int(255 * amount)))
+		value = min(255, max(0, Math.floor(255 * amount)))
 		fill_screen_with_alpha(255, 255, 255, value)
 		
 	def torch_puzzle_update(self):
@@ -674,8 +674,8 @@ class GamePlayScene:
 		return left + [pivot] + right
 	
 	def do_sprite_move(self, sprite, vx, vy, is_flying_sprite):
-		vx = int(vx)
-		vy = int(vy)
+		vx = Math.floor(vx)
+		vy = Math.floor(vy)
 		#hacked in a lower location for the center of the sprite in the particular case of the player
 		params = self.level.move_request(sprite.layer, sprite.x, sprite.y, vx, vy, sprite.r - 4, is_flying_sprite)
 		sprite.layer = params[0]

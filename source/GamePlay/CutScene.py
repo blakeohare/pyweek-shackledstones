@@ -11,7 +11,7 @@ class CutSceneEvent:
 		self.instant = False
 		if name == 'pause':
 			self.do = self.pause
-			self.expiration = int(args[0])
+			self.expiration = Core.parseInt(args[0])
 		elif name == 'clearbg':
 			self.do = self.do_clearbg
 			self.instant = True
@@ -21,7 +21,7 @@ class CutSceneEvent:
 			self.image = args[0]
 		elif name == 'flash':
 			self.do = self.do_flash
-			self.expiration = int(args[0])
+			self.expiration = Core.parseInt(args[0])
 			self.full_length = self.expiration
 		elif name == 'save':
 			self.do = self.save
@@ -33,7 +33,7 @@ class CutSceneEvent:
 			self.do = self.do_input
 			self.button = args[0]
 			self.key_pressed = self.button
-			self.expiration = int(args[1])
+			self.expiration = Core.parseInt(args[1])
 		elif name == 'dialog':
 			self.do = self.show_dialog
 			self.dialog_script = args[0]
@@ -43,7 +43,7 @@ class CutSceneEvent:
 			self.sound = args[0]
 			self.instant = True
 		elif name == 'shakescreen':
-			self.expiration = int(args[0])
+			self.expiration = Core.parseInt(args[0])
 			self.play_sound_on = self.expiration
 			self.do = self.shake_screen
 		elif name == 'relighttorches':
@@ -65,8 +65,8 @@ class CutSceneEvent:
 			elif args[0].lower() == 'create':
 				self.sprite_name = args[1]
 				self.sprite_id = args[2]
-				self.x = int(args[3])
-				self.y = int(args[4])
+				self.x = Core.parseInt(args[3])
+				self.y = Core.parseInt(args[4])
 				self.layer = args[5]
 				self.state = args[6]
 				self.do = self.createsprite
@@ -81,12 +81,12 @@ class CutSceneEvent:
 			elif args[0].lower() == 'setxy':
 				self.sprite_id = args[1]
 				self.do = self.setspriteloc
-				self.x = int(args[2])
-				self.y = int(args[3])
+				self.x = Core.parseInt(args[2])
+				self.y = Core.parseInt(args[3])
 				self.instant = args[4].lower() == 'instant'
 				self.expiration = -1
 				if not self.instant:
-					self.expiration = int(args[4])
+					self.expiration = Core.parseInt(args[4])
 					self.total = self.expiration
 	
 	def do_turnlightswitchesoff(self, game_scene):

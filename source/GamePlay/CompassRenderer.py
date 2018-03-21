@@ -49,10 +49,10 @@ class CompassRenderer:
 			w = (Math.cos(angle + Math.PI) / 3, Math.sin(angle + Math.PI) / 3)
 			
 			
-			n = (int(n[0] * 20) + 40, int(n[1] * 20) + 230)
-			s = (int(s[0] * 20) + 40, int(s[1] * 20) + 230)
-			e = (int(e[0] * 20) + 40, int(e[1] * 20) + 230)
-			w = (int(w[0] * 20) + 40, int(w[1] * 20) + 230)
+			n = (Math.floor(n[0] * 20) + 40, Math.floor(n[1] * 20) + 230)
+			s = (Math.floor(s[0] * 20) + 40, Math.floor(s[1] * 20) + 230)
+			e = (Math.floor(e[0] * 20) + 40, Math.floor(e[1] * 20) + 230)
+			w = (Math.floor(w[0] * 20) + 40, Math.floor(w[1] * 20) + 230)
 			
 			Graphics2D.Draw.triangle(n[0], n[1], e[0], e[1], w[0], w[1], 180, 0, 0)
 			Graphics2D.Draw.triangle(s[0], s[1], e[0], e[1], w[0], w[1], 255, 255, 255)

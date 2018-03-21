@@ -31,8 +31,8 @@ class Level:
 				value = ':'.join(parts[1:]).strip()
 				values[name] = value
 
-		self.width = int(values['width'])
-		self.height = int(values['height'])
+		self.width = Core.parseInt(values['width'])
+		self.height = Core.parseInt(values['height'])
 		self.music = values.get('music', None)
 		self.layers = {}
 		self.dungeon = values.get('dungeon', '').strip()
@@ -115,8 +115,8 @@ class Level:
 				if len(parts) == 4:
 					name = parts[0]
 					layer = parts[1]
-					x = int(parts[2])
-					y = int(parts[3])
+					x = Core.parseInt(parts[2])
+					y = Core.parseInt(parts[3])
 					script = scripts.get(name)
 					id = IdMarker(name, layer, x, y, script)
 					self.layers[layer].tiles[x][y].setId(id)
@@ -150,8 +150,8 @@ class Level:
 		return False
 	
 	def move_request(self, orig_layer, orig_x, orig_y, dx, dy, radius, is_flying):
-		orig_x = int(orig_x)
-		orig_y = int(orig_y)
+		orig_x = Math.floor(orig_x)
+		orig_y = Math.floor(orig_y)
 		dest_x = orig_x + dx
 		dest_y = orig_y + dy
 		

@@ -107,8 +107,8 @@ class Enemy:
 			return
 		
 		if self.flying_damage > 0:
-			self.dx = int(self.damage_dx)
-			self.dy = int(self.damage_dy)
+			self.dx = Math.floor(self.damage_dx)
+			self.dy = Math.floor(self.damage_dy)
 		elif not self.frozen:
 			if self.name == 'death':
 				if player_x < self.x:
