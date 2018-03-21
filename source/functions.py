@@ -142,6 +142,15 @@ def draw_rect_stroke(x, y, w, h, r, g, b, strokeSize):
 	Graphics2D.Draw.line(x, y, x, bottom, strokeSize, r, g, b)
 	Graphics2D.Draw.line(right, y, right, bottom, strokeSize, r, g, b)
 
+_tempImg = None
+def fill_screen_with_alpha(r, g, b, a):
+	global _tempImg
+	if _tempImg == None:
+		_tempImg = pygame.Surface(_activeScreen.get_size()).convert()
+	_tempImg.fill((r, g, b))
+	_tempImg.set_alpha(a)
+	_activeScreen.blit(_tempImg, (0, 0))
+	
 def draw_circle_stroke(x, y, radius, strokeSize, r, g, b):
 	m = Math.PI * 2 / 20.0
 	for i in range(20):

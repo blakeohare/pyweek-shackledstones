@@ -86,7 +86,7 @@ class CreditsScene:
 	def update(self, conter):
 		pass
 	
-	def render(self, screen):
+	def render(self, screen, renderOffset):
 		c = self._credits
 		sw = screen.get_width()
 		offy = self._y

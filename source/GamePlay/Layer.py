@@ -49,7 +49,8 @@ class Layer:
 					if script != None and script != '':
 						run_script(script)
 	
-	def render(self, screen, x_offset, y_offset, render_counter):
+	# Apply renderOffset AFTER clipping has been determined
+	def render(self, screen, x_offset, y_offset, render_counter, renderOffset):
 		width = self.width
 		height = self.height
 		tiles = self.tiles
@@ -58,6 +59,9 @@ class Layer:
 		top = max(self.top, int(y_offset / -16) - 2)
 		right = min(left + 24 + 4, self.right + 1)
 		bottom = min(top + 18 + 4, self.bottom + 1)
+		
+		x_offset += renderOffset[0]
+		y_offset += renderOffset[1]
 		
 		y = top
 		while y < bottom:

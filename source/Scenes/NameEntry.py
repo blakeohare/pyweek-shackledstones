@@ -80,7 +80,7 @@ class NameEntryScene:
 		play_music("menuwaitingroom")
 		pass
 	
-	def render(self, screen):
+	def render(self, screen, renderOffset):
 		self._tic += 1
 		sz = 18
 		dx = int(sz * 1.3)

@@ -11,7 +11,6 @@ class TransitionScene:
 		if transition_type == WARP_PIXELATE:
 			self.duration = 80
 		self.max_duration = self.duration + 0.0
-		self.temp_screen = None
 		self.transition_type = transition_type
 		play_music(self.to_scene.level.music)
 		
@@ -32,95 +31,47 @@ class TransitionScene:
 			self.next = self.to_scene
 			self.next.overlayRenderer = self.overlayRenderer
 			self.to_scene.player_invisible = False
-		
-	def get_to_screen(self):
-		temp = getTempScreen(self.screen)
-		temp.fill((0,0,0))
-		self.to_scene.render(temp)
-		return temp
-		
-	def get_from_screen(self):
-		temp = getTempScreen(self.screen)
-		temp.fill((0,0,0))
-		self.from_scene.render(temp)
-		return temp
-		
-	def render(self, screen):
-		self.screen = screen
-		temp = getTempScreen(screen)
+
+	def render(self, screen, renderOffset):
 		progress = self.duration / self.max_duration
 		antiprogress = 1 - progress
 		transition = self.transition_type
-		h = temp.get_height()
-		w = temp.get_width()
+		h = screen.get_height()
+		w = screen.get_width()
 		x = int(progress * w)
 		y = int(progress * h)
+		to_offset = [0, 0]
+		from_offset = [0, 0]
+		
+		callRender = True
+		
 		if transition == WARP_SSCROLL:
-			x = 0
-			screen.blit(self.get_to_screen(), (x, y))
-			screen.blit(self.get_from_screen(), (x, y - h))
+			to_offset[1] = y
+			from_offset[1] = y - h
 		elif transition == WARP_NSCROLL:
-			x = 0
-			y = -y
-			screen.blit(self.get_to_screen(), (x, y))
-			screen.blit(self.get_from_screen(), (x, y + h))
+			to_offset[1] = -y
+			from_offset[1] = -y + h
 		elif transition == WARP_ESCROLL:
-			x = x
-			y = 0
-			screen.blit(self.get_to_screen(), (x, y))
-			screen.blit(self.get_from_screen(), (x - w, y))
+			to_offset[0] = x
+			from_offset[0] = x - w
 		elif transition == WARP_WSCROLL:
-			x = -x
-			y = 0
-			screen.blit(self.get_to_screen(), (x, y))
-			screen.blit(self.get_from_screen(), (x + w, y))
+			to_offset[0] = -x
+			from_offset[0] = -x + w
 		elif transition == WARP_PIXELATE or transition == WARP_FADE:
-			if progress < .5:
-				image = self.get_to_screen()
-				amount = progress * 2
+			callRender = False
+			rProgress = 1 - progress # original calculations are backwards? 
+			if rProgress < .5:
+				self.from_scene.render(screen, (0, 0))
+				amount = Math.floor(255 * rProgress * 2)
 			else:
-				amount = antiprogress * 2
-				image = self.get_from_screen()
-			
-			if transition == WARP_PIXELATE:
-				image = self.pixelate_this(image, 1 - ((1 - amount) ** 2))
-			
-			screen.fill((0,0,0))
+				self.to_scene.render(screen, (0, 0))
+				amount = Math.floor((1 - (rProgress * 2 - 1)) * 255)
 			
 			alpha = int(max(0,min(255, 255 * (1 - amount))))
+			fill_screen_with_alpha(0, 0, 0, amount)
+		
+		if callRender:
+			self.from_scene.render(screen, from_offset)
+			self.to_scene.render(screen, to_offset)
 			
-			image.set_alpha(alpha)
-			screen.blit(image, (0,0))
 		self.overlayRenderer.render(screen)
-
-	def pixelate_this(self, image, amount):
-		minimum_w = 10
-		maximum_w = image.get_width()
-		minimum_h = 7
-		maximum_h = image.get_height()
-		
-		width = int(minimum_w * amount + maximum_w * (1.0 - amount))
-		height = int(minimum_h * amount + maximum_h * (1.0 - amount))
-		
-		tempScreen = getTempScreenSize(width, height)
-		pygame.transform.scale(image, (width, height), tempScreen)
-		
-		pygame.transform.scale(tempScreen, (image.get_width(), image.get_height()), image)
-		return image
-
-def getTempScreen(real_screen):
-	global _temp_screen_for_transitions
-	if _temp_screen_for_transitions == None:
-		w = real_screen.get_width()
-		h = real_screen.get_height()
-		_temp_screen_for_transitions = pygame.Surface((w, h))
-	return _temp_screen_for_transitions
-
-def getTempScreenSize(width, height):
-	global _temp_screens
-	index = str(width) + '.' + str(height)
-	image = _temp_screens.get(index)
-	if image == None:
-		image = pygame.Surface((width, height))
-		_temp_screens[index] = image
-	return image

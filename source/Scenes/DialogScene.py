@@ -53,7 +53,7 @@ class DialogScene:
 	def update(self, game_counter):
 		pass
 
-	def render(self, screen):
+	def render(self, screen, renderOffset):
 		self._tick += 1
 		self._source
 		d = self._dlg
@@ -63,7 +63,7 @@ class DialogScene:
 			self.next = self._source
 			self._source.next = self._source
 
-		self._source.render(screen)
+		self._source.render(screen, renderOffset)
 		
 		p = d.Profile()
 

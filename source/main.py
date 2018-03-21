@@ -39,7 +39,7 @@ def main():
 		
 		virtual_screen.fill((0,0,0))
 		
-		scene.render(virtual_screen)
+		scene.render(virtual_screen, (0, 0))
 		
 		pygame.transform.scale(virtual_screen, (screen_width, screen_height), screen)
 		

@@ -137,10 +137,10 @@ class Level:
 					if y < self.height - 1:
 						layer.tiles[x][y + 1].removeKey()
 				
-	def render(self, layername, screen, x_offset, y_offset, render_counter):
+	def render(self, layername, screen, x_offset, y_offset, render_counter, renderOffset):
 		layer = self.layers[layername]
 		if layer.contains_stuff:
-			layer.render(screen, x_offset, y_offset, render_counter)
+			layer.render(screen, x_offset, y_offset, render_counter, renderOffset)
 	
 	
 	def is_stair_tile(self, x, y):

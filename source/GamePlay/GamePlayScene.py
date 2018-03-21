@@ -388,7 +388,7 @@ class GamePlayScene:
 			if sprite.is_enemy: count += 1
 		return count
 		
-	def render(self, screen):
+	def render(self, screen, renderOffsets):
 		
 		if self.bg != None:
 			screen.blit(self.bg, (0,0))
@@ -401,16 +401,18 @@ class GamePlayScene:
 				r_offset = self.cutscene.render_offset()
 				offset = (offset[0] + r_offset, offset[1])
 			
-			self.level.render('Stairs', screen, offset[0], offset[1], self.render_counter)
+			flattenedOffset = [offset[0] + renderOffsets[0], offset[1] + renderOffsets[1]]
+			
+			self.level.render('Stairs', screen, offset[0], offset[1], self.render_counter, renderOffsets)
 			for layerName in 'A B C D E F Stairs'.split(' '):
 				if layerName != 'Stairs':
-					self.level.render(layerName, screen, offset[0], offset[1], self.render_counter)
+					self.level.render(layerName, screen, offset[0], offset[1], self.render_counter, renderOffsets)
 				
 				for sprite in self.get_renderable_sprites(layerName):
 					img = sprite.currentImage(self.render_counter)
 					if img != None:
 						coords = sprite.drawingCoords()
-						screen.blit(img, (coords[0] + offset[0], coords[1] + offset[1]))
+						screen.blit(img, (coords[0] + flattenedOffset[0], coords[1] + flattenedOffset[1]))
 					
 					if sprite == self.grapple:
 						x = sprite.x
@@ -423,21 +425,20 @@ class GamePlayScene:
 							y += 14
 						else:
 							y -= 14
-						Graphics2D.Draw.line(sprite.x + offset[0], sprite.y + offset[1], self.player.x + offset[0], self.player.y + offset[1], 1, 255, 200, 40)
+						Graphics2D.Draw.line(sprite.x + flattenedOffset[0], sprite.y + flattenedOffset[1], self.player.x + flattenedOffset[0], self.player.y + flattenedOffset[1], 1, 255, 200, 40)
 					
 					if sprite.is_enemy and sprite.frozen and img != None:
-						Graphics2D.Draw.rectangle(coords[0] + offset[0]- 2, coords[1] + offset[1] - 2, sprite.r * 2 + 4, sprite.r * 2 + 4, 100, 100, 255, 1)
+						Graphics2D.Draw.rectangle(coords[0] + flattenedOffset[0] - 2, coords[1] + flattenedOffset[1] - 2, sprite.r * 2 + 4, sprite.r * 2 + 4, 100, 100, 255, 1)
 			
 			
 			
 			if self.light_puz:
-				self.render_light_puzzle(screen, offset)
+				self.render_light_puzzle(screen, flattenedOffset)
 			
 		if self.cutscene != None:
 			self.make_white(screen, self.flash_amount)
 		else:
 			self.flash_amount = 0
-		
 		
 		self.render_counter += 1
 		

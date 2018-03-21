@@ -70,7 +70,7 @@ class JoystickConfigScene:
 					
 				
 		
-	def render(self, screen):
+	def render(self, screen, renderOffset):
 		if self.is_error:
 			screen.blit(self.error, (10, 10))
 			screen.blit(self.error_explain, (10, 60))

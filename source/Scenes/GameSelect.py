@@ -88,7 +88,7 @@ class GameSelectScene:
 	def update(self, conter):
 		play_music("menuwaitingroom")
 	
-	def render(self, screen):
+	def render(self, screen, renderOffset):
 		# what color is used for everything else
 		txtColor = WHITE
 		# what color is in the game select thing

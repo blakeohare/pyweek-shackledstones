@@ -58,7 +58,7 @@ class GameOverScene:
 	def update(self, conter):
 		pass
 	
-	def render(self, screen):
+	def render(self, screen, renderOffset):
 		self._fc += 1
 		
 		frame = self._frame
