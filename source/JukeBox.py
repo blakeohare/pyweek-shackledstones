@@ -2,46 +2,38 @@ class JukeBox:
 	def __init__(self):
 		self.now_playing = None
 		self.sound_library = {}
+		self.music_library = {}
 		self.current_volume = True
-		pygame.mixer.init()
-		pygame.mixer.music.set_volume(1.0)
 	
-	def PlaySong(self, name):
-		#return
+	def playSong(self, name):
 		if name == 'STOP': name = None
-		if not name:
-			pygame.mixer.music.stop()
+		if name == None:
+			Audio.Music.stop()
 			return
 		
 		if self.now_playing != name:
-			self.MakeMusicLoud()
 			self.now_playing = name
 			if not name.endswith('.ogg'):
 				name = name + '.ogg'
-			pygame.mixer.music.load('source' + os.sep + 'music' + os.sep + name)
-			pygame.mixer.music.play(-1)
+			
+			mus = self.music_library.get(name)
+			if mus == None:
+				mus = Audio.Music.loadFromResource('music/' + name)
+				self.music_library[name] = mus
+			
+			mus.play(True)
 	
-	def PlaySound(self, name):
+	def playSound(self, name):
 		if not name:
 			return
-		sound = self.sound_library.get(name)
-		if sound == None:
+		soundRes = self.sound_library.get(name)
+		if soundRes == None:
 			if not name.endswith('.ogg'):
-				name=name + '.ogg'
-			sound = pygame.mixer.Sound('source' + os.sep + 'sound' + os.sep + name)
-			self.sound_library[name] = sound
-		sound.play()
+				name = name + '.ogg'
+			soundRes = Audio.SoundResource.loadFromResource('sound/' + name)
+			self.sound_library[name] = soundRes
+		soundRes.play()
 	
-	def MakeMusicSoft(self):
-		if self.current_volume:
-			pygame.mixer.music.set_volume(0.5)
-			self.current_volume = False
-	
-	def MakeMusicLoud(self):
-		if not self.current_volume:
-			pygame.mixer.music.set_volume(1.0)
-			self.current_volume = True
-
 def getJukebox():
 	global _jukebox
 	if _jukebox == None:
@@ -49,14 +41,7 @@ def getJukebox():
 	return _jukebox
 
 def play_sound(name):
-	getJukebox().PlaySound(name)
+	getJukebox().playSound(name)
 
 def play_music(name):
-	getJukebox().PlaySong(name)
-
-def reduce_volume():
-	getJukebox().MakeMusicSoft()
-
-def increase_volume(name):
-	getJukebox().MakeMusicLoud()
-	
+	getJukebox().playSong(name)
