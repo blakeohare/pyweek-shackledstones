@@ -1,17 +1,22 @@
 class KeyRenderer:
 	
 	def __init__(self):
-		pass
+		self.colors = "black blue green indigo red white yellow".split()
 	
 	def render(self, screen, game_scene):
-		colors="black blue green indigo red white yellow".split()
-		images= [get_image('tiles/keys/%s/key.png'%color) for color in colors]
-		currentdungeon=game_scene.level.dungeon
-		counts= [getKeyRegistry().getKeyCount(currentdungeon,color) for color in colors]
-		xoffset=16
-		for image, count in zip(images,counts):
-			area=pygame.Rect(xoffset,screen.get_clip().bottom-16,8,8)
-			if count:
-				screen.blit(image, area)
-			xoffset+=16
-			screen.blit
+		currentdungeon = game_scene.level.dungeon
+		if currentdungeon != '':
+			items = []
+			for color in self.colors:
+				img = get_image('tiles/keys/' + color + '/key.png')
+				count = getKeyRegistry().getKeyCount(currentdungeon, color)
+				items.append([img, count])
+			
+			xoffset = 16
+			for item in items:
+				image = item[0]
+				count = item[1]
+				area = pygame.Rect(xoffset,screen.get_clip().bottom - 16, 8, 8)
+				if count:
+					screen.blit(image, area)
+				xoffset += 16

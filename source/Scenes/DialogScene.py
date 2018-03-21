@@ -77,7 +77,7 @@ class DialogScene:
 		df = get_image('ui/dframe.png')
 		screen.blit(df, (0,screen.get_height() - df.get_height() - 4))
 		
-		textSurface= pygame.Surface(((df.get_width() - (2 * D_TEXT_OFFSET_X)), df.get_height()))
+		textSurface = pygame.Surface(((df.get_width() - (2 * D_TEXT_OFFSET_X)), df.get_height()))
 		wt = wrap_text(textSurface, d.Text(), _font)
 		
 		linesRequired = len(wt)

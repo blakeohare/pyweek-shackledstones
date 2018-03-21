@@ -526,7 +526,7 @@ class GamePlayScene:
 		end_x = (end_id.x << 4) + 8
 		end_y = (end_id.y << 4) + 8
 		
-		pygame.draw.line(screen, (255, 255, 255), (start_x + offset[0], start_y + offset[1]), (end_x + offset[0], end_y + offset[1]))
+		Graphics2D.Draw.line(start_x + offset[0], start_y + offset[1], end_x + offset[0], end_y + offset[1], 1, 255, 255, 255)
 		
 		next = None
 		if end == 'A':

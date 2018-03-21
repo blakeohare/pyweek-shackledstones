@@ -17,6 +17,7 @@ def main():
 	
 	screen = pygame.display.set_mode((width * 2, height * 2))
 	pygame.display.set_icon(pygame.image.load("icon.png"))
+	pygame.display.set_caption("Shackeld Stones")
 		
 	virtual_screen = pygame.Surface((width, height))
 	_activeScreen = virtual_screen

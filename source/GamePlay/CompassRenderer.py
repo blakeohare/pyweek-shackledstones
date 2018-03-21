@@ -54,6 +54,10 @@ class CompassRenderer:
 			e = (int(e[0] * 20) + 40, int(e[1] * 20) + 230)
 			w = (int(w[0] * 20) + 40, int(w[1] * 20) + 230)
 			
-			pygame.draw.polygon(screen, (180, 0, 0), [n, e, w])
-			pygame.draw.polygon(screen, (255, 255, 255), [s, e, w])
-			pygame.draw.polygon(screen, (0,0,0), [n, e, s, w], 2)
+			Graphics2D.Draw.triangle(n[0], n[1], e[0], e[1], w[0], w[1], 180, 0, 0)
+			Graphics2D.Draw.triangle(s[0], s[1], e[0], e[1], w[0], w[1], 255, 255, 255)
+			
+			for segment in ((n, e), (e, s), (s, w), (w, n)):
+				a = segment[0]
+				b = segment[1]
+				Graphics2D.Draw.line(a[0], a[1], b[0], b[1], 2, 0, 0, 0)

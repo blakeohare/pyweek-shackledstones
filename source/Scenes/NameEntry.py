@@ -136,21 +136,21 @@ class NameEntryScene:
 			if self._erase:
 				b = (ebx + 20, cy)
 				e = (ebx + erase.get_width(), cy)
-				pygame.draw.line(screen, RED, b, e)
+				Graphics2D.Draw.line(b[0], b[1], e[0], e[1], 1, 255, 0, 0)
 			if self._done:
 				b = (dbx + 15, cy)
 				e = (dbx + done.get_width(), cy)
-				pygame.draw.line(screen, RED, b, e)
+				Graphics2D.Draw.line(b[0], b[1], e[0], e[1], 1, 255, 0, 0)
 		else:
 			if s[1] < 2:
 				x = start_off_x + s[0] * dx + int(dx / 2.0)
 				y = start_off_y + s[1] * dy + int(dy / 2.0)
 				if s[1] == 1:
 					y += int(dy / 7.0)
-				pygame.draw.circle(screen, RED, (x, y), int(sz/1.15), 1)
+				draw_circle_stroke(x, y, sz * 8 // 7, 1, 255, 0, 0)
 			else:
 				x = start_off_x + s[0] * dx + int(dx / 2.0) + int(dx/6)
 				y = start_off_y + int(dy/5) + int(dy/3) + s[1] * dy + int(dy / 2.1)
 				if s[1] == 1:
 					y += int(dy / 7.0)
-				pygame.draw.circle(screen, RED, (x, y), int(sz/2), 1)
+				draw_circle_stroke(x, y, sz // 2, 1, 255, 0, 0)

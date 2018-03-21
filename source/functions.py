@@ -102,7 +102,7 @@ def heal_damage():
 def wrap_text(surf, txt, fnt):
 	lineWidth = surf.get_width()
 	words = re.split("\s", txt)
-	clr = pygame.Color('#ffffff')
+	clr = WHITE
 	
 	lineSet = []
 	curLine = ''
@@ -141,3 +141,14 @@ def draw_rect_stroke(x, y, w, h, r, g, b, strokeSize):
 	Graphics2D.Draw.line(x, bottom, right, bottom, strokeSize, r, g, b)
 	Graphics2D.Draw.line(x, y, x, bottom, strokeSize, r, g, b)
 	Graphics2D.Draw.line(right, y, right, bottom, strokeSize, r, g, b)
+
+def draw_circle_stroke(x, y, radius, strokeSize, r, g, b):
+	m = Math.PI * 2 / 20.0
+	for i in range(20):
+		aAng = m * i
+		bAng = m * (i + 1)
+		x1 = Math.floor(Math.cos(aAng) * radius + x)
+		y1 = Math.floor(Math.sin(aAng) * radius + y)
+		x2 = Math.floor(Math.cos(bAng) * radius + x)
+		y2 = Math.floor(Math.sin(bAng) * radius + y)
+		Graphics2D.Draw.line(x1, y1, x2, y2, strokeSize, r, g, b)
