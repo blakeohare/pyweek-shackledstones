@@ -1,0 +1,28 @@
+class KeyRenderer {
+	
+	static field colors = "black blue green indigo red white yellow".split(' ');
+	
+	constructor() { }
+	
+	function render(screen, game_scene) {
+		currentdungeon = game_scene.level.dungeon;
+		if (currentdungeon != '') {
+			items = [];
+			for (color : KeyRenderer.colors) {
+				img = get_image('tiles/keys/' + color + '/key.png');
+				count = getKeyRegistry().getKeyCount(currentdungeon, color);
+				items.add([img, count]);
+			}
+			
+			xoffset = 16;
+			for (item : items) {
+				image = item[0];
+				count = item[1];
+				if (count > 0) {
+					image.drawStretched(xoffset, SCREEN_HEIGHT - 16, 8, 8);
+				}
+				xoffset += 16;
+			}
+		}
+	}
+}

@@ -1,0 +1,104 @@
+// Inventory is mostly stateless as it dirctly queries the active game.
+
+class Inventory {
+	
+	field _ag;
+	
+	constructor() {
+		this._ag = getActiveGame();
+	}
+	
+	function getItemIcon(slot) {
+		i = this._equipped(slot);
+		if (i != null && i.length > 0) {
+			return get_image('ui/' + i + '.png');
+		} else {
+			return null;
+		}
+	}
+	
+	function hasAny() {
+		i = this;
+		items = [i.sabre(), i.hammer(), i.drill(), i.hook(), i.compass(), i.cannon(), i.cannonFire(), i.cannonIce(), i.cannonMulti(), i.shovel()];
+		for (it : items) {
+			if (this.check(it)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	function check(item) {
+		return this._ag.getBool(item);
+	}
+	
+	function equip(button, item) {
+		slots = ['a', 'b', 'x', 'y'];
+		
+		if (!(button == 'a' || button == 'b' || button == 'x' || button == 'y')) {
+			print('Could not equip to slot "' + button + '"');
+			return false;
+		}
+
+		for (s : slots) {
+			if (this._equipped(s) == item) {
+				this._ag.setSavedVar('equipped_' + s, '');
+			}
+			if (item.startsWith('item_cannon') && this._equipped(s).startsWith('item_cannon')) {
+				this._ag.setSavedVar('equipped_' + s, '');
+			}
+		}
+	
+		this._ag.setSavedVar('equipped_' + button, item);
+		return true;
+	}
+	
+	function equipA(val) { return this.equip('a', val); }
+	function equipB(val) { return this.equip('b', val); }
+	function equipX(val) { return this.equip('x', val); }
+	function equipY(val) { return this.equip('y', val); }
+	
+	function equippedA() { return this._equipped('a'); }
+	function equippedB() { return this._equipped('b'); }
+	function equippedX() { return this._equipped('x'); }
+	function equippedY() { return this._equipped('y'); }
+	function _equipped(button) {
+		i = this._ag.getString('equipped_' + button);
+		return i;
+	}
+	function whichCannonEquipped() {
+		for (l : ['a', 'b', 'x', 'y']) {
+			item = this._equipped(l);
+			if (item != null && item.startsWith('item_cannon')) {
+				return item;
+			}
+		}
+		return false;
+	}
+	
+	function sabre() { return 'item_sabre'; }
+	function hammer() { return 'item_hammer'; }
+	function drill() { return 'item_drill'; }
+	function hook() { return 'item_hook'; }
+	function cannon() { return 'item_cannon'; }
+	function cannonFire() { return 'item_cannon_fire'; }
+	function cannonIce() { return 'item_cannon_ice'; }
+	function cannonMulti() { return 'item_cannon_multi'; }
+	function compass() { return 'item_compass'; }
+	function shovel() { return 'item_shovel'; }
+	
+	function description(item) {
+		table = {};
+		table[this.sabre()] = 'Sabre';
+		table[this.hammer()] = 'Power Hammer';
+		table[this.drill()] = 'Steam Drill';
+		table[this.hook()] = 'Magnetic Gappling Hook';
+		table[this.cannon()] = 'Basic Ammo';
+		table[this.cannonFire()] = 'Flame Ammo';
+		table[this.cannonIce()] = 'Frost Ammo';
+		table[this.cannonMulti()] = 'Multi-shot Ammo';
+		table[this.compass()] = 'Compass';
+		table[this.shovel()] = 'Shovel';
+		return table.get(item, '');
+	}
+}

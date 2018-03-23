@@ -1,0 +1,18 @@
+class DialogChoice {
+
+	field _text;
+	field _label;
+	
+	constructor(txt, label) {
+		this._text = txt;
+		this._label = label;
+	}
+	
+	function Text() {
+		return this._text;
+	}
+	
+	function Label() {
+		return this._label;
+	}
+}

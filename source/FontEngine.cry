@@ -1,0 +1,129 @@
+import Graphics2DText;
+
+class FontEngine {
+
+	static field instance = null;
+
+	field cache = {};
+	field fontResources = {};
+	field fontRenderers = {};
+	field _defaultFont;
+	
+	constructor() {
+		this._defaultFont = this.getFont('default', 13, [0, 0, 0]);
+	}
+
+	function getFontResource(name) {
+		output = this.fontResources.get(name);
+		if (output == null) {
+			if (name == 'default') {
+				path = 'fonts/rm_typerighter.ttf';
+			} else if (name == 'fancy') {
+				path = 'fonts/fortunaschwein.ttf';
+			} else {
+				throw new Exception("Unknown font option");
+			}
+			output = Graphics2DText.FontResource.fromResource(path);
+			this.fontResources[name] = output;
+		}
+		return output;
+	}
+	
+	function getFont(name, size, color) {
+		k = [name, str(size), str(color)].join('|');
+		font = this.fontRenderers.get(k);
+		if (font == null) {
+			fontResource = this.getFontResource(name);
+			font = fontResource.getRenderer();
+			font.setColor(color[0], color[1], color[2]);
+			font.setSize(size * 64 / 100);
+			
+			if (font == null) {
+				throw new Exception("C");
+			}
+			this.fontRenderers[k] = font;
+		}
+		if (font == null) {
+			throw new Exception("B");
+		}
+		return font;
+	}
+	
+	function wrap_text(lineWidth, txt) {
+		
+		words = txt.replace('\n', ' ').replace('  ', ' ').replace('  ', ' ').split(' '); // bleh
+		
+		lineSet = [];
+		curLine = '';
+		curWidth = 0;
+		for (word : words) {
+			word = word.trim();
+			
+			if (curLine != '') {
+				renderWord = ' ' + word;
+			} else {
+				renderWord = word;
+			}
+			
+			// Use black since there's a better chance it'll cause a cache hit
+			wordWidth = render_text(renderWord, [0, 0, 0]).width;
+			
+			if ((curWidth + wordWidth) < lineWidth) {
+				curLine += renderWord;
+				curWidth += wordWidth;
+			} else {
+				lineSet.add(curLine);
+				curLine = word;
+				curWidth = wordWidth;
+			}
+		}
+		
+		if (curLine != '') {
+			lineSet.add(curLine);
+		}
+		
+		return lineSet;
+	}
+
+	function render_text(string, color) {
+		return render_text_size(13, string, color, 'default');
+	}
+
+	function render_text_size(size, string, color, fontPath) {
+		
+		k = str([string, color, fontPath, size]);
+		existing = this.cache.get(k);
+		if (existing != null) return existing;
+		
+		font = this.getFont(fontPath, size, color);
+		if (font == null) {
+			throw new Exception("A");
+		}
+		img = font.render(string);
+		if (len(this.cache) > 20) {
+			this.cache = {};
+		}
+		
+		this.cache[k] = img;
+		return img;
+	}
+
+	function getDefaultFontHeight() {
+		return 18;
+	}
+}
+
+function render_text_size(size, string, color, fontPath = 'fancy') {
+	return getFontEngine().render_text_size(size, string, color, fontPath);
+}
+
+function render_text(string, color) {
+	return getFontEngine().render_text(string, color);
+}
+
+function getFontEngine() {
+	if (FontEngine.instance == null) {
+		FontEngine.instance = new FontEngine();
+	}
+	return FontEngine.instance;
+}

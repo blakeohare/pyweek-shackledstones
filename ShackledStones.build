@@ -1,0 +1,44 @@
+﻿<build>
+	<projectname>ShackledStones</projectname>
+	<title>Shackled Stones</title>
+	<description>Shackled Stones</description>
+	<icon>assets/icon.png</icon>
+
+	<source>source</source>
+	<compilerlocale>en</compilerlocale>
+	<output>output/%TARGET_NAME%</output>
+
+	<imagesheets>
+		<sheet id="everything">
+			<prefix>*</prefix>
+		</sheet>
+	</imagesheets>
+	
+	<guidseed>com.nerdparadise.ShackledStones,v3,%TARGET_NAME%</guidseed>
+	
+	<!-- Various targets for exporting to different platforms -->
+	<target name="javascript">
+		<platform>javascript-app</platform>
+		<jsfileprefix>/shackledstones</jsfileprefix>
+	</target>
+	
+	<target name="csharp">
+		<platform>csharp-app</platform>
+	</target>
+	
+	<target name="java">
+		<platform>java-app</platform>
+	</target>
+	
+	<target name="python">
+		<platform>python-app</platform>
+	</target>
+	
+	<target name="chrome-web-app">
+		<platform>javascript-app-chrome</platform>
+	</target>
+	
+	<target name="ios">
+		<platform>javascript-app-ios</platform>
+	</target>
+</build>

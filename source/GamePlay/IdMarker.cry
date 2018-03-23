@@ -1,0 +1,16 @@
+class IdMarker {
+	
+	field name;
+	field script;
+	field layer;
+	field x;
+	field y;
+	
+	constructor(name, layer, x, y, script) {
+		this.name = name;
+		this.script = script;
+		this.layer = layer;
+		this.x = x;
+		this.y = y;
+	}
+}

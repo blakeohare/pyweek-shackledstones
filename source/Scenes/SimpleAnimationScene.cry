@@ -1,0 +1,61 @@
+class SimpleAnimationScene {
+	field next;
+	field name;
+	field render_counter = 0;
+	field expiration;
+	
+	constructor(name) {
+		this.next = this;
+		this.name = name;
+		if (name == 'flyaway') {
+			play_sound("flying");
+			this.expiration = 60;
+		} else if (name == 'flyhome') {
+			play_sound("flying");
+			this.expiration = 60;
+		} else {
+			this.expiration = 0;
+		}
+	}
+
+	function processInput(events) { }
+
+	function update(conter) {
+		this.expiration -= 1;
+		if (this.expiration <= 0) {
+			if (this.name == 'flyaway') {
+				this.next = new GamePlayScene('escape_pod', 30, 46);
+			} else if (this.name == 'flyhome') {
+				this.next = new GamePlayScene('world_B', 18 * 16 + 8, 11 * 16);
+			}
+		}
+	}
+	
+	function render(screen, renderOffset) {
+		if (this.name == 'flyaway') {
+			x = (4 * this.render_counter) % 384;
+			y = this.render_counter % 288;
+			sky = get_image('misc/sky');
+			transport = get_image('misc/airship' + str(this.render_counter & 1));
+			pod = get_image('misc/escapepod' + str(this.render_counter & 1));
+			sky.draw(x, y);
+			sky.draw(x - 384, y);
+			sky.draw(x, y - 288);
+			sky.draw(x - 384, y - 288);
+			
+			transport.draw(60, 10);
+			pod.draw(220 + 3 *  - this.render_counter, 100 + this.render_counter);
+		} else if (this.name == 'flyhome') {
+			x = (4 * this.render_counter) % 384;
+			y = this.render_counter % 288;
+			sky = get_image('misc/sky');
+			sky.draw(x, y);
+			sky.draw(x - 384, y);
+			sky.draw(x, y - 288);
+			sky.draw(x - 384, y - 288);
+			pod = get_image('misc/escapepod' + str(this.render_counter & 1));
+			pod.draw(388 + 6 *  - this.render_counter, 120 + this.render_counter);
+		}
+		this.render_counter += 1;
+	}
+}

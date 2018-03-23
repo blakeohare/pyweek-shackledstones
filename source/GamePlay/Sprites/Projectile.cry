@@ -1,0 +1,159 @@
+import Math;
+
+function clear_grapple() {
+	Projectile._grapple_singleton = null;
+}
+
+function set_grapple(grapple) {
+	Projectile._grapple_singleton = grapple;
+}
+
+function grapple_exists() {
+	return Projectile._grapple_singleton != null;
+}
+
+class Projectile {
+	
+	static field _grapple_singleton = null;
+	
+	static field BULLET_SWITCHES = {
+		'Fire_Room2' : ['switch'],
+		'Fire_Key1' : ['switch_B'],
+		'light_rightroom_b1' : ['switch'],
+		'light_south_southroom' : ['switch_left','switch_right'],
+		'light_southroom_b1' : ['switch'],
+		'light_bosshall_f1' : ['left','right'],
+		'world_bridge' : ['switch'],
+	};
+	
+	field name = '';
+	field id = '';
+	field dx = 0;
+	field dy = 0;
+	field is_goody = false;
+	field grapple_duration = 15;
+	field grapple_counter = 0;
+	field grappled = false;
+	field r = 4;
+	field walking = false;
+	field expired = false;
+	field velocity = 6;
+	field state = 'standing';
+	field state_counter = 0;
+	field explode_on_impact = true;
+	field flying = true;
+	field end_x = null;
+	field end_y = null;
+
+	field grapple_start_x;
+	field grapple_start_y;
+	field game_scene;
+	field is_enemy;
+	field layer;
+	field direction;
+	field x;
+	field y;
+	field kind;
+	
+	constructor(type, friendly, layer, x, y, direction, game_scene) {
+		
+		this.grapple_start_x = this.x;
+		this.grapple_start_y = this.y;
+		this.game_scene = game_scene;
+		this.is_enemy = !friendly;
+		this.layer = layer;
+		this.direction = direction;
+		this.x = x;
+		this.y = y;
+		this.kind = type;
+		if (type == 'grapple') {
+			this.r = 8;
+		}
+	}
+	
+	function drawingCoords() {
+		return [this.x - this.r, this.y - this.r];
+	}
+	
+	function update() {
+		tiles = Projectile.BULLET_SWITCHES.get(this.game_scene.name, []);
+		for (tile : tiles) {
+			tile = this.game_scene.level.ids[tile];
+			x = abs((tile.x << 4) + 8 - this.x);
+			y = abs((tile.y << 4) + 8 - this.y);
+			layer = tile.layer;
+			if (this.layer == layer && x < 8 && y < 8) {
+				this.expired = true;
+				run_script(tile.script);
+				break;
+			}
+		}
+		
+		for (sprite : this.game_scene.sprites) {
+			if (sprite.is_enemy) {
+				dx = sprite.x - this.x;
+				dy = sprite.y - this.y;
+				if (dx ** 2 + dy ** 2 < (this.r + sprite.r) ** 2) {
+					
+					this.expired = true;
+					sprite.life -= 1;
+					if (this.kind == 'fire') {
+						sprite.life -= 1;
+					} else if (this.kind == 'ice') {
+						sprite.life += 1;
+						sprite.expired = false;
+						sprite.frozen = true;
+					}
+				}
+			}
+		}
+		
+		this.state_counter -= 1;
+		if (this.state_counter <= 0 && this.state != 'walking' && this.state != 'standing') {
+			this.state = 'standing';
+		}
+		
+		switch (this.direction) {
+			case 'left':
+				this.dx = -this.velocity;
+				if (this.end_x != null && this.x < this.end_x) {
+					this.expired = true;
+				}
+				break;
+			
+			case 'right':
+				this.dx = this.velocity;
+				if (this.end_x != null && this.x > this.end_x) {
+					this.expired = true;
+				}
+				break;
+				
+			case 'up':
+				this.dy = -this.velocity;
+				if (this.end_y != null && this.y < this.end_y) {
+					this.expired = true;
+				}
+				break;
+				
+			default:
+				this.dy = this.velocity;
+				if (this.end_y != null && this.y > this.end_y) {
+					this.expired = true;
+				}
+				break;
+		}
+	}		
+	
+	function currentImage(render_counter) {
+		switch (this.kind) {
+			case 'grapple':
+				return get_image('sprites/magnet/' + this.direction);
+			case 'ice':
+				return get_image('sprites/bullets/ice');
+			case 'fire':
+				return get_image('sprites/bullets/fire');
+			default:
+				return get_image('sprites/bullets/basic');
+		}
+	}
+}

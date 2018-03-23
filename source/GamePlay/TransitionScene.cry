@@ -1,0 +1,100 @@
+import Math;
+
+class TransitionScene {
+	
+	field from_scene;
+	field to_scene;
+	field overlayRenderer;
+	field duration = 30;
+	field max_duration;
+	field transition_type;
+	field next;
+	
+	constructor(from_scene, to_level, to_tile, transition_type) {
+		this.from_scene = from_scene;
+		this.to_scene = new GamePlayScene(to_level, 1, 1);
+		this.to_scene.overlayRenderer = null;
+		this.from_scene.overlayRenderer = null;
+		this.overlayRenderer = new OverlayRenderer();
+		dest_tile = this.to_scene.level.ids.get(to_tile);
+		if (transition_type == WARP_PIXELATE) {
+			this.duration = 80;
+		}
+		this.max_duration = this.duration + 0.0;
+		this.transition_type = transition_type;
+		play_music(this.to_scene.level.music);
+		
+		if (dest_tile == null) {
+			this.next = from_scene;
+		} else {
+			this.next = this;
+			this.to_scene.place_player(dest_tile.layer, dest_tile.x, dest_tile.y);
+			this.to_scene.player_invisible = true;
+			this.from_scene.player_invisible = true;
+		}
+	}
+			
+	function processInput(events) { }
+		
+	function update(game_counter) {
+		this.duration -= 1;
+		if (this.duration <= 0) {
+			this.next = this.to_scene;
+			this.next.overlayRenderer = this.overlayRenderer;
+			this.to_scene.player_invisible = false;
+		}
+	}
+
+	function render(screen, renderOffset) {
+		progress = this.duration / this.max_duration;
+		antiprogress = 1 - progress;
+		transition = this.transition_type;
+		x = Math.floor(progress * SCREEN_WIDTH);
+		y = Math.floor(progress * SCREEN_HEIGHT);
+		to_offset = [0, 0];
+		from_offset = [0, 0];
+		
+		callRender = true;
+		
+		switch (transition) {
+			case WARP_SSCROLL:
+				to_offset[1] = y;
+				from_offset[1] = y - SCREEN_HEIGHT;
+				break;
+			case WARP_NSCROLL:
+				to_offset[1] = -y;
+				from_offset[1] = -y + SCREEN_HEIGHT;
+				break;
+			case WARP_ESCROLL:
+				to_offset[0] = x;
+				from_offset[0] = x - SCREEN_WIDTH;
+				break;
+			case WARP_WSCROLL:
+				to_offset[0] = -x;
+				from_offset[0] = -x + SCREEN_WIDTH;
+				break;
+			case WARP_PIXELATE:
+			case WARP_FADE:
+				callRender = false;
+				rProgress = 1 - progress; // original calculations are backwards? 
+				if (rProgress < .5) {
+					this.from_scene.render(screen, [0, 0]);
+					amount = Math.floor(255 * rProgress * 2);
+				} else {
+					this.to_scene.render(screen, [0, 0]);
+					amount = Math.floor((1 - (rProgress * 2 - 1)) * 255);
+				}
+				
+				alpha = max(0, min(255, Math.floor(255 * (1 - amount))));
+				fill_screen_with_alpha(0, 0, 0, amount);
+				break;
+		}
+			
+		if (callRender) {
+			this.from_scene.render(screen, from_offset);
+			this.to_scene.render(screen, to_offset);
+		}
+		
+		this.overlayRenderer.render(screen);
+	}
+}

@@ -1,0 +1,48 @@
+class Goody {
+
+	field name;
+	field id;
+	field x = 100;
+	field y = 100;
+	field dx = 0;
+	field dy = 0;
+	field is_goody = true;
+	field is_enemy = false;
+	field layer = 'A';
+	field r = 8;
+	field direction = 'right';
+	field flying = false;
+	field expired = false;
+	field walking = false;
+	field state = 'standing';
+	field state_counter = 0;
+	field explode_on_impact = false;
+		
+	constructor(name, id = null) {
+		this.name = name;
+		this.id = id;
+	}
+	
+	function drawingCoords() {
+		return [this.x, this.y];
+	}
+	
+	function update() { }
+		
+	function currentImage(render_counter) {
+		counter = render_counter % 30;
+		if (counter < 4) {
+			counter = '1';
+		} else if (counter < 8) {
+			counter = '2';
+		} else {
+			counter = '0';
+		}
+		
+		if (this.name == 'money') {
+			return get_image('misc/money' + counter);
+		} else {
+			return get_image('misc/life_refill' + counter);
+		}
+	}
+}

@@ -1,0 +1,62 @@
+import UserData;
+
+class GameContext {
+	
+	static field instance = null;
+	
+	field slots = [];
+	field active_game;
+	
+	constructor() {
+		for (i = 1; i <= 3; ++i) {
+			file = 'slot' + str(i) + '.txt';
+			if (!UserData.fileExists(file)) {
+				UserData.fileWriteText(file, ' ');
+			}
+			this.slots.add(new GameInstance(i));
+		}
+		this.active_game = null;
+	}
+
+	function setActiveGame(slot_num) {
+		this.active_game = this.slots[slot_num - 1];
+	}
+	
+	function getPlayerName(slot_num) {
+		return this.slots[slot_num - 1].getString('name');
+	}
+
+	function getStones(slot_num) {
+		r = [];
+		s = this.slots[slot_num - 1];
+		for (st : ['water', 'light', 'dark', 'fire', 'life', 'death']) {
+			if (s.getBool('stone_' + st)) {
+				r.add(st);
+			}
+		}
+		return r;
+	}
+
+	function deletePlayer(slot_num) {
+		game = this.slots[slot_num - 1];
+		
+		game.temp_vars = {};
+		game.values = {};
+		
+		game.saveToFile();
+	}
+}
+
+function getActiveGame() {
+	if (GameContext.instance == null) {
+		GameContext.instance = new GameContext();
+	}
+	return GameContext.instance.active_game;
+}
+
+function getGameContext() {
+	if (GameContext.instance == null) {
+		GameContext.instance = new GameContext();
+	}
+	return GameContext.instance;
+}

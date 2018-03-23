@@ -1,0 +1,13 @@
+function create_sprite(name, id = null) {
+	switch (name) {
+		case 'blob':
+		case 'death':
+		case 'eyeball':
+		case 'skeleton':
+		case 'snake':
+		case 'mechanicalman':
+			return new Enemy(name, id);
+		default:
+			return new NPC(name, id);
+	}
+}

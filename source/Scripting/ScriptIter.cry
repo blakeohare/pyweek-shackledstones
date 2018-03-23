@@ -1,0 +1,51 @@
+
+// Abstration for the varying sources a script could come from
+class ScriptIter {
+	
+	field labels = {};
+	field _i = 0;
+	field _script;
+	
+	// script - an array of strings from any source
+	constructor(script) {
+		lines = [];
+		// TODO: parse the entire script
+		for (line : script) {
+			line = line.trim();
+			if (line != '' && !line.startsWith('[comment]')) {
+				if (ScriptUtil_isCommand(line)) {
+					t = ScriptUtil_splitCommand(line);
+					if (t[0] == 'label') {
+						this.labels[t[1][0]] = len(lines);
+					}
+				}
+				
+				lines.add(line);
+			}
+		}
+		
+		this._script = lines;
+	}
+
+	// Utility to scan the script for a label.
+	// Returns true if the label is found, sets index such that next() will return the label.
+	// Returns false if there is no label.
+	function FindLabel(label) {
+		index = this.labels.get(label);
+		if (index == null) {
+			return false;
+		}
+		this._i = index;
+		return true;
+	}
+	
+	function next() {
+		idx = this._i;
+		if (idx >= len(this._script)) {
+			return null;
+		}
+		
+		this._i += 1;
+		return this._script[idx];
+	}
+}

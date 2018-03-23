@@ -1,0 +1,408 @@
+import Math;
+import Resources;
+
+class Level {
+	
+	field name;
+	field playerStandingOn = null;
+	field unique_locked_doors;
+	field locked_doors;
+	field dungeon;
+	field width;
+	field height;
+	field layers;
+	field ids;
+	field enemies;
+	field on_enemies_killed;
+	field on_load;
+	field music;
+	
+	constructor(name) {
+		this.name = name;
+		get_tile_store();
+		this.parse_file(name);
+	}
+	
+	function synch_stand_key(layer, x, y) {
+		key = layer + str(x) + '_' + str(y);
+		if (this.playerStandingOn == key) {
+			this.playerStandingOn = key;
+			return false;
+		}
+		this.playerStandingOn = key;
+		return true;
+	}
+	
+	function update_tile_standing_on(layer, x, y) {
+		tile_x = x >> 4;
+		tile_y = y >> 4;
+		if (this.synch_stand_key(layer, tile_x, tile_y)) {
+			layer = this.layers[layer];
+			layer.runScript(tile_x, tile_y);
+		}
+	}
+	
+	function parse_file(file) {
+		lines = Resources.readText('data/maps/' + file + '.txt').split('\n');
+		
+		values = {};
+		for (line : lines) {
+			parts = line.trim().split(':');
+			if (len(parts) >= 2) {
+				name = parts[0].split('#')[-1];
+				value = parts[1:].join(':').trim();
+				values[name] = value;
+			}
+		}
+
+		this.width = Core.parseInt(values['width']);
+		this.height = Core.parseInt(values['height']);
+		this.music = values.get('music', null);
+		this.layers = {};
+		this.dungeon = values.get('dungeon', '').trim();
+		
+		getKeyRegistry().doors = {};
+		
+		for (layerName : 'A B C D E F Stairs'.split(' ')) {
+			
+			content = values.get('Layer' + layerName);
+			layer = new Layer(this.width, this.height);
+			if (content != null) {
+				spots = content.trim().split(',');
+				raw_tile_list = [];
+				for (spot : spots) {
+					tiles = spot.split('|');
+					raw_tile_list.add(new Tile(tiles));
+				}
+				layer.setTiles(raw_tile_list);
+			}
+			this.layers[layerName] = layer;
+		}
+		
+		stair_layer = this.layers['Stairs'];
+		if (stair_layer.contains_stuff) {
+			other_layers = 'A B C D E F'.split(' ');
+			y = 0;
+			while (y < this.height) {
+				x = 0;
+				while (x < this.width) {
+					if (stair_layer.tiles[x][y].physics != 'xxxx') {
+						for (layerName : other_layers) {
+							layer = this.layers[layerName];
+							if (layer.contains_stuff) {
+								layer.tiles[x][y].is_stair_tile();
+							}
+						}
+					}
+					x += 1;
+				}
+				y += 1;
+			}
+		}
+		
+		kr = getKeyRegistry();
+		this.locked_doors = {};
+		this.unique_locked_doors = [];
+		if (this.dungeon != null) {
+			for (layerName : 'A B C D E F'.split(' ')) {
+				layer = this.layers[layerName];
+				if (layer.contains_stuff) {
+					y = 0;
+					while (y < this.height) {
+						x = 0;
+						while (x < this.width) {
+							tile = layer.tiles[x][y];
+							dc = tile.door_color;
+							if (dc != null) {
+								kr.registerDoor(this.name, this.dungeon, x, y, dc);
+								for (ofs : [[0,1],[0,-1],[1,0],[-1,0]]) {
+									this.locked_doors[str(x + ofs[0]) + '_' + str(y + ofs[1])] = [x, y, dc];
+								}
+								this.unique_locked_doors.add([x, y, dc]);
+							}
+							
+							x += 1;
+						}
+						y += 1;
+					}
+				}
+			}
+		
+			for (locked_door : this.unique_locked_doors) {
+				x = locked_door[0];
+				y = locked_door[1];
+				color = locked_door[2];
+				if (!kr.isDoorLocked(this.name, this.dungeon, x, y, color)) {
+					this.removeLockedDoor(x, y);
+				}
+			}
+		}
+		
+		script_strings = values.get('scripts');
+		scripts = {};
+		if (script_strings != null) {
+			scripts_banana = script_strings.trim().split('|||');
+			for (banana : scripts_banana) {
+				lines = banana.trim().split('|');
+				if (len(lines) > 1) {
+					name = lines[0];
+					body = lines[1:].join('\n');
+					scripts[name] = body;
+				}
+			}
+		}
+		id_strings = values.get('IDs');
+		ids = {};
+		if (id_strings != null) {
+			id_strings = id_strings.trim().split(',');
+			for (id_string : id_strings) {
+				parts = id_string.trim().split('|');
+				if (len(parts) == 4) {
+					name = parts[0];
+					layer = parts[1];
+					x = Core.parseInt(parts[2]);
+					y = Core.parseInt(parts[3]);
+					script = scripts.get(name);
+					id = new IdMarker(name, layer, x, y, script);
+					this.layers[layer].tiles[x][y].setId(id);
+					ids[name] = id;
+				}
+			}
+		}
+		this.ids = ids;
+		this.enemies = values.get('enemies', '').trim().split(',');
+		this.on_load = values.get('on_load', '').replace("\\n", "\n").replace("\\\\", "\\").trim();
+		this.on_enemies_killed = values.get('on_enemies_killed', '').replace("\\n", "\n").replace("\\\\", "\\").trim();
+	}
+	
+	function removeLockedDoor(x, y) {
+		for (layerName : 'A B C D E F'.split(' ')) {
+			layer = this.layers[layerName];
+			if (layer.contains_stuff) {
+				if (layer.tiles[x][y].door_color != null) {
+					layer.tiles[x][y].removeKey();
+					if (y > 0) {
+						layer.tiles[x][y - 1].removeKey();
+					}
+					if (y < this.height - 1) {
+						layer.tiles[x][y + 1].removeKey();
+					}
+				}
+			}
+		}
+	}
+	
+	function render(layername, screen, x_offset, y_offset, render_counter, renderOffset) {
+		layer = this.layers[layername];
+		if (layer.contains_stuff) {
+			layer.render(screen, x_offset, y_offset, render_counter, renderOffset);
+		}
+	}
+	
+	function is_stair_tile(x, y) {
+		stairs = this.layers['Stairs'];
+		if (stairs.contains_stuff && x >= 0 && y >= 0 && x < this.width && y < this.height) {
+			return stairs.tiles[x][y].physics == 'oooo';
+		}
+		return false;
+	}
+	
+	function move_request(orig_layer, orig_x, orig_y, dx, dy, radius, is_flying) {
+		orig_x = Math.floor(orig_x);
+		orig_y = Math.floor(orig_y);
+		dest_x = orig_x + dx;
+		dest_y = orig_y + dy;
+		
+		left = orig_x;
+		right = orig_x;
+		top = orig_y;
+		bottom = orig_y;
+		
+		if (orig_x < dest_x) {
+			right = dest_x;
+		} else {
+			left = dest_x;
+		}
+		
+		if (orig_y < dest_y) {
+			bottom = dest_y;
+		} else {
+			top = dest_y;
+		}
+		
+		left -= radius;
+		top -= radius;
+		right += radius;
+		bottom += radius;
+		
+		walls = this.get_walls(orig_layer, left, top, right, bottom, !is_flying);
+		
+		collided = false;
+		
+		if (!this.rectangle_touches_walls(dest_x - radius, dest_y - radius, dest_x + radius, dest_y + radius, walls)) {
+			coords = [dest_x, dest_y];
+		} else {
+			collided = true;
+			final_x = orig_x;
+			final_y = orig_y;
+			
+			// check x component
+			for (x : this.get_between_values(orig_x, dest_x)) {
+				if (!this.rectangle_touches_walls(x - radius, final_y - radius, x + radius, final_y + radius, walls)) {
+					final_x = x;
+					break;
+				}
+			}
+			
+			// check y component
+			for (y : this.get_between_values(orig_y, dest_y)) {
+				if (!this.rectangle_touches_walls(final_x - radius, y - radius, final_x + radius, y + radius, walls)) {
+					final_y = y;
+					break;
+				}
+			}
+			
+			coords = [final_x, final_y];
+		}
+		
+		tile_x = coords[0] >> 4;
+		tile_y = coords[1] >> 4;
+		if (this.is_stair_tile(tile_x, tile_y)) {
+			final_layer = "Stairs";
+		} else {
+			if (orig_layer == "Stairs") {
+				final_layer = 'A'; // default value that ought to never get hit.
+				// if there's every a bug where you get stuck in the stairs, start looking here
+				for (layerName : 'A B C D E F'.split(' ')) {
+					layer = this.layers[layerName];
+					if (layer.contains_stuff) {
+						if (layer.tiles[tile_x][tile_y].physics != 'xxxx') {
+							final_layer = layerName;
+							break;
+						}
+					}
+				}
+			} else {
+				final_layer = orig_layer;
+			}
+		}
+		
+		return [final_layer, coords[0], coords[1], collided];
+	}
+	
+	function get_between_values(start, end) {
+		values = [];
+		if (end > start) {
+			for (i = end; i >= start; --i) {
+				values.add(i);
+			}
+		} else {
+			for (i = end; i < start; ++i) {
+				values.add(i);
+			}
+		}
+		return values;
+	}
+	
+	function rectangle_touches_walls(left, top, right, bottom, walls) {
+		for (wall : walls) {
+			if (left > wall[2] + wall[0] || top > wall[1] + wall[3] || right < wall[0] || bottom < wall[1]) {
+				continue;
+			}
+			return true;
+		}
+		return false;
+	}
+	
+	static field LAYER_NAMES_NO_STAIRS = 'A B C D E F'.split(' ');
+	
+	// pixel coordinates
+	function get_walls(layer, left, top, right, bottom, blank_blocked) {
+		
+		tile_left = (left - 4) >> 4;
+		tile_right = (right + 4) >> 4;
+		tile_top = (top - 4) >> 4;
+		tile_bottom = (bottom + 4) >> 4;
+		
+		walls = [];
+		
+		if (layer != 'Stairs') {
+			layer = this.layers[layer];
+			
+			y = tile_top;
+			while (y <= tile_bottom) {
+				x = tile_left;
+				while (x <= tile_right) {
+					if (!this.is_stair_tile(x, y)) {
+						phys = layer.getPhysics(x, y, blank_blocked);
+						if (phys == 'oooo') {
+							
+						} else if (phys == 'xxxx') {
+							walls.add([x << 4, y << 4, 16, 16]);
+						} else {
+							if (phys[0] == 'x') {
+								walls.add([x << 4, y << 4, 8, 8]);
+							}
+							if (phys[1] == 'x') {
+								walls.add([(x << 4) + 8, y << 4, 8, 8]);
+							}
+							if (phys[2] == 'x') {
+								walls.add([x << 4, (y << 4) + 8, 8, 8]);
+							}
+							if (phys[3] == 'x') {
+								walls.add([(x << 4) + 8, (y << 4) + 8, 8, 8]);
+							}
+						}
+					}
+					x += 1;
+				}
+				y += 1;
+			}
+		} else {
+			layerNames = Level.LAYER_NAMES_NO_STAIRS;
+			y = tile_top;
+			while (y <= tile_bottom) {
+				x = tile_left;
+				while (x <= tile_right) {
+					if (!this.is_stair_tile(x, y)) {
+						for (layerName : layerNames) {
+							other_layer = this.layers[layerName];
+							any_found = false;
+							if (other_layer.contains_stuff) {
+								phys = other_layer.tiles[x][y].physics ;
+								if (phys == 'oooo') {
+									any_found = true;
+								} else if (phys == 'xxxx') {
+									
+								} else {
+									any_found = true;
+									if (phys[0] == 'x') {
+										walls.add([x << 4, y << 4, 8, 8]);
+									}
+									if (phys[1] == 'x') {
+										walls.add([(x << 4) + 8, y << 4, 8, 8]);
+									}
+									if (phys[2] == 'x') {
+										walls.add([x << 4, (y << 4) + 8, 8, 8]);
+									}
+									if (phys[3] == 'x') {
+										walls.add([(x << 4) + 8, (y << 4) + 8, 8, 8]);
+									}
+								}
+							}
+							if (any_found) {
+								break;
+							}
+						}
+						if (!any_found) {
+							walls.add([x << 4, y << 4, 16, 16]);
+						}
+					}
+					x += 1;
+				}
+				y += 1;
+			}
+		}
+		return walls;
+	}
+}

@@ -1,0 +1,370 @@
+import Math;
+import Resources;
+
+class CutSceneEvent {
+
+	field expiration = -1;
+	field key_pressed = '';
+	field render_offset = 0;
+	field direction = 'xxxxxxxxxx';
+	field first_time_through = true;
+	field instant = false;
+	field _do;
+	field image;
+	field full_length;
+	field script;
+	field button;
+	field dialog_script;
+	field sound;
+	field play_sound_on;
+	field sprite_id;
+	field sprite_name;
+	field x;
+	field y;
+	field state;
+	field layer;
+	field total;
+	field sprite_state;
+	field source_x;
+	field source_y;
+		
+	constructor(command) {
+		parts = command.trim().split(' ');
+		args = parts[1:];
+		name = parts[0].lower();
+		switch (name) {
+			case 'pause':
+				this._do = this.pause;
+				this.expiration = Core.parseInt(args[0]);
+				break;
+			case 'clearbg':
+				this._do = this.do_clearbg;
+				this.instant = true;
+				break;
+				
+			case 'setbg':
+				this._do = this.do_setbg;
+				this.instant = true;
+				this.image = args[0];
+				break;
+				
+			case 'flash':
+				this._do = this.do_flash;
+				this.expiration = Core.parseInt(args[0]);
+				this.full_length = this.expiration;
+				break;
+				
+			case 'save':
+				this._do = this.save;
+				break;
+				
+			case 'script':
+				this._do = this.do_script;
+				this.script = args.join(' ');
+				this.instant = true;
+				break;
+				
+			case 'input':
+				this._do = this.do_input;
+				this.button = args[0];
+				this.key_pressed = this.button;
+				this.expiration = Core.parseInt(args[1]);
+				break;
+				
+			case 'dialog':
+				this._do = this.show_dialog;
+				this.dialog_script = args[0];
+				this.expiration = -1;
+				break;
+				
+			case 'playsound':
+				this._do = this.do_play_sound;
+				this.sound = args[0];
+				this.instant = true;
+				break;
+				
+			case 'shakescreen':
+				this.expiration = Core.parseInt(args[0]);
+				this.play_sound_on = this.expiration;
+				this._do = this.shake_screen;
+				break;
+				
+			case 'relighttorches':
+				this.instant = true;
+				this._do = this.do_relighttorches;
+				break;
+				
+			case 'turnlightswitchesoff':
+				this.instant = true;
+				this._do = this.do_turnlightswitchesoff;
+				break;
+				
+			case 'sprite':
+				switch (args[0].lower()) {
+					case 'delete':
+						this.sprite_id = args[1];
+						this._do = this.deletesprite;
+						this.instant = true;
+						break;
+						
+					case 'setstate':
+						this.sprite_id = args[1];
+						this.sprite_state = args[2];
+						this._do = this.setspritestate;
+						this.instant = true;
+						break;
+						
+					case 'create':
+						this.sprite_name = args[1];
+						this.sprite_id = args[2];
+						this.x = Core.parseInt(args[3]);
+						this.y = Core.parseInt(args[4]);
+						this.layer = args[5];
+						this.state = args[6];
+						this._do = this.createsprite;
+						this.direction = args[7];
+						this.instant = true;
+						break;
+						
+					case 'setdirection':
+						this.sprite_id = args[1];
+						this.direction = args[2];
+						this._do = this.setspritedirection;
+						this.instant = true;
+						break;
+						
+					case 'setxy':
+						this.sprite_id = args[1];
+						this._do = this.setspriteloc;
+						this.x = Core.parseInt(args[2]);
+						this.y = Core.parseInt(args[3]);
+						this.instant = args[4].lower() == 'instant';
+						this.expiration = -1;
+						if (!this.instant) {
+							this.expiration = Core.parseInt(args[4]);
+							this.total = this.expiration;
+						}
+						break;
+				}
+				break;
+		}
+	}
+	
+	function do_turnlightswitchesoff(game_scene) {
+		game_scene.turnlightswitchesoff();
+	}
+	
+	function do_script(game_scene) {
+		run_script(this.script);
+	}
+	
+	function do_setbg(game_scene) {
+		game_scene.bg = get_image(this.image);
+	}
+	
+	function do_clearbg(game_scene) {
+		game_scene.bg = null;
+	}
+	
+	function do_flash(game_scene) {
+		antiprogress = min(1.0, max(0.0, (0.0 + this.expiration) / this.full_length));
+		
+		antiprogress = antiprogress * 2 - 1;
+		
+		antiprogress = 1.0 - abs(antiprogress);
+		//antiprogress = 1.0 - antiprogress;
+		game_scene.flash_amount = abs(antiprogress);
+	}
+	
+	function do_play_sound(game_scene) {
+		play_sound(this.sound);
+	}
+	
+	function do_relighttorches(game_scene) {
+		game_scene.torch_puzzle_relight();
+	}
+	
+	function save(game_scene) {
+		getActiveGame().setSavedVar('save_map', game_scene.name);
+		getActiveGame().setSavedVar('save_x', game_scene.player.x);
+		getActiveGame().setSavedVar('save_y', game_scene.player.y);
+		getActiveGame().saveToFile();
+	}
+	
+	function shake_screen(game_scene) {
+		if (this.expiration == this.play_sound_on) {
+			// TODO: play shaking sound
+		}
+		
+		this.render_offset = (this.expiration & 1) == 0 ? 2 : -2;
+	}
+		
+	function is_key_pressed(key) {
+		return this.key_pressed == key;
+	}
+		
+	function pause(game_scene) { }
+	
+	function do_input(game_scene) { }
+	
+	function setspritedirection(game_scene) {
+		sprite = game_scene.get_sprite_by_id(this.sprite_id);
+		sprite.direction = this.direction;
+	}
+	
+	function createsprite(game_scene) {
+		sprite = create_sprite(this.sprite_name, this.sprite_id);
+		sprite.x = (this.x * 16) + 8;
+		sprite.y = (this.y * 16) + 8;
+		sprite.state = this.state;
+		sprite.layer = this.layer;
+		sprite.direction = this.direction;
+		game_scene.add_sprite(sprite);
+	}
+	
+	function deletesprite(game_scene) {
+		sprite = game_scene.get_sprite_by_id(this.sprite_id);
+		sprite.expired = true;
+	}
+	
+	function show_dialog(game_scene) {
+		game_scene.next = new DialogScene(
+			new Dialog(ScriptUtil_loadFile('data/dialog/' + this.dialog_script + '.txt')), game_scene);
+	}
+	
+	function setspritestate(game_scene) {
+		sprite = game_scene.get_sprite_by_id(this.sprite_id);
+		sprite.state = this.sprite_state;
+	}
+	
+	function setspriteloc(game_scene) {
+		sprite = game_scene.get_sprite_by_id(this.sprite_id);
+		if (sprite == null) {
+			return;
+		}
+		if (this.first_time_through) {
+			this.source_x = sprite.x;
+			this.source_y = sprite.y;
+		}
+		target_x = (this.x * 16) + 8;
+		target_y = (this.y * 16) + 8;
+		if (this.instant) {
+			sprite.x = target_x;
+			sprite.y = target_y;
+		} else {
+			progress = 1 - ((0.0 + this.expiration) / this.total);
+			anti_progress = 1 - progress;
+			sprite.x = target_x * progress + anti_progress * this.source_x;
+			sprite.y = target_y * progress + anti_progress * this.source_y;
+		}
+		
+		this.first_time_through = false;
+	}
+}
+
+class CutScene {
+	static field _cutSceneStore = { };
+	static field _play_once = {
+		'interrogation' : false,
+		'at_water_temple' : false,
+	};
+	
+	field name;
+	field commands = [];
+	field event_queue = [];
+	
+	constructor(command_script, name) {
+		this.name = name;
+		lines = command_script.trim().split('\n');
+		for (line : lines) {
+			command_line = line.trim();
+			if (len(command_line) > 0) {
+				this.commands.add(new CutSceneEvent(command_line));
+			}
+		}
+	}
+	
+	function render_offset() {
+		if (len(this.commands) > 0) {
+			return this.commands[0].render_offset;
+		}
+	}
+	
+	function is_done() {
+		return len(this.commands) == 0;
+	}
+	
+	function is_key_pressed(key) {
+		return len(this.commands) > 0 && this.commands[0].is_key_pressed(key);
+	}
+	
+	function get_input_events() {
+		events = this.event_queue;
+		this.event_queue = [];
+		return events;
+	}
+	
+	function _do(game_scene) {
+		game_scene.flash_amount = 0;
+		while (!this.is_done()) {
+			command = this.commands[0];
+			command._do(game_scene);
+			command.expiration -= 1;
+			do_again = command.instant;
+			
+			if (command.expiration < 0) {
+				if (command.key_pressed != '') {
+					this.event_queue.add(new InputEvent(command.key_pressed, false));
+				}
+				this.commands = this.commands[1:];
+				if (len(this.commands) > 0 && this.commands[0].key_pressed != '') {
+					this.event_queue.add(new InputEvent(this.commands[0].key_pressed, true));
+				}
+			}
+			if (!do_again) {
+				return;
+			}
+		}
+	}
+}
+
+function get_cutscene(name) {
+	script = CutScene._cutSceneStore.get(name);
+	if (script == null) {
+		script = Resources.readText('data/cutscenes/' + name + '.txt').trim();
+		CutScene._cutSceneStore[name] = script;
+	}
+	return new CutScene(script, name);
+}
+
+function get_cutscene_for_map(map_name) {
+	
+	cs = null;
+	cs_name = null;
+	switch (map_name) {
+		case 'transport_1':
+			cs_name = 'interrogation';
+			break;
+		case 'escape_pod':
+			cs_name = 'to_water_temple';
+			break;
+		case 'world_A':
+			cs_name = 'at_water_temple';
+			break;
+	}
+		
+	if (cs_name != null) {
+		cs = get_cutscene(cs_name);
+	}
+	played_already = CutScene._play_once.get(cs_name);
+	if (played_already != null) {
+		key = 'cut_scene_play_once_' + cs_name;
+		if (getActiveGame().getBool(key)) {
+			cs = null;
+		} else {
+			getActiveGame().setSavedVar(key, 1);
+		}
+	}
+	
+	return cs;
+}

@@ -1,0 +1,36 @@
+import Resources;
+
+class TileStore {
+
+	static field _instance = null;
+	
+	field templates;
+	
+	constructor() {
+		this.templates = {};
+		
+		lines = Resources.readText('data/tiles.txt').split('\n');
+		for (line : lines) {
+			tline = line.trim();
+			if (len(tline) > 0 && tline[0] != '#') {
+				parts = tline.split('\t');
+				if (len(parts) == 4 || len(parts) == 5) {
+					template = new TileTemplate(parts);
+					this.templates[template.id] = template;
+				}
+			}
+		}
+	}
+	
+	function getTile(id) {
+		return this.templates.get(id);
+	}
+	
+}
+
+function get_tile_store() {
+	if (TileStore._instance == null) {
+		TileStore._instance = new TileStore();
+	}
+	return TileStore._instance;
+}

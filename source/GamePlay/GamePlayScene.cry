@@ -1,0 +1,855 @@
+import Graphics2D;
+import Math;
+
+class GamePlayScene {
+	
+	field render_counter = 0;
+	field flash_amount = 0;
+	field death_circles = [];
+	field disable_save = false;
+	field bg = null;
+	field gotocredits = false;
+	field player_invisible = false;
+	field sprites = [];
+	field grapple = null;
+	field last_torch_pressed = null;
+	field lever_a_pressed = false;
+	field lever_b_pressed = false;
+	field puz_flag = false;
+	field prevTile = null;
+	field firstTimeOnTile = true;
+	
+	field next;
+	field player;
+	field level;
+	field name;
+	field overlayRenderer;
+	field cutscene;
+	field inventory;
+	
+	field torch_puz;
+	field light_puz;
+	field desert_puz;
+	field lever_puz;
+	field swamp_opened;
+	
+	constructor(level_name, startX, startY) {
+		getActiveGame().setActiveGameScene(this);
+		getActiveGame().setZone(level_name);
+		this.next = this;
+		this.player = new Player();
+		this.player.x = startX;
+		this.player.y = startY;
+		this.level = new Level(level_name);
+		this.name = level_name;
+		this.overlayRenderer = new OverlayRenderer();
+		this.cutscene = get_cutscene_for_map(level_name);
+		
+		on_load_script = this.level.on_load.trim();
+		this.inventory = new Inventory();
+		if (len(on_load_script) > 0) {
+			run_script(on_load_script);
+		}
+		
+		if (this.level.dungeon == 'light') {
+			mirrors = this.light_puzzle_get_mirror_states();
+			setvar = getActiveGame().setSavedVar;
+			setvar('mirror_door_open', 'None');
+			if (getActiveGame().getBool('light_puzzle_on')) {
+				if (mirrors['A'] == 'mirror1') {
+					if (mirrors['B'] == 'mirror2' && mirrors['C'] == 'mirror3' && mirrors['D'] == 'mirror1' && mirrors['E'] == 'mirror3' && mirrors['F'] == 'mirror1') {
+						setvar('mirror_door_open', 'Blue');
+					}
+				} else if (mirrors['A'] == 'mirror2') {
+					if (mirrors['G'] == 'mirror1' && mirrors['H'] == 'mirror3') {
+						if (mirrors['I'] == 'mirror4' && mirrors['L'] == 'mirror1' && mirrors['M'] == 'mirror2') {
+							setvar('mirror_door_open', 'Yellow');
+						} else if (mirrors['I'] == 'mirror1' && mirrors['J'] == 'mirror4' && mirrors['K'] == 'mirror2') {
+							setvar('mirror_door_open', 'Red');
+						}
+					}
+				}
+			}
+		}
+		
+		this.torch_puz = level_name == 'dark_swamp';
+		this.light_puz = level_name == 'light_puzzle1_f1';
+		this.desert_puz = level_name == 'world_W';
+		this.lever_puz = level_name == 'light_south_southroom';
+		
+		if (this.torch_puz) {
+			this.swamp_opened = getActiveGame().getBool('swamp_opened');
+			
+			if (this.swamp_opened) {
+				this.open_dark_temple();
+			}
+		}
+		
+		this.initialize_enemies();
+		play_music(this.level.music);
+	}
+	
+	function open_dark_temple() {
+		ids = this.level.ids;
+		run_script([
+			'[set tile][1][doodad][d9]',
+			'[set tile][2][doodad][d7]',
+			'[set tile][3][doodad][d10]',
+			'[set tile][4][doodad][d5]',
+			'[set tile][5][doodad][94]',
+			'[set tile][6][doodad][d4]',
+			'[set tile][7][doodad][d12]',
+			'[set tile][8][doodad][d164]',
+			'[set tile][9][doodad][d11]',
+			'[set tile][5][excessive][d41]'
+			].join('\n'));
+		getActiveGame().setSavedVar('swamp_opened', '1');
+	}
+	
+	function initialize_enemies() {
+		for (enemy : this.level.enemies) {
+			data = enemy.trim();
+			if (len(data) > 0) {
+				parts = data.split('|');
+				kind = parts[0];
+				x = Core.parseInt(parts[2]);
+				y = Core.parseInt(parts[3]);
+				layer = parts[1];
+				sprite = create_sprite(kind);
+				sprite.x = (x << 4) + 8;
+				sprite.y = (y << 4) + 8;
+				sprite.layer = layer;
+				this.sprites.add(sprite);
+			}
+		}
+	}
+	
+	function place_player(layer, x, y) {
+		this.player.layer = layer;
+		this.player.x = (x << 4) + 8;
+		this.player.y = (y << 4) + 8;
+		this.level.synch_stand_key(layer, this.player.x >> 4, this.player.y >> 4);
+	}
+	
+	function is_key_pressed(key) {
+		if (this.cutscene != null && !this.cutscene.is_done() && this.cutscene.name != 'asynch') {
+			return this.cutscene.is_key_pressed(key);
+		}
+		return is_pressed(key);
+	}
+			
+	function add_sprite(sprite) {
+		this.sprites.add(sprite);
+	}
+	
+	function get_sprite_by_id(sprite_id) {
+		for (sprite : this.sprites) {
+			if (sprite.id == sprite_id) {
+				return sprite;
+			}
+		}
+		return null;
+	}
+	
+	function place_death_circle(type, x, y, radius, duration) {
+		this.death_circles.add(new DeathCircle(x, y, radius, duration, type));
+		
+		tile_x = x >> 4;
+		tile_y = y >> 4;
+		layer = this.level.layers[this.player.layer];
+		if (layer.contains_stuff && tile_x >= 0 && tile_y >= 0 && tile_x < layer.width && tile_y < layer.height) {
+			tile = layer.tiles[tile_x][tile_y];
+			if (type == 'sword') {
+				tile.chopTheBushes();
+			} else if (type == 'hammer') {
+				tile.smashBoulders();
+			} else if (type == 'drill') {
+				tile.drillThrough();
+			}
+		}
+	}
+	
+	function processInput(events) {
+	
+		if (this.cutscene != null && !this.cutscene.is_done() && this.cutscene.name != 'asynch') {
+			events = this.cutscene.get_input_events();
+		}
+		
+		actions = {
+			'item_sabre' : false,
+			'item_hammer' : false,
+			'item_drill' : false,
+			'item_hook' : false,
+			'item_cannon' : false,
+			'item_cannon_fire' : false,
+			'item_cannon_ice' : false,
+			'item_cannon_multi' : false,
+			'item_compass' : false,
+			'item_shovel' : false
+		};
+		
+		items_pressed = [];
+		
+		for (event : events) {
+			if (event.down && event.key == 'B') {
+				actions[this.inventory.equippedB()] = true;
+			} else if (event.down && event.key == 'A') {
+				actions[this.inventory.equippedA()] = true;
+			} else if (event.down && event.key == 'Y') {
+				actions[this.inventory.equippedY()] = true;
+			} else if (event.down && event.key == 'X') {
+				actions[this.inventory.equippedX()] = true;
+			} else if (event.down && event.key == 'start') {
+				this.next = new InventoryScene(this);
+			}
+		}
+		
+		if (this.player.state == 'walking') {
+			if (actions['item_sabre']) {
+				this.player.stab();
+			} else if (actions['item_cannon']) {
+				this.player.shoot('basic', this);
+			} else if (actions['item_cannon_fire']) {
+				this.player.shoot('fire', this);
+			} else if (actions['item_cannon_ice']) {
+				this.player.shoot('ice', this);
+			} else if (actions['item_cannon_multi']) {
+				this.player.shoot('multi', this);
+			} else if (actions['item_shovel']) {
+				this.player.dig();
+			} else if (actions['item_drill']) {
+				this.player.drill();
+			} else if (actions['item_hammer']) {
+				this.player.hammer();
+			} else if (actions['item_hook']) {
+				this.player.grapple();
+			}
+		}
+		
+		if (actions['item_compass']) {
+			compass_active = getActiveGame().getBool('is_compass_active');
+			
+			if (compass_active) {
+				getActiveGame().setTempVar('is_compass_active', 0);
+			} else {
+				getActiveGame().setTempVar('is_compass_active', 1);
+			}
+		}
+		
+		v = 3;
+		vx = 0;
+		vy = 0;
+		
+		if (this.player.state == 'walking') {
+			if (this.is_key_pressed('left')) {
+				this.player.direction = 'left';
+				vx = -v;
+			} else if (this.is_key_pressed('right')) {
+				this.player.direction = 'right';
+				vx = v;
+			}
+			if (this.is_key_pressed('up')) {
+				this.player.direction = 'up';
+				vy = -v;
+			} else if (this.is_key_pressed('down')) {
+				this.player.direction = 'down';
+				vy = v;
+			}
+		}
+		
+		this.player.walking = false;
+		if (vx != 0 || vy != 0) {
+			this.player.walking = true;
+		}
+		
+		if (this.player.flying_damage > 0) {
+			vx = this.player.damage_dx;
+			vy = this.player.damage_dy;
+		}
+		
+		this.do_sprite_move(this.player, vx, vy, false);
+	}
+		
+	function update(game_counter) {
+		this.level.update_tile_standing_on(this.player.layer, this.player.x, this.player.y);
+		
+		if (this.prevTile != this.level.playerStandingOn) {
+			this.prevTile = this.level.playerStandingOn;
+			this.firstTimeOnTile = true;
+		} else {
+			this.firstTimeOnTile = false;
+		}
+		
+		if (this.torch_puz && !this.swamp_opened) {
+			this.torch_puzzle_update();
+		} else if (this.lever_puz) {
+			this.light_lever_puzzle();
+		}
+		
+		if (this.desert_puz) {
+			this.desert_puzzle_update();
+		}
+		
+		if (this.level.dungeon != null && len(this.level.locked_doors) > 0) {
+			tile_x = this.player.x >> 4;
+			tile_y = this.player.y >> 4;
+			door = this.level.locked_doors.get(str(tile_x) + '_' + str(tile_y));
+			if (door != null) {
+				x = door[0];
+				y = door[1];
+				color = door[2];
+				if (getKeyRegistry().useKey(this.level.dungeon, color, this.level.name, x, y)) {
+					this.level.removeLockedDoor(x, y);
+				}
+			}
+		}
+		
+		if (this.gotocredits) {
+			this.next = new CreditsScene();
+		}
+		
+		if (this.cutscene != null && !this.cutscene.is_done()) {
+			this.cutscene._do(this);
+			if (this.cutscene != null && this.cutscene.is_done()) {
+				this.cutscene = null;
+			}
+		}
+		
+		for (sprite : this.get_sprites()) {
+			sprite.update();
+			if (sprite.dx != 0 || sprite.dy != 0) {
+				if (this.do_sprite_move(sprite, sprite.dx, sprite.dy, sprite.flying)) {
+					if (sprite.explode_on_impact) {
+						sprite.expired = true;
+						if (sprite.kind == 'grapple') {
+							if (!this.grapple.grappled && !this.try_grapple_to(this.player)) {
+								this.grapple = null;
+							} else {
+								this.grapple.expired = false;
+							}
+						}
+					}
+				}
+			}
+		}
+		
+		if (this.grapple != null) {
+			if (this.grapple.grappled) {
+				this.grapple.grapple_counter += 1;
+				progress = (0.0 + this.grapple.grapple_counter) / this.grapple.grapple_duration;
+				antiprogress = 1 - progress;
+				this.player.x = Math.floor(this.grapple.x * progress + this.grapple.grapple_start_x * antiprogress);
+				this.player.y = Math.floor(this.grapple.y * progress + this.grapple.grapple_start_y * antiprogress);
+				if (this.grapple.grapple_counter >= this.grapple.grapple_duration) {
+					this.grapple.expired = true;
+					this.grapple = null;
+				}
+			} else if (this.grapple.expired) {
+				this.grapple = null;
+			}
+		}
+		
+		dcs = [];
+		for (dc : this.death_circles) {
+			dc.update();
+			if (!dc.expired) {
+				dcs.add(dc);
+			}
+		}
+		this.death_circles = dcs;
+		
+		for (sprite : this.sprites) {
+			if (sprite.is_goody) {
+				dx = sprite.x - this.player.x;
+				dy = sprite.y - this.player.y;
+				if (dx ** 2 + dy ** 2 < 16 ** 2) {
+					sprite.expired = true;
+					if (sprite.name == 'money') {
+						modify_money(1);
+					} else {
+						heal_damage();
+					}
+				}
+			}
+		}
+		
+		enemy_count = this.get_enemy_count();
+		this.gc_sprites();
+		if (enemy_count > 0 && this.get_enemy_count() == 0) {
+			enemy_kill_script = this.level.on_enemies_killed;
+			if (len(enemy_kill_script) > 0) {
+				run_script(enemy_kill_script);
+			}
+		}
+	}
+
+	function try_grapple_to(player) {
+		if (this.grapple) {
+			x = this.grapple.x;
+			y = this.grapple.y;
+			d = this.grapple.direction;
+			if (d == 'left') {
+				x -= 8;
+			} else if (d == 'right') {
+				x += 8;
+			} else if (d == 'down') {
+				y += 8;
+			} else {
+				y -= 8;
+			}
+			x = x >> 4;
+			y = y >> 4;
+			layer = this.level.layers[this.grapple.layer];
+			if (x >= 0 && x < layer.width && y >= 0 && y < layer.height) {
+				tile = layer.tiles[x][y];
+				if (tile.is_grappleable) {
+					this.grapple.grappled = true;
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	function light_lever_puzzle() {
+		ag = getActiveGame();
+		
+		if (ag.getBool('light_timed_lever_A') && ag.getBool('light_timed_lever_B') && !this.puz_flag) {
+			run_script('[set][light_timed_lever_solved][1]');
+			run_script('[remove tile][closed_door][baseadorn]');
+			this.puz_flag = true;
+			this.cutscene = null;
+		}
+		
+		if (this.firstTimeOnTile) {
+			if (!ag.getBool('light_timed_lever_solved')) {
+				if (ag.getBool('light_timed_lever_A') && !this.lever_a_pressed) {
+					this.lever_a_pressed = true;
+					if (this.lever_b_pressed) {
+						run_script('[set][light_timed_lever_solved][1]');
+						this.cutscene = null;
+					} else {
+						script = '[set][light_timed_lever_A][0]';
+						this.cutscene = new CutScene(('pause 15\nplaysound tick\n' * 8) + 'turnlightswitchesoff', 'asynch');
+					}
+				}
+				
+				if (ag.getBool('light_timed_lever_B') && !this.lever_b_pressed) {
+					this.lever_b_pressed = true;
+					if (this.lever_a_pressed) {
+						run_script('[set][light_timed_lever_solved][1]');
+						this.cutscene = null;
+					} else {
+						script = '[set][light_timed_lever_B][0]';
+						this.cutscene = new CutScene(('pause 15\nplaysound tick\n' * 8) + 'turnlightswitchesoff', 'asynch');
+					}
+				}
+				
+				if (ag.getBool('light_timed_lever_A') && ag.getBool('light_timed_lever_B')) {
+					this.turnlightswitchesoff();
+					run_script('[set][light_timed_lever_solved][1]');
+				}
+			}
+		}
+	}
+	
+	function turnlightswitchesoff() {
+		this.lever_a_pressed = false;
+		this.lever_b_pressed = false;
+		run_script('[set tile][switch_left][baseadorn][57]');
+		run_script('[set tile][switch_right][baseadorn][57]');
+		run_script('[set][light_timed_lever_A][0]');
+		run_script('[set][light_timed_lever_B][0]');
+		this.cutscene = null;
+	}
+		
+	function desert_puzzle_update() {
+		opened = getActiveGame().getBool('light_temple_opened');
+		if (!opened && this.player.state == 'shovelling') {
+			target = this.level.ids['temple'];
+			x = this.player.x >> 4;
+			y = this.player.y >> 4;
+			if (target.x == x && target.y == y) {
+				getActiveGame().setSavedVar('light_temple_opened', '1');
+				this.cutscene = new CutScene('pause 5\nplaysound itemget\nscript [set tile][entrance][base][171]', 'open_light_temple');
+			}
+		}
+	}
+	
+	function get_enemy_count() {
+		count = 0;
+		for (sprite : this.sprites) {
+			if (sprite.is_enemy) count += 1;
+		}
+		return count;
+	}
+		
+	function render(screen, renderOffsets) {
+		
+		if (this.bg != null) {
+			this.bg.draw(0, 0);
+		} else {
+			offset = this.get_camera_offset();
+			
+			if (this.cutscene != null && !this.cutscene.is_done()) {
+				r_offset = this.cutscene.render_offset();
+				offset = [offset[0] + r_offset, offset[1]];
+			}
+			
+			flattenedOffset = [offset[0] + renderOffsets[0], offset[1] + renderOffsets[1]];
+			
+			this.level.render('Stairs', screen, offset[0], offset[1], this.render_counter, renderOffsets);
+			for (layerName : 'A B C D E F Stairs'.split(' ')) {
+				if (layerName != 'Stairs') {
+					this.level.render(layerName, screen, offset[0], offset[1], this.render_counter, renderOffsets);
+				}
+				
+				for (sprite : this.get_renderable_sprites(layerName)) {
+					img = sprite.currentImage(this.render_counter);
+					if (img != null) {
+						coords = sprite.drawingCoords();
+						img.draw(coords[0] + flattenedOffset[0], coords[1] + flattenedOffset[1]);
+					}
+					
+					if (sprite == this.grapple) {
+						x = sprite.x;
+						y = sprite.y;
+						if (sprite.direction == 'left') {
+							x += 14;
+						} else if (sprite.direction == 'right') {
+							x -= 14;
+						} else if (sprite.direction == 'up') {
+							y += 14;
+						} else {
+							y -= 14;
+						}
+						Graphics2D.Draw.line(sprite.x + flattenedOffset[0], sprite.y + flattenedOffset[1], this.player.x + flattenedOffset[0], this.player.y + flattenedOffset[1], 1, 255, 200, 40);
+					}
+					
+					if (sprite.is_enemy && sprite.frozen && img != null) {
+						Graphics2D.Draw.rectangle(coords[0] + flattenedOffset[0] - 2, coords[1] + flattenedOffset[1] - 2, sprite.r * 2 + 4, sprite.r * 2 + 4, 100, 100, 255, 1);
+					}
+				}
+			}
+			
+			if (this.light_puz) {
+				this.render_light_puzzle(screen, flattenedOffset);
+			}
+		}
+		
+		if (this.cutscene != null) {
+			this.make_white(screen, this.flash_amount);
+		} else {
+			this.flash_amount = 0;
+		}
+		
+		this.render_counter += 1;
+		
+		if (this.overlayRenderer != null) {
+			this.overlayRenderer.render(screen);
+		}
+	}
+	
+	function make_white(screen, amount) {
+		if (amount == 0) return;
+		value = min(255, max(0, Math.floor(255 * amount)));
+		fill_screen_with_alpha(255, 255, 255, value);
+	}
+	
+	function torch_puzzle_update() {
+		ids = this.level.ids;
+		activation = 'ABCDEFGHI';
+		x = this.player.x >> 4;
+		y = this.player.y >> 4;
+		current = null;
+		
+		last = this.last_torch_pressed;
+		for (active_tile : activation) {
+			tile = ids[active_tile];
+			if (tile.x == x && tile.y == y) {
+				current = active_tile;
+				break;
+			}
+		}
+		
+		name = null;
+		if (this.cutscene != null) name = this.cutscene.name;
+		
+		if (this.firstTimeOnTile && current != null && current != last && this.cutscene == null) {
+			if (last == 'H' && current == 'I') {
+				this.cutscene = get_cutscene('torch_win');
+				this.open_dark_temple();
+			} else if (last == null && current == 'A') {
+				this.last_torch_pressed = current;
+				play_sound('fwuf');
+				run_script('[remove tile][t' + current + '][doodad]');
+			} else if (last != null && activation.find(last) == activation.find(current) - 1) {
+				this.last_torch_pressed = current;
+				play_sound('fwuf');
+				run_script('[remove tile][t' + current + '][doodad]');
+			} else {
+				play_sound('fwuf');
+				run_script('[remove tile][t' + current + '][doodad]');
+				current = null;
+				last = null;
+				this.last_torch_pressed = null;
+				this.cutscene = get_cutscene('torch_fail');
+			}
+		}
+	}
+	
+	function torch_puzzle_relight() {
+		for (tile : 'ABCDEFGHI') {
+			run_script('[set tile][t' + tile + '][doodad][torch3]');
+		}
+		play_sound('bad');
+	}
+	
+	function render_light_puzzle(screen, offset) {
+		get_var = getActiveGame().getVar;
+		ids = this.level.ids;
+		
+		mirror_states = this.light_puzzle_get_mirror_states();
+		mirror_images = {
+			'mirror1' : get_image('tiles/mirrors/topright'),
+			'mirror2' : get_image('tiles/mirrors/topleft'),
+			'mirror3' : get_image('tiles/mirrors/bottomleft'),
+			'mirror4' : get_image('tiles/mirrors/bottomright')
+		};
+		for (mirror_key : mirror_states.keys()) {
+			loc = ids[mirror_key];
+			x = (loc.x << 4) + offset[0];
+			y = (loc.y << 4) + offset[1];
+			mirror_images[mirror_states[mirror_key]].draw(x, y);
+		}
+		
+		if (get_var('light_puzzle_on') == null) {
+			return;
+		}
+		
+		this.draw_light_beam(screen, 'source', 'A', offset, ids, mirror_states);
+	}
+	
+	function draw_light_beam(screen, start, end, offset, ids, mirror_states) {
+		start_id = ids[start];
+		end_id = ids[end];
+		start_x = (start_id.x << 4) + 8;
+		start_y = (start_id.y << 4) + 8;
+		end_x = (end_id.x << 4) + 8;
+		end_y = (end_id.y << 4) + 8;
+		
+		Graphics2D.Draw.line(start_x + offset[0], start_y + offset[1], end_x + offset[0], end_y + offset[1], 1, 255, 255, 255);
+		
+		next = null;
+		if (end == 'A') {
+			if (mirror_states['A'] == 'mirror1') {
+				next = 'B';
+			} else if (mirror_states['A'] == 'mirror2') {
+				next = 'G';
+			}
+		} else if (end == 'B') {
+			if (mirror_states['B'] == 'mirror2') {
+				next = 'C';
+			} else if (mirror_states['B'] == 'mirror3') {
+				next = 'fail1';
+			}
+		} else if (end == 'C') {
+			if (mirror_states['C'] == 'mirror3') {
+				next = 'D';
+			} else if (mirror_states['C'] == 'mirror4') {
+				next = 'fail2';
+			}
+		} else if (end == 'D') {
+			if (mirror_states['D'] == 'mirror1') {
+				next = 'E';
+			} else if (mirror_states['D'] == 'mirror4') {
+				next = 'fail8';
+			}
+		} else if (end == 'E') {
+			if (mirror_states['E'] == 'mirror3') {
+				next = 'F';
+			} else if (mirror_states['E'] == 'mirror4') {
+				next = 'fail9';
+			}
+		} else if (end == 'F') {
+			if (mirror_states['F'] == 'mirror1') {
+				next = 'blue_door';
+			} else if (mirror_states['F'] == 'mirror4') {
+				next = 'fail10';
+			}
+		} else if (end == 'G') {
+			if (mirror_states['G'] == 'mirror1') {
+				next = 'H';
+			} else if (mirror_states['G'] == 'mirror4') {
+				next = 'fail3';
+			}
+		} else if (end == 'H') {
+			if (mirror_states['H'] == 'mirror3') {
+				next = 'I';
+			} else if (mirror_states['H'] == 'mirror4') {
+				next = 'bs_light_to_mainroom_f_puzzle';
+			}
+		} else if (end == 'I') {
+			if (mirror_states['I'] == 'mirror1') {
+				next = 'J';
+			} else if (mirror_states['I'] == 'mirror4') {
+				next = 'L';
+			}
+		} else if (end == 'J') {
+			if (mirror_states['J'] == 'mirror4') {
+				next = 'K';
+			} else if (mirror_states['J'] == 'mirror3') {
+				next = 'fail6';
+			}
+		} else if (end == 'K') {
+			if (mirror_states['K'] == 'mirror2') {
+				next = 'red_door';
+			} else if (mirror_states['K'] == 'mirror3') {
+				next = 'fail7';
+			}
+		} else if (end == 'L') {
+			if (mirror_states['L'] == 'mirror1') {
+				next = 'M';
+			} else if (mirror_states['L'] == 'mirror2') {
+				next = 'fail4';
+			}
+		} else if (end == 'M') {
+			if (mirror_states['M'] == 'mirror2') {
+				next = 'N';
+			} else if (mirror_states['M'] == 'mirror3') {
+				next = 'fail5';
+			}
+		} else if (end == 'N') {
+			next = 'yellow_door';
+		}
+		
+		if (next != null) {
+			this.draw_light_beam(screen, end, next, offset, ids, mirror_states);
+		}
+	}
+	
+	static field _defaultMirror = {
+		'A' : 'mirror1',
+		'B' : 'mirror2',
+		'C' : 'mirror3',
+		'D' : 'mirror4',
+		'E' : 'mirror1',
+		'F' : 'mirror2',
+		'G' : 'mirror3',
+		'H' : 'mirror4',
+		'I' : 'mirror1',
+		'J' : 'mirror2',
+		'K' : 'mirror3',
+		'L' : 'mirror4',
+		'M' : 'mirror1',
+		'N' : 'mirror3'
+	};
+	function light_puzzle_get_mirror_states() {
+		get_var = getActiveGame().getVar;
+		mirrors = {};
+		for (mirror : 'ABCDEFGHIJKLMN') {
+			state = get_var('mirror_state_' + mirror);
+			if (state == null) {
+				state = GamePlayScene._defaultMirror[mirror];
+				getActiveGame().setSavedVar('mirror_state_' + mirror, GamePlayScene._defaultMirror[mirror]);
+			}
+			mirrors[mirror] = state;
+		}
+		return mirrors;
+	}
+	
+	function get_camera_offset() {
+		
+		width = this.level.width * 16;
+		height = this.level.height * 16;
+		
+		offset_x = 0;
+		offset_y = 0;
+		
+		player_x = this.player.x;
+		player_y = this.player.y;
+		
+		if (width < SCREEN_WIDTH) {
+			offset_x = (SCREEN_WIDTH - width) / 2;
+		} else if (width > SCREEN_WIDTH) {
+			offset_x = SCREEN_WIDTH / 2 - player_x;
+			offset_x = min(offset_x, 0);
+			offset_x = max(offset_x, -(width - SCREEN_WIDTH));
+		}
+			
+		if (height < SCREEN_HEIGHT) {
+			offset_y = (SCREEN_HEIGHT - height) / 2;
+		} else if (height > SCREEN_HEIGHT) {
+			offset_y = SCREEN_HEIGHT / 2 - player_y;
+			offset_y = min(offset_y, 0);
+			offset_y = max(offset_y, -(height - SCREEN_HEIGHT));
+		}
+		return [offset_x, offset_y];
+	}
+	
+	function gc_sprites() {
+		sprites = [];
+		for (sprite : this.sprites) {
+			if (!sprite.expired) {
+				sprites.add(sprite);
+			}
+		}
+		this.sprites = sprites;
+	}
+	
+	function get_sprites() {
+		return [this.player] + this.sprites;
+	}
+	
+	function get_renderable_sprites(layer) {
+		sprites = [];
+		for (sprite : this.sprites) {
+			if (sprite.layer == layer) {
+				sprites.add(sprite);
+			}
+		}
+		
+		if (this.player.layer == layer && !this.player_invisible) {
+			unsorted_spritelist = [this.player] + sprites;
+		} else {
+			unsorted_spritelist = sprites;
+		}
+		
+		return this.sort_sprite_list(unsorted_spritelist);
+	}
+	
+	function sort_sprite_list(sprites, pivot = null) {
+		if (pivot == null) {
+			if (len(sprites) == 0) {
+				return [];
+			}
+			return this.sort_sprite_list(sprites[1:], sprites[0]);
+		}
+		
+		left = [];
+		right = [];
+		for (sprite : sprites) {
+			if (sprite.y < pivot.y) {
+				left.add(sprite);
+			} else {
+				right.add(sprite);
+			}
+		}
+		
+		left = this.sort_sprite_list(left);
+		right = this.sort_sprite_list(right);
+		
+		return left + [pivot] + right;
+	}
+	
+	function do_sprite_move(sprite, vx, vy, is_flying_sprite) {
+		vx = Math.floor(vx);
+		vy = Math.floor(vy);
+		// hacked in a lower location for the center of the sprite in the particular case of the player
+		params = this.level.move_request(sprite.layer, sprite.x, sprite.y, vx, vy, sprite.r - 4, is_flying_sprite);
+		sprite.layer = params[0];
+		sprite.x = params[1];
+		sprite.y = params[2];
+		return params[3];
+	}
+}

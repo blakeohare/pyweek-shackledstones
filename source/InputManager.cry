@@ -1,0 +1,136 @@
+import Game;
+
+class InputEvent {
+
+	field key;
+	field down;
+	field up;
+
+	constructor(key, down) {
+		this.key = key;
+		this.down = down;
+		this.up = !down;
+	}
+	
+	function Up() { return this.key == 'up'; }
+	function Down() { return this.key == 'down'; }
+	function Right() { return this.key == 'right'; }
+	function Left() { return this.key == 'left'; }
+	function A() { return this.key == 'A'; }
+	function B() { return this.key == 'B'; }
+	function X() { return this.key == 'X'; }
+	function Y() { return this.key == 'Y'; }
+	function Start() { return this.key == 'start'; }
+}
+
+class InputManager {
+	
+	static field instance = null;
+	static field KEYS = 'up down left right start A B X Y'.split(' ');
+	
+	field key_pressed_now = '';
+	field is_pressed = {
+		'up' : false,
+		'down' : false,
+		'left' : false,
+		'right' : false,
+		'start' : false,
+		'A' : false,
+		'B' : false,
+		'Y' : false,
+		'X' : false
+	};
+	field escape_attempted = false;
+	
+	constructor() { }
+	
+	function get_events(raw_events) {
+		
+		this.key_pressed_now = '';
+		events = [];
+		
+		for (event : raw_events) {
+			
+			if (event.type == EventType.QUIT || (event.type == EventType.KEY_DOWN && event.key == KeyboardKey.ESCAPE)) {
+				this.escape_attempted = true;
+			} else if (event.type == EventType.KEY_DOWN) {
+				switch (event.key) {
+					case KeyboardKey.UP:
+						events.add(new InputEvent('up', true));
+						break;
+					case KeyboardKey.DOWN:
+						events.add(new InputEvent('down', true));
+						break;
+					case KeyboardKey.RIGHT:
+						events.add(new InputEvent('right', true));
+						break;
+					case KeyboardKey.LEFT:
+						events.add(new InputEvent('left', true));
+						break;
+					case KeyboardKey.SPACE:
+						events.add(new InputEvent('B', true));
+						break;
+					case KeyboardKey.A:
+						events.add(new InputEvent('A', true));
+						break;
+					case KeyboardKey.S:
+						events.add(new InputEvent('Y', true));
+						break;
+					case KeyboardKey.D:
+						events.add(new InputEvent('X', true));
+						break;
+					case KeyboardKey.ENTER:
+						events.add(new InputEvent('start', true));
+						break;
+				}
+			} else if (event.type == EventType.KEY_UP) {
+				switch (event.key) {
+					case KeyboardKey.UP:
+						events.add(new InputEvent('up', false));
+						break;
+					case KeyboardKey.DOWN:
+						events.add(new InputEvent('down', false));
+						break;
+					case KeyboardKey.RIGHT:
+						events.add(new InputEvent('right', false));
+						break;
+					case KeyboardKey.LEFT:
+						events.add(new InputEvent('left', false));
+						break;
+					case KeyboardKey.SPACE:
+						events.add(new InputEvent('B', false));
+						break;
+					case KeyboardKey.A:
+						events.add(new InputEvent('A', false));
+						break;
+					case KeyboardKey.S:
+						events.add(new InputEvent('Y', false));
+						break;
+					case KeyboardKey.D:
+						events.add(new InputEvent('X', false));
+						break;
+					case KeyboardKey.ENTER:
+						events.add(new InputEvent('start', false));
+						break;
+				}
+			}
+		}
+			
+		for (event : events) {
+			this.is_pressed[event.key] = event.down;
+		}
+		
+		return events;
+	}
+}
+
+function getInputManager() {
+	if (InputManager.instance == null) {
+		InputManager.instance = new InputManager();
+	}
+	return InputManager.instance;
+}
+
+function is_pressed(key) {
+	return getInputManager().is_pressed[key];
+}

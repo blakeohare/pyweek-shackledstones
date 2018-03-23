@@ -1,0 +1,133 @@
+const D_NORMAL = 0;
+const D_SCAN = 1;
+const D_PAUSE = 2;
+const D_QUESTION = 3;
+const D_CHECKVAR = 4;
+const D_END = 5;
+
+class Dialog {
+	
+	field scriptEngine;
+	field _profile = null;
+	field _state = D_NORMAL;
+
+	// What we should be displaying
+	field _buffer = '';
+	// When we're in question mode
+	field _question = null;
+	// when we have a question what are the choices?
+	field _choices = [];
+	
+	constructor(scriptIter) {
+		this.scriptEngine = new ScriptEngine(
+			scriptIter,
+			this._parseScriptedDialog,
+			this._advancePreCheck,
+			this._endPreCheck);
+		
+		this.scriptEngine._addFn('profile', this._setProfile);
+		this.scriptEngine._addFn('pause', this._pause);
+		this.scriptEngine._addFn('question', this._beginQuestion);
+		this.scriptEngine._addFn('choice', this._addChoice);
+		this.scriptEngine._addFn('/question', this._poseQuestion);
+		this.scriptEngine._addFn('save', this._saveGame);
+		
+		// perform the initial parse (fill the buffer)
+		this.scriptEngine.advance();
+	}
+	
+	// Get the path to the current profile
+	function Profile() {
+		return this._profile;
+	}
+	
+	// Find out what mode the dialog is in
+	function State() {
+		return this._state;
+	}
+	
+	// get the next bit of stuff to display
+	function _advancePreCheck() {
+		// do not allow resuming if the dialog is finished
+		if (this.State() == D_END) {
+			return false;
+		}
+		
+		this._buffer = '';
+		return true;
+	}
+	
+	// What we should be displaying if we're in "talk" mode (D_NORMAL)
+	function Text() {
+		return this._buffer.trim();
+	}
+	
+	// what choices are available
+	function Choices() {
+		if (this.State() != D_QUESTION) {
+			print("ERR: Not in Question mode");
+		}
+		options = [];
+		for (a : this._choices) {
+			options.add(a.Text());
+		}
+		return options;
+	}
+	
+	// Answer a question
+	// resp - which choice the user went with
+	function Answer(resp) {
+		c = this._choices[resp];
+		this._choices = [];
+		this._state = D_NORMAL;
+		this.scriptEngine._script.FindLabel(c.Label());
+	}
+	
+	function _parseScriptedDialog(line) {
+		name = getActiveGame().getString('name');
+		line = line.replace('%NAME%', name);
+		this._buffer += line + '\n';
+	}
+
+	// function implementations
+	// return indicates if script execution should continue (true) or stop until
+	// the next Advance (false)
+	function _beginQuestion(text) {
+		this._state = D_QUESTION;
+		this._choices = [];
+		this._buffer = text;
+		return true;
+	}
+	
+	function _addChoice(label, text) {
+		this._choices.add(new DialogChoice(text, label));
+		return true;
+	}
+	
+	function _saveGame() {
+		game_scene = getActiveGame().getActiveGameScene();
+		getActiveGame().setSavedVar('save_map', game_scene.name);
+		getActiveGame().setSavedVar('save_x', game_scene.player.x);
+		getActiveGame().setSavedVar('save_y', game_scene.player.y);
+		getActiveGame().saveToFile();
+		return true;
+	}
+	
+	function _poseQuestion() {
+		return false;
+	}
+	
+	function _setProfile(file) {
+		this._profile = file;
+		return true;
+	}
+	
+	// TODO: why not just set this as the end implementation via addFn? It'll overwrite it in the lookup.
+	function _endPreCheck() {
+		this._state = D_END;
+	}
+	
+	function _pause() {
+		return false;
+	}
+}

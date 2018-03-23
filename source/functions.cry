@@ -1,0 +1,112 @@
+import Graphics2D;
+import Math;
+import Random;
+
+// TODO: remove these
+function str(value) { return (value ?? 'null') + ''; }
+function len(value) { return value.length; }
+
+function run_script(script_contents) {
+	script_contents = script_contents.replace('\\n', '\n'); /// TODO: fix this
+	scriptIter = new ScriptIter(script_contents.split('\n'));
+	scriptEngine = new ScriptEngine(scriptIter);
+	applyMapScriptFunctions(scriptEngine);
+	scriptEngine.advance();
+}
+
+function make_table(width, height) {
+	cols = [];
+	t = [null];
+	while (width > 0) {
+		cols.add(t * height);
+		width -= 1;
+	}
+	return cols;
+}
+
+function ambiguous_int(value) {
+	if (value == null) return 0;
+	if (Core.isString(value)) return Core.parseInt(value);
+	return Math.floor(value);
+}
+	
+function get_money() {
+	return getActiveGame().getInt('money_amount');
+}
+
+function set_money(amount) {
+	getActiveGame().setSavedVar('money_amount', ambiguous_int(amount));
+}
+
+function modify_money(amount) {
+	set_money(max(0, get_money() + amount));
+}
+
+function has_money(amount) {
+	return get_money() >= amount;
+}
+
+function get_life() {
+	return max(0, getActiveGame().getInt('life_meter', 3));
+}
+
+function get_max_life() {
+	return getActiveGame().getBool('has_armor') ? 20: 10;
+}
+
+function set_life(amount) {
+	getActiveGame().setTempVar('life_meter', min(10, amount));
+}
+
+function take_damage(amount) {
+	set_life(get_life() - amount);
+	return get_life() <= 0;
+}
+
+function heal_damage() {
+	set_life(get_life() + 1);
+}
+
+function draw_rect_stroke(x, y, w, h, r, g, b, strokeSize) {
+	right = x + w - 1;
+	bottom = y + h - 1;
+	Graphics2D.Draw.line(x, y, right, y, strokeSize, r, g, b);
+	Graphics2D.Draw.line(x, bottom, right, bottom, strokeSize, r, g, b);
+	Graphics2D.Draw.line(x, y, x, bottom, strokeSize, r, g, b);
+	Graphics2D.Draw.line(right, y, right, bottom, strokeSize, r, g, b);
+}
+
+function fill_screen_with_alpha(r, g, b, a) {
+	Graphics2D.Draw.rectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, r, g, b, a);
+}
+
+function draw_circle_stroke(x, y, radius, strokeSize, r, g, b) {
+	m = Math.PI * 2 / 20.0;
+	for (i = 0; i < 20; ++i) {
+		aAng = m * i;
+		bAng = m * (i + 1);
+		x1 = Math.floor(Math.cos(aAng) * radius + x);
+		y1 = Math.floor(Math.sin(aAng) * radius + y);
+		x2 = Math.floor(Math.cos(bAng) * radius + x);
+		y2 = Math.floor(Math.sin(bAng) * radius + y);
+		Graphics2D.Draw.line(x1, y1, x2, y2, strokeSize, r, g, b);
+	}
+}
+
+function random_choice(list) {
+	return list[Random.randomInt(len(list))];
+}
+
+function get_image(path) {
+	img = Globals.images.get(path);
+	if (img == null) {
+		resPath = 'images/' + path.replace('\\', '/');
+		if (!resPath.endsWith('.png')) {
+			resPath += '.png';
+		}
+		resource = Globals.imageSheet.getImage(resPath);
+		img = Graphics2D.GraphicsTexture.load(resource);
+		Globals.images[path] = img;
+	}
+	return img;
+}

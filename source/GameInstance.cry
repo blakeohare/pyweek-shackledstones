@@ -1,0 +1,159 @@
+import UserData;
+
+/*
+common variables:
+
+name - player name
+
+The following indicate which items the player has. They are either 1 or null
+
+item_sabre
+item_hammer
+item_drill
+item_hook
+item_cannon
+item_cannon_fire
+item_cannon_ice
+item_cannon_multi
+item_compass
+item_shovel
+
+The following holds one of the above to indicate what each button has assigned
+equipped_a
+equipped_b
+equipped_x
+equipped_y
+
+The following will be used to track which stones a play has acquired
+stone_water
+stone_light
+stone_life
+stone_fire
+stone_dark
+stone_death
+
+The following will be used to track which temples have been completed
+A temple is complete when the stone is replaced on the altar
+finish_water
+finish_light
+finish_dark
+finish_fire
+finish_life
+finish_death
+
+Used to indicate which area of the world we're in (stores the map name)
+current_zone
+*/
+class GameInstance {
+	field slot;
+	field values;
+	field temp_vars = {};
+	field active_game_scene = null;
+	
+	constructor(slot) {
+		this.slot = slot;
+		this.values = this.parse(slot);
+	}
+	
+	function getBool(varName) {
+		value = this.temp_vars.get(varName);
+		if (value == null) {
+			value = this.values.get(varName);
+		}
+		if (value == null) return false;
+		if (value == '') return false;
+		if (value == 0) return false;
+		return true;
+	}
+	
+	function getInt(varName, defaultValue = 0) {
+		value = this.temp_vars.get(varName);
+		if (value == null) {
+			value = this.values.get(varName);
+		}
+		if (value == null) {
+			return defaultValue;
+		}
+		if (Core.isString(value)) {
+			return Core.parseInt(value);
+		}
+		return value;
+	}
+	
+	function getString(varName) {
+		value = this.temp_vars.get(varName);
+		if (value == null) {
+			value = this.values.get(varName);
+		}
+		if (value == null) {
+			return '';
+		}
+		return str(value);
+	}
+	
+	function _getVar(varName) {
+		value = this.temp_vars.get(varName);
+		if (value == null) {
+			return this.values.get(varName);
+		}
+		return value;
+	}
+	
+	function setActiveGameScene(game_scene) {
+		this.active_game_scene = game_scene;
+	}
+
+	function getActiveGameScene() {
+		return this.active_game_scene;
+	}
+	
+	function setSavedVar(name, value) {
+		this.values[name] = value;
+	}
+
+	function setTempVar(name, value) {
+		this.temp_vars[name] = value;
+	}
+	
+	function parse(slot = null) {
+		if (slot == null) {
+			slot = this.slot;
+		}
+		values = {};
+		lines = UserData.fileReadText('slot' + str(slot) + '.txt').trim().split('\n');
+		
+		for (line : lines) {
+			parts = line.trim().split(':');
+			if (len(parts) > 1) {
+				name = parts[0].trim();
+				value = parts[1:].join(':').trim();
+				if (len(name) > 1 && '$#'.contains(name[0])) {
+					if (name[0] == '#') {
+						value = Core.parseInt(value);
+					}
+					name = name[1:];
+					values[name] = value;
+				}
+			}
+		}
+		return values;
+	}
+
+	function setZone(newVal) {
+		this.setTempVar('current_zone', newVal);
+	}
+	
+	function saveToFile() {
+		output = [];
+		for (key : this.values.keys()) {
+			value = this.values[key];
+			if (str(value) == value) {
+				name = '$' + key;
+			} else {
+				name = '#' + key;
+			}
+			output.add(name + ':' + str(value));
+		}
+		UserData.fileWriteText('slot' + str(this.slot) + '.txt', output.join('\n'));
+	}
+}

@@ -1,0 +1,313 @@
+class Player {
+	
+	field x = 100;
+	field y = 100;
+	field layer = 'A';
+	field r = 8;
+	field id = 'MC';
+	field dx = 0;
+	field is_goody = false;
+	field dy = 0;
+	field is_enemy = false;
+	field direction = 'right';
+	field walking = false;
+	field state = 'walking';
+	field expired = false;
+	field flying = false;
+	field flash_counter = -1;
+	field state_counter = 0;
+	field flying_damage = -42;
+	field damage_dx = 0;
+	field damage_dy = 0;
+	field explode_on_impact = false;
+	field state_count;
+	
+	constructor() { }
+	
+	function drawingCoords() {
+		cx = this.x - this.r;
+		cy = this.y - this.r - 13;
+		switch (this.state) {
+			case 'stabbing':
+			case 'hammering':
+			case 'drilling':
+				if (this.direction == 'left') {
+					cx -= 16;
+				} else if (this.direction == 'up') {
+					cy -= 16;
+				}
+				break;
+			default: break;
+		}
+		return [cx, cy];
+	}
+	
+	function update() {
+		this.state_counter -= 1;
+		this.flash_counter -= 1;
+		this.flying_damage -= 1;
+		if (this.state_counter <= 0) {
+			this.state = 'walking';
+		}
+		
+		if (this.flash_counter < 0) {
+			game_scene = getActiveGame().getActiveGameScene();
+			for (sprite : game_scene.sprites) {
+				if (sprite.is_enemy) {
+					if (sprite.layer == this.layer) {
+						dx = sprite.x - this.x;
+						dy = sprite.y - this.y;
+						if (dx ** 2 + dy ** 2 < (this.r + sprite.r) ** 2) {
+							this.flash_counter = 30;
+							take_damage(1);
+							if (get_life() == 0) {
+								set_life(3);
+								getActiveGame().getActiveGameScene().next = new GameOverScene();
+							} else {
+								this.flying_damage = 5;
+								nv = get_normalized_vector(sprite.x, sprite.y, this.x, this.y);
+								this.damage_dx = nv[0] * 7;
+								this.damage_dy = nv[1] * 7;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	function stab() {
+		if (this.is_submerged()) return;
+		
+		this.state_counter = 7;
+		this.state = 'stabbing';
+		x = this.x;
+		y = this.y;
+		switch (this.direction) {
+			case 'left':
+				x -= 16;
+				break;
+			case 'up':
+				y -= 16;
+				break;
+			case 'down':
+				y += 16;
+				break;
+			default:
+				x += 16;
+				break;
+		}
+		game_scene = getActiveGame().getActiveGameScene();
+		
+		game_scene.place_death_circle('sword', x, y, 8, 5);
+		play_sound('sword');
+	}
+
+	function shoot(bullet_type, game_scene) {
+		if (this.is_submerged()) return;
+		this.state_count = 7;
+		this.state = 'shooting';
+		
+		sprites = [];
+		if (bullet_type == 'multi') {
+			also = [];
+			if (this.direction == 'left' || this.direction == 'right') {
+				also = ['up','down'];
+			}
+			if (this.direction == 'down' || this.direction == 'up') {
+				also = ['left','right'];
+			}
+			for (b : also) {
+				sprites.add(new Projectile(bullet_type, true, this.layer, this.x, this.y, b, game_scene));
+			}
+		}
+		sprites.add(new Projectile(bullet_type, true, this.layer, this.x, this.y, this.direction, game_scene));
+		for (s : sprites) {
+			game_scene.sprites.add(s);
+		}
+		play_sound('gunshot');
+	}
+	
+	function dig() {
+		if (this.is_submerged()) return;
+		this.state_counter = 20;
+		this.state = 'shovelling';
+		play_sound('dig');
+	}
+	
+	function drill() {
+		if (this.is_submerged()) return;
+		this.state_counter = 15;
+		this.state = 'drilling';
+		x = this.x;
+		y = this.y;
+		switch (this.direction) {
+			case 'left':
+				x -= 16;
+				break;
+			case 'up':
+				y -= 16;
+				break;
+			case 'down':
+				y += 16;
+				break;
+			default:
+				x += 16;
+				break;
+		}
+		game_scene = getActiveGame().getActiveGameScene();
+		
+		game_scene.place_death_circle('drill', x, y, 8, 5);
+		play_sound('drill');
+	}
+	
+	function hammer() {
+		if (this.is_submerged()) return;
+		this.state_counter = 15;
+		this.state = 'hammering';
+		x = this.x;
+		y = this.y;
+		switch (this.direction) {
+			case 'left':
+				x -= 16;
+				break;
+			case 'up':
+				y -= 16;
+				break;
+			case 'down':
+				y += 16;
+				break;
+			default:
+				x += 16;
+				break;
+		}
+		game_scene = getActiveGame().getActiveGameScene();
+		
+		game_scene.place_death_circle('hammer', x, y, 8, 5);
+		play_sound('hammer');
+	}
+	
+	function grapple() {
+		if (this.is_submerged()) return;
+		game_scene = getActiveGame().getActiveGameScene();
+		if (game_scene.grapple == null) {
+			start_x = this.x;
+			start_y = this.y;
+			end_x = start_x;
+			end_y = start_y;
+			switch (this.direction) {
+				case 'up':
+					end_y -= 16 * 6;
+					break;
+				case 'down':
+					end_y += 16 * 6;
+					break;
+				case 'left':
+					end_x -= 16 * 6;
+					break;
+				case 'right':
+					end_x += 16 * 6;
+					break;
+			}
+			
+			grapple = new Projectile('grapple', true, this.layer, this.x, this.y, this.direction, game_scene);
+			grapple.end_x = end_x;
+			grapple.end_y = end_y;
+			game_scene.sprites.add(grapple);
+			game_scene.grapple = grapple;
+		}
+	}
+	
+	function is_submerged() {
+		gs = getActiveGame().getActiveGameScene();
+		if (gs != null) {
+			layer = gs.level.layers[this.layer];
+			x = this.x >> 4;
+			y = this.y >> 4;
+			if (x >= 0 && x < layer.width && y >= 0 && y < layer.height) {
+				value = layer.tiles[x][y].submerged;
+				return value;
+			}
+		}
+	}
+	
+	function currentImage(render_counter) {
+		if (this.flash_counter > 0 && (this.flash_counter & 1) == 0) {
+			return null;
+		}
+		
+		counter = '0';
+		if (this.is_submerged()) {
+			switch (this.direction) {
+				case 'right':
+					return get_image('sprites/maincharacter/sinkright2');
+				case 'left':
+					return get_image('sprites/maincharacter/sinkleft2');
+				case 'up':
+					return get_image('sprites/maincharacter/sinkup2');
+				case 'down':
+					return get_image('sprites/maincharacter/sinkdown2');
+			}
+		}
+		
+		switch (this.state) {
+			case 'walking':
+				if (this.walking) {
+					counter = ['0','1','0','2'][(render_counter / 3) & 3];
+				} else {
+					counter = 0;
+				}
+				
+				switch (this.direction) {
+					case 'right':
+						return get_image('sprites/maincharacter/right' + counter);
+					case 'left':
+						return get_image('sprites/maincharacter/left' + counter);
+					case 'up':
+						return get_image('sprites/maincharacter/up' + counter);
+					case 'down':
+						return get_image('sprites/maincharacter/down' + counter);
+				}
+				break;
+				
+			case 'stabbing':
+			case 'hammering':
+			case 'drilling':
+			case 'shovelling':
+				switch (this.state) {
+					case 'stabbing':
+						img_name = 'stab';
+						counter = ['1','2','2','1','1'][(this.state_counter / 2) % 5];
+						break;
+					case 'drilling':
+						img_name = 'drill';
+						counter = ((this.state_counter / 2) % 3) + 1;
+						break;
+					case 'hammering':
+						img_name = 'hammer';
+						counter = ['1','1','2','3','3','3','3','3','3','3','3','3','2','1','1'][this.state_counter % 15];
+						break;
+					case 'shovelling':
+						img_name = 'shovel';
+						counter = 2 - ((this.state_counter / 11) % 2);
+						this.direction = 'right';
+						break;
+				}
+				
+				switch (this.direction) {
+					case 'right':
+						return get_image('sprites/maincharacter/'+img_name+'right' + counter);
+					case 'left':
+						return get_image('sprites/maincharacter/'+img_name+'left' + counter);
+					case 'up':
+						return get_image('sprites/maincharacter/'+img_name+'up' + counter);
+					case 'down':
+						return get_image('sprites/maincharacter/'+img_name+'down' + counter);
+				}
+				break;
+			
+			default:
+				return get_image('sprites/maincharacter/down' + counter);
+		}
+	}
+}

@@ -1,0 +1,203 @@
+import Graphics2D;
+import Math;
+
+class GameSelectScene {
+	
+	field _prevScene;
+	field next;
+	field _eraseMode = false;
+	field _erase = false;
+	field _cancel = false;
+	field _selection = 0;
+	field _fc = 0;
+	field _frame = 0;
+	field _gears = [];
+	
+	constructor(prevScene) {
+		this._prevScene = prevScene;
+		this.next = this;
+		
+		for (i = 1; i <= 4; ++i) {
+			this._gears.add(get_image('ui/gear' + str(i) + '.png'));
+		}
+	}
+	
+	function processInput(events) {
+		for (e : events) {
+			if (e.down) {
+				if (this._erase || this._cancel) {
+					if (e.Up()) {
+						play_sound("menu2");
+						this._erase = false;
+						this._cancel = false;
+						this._selection = 2;
+						return;
+					}
+					if (e.Down()) {
+						play_sound("menu2");
+						this._erase = false;
+						this._cancel = false;
+						this._selection = 0;
+						return;
+					}
+					if (e.Right() || e.Left()) {
+						this._erase = !this._erase;
+						this._cancel = !this._cancel;
+						return;
+					}
+				} else if (e.Up()) {
+					play_sound("menu2");
+					this._selection -= 1;
+					this._selection %= 4;
+				} else if (e.Down()) {
+					play_sound("menu2");
+					this._selection += 1;
+					this._selection %= 4;
+				}
+				
+				if ((e.Up() || e.Down()) && this._selection == 3) {
+					this._erase = true;
+				}
+
+				if (e.A() || e.B() || e.Start()) {
+					if (this._cancel) {
+						this.next = this._prevScene;
+						this._prevScene.next = this._prevScene;
+						return;
+					}
+					
+					if (this._erase) {
+						this._eraseMode = true;
+						return;
+					}
+					
+					if (this._eraseMode) {
+						getGameContext().deletePlayer(this._selection + 1);
+						this._eraseMode = false;
+						return;
+					}
+					
+					newGame = getGameContext().getPlayerName(this._selection + 1) == '';
+					getGameContext().setActiveGame(this._selection + 1);
+					
+					if (newGame) {
+						this.next = new NameEntryScene();
+					} else {
+						m = getActiveGame().getString('save_map');
+						if (m == '') {
+							m = 'transport_1';
+							x = 64;
+							y = 56;
+						}
+						x = getActiveGame().getInt('save_x', null);
+						y = getActiveGame().getInt('save_y', null);
+						if (x == null) x = 64;
+						if (y == null) y = 56;
+						this.next = new GamePlayScene(m, x, y + 16);
+						this.next.level.update_tile_standing_on(this.next.player.layer, this.next.player.x, this.next.player.y);
+						this.next.prevTile = this.next.level.playerStandingOn;
+						this.next.firstTimeOnTile = false;
+						this.next.disable_save = true;
+					}
+				}
+			}
+		}
+	}
+	
+	function update(counter) {
+		play_music("menuwaitingroom");
+	}
+	
+	function render(screen, renderOffset) {
+		// what color is used for everything else
+		txtColor = Colors.WHITE;
+		// what color is in the game select thing
+		descColor = Colors.BLACK;
+		// game selection block
+		gameSelColor = Colors.WHITE;
+		
+		this._fc += 1;
+		frame = this._frame;
+		if (this._fc % 2 == 0) {
+			this._frame += 1;
+			this._frame %= len(this._gears);
+		}
+		g = this._gears[frame];
+
+		gc = getGameContext();
+		
+		gameSel_y = 20;
+		
+		gameTxt = "Game Select";
+		if (this._eraseMode) {
+			gameTxt = 'Erase Game';
+		}
+		gameSel = render_text_size(23, gameTxt, txtColor);
+		gameSel.draw((SCREEN_WIDTH - gameSel.width) / 2, gameSel_y);
+	
+		post_title_y = gameSel_y + gameSel.height + 10;
+	
+		// game sel width
+		sel_w = Math.floor(.7 * SCREEN_WIDTH);
+		// game sel height
+		sel_h = 45;
+		// separation between game sel blocks
+		gameSel_sep = 15;
+		
+		i = 0;
+		while (i < 3) {
+			sx = Math.floor(SCREEN_WIDTH * .2);
+			sy = i * (gameSel_sep + sel_h) + post_title_y;
+
+			if (i == this._selection) {
+				g.draw(sx - 50, sy);
+			}
+			
+			Graphics2D.Draw.rectangle(sx, sy, sel_w, sel_h, 128, 128, 128);
+			
+			slot_num = i + 1;
+			name = gc.getPlayerName(slot_num);
+			if (name != null && name != '') {
+				nameSurf = render_text_size(17, name, descColor);
+			} else {
+				nameSurf = render_text_size(17, 'New Game', descColor);
+			}
+			
+			nx = sx + 10;
+			ny = (sel_h - nameSurf.height) / 2 + sy;
+			nameSurf.draw(nx, ny);
+
+			if (name != null && name != '') {
+				stones = gc.getStones(slot_num);
+				j = 0;
+				stones.reverse();
+				for (st : stones) {
+					stSurf = get_image('ui/stones/' + st + '.png');
+					stx = sx + sel_w - 10 - ((1 + j) * 20);
+					sty = sy + (sel_h - stSurf.height) / 2;
+					
+					stSurf.draw(stx, sty);
+					j += 1;
+				}
+			}
+			i += 1;
+		}
+		
+		erase = render_text_size(20, 'Erase', txtColor);
+		cancel = render_text_size(20, 'Cancel', txtColor);
+		
+		erase.draw(75, 240);
+		cx = 230;
+		cancel.draw(cx, 240);
+		
+		gy = 230;
+		if (this._erase) {
+			g.draw(sx - 50, gy);
+		}
+		if (this._cancel) {
+			g.draw(cx + 10 + cancel.width, gy);
+		}
+		
+		// stone badges
+	}
+}

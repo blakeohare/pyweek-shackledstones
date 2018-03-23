@@ -1,0 +1,52 @@
+import Random;
+
+function get_normalized_vector(xa, ya, xb, yb) {
+	dx = xb - xa;
+	dy = yb - ya;
+	if (dx == 0 && dy == 0) {
+		dx = Random.randomFloat() * 4 - 2;
+		dy = random_choice([-2, -1, 1, 2]);
+		// if the damage is applied from the identical pixel source, 
+		// pretend it's some random direction
+	}
+	d = (dx * dx + dy * dy) ** .5;
+	dx = dx / d;
+	dy = dy / d;
+	return [dx, dy];
+}
+
+class DeathCircle {
+	field x;
+	field y;
+	field r;
+	field time_left;
+	field type;
+	field expired = false;
+	
+	constructor(x, y, radius, duration, type) {
+		this.x = x;
+		this.y = y;
+		this.r = radius;
+		this.time_left = duration;
+		this.type = type;
+	}
+	
+	function update() {
+		this.time_left -= 1;
+		if (this.time_left < 0) {
+			this.expired = true;
+		}
+	}
+	
+	function touches_sprite(sprite) {
+		if (sprite.flash_counter < 0) {
+			dx = sprite.x - this.x;
+			dy = sprite.y - this.y;
+			max_distance = this.r + sprite.r;
+			if (dx ** 2 + dy ** 2 < max_distance ** 2) {
+				return true;
+			}
+		}
+		return false;
+	}
+}

@@ -1,0 +1,70 @@
+import Audio;
+
+class JukeBox {
+
+	static field instance = null;
+	
+	field now_playing = null;
+	field sound_library = {};
+	field music_library = {};
+	field current_volume = true;
+	
+	constructor() { }
+	
+	function playSong(name) {
+		if (name == 'STOP') name = null;
+		if (name == null) {
+			Audio.Music.stop();
+			return;
+		}
+		
+		if (this.now_playing != name) {
+			this.now_playing = name;
+			if (!name.endsWith('.ogg')) {
+				name = name + '.ogg';
+			}
+			
+			mus = this.music_library.get(name);
+			if (mus == null) {
+				mus = Audio.Music.loadFromResource('music/' + name);
+				this.music_library[name] = mus;
+			}
+			
+			mus.play(true);
+		}
+	}
+	
+	function playSound(name) {
+		if (name == null) {
+			return;
+		}
+		soundRes = this.sound_library.get(name);
+		if (soundRes == null) {
+			if (!name.endsWith('.ogg')) {
+				name = name + '.ogg';
+			}
+			soundRes = Audio.SoundResource.loadFromResource('sound/' + name);
+			this.sound_library[name] = soundRes;
+		}
+		soundRes.play();
+	}
+}
+
+function getJukebox() {
+	if (JukeBox.instance == null) {
+		JukeBox.instance = new JukeBox();
+	}
+	return JukeBox.instance;
+}
+
+function play_sound(name) {
+	if (AUDIO_ENABLED) {
+		getJukebox().playSound(name);
+	}
+}
+
+function play_music(name) {
+	if (AUDIO_ENABLED) {
+		getJukebox().playSong(name);
+	}
+}

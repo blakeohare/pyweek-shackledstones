@@ -1,0 +1,35 @@
+class TileTemplate {
+	field id;
+	field physics;
+	field imagefiles;
+	field images;
+	field anim_delay;
+	field num_images;
+
+	constructor(parts) {
+		this.id = parts[0];
+		this.physics = parts[2];
+		this.imagefiles = parts[3].split('|');
+		
+		images = [];
+		for (img : this.imagefiles) {
+			images.add(get_image('tiles/' + img.trim()));
+		}
+		this.images = images;
+		
+		if (len(parts) == 5) {
+			this.anim_delay = Core.parseInt(parts[4]);
+		} else {
+			this.anim_delay = 4;
+		}
+		this.num_images = len(this.images);
+	}
+	
+	function render(screen, x, y, render_counter) {
+		if (this.num_images == 1) {
+			this.images[0].draw(x, y);
+		} else {
+			this.images[(render_counter / this.anim_delay) % this.num_images].draw(x, y);
+		}
+	}
+}

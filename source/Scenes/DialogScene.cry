@@ -1,0 +1,170 @@
+import Graphics2D;
+import Math;
+
+class DialogScene {
+	
+	field _choice = 0;
+	field _lineHave = 5;
+	field _more = false;
+	field _moreDot = true;
+	field _truncating = true;
+	field _fastText = false;
+	field _curLine = 0;
+	field _curLetter = 0;
+	field _tick = 0;
+	
+	field next;
+	field _source;
+	field _dlg;
+	
+	constructor(dlg, sourceScene) {
+		if (!(dlg is Dialog)) {
+			throw new Exception("dlg must an object of type Dialog");
+		}
+		
+		this.next = this;
+		this._source = sourceScene;
+		this._dlg = dlg;
+	}
+	
+	function processInput(events) {
+		d = this._dlg;
+		
+		if (0 != len(events)) {
+			for (e : events) {
+				if (e.down) {
+					if (e.Up() && d.State() == D_QUESTION) {
+						this._choice -= 1;
+						this._choice %= len(this._dlg.Choices());
+					}
+					
+					if (e.Down() && d.State() == D_QUESTION) {
+						this._choice += 1;
+						this._choice %= len(this._dlg.Choices());
+					}
+				} else {
+					if (e.A() || e.B()) {
+						if (this._truncating) {
+							this._curLetter = 0;
+							this._fastText = true;
+							this._truncating = false;
+						} else if (this._more) {
+							this._curLine += this._lineHave;
+							this._curLetter = 0;
+							this._fastText = false;
+							this._truncating = false;
+							this._more = false;
+						} else {
+							if (this._dlg.State() == D_QUESTION) {
+								this._dlg.Answer(this._choice);
+							}
+							this._curLine = 0;
+							this._curLetter = 0;
+							this._fastText = false;
+							this._truncating = false;
+							this._dlg.scriptEngine.advance();
+						}
+					}
+				}
+			}
+		}
+	}
+
+	function update(game_counter) { }
+
+	function render(screen, renderOffset) {
+		this._tick += 1;
+		d = this._dlg;
+		this._curLetter += 1;
+		
+		if (d.State() == D_END) {
+			this.next = this._source;
+			this._source.next = this._source;
+		}
+		
+		this._source.render(screen, renderOffset);
+		
+		p = d.Profile();
+
+		if (p != null && p != '') {
+			isMainCharacter = p == 'mc_portrait';
+			pSurf = get_image('portraits/' + p + '.png');
+			x = isMainCharacter ? 4 : 290;
+			y = 110;
+			pSurf.draw(x, y);
+		}
+		
+		df = get_image('ui/dframe.png');
+		df.draw(0, SCREEN_HEIGHT - df.height - 4);
+		
+		lineWidth = df.width - (2 * D_TEXT_OFFSET_X);
+		wt = getFontEngine().wrap_text(lineWidth, d.Text());
+		
+		linesRequired = len(wt);
+		
+		tSurf = [];
+
+		lineNo = 0;
+		runningTotal = 0;
+
+		while (lineNo < this._lineHave) {
+			idx = this._curLine + lineNo;
+			if (idx < len(wt)) {
+				line = wt[idx];
+				if (!this._fastText) {
+					if (!(runningTotal + len(line) <= this._curLetter)) {
+						delta = this._curLetter - runningTotal;
+						line = line[:delta];
+						this._truncating = true;
+					} else {
+						this._truncating = false;
+					}
+				}
+				runningTotal += len(line);
+				tSurf.add(render_text(line, Colors.BLACK));
+				
+				if (this._truncating) {
+					break;
+				}
+			}
+			lineNo += 1;
+		}
+
+		if (linesRequired > this._lineHave && (lineNo == this._lineHave)) {
+			this._more = true;
+		}
+		if (this._curLine + this._lineHave >= linesRequired) {
+			this._more = false;
+		}
+
+		fontHeight = getFontEngine().getDefaultFontHeight();
+		lineNo = 0;
+		for (t : tSurf) {
+			t.draw(D_TEXT_OFFSET_X, D_TEXT_OFFSET_Y + lineNo * fontHeight);
+			lineNo += 1;
+		}
+		if (D_QUESTION == d.State() && !this._truncating) {
+			cy = Math.floor(D_TEXT_OFFSET_Y + (lineNo + this._choice + .5) * fontHeight);
+			cx = D_TEXT_OFFSET_X + 6;
+			
+			// draw choice indicator
+			Graphics2D.Draw.ellipse(cx - 4, cy - 4, 8, 8, 0, 0, 255);
+			
+			// print choice text
+			for (c : d.Choices()) {
+				cSurf = render_text(c, Colors.BLACK);
+				cSurf.draw(D_ANSWER_OFFSET_X, D_TEXT_OFFSET_Y + lineNo * fontHeight);
+				lineNo += 1;
+			}
+		}
+		
+		if (this._more) {
+			if (this._tick % 10 == 0) {
+				this._moreDot = !this._moreDot;
+			}
+			if (this._moreDot) {
+				Graphics2D.Draw.ellipse(370 - 2, 273 - 2, 4, 4, 255, 255, 255);
+			}
+		}
+	}
+}

@@ -1,0 +1,67 @@
+class NPC {
+
+	field name;
+	field id;
+	field x = 100;
+	field y = 100;
+	field dx = 0;
+	field dy = 0;
+	field is_goody = false;
+	field is_enemy = false;
+	field layer = 'A';
+	field r = 8;
+	field direction = 'right';
+	field flying = false;
+	field expired = false;
+	field walking = false;
+	field state = 'standing';
+	field state_counter = 0;
+	field explode_on_impact = false;
+		
+	constructor(name, id = null) {
+		this.name = name;
+		this.id = id;
+	}
+	
+	function drawingCoords() {
+		coords = [this.x - this.r, this.y - this.r - 13];
+		if (this.name == 'shopkeeper') coords[1] -= 3;
+		return coords;
+	}
+	
+	function update() {
+		this.state_counter -= 1;
+		if (this.state_counter <= 0 &&
+			this.state != 'walking' &&
+			this.state != 'standing') {
+			this.state = 'standing';
+		}
+	}
+	
+	function currentImage(render_counter) {
+		if (this.name == 'shopkeeper') {
+			return get_image('sprites/townsdude/down0');
+		}
+		
+		if (this.state == 'walking' || this.state == 'standing') {
+			if (this.state == 'walking') {
+				counter = ['0','1','0','2'][(render_counter / 3) & 3];
+			} else {
+				counter = 0;
+			}
+			
+			switch (this.direction) {
+				case 'right':
+					return get_image('sprites/'+this.name+'/right' + counter);
+				case 'left':
+					return get_image('sprites/'+this.name+'/left' + counter);
+				case 'up':
+					return get_image('sprites/'+this.name+'/up' + counter);
+				case 'down':
+					return get_image('sprites/'+this.name+'/down' + counter);
+			}
+		}
+		
+		return get_image('sprites/'+this.name+'/down' + counter);
+	}
+}

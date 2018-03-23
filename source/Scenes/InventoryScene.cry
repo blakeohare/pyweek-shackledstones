@@ -1,0 +1,232 @@
+import Graphics2D;
+
+class InventoryScene {
+
+	field next;
+	field _layout;
+	field _baseScene;
+	field _itemSurf;
+	field _selection;
+	field _i;
+	
+	constructor(overlay) {
+		this.next = this;
+		
+		i = new Inventory();
+		this._layout = [[i.sabre(), i.hammer(), i.drill(), i.hook(), i.compass()],
+						[i.cannon(), i.cannonFire(), i.cannonIce(), i.cannonMulti(), i.shovel()]];
+		
+		this._i = i;
+		this._baseScene = overlay;
+		this._itemSurf = {};
+		this._selection = [0, 0];
+		
+		isurf = this._itemSurf;
+		
+		isurf['cannon-icon'] = get_image('ui/cannon-icon.png');
+		isurf[i.cannon()] = get_image('ui/ammo-sshot.png');
+		isurf[i.cannonFire()] = get_image('ui/ammo-fire.png');
+		isurf[i.cannonIce()] = get_image('ui/ammo-ice.png');
+		isurf[i.cannonMulti()] = get_image('ui/ammo-multi.png');
+		isurf[i.sabre()] = get_image('ui/sabre-have.png');
+		isurf[i.hammer()] = get_image('ui/hammer-have.png');
+		isurf[i.drill()] = get_image('ui/drill-have.png');
+		isurf[i.hook()] = get_image('ui/hook-have.png');
+		isurf[i.compass()] = get_image('ui/compass-have.png');
+		isurf[i.shovel()] = get_image('ui/shovel-have.png');
+	}
+	
+	function processInput(events) {
+		for (e : events) {
+			if (e.down && e.key == 'start') {
+				this._baseScene.next = this._baseScene;
+				this.next = this._baseScene;
+				return;
+			}
+
+			if (e.down) {
+				switch (e.key) {
+					case 'up':
+						this._selection[1] -= 1;
+						this._selection[1] %= 2;
+						break;
+					case 'down':
+						this._selection[1] += 1;
+						this._selection[1] %= 2;
+						break;
+					case 'right':
+						this._selection[0] += 1;
+						this._selection[0] %= 5;
+						break;
+					case 'left':
+						this._selection[0] -= 1;
+						this._selection[0] %= 5;
+						break;
+					default:
+						this._select(e.key, this._selection[0], this._selection[1]);
+						break;
+				}
+			}
+		}
+	}
+
+	function _select(key, row, col) {
+		item = this._layout[col][row];
+
+		i = this._i;
+		if (!i.check(item)) {
+			print('player does not have ' + item);
+		} else {
+			i.equip(key.lower(), item);
+		}
+	}
+
+	function update(counter) { }
+	
+	function render(screen, renderOffset) {
+		this._baseScene.render(screen, renderOffset);
+		i = this._i;
+		isurf = this._itemSurf;
+		sw = SCREEN_WIDTH;
+		
+		title_w = 200;
+		title_h = 25;
+		
+		money_w = 140;
+		money_h = 25;
+		
+		item_w = 140;
+		item_h = 60;
+		
+		// strokeSize
+		ss = 1;
+		
+		vBorder = 7;
+		
+		money_off_x = (SCREEN_WIDTH - money_w) / 2;
+		money_off_y = 150;
+		draw_rect_stroke(money_off_x - ss, money_off_y - ss, 140 + (2 *ss), 25 + (2 *ss), 255, 255, 255, ss);
+		
+		item_off_x = (SCREEN_WIDTH - item_w) / 2;
+		item_off_y = money_off_y + title_h + vBorder;
+		draw_rect_stroke(item_off_x - ss, item_off_y - ss, 140 + (2 *ss), 60 + (2 *ss), 255, 255, 255, ss);
+		
+		title_off_x = (SCREEN_WIDTH - title_w) / 2;
+		title_off_y = item_off_y + item_h + vBorder;
+		draw_rect_stroke(title_off_x - ss, title_off_y - ss, 200 + (2 *ss), 25 + (2 *ss), 255, 255, 255, ss);
+		
+		Graphics2D.Draw.rectangle(title_off_x, title_off_y, title_w, title_h, 0, 0, 0, 120);
+		Graphics2D.Draw.rectangle(item_off_x, item_off_y, item_w, item_h, 0, 0, 0, 120);
+		Graphics2D.Draw.rectangle(money_off_x, money_off_y, money_w, money_h, 0, 0, 0, 120);
+
+		if (i.hasAny()) {
+			a = render_text_size(17, 'A', Colors.WHITE);
+			aw = a.width;
+			ah = a.height;
+			b = render_text_size(17, 'B', Colors.WHITE);
+			bw = b.width;
+			bh = b.height;
+			x = render_text_size(17, 'X', Colors.WHITE);
+			xw = x.width;
+			xh = x.height;
+			y = render_text_size(17, 'Y', Colors.WHITE);
+			yw = y.width;
+			yh = y.height;
+			eq_w = aw + bw + 40 + 18;
+			eq_h = 46;
+			ex = (sw - eq_w) / 2;
+			ey = 50;
+			Graphics2D.Draw.rectangle(ex, ey, eq_w, eq_h, 0, 0, 0, 120);
+			draw_rect_stroke(ex - ss, ey - ss, eq_w + (2 * ss), eq_h + (2 * ss), 255, 255, 255, ss);
+			/*
+			a	 x
+			b	 y
+			*/
+			surf = i.getItemIcon('a');
+			a.draw(ex + 3, ey + 0);
+			if (surf != null) {
+				surf.draw(ex + aw + 6, ey);
+			}
+			
+			surf = i.getItemIcon('b');
+			b.draw(ex + 3, ey + 23);
+			if (surf != null) {
+				surf.draw(ex + bw + 6, ey + 23);
+			}
+			
+			surf = i.getItemIcon('x');
+			x.draw(ex + aw + 26, ey + 0);
+			if (surf != null) {
+				surf.draw(ex + xw + aw + 26 + 3, ey);
+			}
+			
+			surf = i.getItemIcon('y');
+			y.draw(ex + bw + 26, ey + 23);
+			if (surf != null) {
+				surf.draw(ex + bw + yw + 26 + 3, ey + 23);
+			}
+		}
+
+		// draw player money:
+		coinSurf = get_image('misc/money0.png');
+		cx = money_off_x + 4;
+		cy = money_off_y + (money_h - coinSurf.height) / 2;
+		coinSurf.draw(cx, cy);
+		
+		amt = render_text_size(15, str(get_money()), Colors.WHITE, 'default');
+		mx = money_off_x + money_w - 5 - amt.width;
+		my = money_off_y + (money_h - amt.height) / 2;
+		amt.draw(mx, my);
+
+		// draw all items the player has:
+		col = 0;
+		while (col < 5) {
+			row = 0;
+			while (row < 2) {
+				item = this._layout[row][col];
+				if (isurf[item] != null && i.check(item)) {
+					isurf[item].draw(item_off_x + 4 + (28 * col), item_off_y + 4 + (28 * row));
+				}
+				row += 1;
+			}
+			col += 1;
+		}
+		
+		// deal with selected item label:
+		item = this._layout[this._selection[1]][this._selection[0]];
+		if (i.check(item)) {
+			text = render_text_size(17, i.description(item), Colors.WHITE);
+			
+			if (text != null) {
+				txt_off_x = title_off_x + (title_w - text.width) / 2;
+				txt_off_y = title_off_y + 2;
+				
+				text.draw(txt_off_x, txt_off_y);
+			}
+		}
+		
+		// draw cannon overlay
+		//try {
+		/*
+		cannon_equipped = i.whichCannonEquipped();
+		if (cannon_equipped != null) {
+			idx = this._layout[1].indexOf(cannon_equipped);
+			cannonSurf = this._itemSurf['cannon-icon'];
+			cannon_off_x = item_off_x + (28 * idx) + 8;
+			cannon_off_y = item_off_y + 28 + 10;
+			cannonSurf.draw(cannon_off_x, cannon_off_y);
+		}//*/
+		//} catch (e) {
+			// TODO: what's going on here? why is an exception happening?
+			// This was probably a last minute PyWeek final-hour hack.
+		//	print(e);
+		//}
+		
+		if (i.hasAny()) {
+			// draw selection box
+			sel_off_x = item_off_x + 2 + (28 * this._selection[0]);
+			sel_off_y = item_off_y + 2 + (28 * this._selection[1]);
+			draw_rect_stroke(sel_off_x, sel_off_y, 24, 24, 255, 0, 0, 1);
+		}
+	}
+}

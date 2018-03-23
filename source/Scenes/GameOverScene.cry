@@ -1,0 +1,126 @@
+import Graphics2D;
+
+class GameOverScene {
+	
+	field next;
+	field _selection = 0;
+	field _fc = 0;
+	field _frame = 0;
+	field _gears = [];
+	
+	function _LastSave() {
+		getActiveGame().parse();
+		m = getActiveGame().getString('save_map');
+		if (m == '') {
+			m = 'transport_1';
+			x = 64;
+			y = 64;
+		}
+		x = getActiveGame().getInt('save_x', null);
+		y = getActiveGame().getInt('save_y', null);
+		if (x == null) x = 0;
+		if (y == null) y = 0;
+		this.next = new GamePlayScene(m, x, y + 16);
+		this.next.level.update_tile_standing_on(this.next.player.layer, this.next.player.x, this.next.player.y);
+		this.next.prevTile = this.next.level.playerStandingOn;
+		this.next.firstTimeOnTile = false;
+		this.next.disable_save = true;
+	}
+	
+	function _MainMenu() {
+		mm = new MainMenuScene();
+		this.next = mm;
+		mm.next = mm;
+	}
+	
+	function _Quit() {
+		this.next = null;
+	}
+
+	constructor() {
+		this.next = this;
+		
+		for (i = 1; i <= 4; ++i) {
+			this._gears.add(get_image('ui/gear' + str(i) + '.png'));
+		}
+	}
+	
+	function processInput(events) {
+		for (e : events) {
+			if (e.down) {
+				if (e.Up()) {
+					this._selection -= 1;
+					this._selection %= 3;
+				}
+				if (e.Down()) {
+					this._selection += 1;
+					this._selection %= 3;
+				}
+				if (e.A() || e.B() || e.Start()) {
+					if (this._selection == 0) {
+						this._LastSave();
+					}
+					if (this._selection == 1) {
+						this._MainMenu();
+					}
+					if (this._selection == 2) {
+						this._Quit();
+					}
+				}
+			}
+		}
+	}
+	
+	function update(counter) { }
+	
+	function render(screen, renderOffset) {
+		this._fc += 1;
+		
+		frame = this._frame;
+		if (this._fc % 2 == 0) {
+			this._frame += 1;
+			this._frame %= len(this._gears);
+		}
+
+		Graphics2D.Draw.fill(0, 0, 0);
+		sw = SCREEN_WIDTH;
+		
+		death = render_text_size(23, "You Have Perished", Colors.WHITE);
+		death_sub = render_text_size(15,  "The empire has lost its best hope", Colors.WHITE);
+		death_sub2 = render_text_size(15, "for salvation. Are there any that", Colors.WHITE);
+		death_sub3 = render_text_size(15, "may hope to fill your place?", Colors.WHITE);
+
+		death_x = (sw - death.width) / 2;
+		death_y = 23;
+		death.draw(death_x, death_y);
+		death_x = (sw - death_sub.width) / 2;
+		death_y = death_y + death.height + 4;
+		death_sub.draw(death_x, death_y);
+		death_x = (sw - death_sub2.width) / 2;
+		death_y = death_y + death_sub.height;
+		death_sub2.draw(death_x, death_y);
+		death_x = (sw - death_sub3.width) / 2;
+		death_y = death_y + death_sub2.height;
+		death_sub3.draw(death_x, death_y);
+		
+		cont = render_text_size(23, "Go to Last Save", Colors.WHITE);
+		main_menu = render_text_size(23, "Main Menu", Colors.WHITE);
+		quit = render_text_size(23, "Quit", Colors.RED);
+		
+		cx = 135;
+		cy = death_y + death_sub3.height + 20;
+		mx = cx;
+		my = cy + cont.height + 15;
+		qx = cx;
+		qy = my + main_menu.height + 13;
+		
+		cont.draw(cx, cy);
+		main_menu.draw(mx, my);
+		quit.draw(qx, qy);
+		
+		gx = cx - 50;
+		gy = cy + (43 * this._selection) - 7;
+		g = this._gears[frame];
+		g.draw(gx, gy);
+	}
+}

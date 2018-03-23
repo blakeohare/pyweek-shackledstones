@@ -1,0 +1,100 @@
+import Math;
+
+class Layer {
+
+	field contains_stuff = false;
+	field width;
+	field height;
+	field tiles;
+	field top;
+	field bottom;
+	field left;
+	field right;
+
+	constructor(width, height) {
+		this.width = width;
+		this.height = height;
+	}
+
+	function setTiles(tile_list) {
+		this.tiles = make_table(this.width, this.height);
+		this.contains_stuff = true;
+		
+		top = this.height - 1;
+		bottom = 0;
+		left = this.width - 1;
+		right = 0;
+		
+		y = 0;
+		while (y < this.height) {
+			x = 0;
+			while (x < this.width) {
+				tl = tile_list[x + y * this.width];
+				this.tiles[x][y] = tl;
+				if (!tl.is_blank) {
+					top = min(y, top);
+					bottom = max(y, bottom);
+					left = min(x, left);
+					right = max(x, right);
+				}
+				x += 1;
+			}
+			y += 1;
+		}
+		
+		this.top = top;
+		this.bottom = bottom;
+		this.left = left;
+		this.right = right;
+	}
+
+	function getPhysics(x, y, blank_blocked) {
+		if (x >= 0 && x < this.width && y >= 0 && y < this.height) {
+			
+			if (!blank_blocked && this.tiles[x][y].is_blank) {
+				return 'oooo';
+			}
+			return this.tiles[x][y].physics;
+		}
+		return 'xxxx';
+	}
+	
+	function runScript(x, y) {
+		if (this.contains_stuff) {
+			if (x >= 0 && x < this.width && y >= 0 && y < this.height) {
+				tile = this.tiles[x][y];
+				if (tile.id != null) {
+					script = tile.id.script;
+					if (script != null && script != '') {
+						run_script(script);
+					}
+				}
+			}
+		}
+	}
+	
+	// Apply renderOffset AFTER clipping has been determined
+	function render(screen, x_offset, y_offset, render_counter, renderOffset) {
+		width = this.width;
+		height = this.height;
+		tiles = this.tiles;
+		
+		left = max(this.left, Math.floor(x_offset / -16) - 2);
+		top = max(this.top, Math.floor(y_offset / -16) - 2);
+		right = min(left + 24 + 4, this.right + 1);
+		bottom = min(top + 18 + 4, this.bottom + 1);
+		
+		x_offset += renderOffset[0];
+		y_offset += renderOffset[1];
+		
+		y = top;
+		while (y < bottom) {
+			x = left;
+			while (x < right) {
+				tiles[x][y].render(screen, x * 16 + x_offset, y * 16 + y_offset, render_counter);
+				x += 1;
+			}
+			y += 1;
+		}
+	}
+}

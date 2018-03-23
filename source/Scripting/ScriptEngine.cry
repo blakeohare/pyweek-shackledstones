@@ -1,0 +1,154 @@
+class ScriptEngine {
+
+	field _script;
+	field _fnTable = {};
+	field parserCallback;
+	field advancePreCheck;
+	field endPreCheck;
+		
+	constructor(
+		scriptIter,
+		parserCallback = null,
+		advancePreCheck = null,
+		endPreCheck = null) {
+		
+		if (!(scriptIter is ScriptIter)) {
+			throw new Exception("scriptIter must be an object of type ScriptIter");
+		}
+		
+		this._script = scriptIter;
+		
+		this._addFn('label', this._noop);
+		this._addFn('jump', this._jump);
+		this._addFn('check', this._checkVar);
+		this._addFn('set', this._set);
+		this._addFn('end', this._end);
+		this._addFn('switch scene', do_switch_scene);
+		this._addFn('buy', do_buy);
+		this._addFn('save', do_save_game);
+		this._addFn('credits', do_go_to_credits);
+		this._addFn('print', this.do_print);
+		
+		this.parserCallback = parserCallback;
+		this.advancePreCheck = advancePreCheck;
+		this.endPreCheck = endPreCheck;
+	}
+	
+	function do_print(args) {
+		print(args);
+		return true;
+	}
+	
+	function _parse() {
+		while (true) {
+			line = this._script.next();
+			if (line == null) {
+				break;
+			}
+			
+			if (ScriptUtil_isCommand(line)) {
+				t = ScriptUtil_splitCommand(line);
+				cmd = t[0];
+				args = t[1];
+				if (this._fnTable.get(cmd) != null) {
+					c = this._call(cmd, args);
+					if (c == false || c == null || c == 0 || c == '') {
+						break;
+					}
+				} else {
+					throw new Exception('Unrecognized command: ' + cmd);
+				}
+			} else {
+				if (len(line) > 0) {
+					if (this.parserCallback != null) {
+						this.parserCallback(line);
+					} else {
+						throw new Exception("Unrecognized text in script: " + line);
+					}
+				}
+			}
+		}
+	}
+
+	function _addFn(name, fn) {
+		this._fnTable[name] = fn;
+	}
+	
+	function _call(name, args) {
+		fn = this._fnTable.get(name);
+		if (fn != null) {
+			return fn.invoke(args);
+		} else {
+			print(name + ' not registered');
+		}
+	}
+
+	// Move the script on if it's a multi-part deal.  Override this if you want
+	// take special actions on script resume
+	function advance() {
+		if (this.advancePreCheck != null) {
+			cont = this.advancePreCheck();
+			if (!cont) {
+				return;
+			}
+		}
+		this._parse();
+	}
+
+	// function implementations
+	// return indicates if script execution should continue (true) or stop until
+	// the next call to advance(false)
+	function _checkVar(var, test, val, label, failLabel = null) {
+		sval = getActiveGame().getInt(var);
+		val = Core.isString(val) ? Core.parseInt(val) : val;
+		switch (test) {
+			case 'eq':
+				ret = (sval == val);
+				break;
+			case 'lt':
+				ret = (sval < val);
+				break;
+			case 'lte':
+				ret = (sval <= val);
+				break;
+			case 'gt':
+				ret = (sval > val);
+				break;
+			case 'gte':
+				ret = (sval >= val);
+				break;
+			default:
+				throw new Exception();
+		}
+		
+		if (ret) {
+			this._script.FindLabel(label);
+		} else {
+			if (failLabel != null) {
+				this._script.FindLabel(failLabel);
+			}
+		}
+		return true;
+	}
+	
+	function _set(var, val) {
+		ag = getActiveGame().setSavedVar(var, val);
+		return true;
+	}
+
+	function _jump(label) {
+		this._script.FindLabel(label);
+		return true;
+	}
+
+	function _noop(args) {
+		return true;
+	}
+	
+	function _end() {
+		if (this.endPreCheck != null) {
+			this.endPreCheck();
+		}
+		return false;
+	}
+}

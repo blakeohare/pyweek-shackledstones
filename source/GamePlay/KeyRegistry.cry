@@ -1,0 +1,74 @@
+class KeyRegistry {
+	
+	field doors = {};
+	
+	constructor() { }
+	
+	function registerDoor(map, dungeon, x, y, color) {
+		index = this.getIndexForDoor(map, dungeon, x, y, color);
+		above = this.getIndexForDoor(map, dungeon, x, y - 1, color);
+		if (this.doors.get(index) == null) {
+			if (this.doors.get(above) == null) {
+				this.doors[index] = 'registered';
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	function getIndexForDoor(map, dungeon, x, y, color) {
+		return 'keyregistry_' + '[' + map + ']' + dungeon + '_' + str(x) + '_' + str(y) + '_' + color;
+	}
+	
+	function getPreferredIndexForDoor(map, dungeon, x, y, color) {
+		index = this.getIndexForDoor(map, dungeon, x, y, color);
+		if (this.doors.get(index) == null) {
+			index = this.getIndexForDoor(map, dungeon, x, y - 1, color);
+		}
+		return index;
+	}
+	
+	function isDoorLocked(map, dungeon, x, y, color) {
+		return getActiveGame().getBool(this.getPreferredIndexForDoor(map, dungeon, x, y, color));
+	}
+	
+	function useKey(dungeon, color, map, x, y) {
+		if (this.getKeyCount(dungeon, color) > 0) {
+			if (this.isDoorLocked(map, dungeon, x, y, color)) {
+				this.SetVar(this.getKeyCountIndex(dungeon, color), this.getKeyCount(dungeon, color) - 1);
+				this.SetVar(this.getPreferredIndexForDoor(map, dungeon, x, y, color), 1);
+				play_sound("unlock");
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	function getKeyCountIndex(dungeon, color) {
+		return 'key_registry_count_' + dungeon + '_' + color;
+	}
+	
+	function getKeyCount(dungeon, color) {
+		index = this.getKeyCountIndex(dungeon, color);
+		return getActiveGame().getInt(index, 0);
+	}
+	
+	function addKey(dungeon, color) {
+		index = this.getKeyCountIndex(dungeon, color);
+		count = getActiveGame().getInt(index, 0);
+		this.SetVar(index, count + 1);
+	}
+
+	function SetVar(var, value) {
+		getActiveGame().setSavedVar(var, value);
+	}
+	
+	static field _key_registry = null;
+}
+
+function getKeyRegistry() {
+	if (KeyRegistry._key_registry == null) {
+		KeyRegistry._key_registry = new KeyRegistry();
+	}
+	return KeyRegistry._key_registry;
+}

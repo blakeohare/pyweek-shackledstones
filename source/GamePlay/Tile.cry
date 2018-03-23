@@ -1,0 +1,212 @@
+class Tile {
+	
+	field orig_stack;
+	field id;
+	field is_blank;
+	field door_color;
+	field is_grappleable;
+	field submerged;
+	field ice;
+	field keytype;
+	field physics;
+	field stack;
+	field render;
+	
+	constructor(id_list) {
+		this.orig_stack = id_list.clone();
+		this.id = null;
+		this.is_blank = false;
+		this.initialize();
+	}
+	
+	static field LAYER_TYPE = {
+		'base' : 0,
+		'baseadorn' : 1,
+		'basedetail' : 2,
+		'doodad' : 3,
+		'doodadadorn' : 4,
+		'excessive' : 5
+	};
+	function setTile(detaillayer, id) {
+		index = Tile.LAYER_TYPE[detaillayer];
+		this.orig_stack[index] = id;
+		this.initialize();
+	}
+	
+	function chopTheBushes() {
+		i = 0;
+		found = false;
+		while (i < len(this.orig_stack)) {
+			if (this.orig_stack[i] == 'nature20') {
+				this.orig_stack[i] = 'nature21';
+				found = true;
+			}
+			i += 1;
+		}
+		if (found) {
+			this.initialize();
+		}
+	}
+
+	function smashBoulders() {
+		i = 0;
+		found = false;
+		while (i < len(this.orig_stack)) {
+			if (this.orig_stack[i] == 'boulder1') {
+				this.orig_stack[i] = '';
+				found = true;
+			}
+			i += 1;
+		}
+		if (found) {
+			this.initialize();
+		}
+	}
+
+	static field DRILLABLES = '49 50 51 52 124 125 126 127 d49 d50 d51 d52 r49 r50 r51 r52 green49 green50 green51 green52 indigo49 indigo50 indigo51 indigo52'.split(' ');
+	
+	function drillThrough() {
+		i = 0;
+		found = false;
+		while (i < len(this.orig_stack)) {
+			if (Tile.DRILLABLES.contains(this.orig_stack[i])) {
+				this.orig_stack[i] = '';
+				found = true;
+			}
+			i += 1;
+		}
+		if (found) {
+			this.initialize();
+		}
+	}
+	
+	function removeKey() {
+		i = 0;
+		found = false;
+		tileStore = get_tile_store();
+		while (i < len(this.orig_stack)) {
+			id = this.orig_stack[i];
+			tt = tileStore.getTile(id);
+			if (tt != null && tt.physics.endsWith('key')) {
+				this.orig_stack[i] = '';
+				found = true;
+			}
+			i += 1;
+		}
+		
+		if (found) {
+			this.initialize();
+		}
+	}
+	
+	function initialize() {
+		tile_stack = [];
+		no_animations = true;
+		this.door_color = null;
+		this.is_grappleable = false;
+		tileStore = get_tile_store();
+		for (id : this.orig_stack) {
+			if (id.trim() != '') {
+				if (id == '63') {
+					this.is_grappleable = true;
+				}
+				tile = tileStore.getTile(id);
+				if (tile.physics == 'floor') {
+					tile_stack = [];
+					no_animations = true;
+				}
+				if (tile.physics.endsWith('key')) {
+					this.door_color = tile.physics[:-3];
+					this.physics = 'xxxx';
+				}
+				tile_stack.add(tile);
+				if (tile.num_images > 1) {
+					no_animations = false;
+				}
+			}
+		}
+		this.stack = tile_stack;
+		if (len(tile_stack) == 0) {
+			this.render = this._dont_render;
+			this.is_blank = true;
+		} else if (no_animations) {
+			this.render = this._static_render;
+		} else {
+			this.render = this._animation_render;
+		}
+		
+		this.submerged = false;
+		this.ice = false;
+		this.keytype = null;
+		
+		this.composite_physics();
+	}
+	
+	function setId(id) {
+		this.id = id;
+	}
+	
+	function composite_physics() {
+		if (len(this.stack) == 0) {
+			this.physics = 'xxxx';
+			return;
+		}
+		
+		physics = [true, true, true, true];
+		for (tile : this.stack) {
+			tphys = tile.physics;
+			if (tphys == 'floor') tphys = 'oooo';
+			if (len(tphys) == 4 &&
+				'ox'.contains(tphys[0]) &&
+				'ox'.contains(tphys[1]) &&
+				'ox'.contains(tphys[2]) &&
+				'ox'.contains(tphys[3])) {
+				for (i = 0; i < 4; ++i) {
+					physics[i] = physics[i] && tphys[i] == 'o';
+				}
+				this.submerged = false;
+			} else {
+				switch (tphys) {
+					case 'water': this.submerged = true; break;
+					case 'ice': this.ice = true; break;
+					case 'redkey': this.keytype = 'red'; break;
+					case 'bluekey': this.keytype = 'blue'; break;
+					case 'greenkey': this.keytype = 'green'; break;
+					case 'yellowkey': this.keytype = 'yellow'; break;
+					case 'whitekey': this.keytype = 'white'; break;
+					case 'blackkey': this.keytype = 'black'; break;
+				}
+				
+				if (this.keytype != null) {
+					physics = [false, false, false, false];
+					break;
+				}
+			}
+		}
+
+		this.physics = [
+			physics[0] ? 'o' : 'x',
+			physics[1] ? 'o' : 'x',
+			physics[2] ? 'o' : 'x',
+			physics[3] ? 'o' : 'x'].join('');
+	}
+	
+	function is_stair_tile() {
+		this.physics = 'xxxx';
+		this.render = this._dont_render;
+	}
+
+	function _animation_render(screen, x, y, render_counter) {
+		for (tile : this.stack) {
+			tile.render(screen, x, y, render_counter);
+		}
+	}
+	
+	function _static_render(screen, x, y, render_counter) {
+		for (tile : this.stack) {
+			tile.images[0].draw(x, y);
+		}
+	}
+	
+	function _dont_render(screen, x, y, render_counter) { }
+}

@@ -1,0 +1,199 @@
+import Graphics2D;
+import Math;
+
+class NameEntryScene {
+
+	field next;
+	field _selection = [0, 0];
+	field _erase = false;
+	field _done = false;
+	field _name = 'Lapis';
+	field _nameLen = 10;
+	field _tic = 0;
+	field _mark = true;
+
+	constructor() {
+		this.next = this;
+	}
+	
+	function processInput(events) {
+		for (e : events) {
+			if (e.down) {
+				if (e.Up()) {
+					play_sound("menu2");
+					this._move(0, -1);
+				}
+				if (e.Down()) {
+					play_sound("menu2");
+					this._move(0, 1);
+				}
+				if (e.Left()) {
+					this._move(-1, 0);
+					play_sound("menu2");
+				}
+				
+				if (e.Right()) {
+					this._move(1, 0);
+					play_sound("menu2");
+				}
+				
+				if ((e.A() || e.B() || e.Start()) && this._isCommand()) {
+					if (len(this._name) != 0 && this._done) {
+						getActiveGame().setSavedVar('name', this._name);
+						getActiveGame().saveToFile();
+						scene = new GamePlayScene('transport_1', 64, 72);
+						
+						scene.next = scene;
+						this.next = scene;
+						return;
+					}
+						
+					if (this._erase) {
+						if (len(this._name) > 0) {
+							this._name = this._name[:-1];
+							return;
+						}
+					}
+				} else if (e.A() || e.B() || e.Start()) {
+					if (len(this._name) < this._nameLen) {
+						this._name += this._toLetter();
+					}
+				}
+			}
+		}
+	}
+	
+	function _toLetter() {
+		s = this._selection;
+		if (s[1] == 4) {
+			return null;
+		}
+		letters = ['A', 'N', 'a', 'n'];
+		return Core.chr(Core.ord(letters[s[1]]) + s[0]);
+	}
+	
+	function _isCommand() {
+		return this._erase || this._done;
+	}
+	
+	function _move(x, y) {
+		s = this._selection;
+		
+		if (s[1] == 4) {
+			if (y == 0) {
+				this._done = !this._done;
+				this._erase = !this._erase;
+			} else {
+				s[1] += y;
+				s[1] %= 5;
+				this._done = false;
+				this._erase = false;
+			}
+		} else {
+			s[0] += x;
+			s[0] %= 13;
+			s[1] += y;
+			s[1] %= 5;
+			
+			if (s[1] == 4) {
+				if (s[0] < 6) {
+					this._erase = true;
+				} else {
+					this._done = true;
+				}
+			}
+		}
+	}
+	
+	function update(counter) {
+		play_music("menuwaitingroom");
+	}
+	
+	function render(screen, renderOffset) {
+		this._tic += 1;
+		sz = 18;
+		dx = Math.floor(sz * 1.3);
+		dy = Math.floor(sz * 1.5);
+		start_off_x = 40;
+		start_off_y = 80;
+		
+		o_y = start_off_y;
+		for (letter : 'ANan') {
+			i = 0;
+			o_x = start_off_x;
+			if (letter == 'a' || letter == 'n') {
+				o_x += Math.floor(dx / 6);
+			}
+			while (i < 13) {
+				c = Core.chr(Core.ord(letter) + i);
+				surf = render_text_size(sz, c, Colors.WHITE);
+				surf.draw(o_x + Math.floor((dx - surf.width) / 2.0), o_y);
+				o_x += dx;
+				i += 1;
+			}
+			o_y += dy;
+			if (letter == 'A') {
+				o_y += dy / 5;
+			}
+			if (letter == 'N') {
+				o_y += dy / 3;
+			}
+		}
+		
+		// draw current name
+		
+		if (this._tic % 5 == 0) {
+			this._mark = !this._mark;
+		}
+		if (len(this._name) < this._nameLen && this._mark) {
+			name = render_text_size(sz, 'Name: ' + this._name + '--', Colors.WHITE);
+		} else {
+			name = render_text_size(sz, 'Name: ' + this._name, Colors.WHITE);
+		}
+
+		name.draw(start_off_x, start_off_y / 2);
+		
+		// draw Done and Erase
+		by = start_off_y + 5 * dy;
+		
+		erase = render_text_size(sz, 'Erase', Colors.WHITE);
+		ebx = SCREEN_WIDTH / 4;
+		erase.draw(ebx, by);
+		
+		done = render_text_size(sz, 'Done', Colors.WHITE);
+		dbx = 3 * (SCREEN_WIDTH / 5);
+		done.draw(dbx, by);
+		
+		// draw selection bubble
+		s = this._selection;
+		if (s[1] == 4) {
+			cy = by + erase.height - 5;
+			if (this._erase) {
+				b = [ebx + 20, cy];
+				e = [ebx + erase.width, cy];
+				Graphics2D.Draw.line(b[0], b[1], e[0], e[1], 1, 255, 0, 0);
+			}
+			if (this._done) {
+				b = [dbx + 15, cy];
+				e = [dbx + done.width, cy];
+				Graphics2D.Draw.line(b[0], b[1], e[0], e[1], 1, 255, 0, 0);
+			}
+		} else {
+			if (s[1] < 2) {
+				x = start_off_x + s[0] * dx + Math.floor(dx / 2.0);
+				y = start_off_y + s[1] * dy + Math.floor(dy / 2.0);
+				if (s[1] == 1) {
+					y += Math.floor(dy / 7.0);
+				}
+				draw_circle_stroke(x, y, sz * 8 / 7, 1, 255, 0, 0);
+			} else {
+				x = start_off_x + s[0] * dx + Math.floor(dx / 2.0) + Math.floor(dx / 6);
+				y = start_off_y + Math.floor(dy / 5) + Math.floor(dy/3) + s[1] * dy + Math.floor(dy / 2.1);
+				if (s[1] == 1) {
+					y += Math.floor(dy / 7.0);
+				}
+				draw_circle_stroke(x, y, sz / 2, 1, 255, 0, 0);
+			}
+		}
+	}
+}

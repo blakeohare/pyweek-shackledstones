@@ -1,0 +1,41 @@
+// The world is a happy place
+
+const GAME_NAME = "Shackled Stones";
+
+const AUDIO_ENABLED = true;
+
+const TILE_COLUMN_COUNT = 24;
+const TILE_ROW_COUNT = 18;
+
+const SCREEN_WIDTH = TILE_COLUMN_COUNT * 16;
+const SCREEN_HEIGHT = TILE_ROW_COUNT * 16;
+
+const WARP_NSCROLL = "north scroll";
+const WARP_SSCROLL = "south scroll";
+const WARP_ESCROLL = "east scroll";
+const WARP_WSCROLL = "west scroll";
+const WARP_PIXELATE = "pixelate";
+const WARP_INSTANT = "instant";
+const WARP_FADE = "fade";
+
+const KEY_LEFT = 'left';
+const KEY_RIGHT = 'right';
+const KEY_UP = 'up';
+const KEY_DOWN = 'down';
+
+const D_TEXT_OFFSET_X = 13;
+const D_ANSWER_OFFSET_X = 25;
+const D_TEXT_OFFSET_Y = 198;
+
+class EmptyObj { }
+
+class Colors {
+	static field WHITE = [255, 255, 255];
+	static field BLACK = [0, 0, 0];
+	static field RED = [255, 0, 0];
+}
+
+class Globals {
+	static field images = {};
+	static field imageSheet = null;
+}

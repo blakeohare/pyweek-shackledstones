@@ -1,0 +1,124 @@
+import Math;
+
+class CreditsScene {
+	
+	field next;
+	field _y = 250;
+	field blit_instructions;
+	field cum_y;
+	
+	constructor() {
+		this.next = this;
+		
+		lines = [
+			"heading1:" + GAME_NAME,
+			"heading:Team Nerdparadise",
+			"www.nerdparadise.com",
+			"",
+			"",
+			"heading:Programming",
+			"Blake O'Hare",
+			"Richard Bailey",
+			"Adrian Cline",
+			"",
+			"",
+			"",
+			"heading:Pixel Art",
+			"Angel McLaughlin",
+			"",
+			"",
+			"",
+			"heading:Character Art",
+			"Chun Y",
+			"",
+			"",
+			"",
+			"heading:Music",
+			"Adrian Cline",
+			"",
+			"",
+			"",
+			"heading:Level Design",
+			"Christine Sandquist",
+			"Yan Yan",
+			"Brett S.",
+			"",
+			"",
+			"",
+			"heading:Special Thanks...",
+			"www.anke-art.de, for Fortunaschwein font",
+			"Ray Meadows, for RM Typerighter font",
+			"",
+			"",
+			"",
+			"heading:Welcoming To Team",
+			"heading:Nerdparadise",
+			"Christine Sandquist",
+			"Yan Yan",
+			"Chun Y",
+		];
+		
+		cSurf = [];
+		cum_y = 0;
+		for (l : lines) {
+			sz = 18;
+			if (l.startsWith('heading1:')) {
+				l = l.split(':')[1];
+				sz = 45;
+			}
+			if (l.startsWith('heading:')) {
+				l = l.split(':')[1];
+				sz = 30;
+			}
+			surf = render_text_size(sz, l, Colors.WHITE);
+			cSurf.add(surf);
+			cum_y += surf.height;
+		}
+		
+		this.blit_instructions = [];
+		
+		y = 0;
+		for (s : cSurf) {
+			
+			x = (SCREEN_WIDTH - s.width) / 2;
+			this.blit_instructions.add([s, x, y]);
+			y += s.height;
+		}
+		this.cum_y = cum_y;
+	}
+	
+	function processInput(events) {
+		for (e : events) {
+			if (e.down) {
+				if (e.Start() || e.A() || e.B()) {
+					mm = new MainMenuScene();
+					this.next = mm;
+					mm.next = mm;
+				}
+			}
+		}
+	}
+	
+	function update(conter) { }
+	
+	function render(screen, renderOffset) {
+		
+		sw = SCREEN_WIDTH;
+		offy = this._y;
+		
+		for (instr : this.blit_instructions) {
+			img = instr[0];
+			x = instr[1];
+			y = instr[2];
+			img.draw(x, offy + y);
+		}
+		
+		this._y -= 1;
+		
+		if ((this.cum_y - abs(this._y)) <= -40) {
+			mm = new MainMenuScene();
+			this.next = mm;
+			mm.next = mm;
+		}
+	}
+}

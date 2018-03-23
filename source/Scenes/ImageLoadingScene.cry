@@ -1,0 +1,34 @@
+import Graphics2D;
+import ImageResources;
+
+class ImageLoadingScene {
+	
+	field next;
+	field imageSheet;
+	field progress;
+	field isDone = false;
+	
+	constructor() {
+		this.next = this;
+	}
+	
+	function processInput(events) { }
+	
+	function update(counter) {
+		if (Globals.imageSheet == null) {
+			Globals.imageSheet = ImageSheet.loadFromResources('everything');
+		}
+		
+		if (!this.isDone) {
+			this.progress = Globals.imageSheet.getProgress();
+			if (Globals.imageSheet.isDone()) {
+				this.isDone = true;
+				this.next = new MainMenuScene();
+			}
+		}
+	}
+	
+	function render(screen, renderOffset) {
+		Graphics2D.Draw.fill(0, 0, 0);
+	}
+}

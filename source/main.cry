@@ -1,0 +1,20 @@
+import Game;
+import Graphics2D;
+
+function main() {
+	counter = 0;
+	window = new GameWindow('Shackled Stones', 30, SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_WIDTH * 2, SCREEN_HEIGHT * 2);
+	scene = new ImageLoadingScene();
+	while (scene != null) {
+		scene.processInput(getInputManager().get_events(window.pumpEvents()));
+		scene.update(counter);
+		Graphics2D.Draw.fill(0, 0, 0);
+		scene.render(null, [0, 0]);
+		scene = scene.next;
+		if (getInputManager().escape_attempted) {
+			scene = null;
+		}
+		counter += 1;
+		window.clockTick();
+	}
+}
